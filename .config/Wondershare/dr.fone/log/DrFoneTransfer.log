@@ -1,0 +1,178 @@
+6/29/2021 11:19:52 AM OS Version: 10.15.7
+
+=======================================
+6/29/2021 11:19:52 AM Program.Start Product=dr.fone, Version=10.3.2.34
+6/29/2021 11:19:52 AM Program.InitLog...
+6/29/2021 11:19:52 AM Program.InitApp
+6/29/2021 11:19:52 AM <OnlineRatingSwitchHelper> 1
+6/29/2021 11:19:53 AM <OnlineRatingSwitchHelper> 2
+6/29/2021 11:19:53 AM <OnlineRatingSwitchHelper> 3
+6/29/2021 11:19:53 AM <USB DEBUG> start requesting...
+6/29/2021 11:19:53 AM RegisterUSBDevicesNotify handle:140227361538608
+MacMonitorTask start=============================
+6/29/2021 11:19:53 AM Add device: ce031603f140ae1202
+6/29/2021 11:19:53 AM ConnectionHub OnDeviceArrival:IOService:/IOResources/AppleUSBHostResources/AppleUSBLegacyRoot/AppleUSBXHCI@14000000/SAMSUNG_Android@14200000
+6/29/2021 11:19:53 AM AddUSBConnection device: IOService:/IOResources/AppleUSBHostResources/AppleUSBLegacyRoot/AppleUSBXHCI@14000000/SAMSUNG_Android@14200000
+6/29/2021 11:19:54 AM <USB DEBUG> start parsing json...
+6/29/2021 11:19:54 AM <USB DEBUG> value compare: 1-1
+6/29/2021 11:19:54 AM RegisterUSBDevicesNotify handle:140227360770896
+MacMonitorTask start=============================
+6/29/2021 11:19:54 AM Add device: ce031603f140ae1202
+6/29/2021 11:19:54 AM ConnectionHub OnDeviceArrival:IOService:/IOResources/AppleUSBHostResources/AppleUSBLegacyRoot/AppleUSBXHCI@14000000/SAMSUNG_Android@14200000
+6/29/2021 11:19:54 AM AddUSBConnection device: IOService:/IOResources/AppleUSBHostResources/AppleUSBLegacyRoot/AppleUSBXHCI@14000000/SAMSUNG_Android@14200000
+6/29/2021 11:19:54 AM SetSystemSleep start
+6/29/2021 11:19:54 AM SetSystemSleep end
+6/29/2021 11:19:54 AM ConnectionScanTask start
+6/29/2021 11:19:54 AM ConnectionScanTask rescan start
+6/29/2021 11:19:54 AM ConnectionScanTask rescan end
+6/29/2021 11:19:54 AM ConnectionScanTask End
+6/29/2021 11:19:54 AM ConnectionHub.AddConnection(IOService:/IOResources/AppleUSBHostResources/AppleUSBLegacyRoot/AppleUSBXHCI@14000000/SAMSUNG_Android@14200000, Android, ce031603f140ae1202)
+6/29/2021 11:19:54 AM Connection inserter Start
+6/29/2021 11:19:54 AM Connection inserter create new device
+6/29/2021 11:19:54 AM Connection inserter device is Android
+6/29/2021 11:19:54 AM Connection inserter AddService
+6/29/2021 11:19:54 AM Device manager add device SerialNumber: ce031603f140ae1202
+6/29/2021 11:19:54 AM ...device: SAMSUNG Android insert...
+6/29/2021 11:19:54 AM Connection begin IOService:/IOResources/AppleUSBHostResources/AppleUSBLegacyRoot/AppleUSBXHCI@14000000/SAMSUNG_Android@14200000
+6/29/2021 11:19:54 AM [DC_UsbTask] try connect, Times: 1
+6/29/2021 11:19:54 AM * daemon started successfully
+6/29/2021 11:19:54 AM <DC-AndroidCOT> Initialize Result: True
+6/29/2021 11:19:54 AM Connection step Checking
+6/29/2021 11:19:54 AM [DC_UsbTask] start wait system installing.
+6/29/2021 11:19:54 AM [DC_UsbTask] end wait system installing.
+6/29/2021 11:19:54 AM [DC_UsbTask] start wait FindExpectInterface
+6/29/2021 11:19:54 AM [DC_UsbTask] end wait FindExpectInterface.
+6/29/2021 11:19:54 AM [DC_UsbTask] start PrepareCheck.
+6/29/2021 11:19:54 AM [DC_UsbTask] end PrepareCheck.
+6/29/2021 11:19:54 AM [DC_UsbTask] start GetConnectTask
+6/29/2021 11:19:54 AM [DC-BSCOT] BC-DoConnection enter..
+6/29/2021 11:19:54 AM [DC-BSCOT] BC-GetWaitReadyTask skip..
+6/29/2021 11:19:54 AM [DC-BSCOT] BC-GetWaitReadyTask enter..
+6/29/2021 11:19:54 AM [DC-BSCOT] BC-WaitReadyWorker enter..
+6/29/2021 11:19:54 AM Connection step WaitReady
+6/29/2021 11:19:54 AM cannot connect to daemon
+6/29/2021 11:19:54 AM SocketException: Connection refused
+6/29/2021 11:19:54 AM   at System.Net.Sockets.Socket.Connect (System.Net.EndPoint remoteEP) [0x000b6] in <cea77d7bab8b472da697a3b6e78ef65f>:0 
+  at akh.b () [0x00097] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+6/29/2021 11:19:54 AM connect to daemon error. Connection refused
+6/29/2021 11:19:54 AM * daemon not running. starting it now on port 5037
+6/29/2021 11:19:54 AM Start KillADBProcess
+6/29/2021 11:19:54 AM Start KillAdbForMac
+6/29/2021 11:19:55 AM End KillADBProcess
+6/29/2021 11:19:55 AM Start LaunchServer
+6/29/2021 11:19:55 AM Start KillADBProcess
+6/29/2021 11:19:55 AM Start KillAdbForMac
+6/29/2021 11:19:55 AM Task  happend error: 
+6/29/2021 11:19:55 AM IndexOutOfRangeException: Index was outside the bounds of the array.
+6/29/2021 11:19:55 AM   at ajs.b () [0x0014a] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at ajs.a () [0x00116] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at akh.a () [0x00020] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at akh.b (System.Boolean A_0, System.Boolean A_1) [0x00395] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at ajv.h (System.String A_0) [0x00051] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at ajv.apo (System.Object A_0) [0x001d2] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at hp.a (System.Object A_0) [0x001f8] in <5063124b4e0e45b996918540c6a15b2b>:0 
+6/29/2021 11:19:55 AM FixPSN Error: 
+6/29/2021 11:19:55 AM TargetInvocationException: An exception occurred during the operation, making the result invalid.  Check InnerException for exception details.
+6/29/2021 11:19:55 AM   at WMM.Device.BaseAsyncTaskCompletedEventArgs.r () [0x000a7] in <388410f97ccb4033b72c3e9e77105229>:0 
+  at WMM.Device.AsyncTaskCompletedEventArgs.g () [0x0006d] in <388410f97ccb4033b72c3e9e77105229>:0 
+  at ajs.a (cn A_0, System.String A_1, System.String A_2, WMM.Device.SyncCompletedHandler A_3, System.Object A_4, System.Int32 A_5, System.String& A_6) [0x000d1] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at ajs.b (cn A_0, System.String A_1, System.String A_2, System.Int32 A_3, System.String& A_4) [0x0003c] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at ajs.a (cn A_0, System.String A_1, System.String A_2, WMM.Device.SyncCompletedHandler A_3, System.Object A_4, System.String& A_5) [0x0003c] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at ajs.c (cn A_0) [0x0003c] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at alb.apo (System.Object A_0) [0x002c4] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+6/29/2021 11:19:55 AM InnerException:
+6/29/2021 11:19:55 AM IndexOutOfRangeException: Index was outside the bounds of the array.
+6/29/2021 11:19:55 AM   at ajs.b () [0x0014a] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at ajs.a () [0x00116] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at akh.a () [0x00020] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at akh.b (System.Boolean A_0, System.Boolean A_1) [0x00395] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at ajv.h (System.String A_0) [0x00051] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at ajv.apo (System.Object A_0) [0x001d2] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at hp.a (System.Object A_0) [0x001f8] in <5063124b4e0e45b996918540c6a15b2b>:0 
+6/29/2021 11:19:55 AM IndexOutOfRangeException: Index was outside the bounds of the array.
+6/29/2021 11:19:55 AM   at ajs.b () [0x0014a] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at ajs.a () [0x00116] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at akh.a () [0x00020] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at akh.b (System.Boolean A_0, System.Boolean A_1) [0x00395] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at ajv.h (System.String A_0) [0x00051] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at ajv.apo (System.Object A_0) [0x001d2] in <5ceb49a7703c4d978dda8dd0017da60f>:0 
+  at hp.a (System.Object A_0) [0x001f8] in <5063124b4e0e45b996918540c6a15b2b>:0 
+6/29/2021 11:19:55 AM Connection step Ready
+6/29/2021 11:19:55 AM [DC-BSCOT] BC-GetWaitReadyTask result: c
+6/29/2021 11:19:55 AM Connection step StartDaemon
+6/29/2021 11:19:56 AM Download Driver DB Ok, Version=4.0.1428646627
+6/29/2021 11:19:56 AM Replace DriverDb Ok
+6/29/2021 11:19:57 AM daemon start failed
+6/29/2021 11:19:58 AM ADB uninstall App: exception occurred while executing:
+java.lang.illegalargumentexception: unknown package: com.wondershare.mobilego.connector
+	at com.android.server.pm.settings.getinstallerpackagenamelpr(settings.java:5080)
+	at com.android.server.pm.packagemanagerservice.getinstallerpackagename(packagemanagerservice.java:27978)
+	at com.android.server.pm.packagemanagerservice.isorphaned(packagemanagerservice.java:27984)
+	at com.android.server.pm.packagemanagerservice.deletepackageversioned(packagemanagerservice.java:24095)
+	at com.android.server.pm.packageinstallerservice.uninstall(packageinstallerservice.java:1005)
+	at com.android.server.pm.packagemanagershellcommand.rununinstall(packagemanagershellcommand.java:912)
+	at com.android.server.pm.packagemanagershellcommand.oncommand(packagemanagershellcommand.java:134)
+	at android.os.shellcommand.exec(shellcommand.java:96)
+	at com.android.server.pm.packagemanagerservice.onshellcommand(packagemanagerservice.java:28788)
+	at android.os.binder.shellcommand(binder.java:581)
+	at android.os.binder.ontransact(binder.java:481)
+	at android.content.pm.ipackagemanager$stub.ontransact(ipackagemanager.java:3209)
+	at com.android.server.pm.packagemanagerservice.ontransact(packagemanagerservice.java:5109)
+	at android.os.binder.exectransact(binder.java:682)
+6/29/2021 11:19:58 AM Connection step InstallDaemon
+6/29/2021 11:20:03 AM Connection step ConfirmInstallDaemon
+6/29/2021 11:20:12 AM Connection step StartDaemon
+6/29/2021 11:20:13 AM Connection step StartSession
+6/29/2021 11:20:13 AM ADB Forward : 7867 okay
+6/29/2021 11:20:13 AM command channel connected!
+6/29/2021 11:20:13 AM Connection step LoadInfo
+6/29/2021 11:20:13 AM Connection step Finished
+6/29/2021 11:20:13 AM [DC_UsbTask] end GetConnectTask : True
+6/29/2021 11:20:13 AM Manufacturer:SAMSUNG
+6/29/2021 11:20:13 AM Model:SM-G930S
+6/29/2021 11:20:13 AM SerialNumber:ce031603f140ae1202
+6/29/2021 11:20:13 AM OSPlatform:Android
+6/29/2021 11:20:13 AM OSVersion:8.0.0
+6/29/2021 11:20:13 AM Carrier:Vinaphone
+6/29/2021 11:20:13 AM Name:SAMSUNG SM-G930S
+6/29/2021 11:20:13 AM Locale:vi-VN
+6/29/2021 11:20:13 AM Connection end IOService:/IOResources/AppleUSBHostResources/AppleUSBLegacyRoot/AppleUSBXHCI@14000000/SAMSUNG_Android@14200000 Online
+6/29/2021 11:20:13 AM Connection step Completed
+6/29/2021 11:20:15 AM ......device [SAMSUNG SM-G930S] connected. info is... platform: Android; version: 8.0.0; model: SM-G930S; brand: Samsung; manufacturer: SAMSUNG; daemonManager Version: 1.0.2.528
+6/29/2021 11:20:21 AM .........backup photos count: 18
+6/29/2021 11:47:13 AM .........backup photos count: 18
+6/29/2021 11:47:47 AM ADB Forward : 7868 okay
+6/29/2021 11:47:47 AM TransferSession TcpClient Connect :127.0.0.1-7868
+6/29/2021 11:47:47 AM TransferSession TcpClient Connect :127.0.0.1-7868
+6/29/2021 11:47:47 AM TransferSession TcpClient Connect :127.0.0.1-7868
+6/29/2021 11:47:47 AM TransferSession TcpClient Connect :127.0.0.1-7868
+6/29/2021 11:47:47 AM TransferSession TcpClient Connect :127.0.0.1-7868
+6/29/2021 11:47:47 AM TransferSession TcpClient Connect :127.0.0.1-7868
+6/29/2021 11:47:48 AM TransferSession TcpClient Connect :127.0.0.1-7868
+6/29/2021 11:47:48 AM TransferSession TcpClient Connect :127.0.0.1-7868
+6/29/2021 11:47:48 AM TransferSession TcpClient Connect :127.0.0.1-7868
+6/29/2021 11:47:48 AM TransferSession TcpClient Connect :127.0.0.1-7868
+6/29/2021 11:47:48 AM TransferSession TcpClient Connect :127.0.0.1-7868
+6/29/2021 11:47:48 AM TransferSession TcpClient Connect :127.0.0.1-7868
+6/29/2021 11:47:48 AM TransferSession TcpClient Connect :127.0.0.1-7868
+6/29/2021 11:47:48 AM TransferSession TcpClient Connect :127.0.0.1-7868
+6/29/2021 11:47:48 AM TransferSession TcpClient Connect :127.0.0.1-7868
+6/29/2021 11:47:49 AM TransferSession TcpClient Connect :127.0.0.1-7868
+6/29/2021 11:47:49 AM TransferSession TcpClient Connect :127.0.0.1-7868
+6/29/2021 11:47:49 AM TransferSession TcpClient Connect :127.0.0.1-7868
+6/29/2021 11:48:14 AM <Export_Photo>:/Users/bth/Pictures/dr.fone Transfer/Photos/Screenshot_20210629-110830_Android System.jpg
+6/29/2021 11:48:15 AM <Export_Photo>:/Users/bth/Pictures/dr.fone Transfer/Photos/Screenshot_20210629-105940_QR & Barcode Super EZ.jpg
+6/29/2021 11:48:15 AM <Export_Photo>:/Users/bth/Pictures/dr.fone Transfer/Photos/Screenshot_20210629-105845_QR & Barcode Super EZ.jpg
+6/29/2021 11:48:15 AM <Export_Photo>:/Users/bth/Pictures/dr.fone Transfer/Photos/Screenshot_20210629-105839_QR & Barcode Super EZ.jpg
+6/29/2021 11:48:15 AM <Export_Photo>:/Users/bth/Pictures/dr.fone Transfer/Photos/Screenshot_20210629-104426_QR & Barcode Super EZ.jpg
+6/29/2021 11:48:15 AM <Export_Photo>:/Users/bth/Pictures/dr.fone Transfer/Photos/Screenshot_20210629-104400_QR & Barcode Super EZ.jpg
+6/29/2021 11:48:15 AM <Export_Photo>:/Users/bth/Pictures/dr.fone Transfer/Photos/Screenshot_20210629-104317_QR & Barcode Super EZ.jpg
+6/29/2021 11:48:15 AM <Export_Photo>:/Users/bth/Pictures/dr.fone Transfer/Photos/Screenshot_20210629-104208_QR & Barcode Super EZ.jpg
+6/29/2021 11:48:15 AM <Export_Photo>:/Users/bth/Pictures/dr.fone Transfer/Photos/Screenshot_20210629-103637_QR & Barcode Super EZ.jpg
+6/29/2021 11:48:15 AM <Export_Photo>:/Users/bth/Pictures/dr.fone Transfer/Photos/Screenshot_20210629-103448_QR & Barcode Super EZ.jpg
+6/29/2021 11:48:15 AM <Export_Photo> 0/10/0
+6/29/2021 11:48:28 AM SetSystemSleep start
+6/29/2021 11:48:28 AM SetSystemSleep end
+6/29/2021 11:48:28 AM Device manager remove device SerialNumber: ce031603f140ae1202
+6/29/2021 11:48:28 AM E: Unable to read data from the transport connection: Operation on non-blocking socket would block.
+6/29/2021 11:48:28 AM Connection IOService:/IOResources/AppleUSBHostResources/AppleUSBLegacyRoot/AppleUSBXHCI@14000000/SAMSUNG_Android@14200000 disposed.

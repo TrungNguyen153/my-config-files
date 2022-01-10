@@ -1,0 +1,33 @@
+pane	demojsi	0	1	:*	0	:/Users/bth/ReactNative/demoJSI	0	nvim	:nvim
+pane	demojsi	0	1	:*	1	:/Users/bth/ReactNative/demoJSI	0	fish	:
+pane	demojsi	0	1	:*	2	:/Users/bth/ReactNative/demoJSI/example	1	fish	:
+pane	discoverjsi	0	1	:*	0	:/Users/bth/ReactNative/discovering-turbomodules-main	0	nvim	:nvim
+pane	discoverjsi	0	1	:*	1	:/Users/bth/ReactNative/discovering-turbomodules-main/example	0	fish	:
+pane	discoverjsi	0	1	:*	2	:/Users/bth/ReactNative/discovering-turbomodules-main/example	1	fish	:
+pane	keystorelocal	0	1	:*	0	:/Users/bth/Keystore\ Local	1	fish	:
+pane	nguyenqr1	0	1	:*	0	:/Users/bth/ReactNative/nguyen_qr_code_1	0	nvim	:nvim
+pane	nguyenqr1	0	1	:*	1	:/Users/bth/ReactNative/nguyen_qr_code_1	0	fish	:
+pane	nguyenqr1	0	1	:*	2	:/Users/bth/ReactNative/nguyen_qr_code_1	1	fish	:
+pane	nvim_settings	0	1	:*	0	:/Users/bth/.config/nvim	1	nvim	:nvim
+pane	qr_14	0	1	:*	0	:/Users/bth/ReactNative/Android_1-QR-14_QR-Barcode-Reader-for-Android	0	nvim	:nvim
+pane	qr_14	0	1	:*	1	:/Users/bth/ReactNative/Android_1-QR-14_QR-Barcode-Reader-for-Android	0	fish	:
+pane	qr_14	0	1	:*	2	:/Users/bth/ReactNative/Android_1-QR-14_QR-Barcode-Reader-for-Android	1	fish	:
+pane	qr_20	0	1	:*	0	:/Users/bth/ReactNative/qr_20	0	nvim	:nvim
+pane	qr_20	0	1	:*	1	:/Users/bth/ReactNative/qr_20	0	fish	:
+pane	qr_20	0	1	:*	2	:/Users/bth/ReactNative/qr_20	1	fish	:
+pane	qr_21	0	1	:*	0	:/Users/bth/ReactNative/Android_Trung_qr-lite_01_com.samagitacolor.quickqrscan	1	nvim	:nvim
+pane	qr_21	0	1	:*	1	:/Users/bth/ReactNative/Android_Trung_qr-lite_01_com.samagitacolor.quickqrscan/android	0	fish	:
+pane	qr_21	0	1	:*	2	:/Users/bth/ReactNative/Android_Trung_qr-lite_01_com.samagitacolor.quickqrscan	0	fish	:
+pane	qr_22	0	1	:*	0	:/Users/bth/ReactNative/Android_Trung_qr-lite_02_com.windtamari.qrcodewind	1	fish	:
+pane	qr_22	0	1	:*	1	:/Users/bth/ReactNative/Android_Trung_qr-lite_02_com.windtamari.qrcodewind/android	0	fish	:
+pane	qr_22	0	1	:*	2	:/Users/bth/ReactNative/Android_Trung_qr-lite_02_com.windtamari.qrcodewind	0	fish	:
+window	demojsi	0	:fish	1	:*	ad60,202x59,0,0[202x41,0,0,1,202x17,0,42{93x17,0,42,2,108x17,94,42,3}]	:
+window	discoverjsi	0	:fish	1	:*	f89a,202x59,0,0[202x41,0,0,4,202x17,0,42{98x17,0,42,5,103x17,99,42,6}]	:
+window	keystorelocal	0	:fish	1	:*	d1a4,202x59,0,0,7	:
+window	nguyenqr1	0	:fish	1	:*	4183,150x49,0,0[150x36,0,0,8,150x12,0,37{72x12,0,37,9,77x12,73,37,10}]	:
+window	nvim_settings	0	:nvim	1	:*	6810,150x49,0,0,11	:
+window	qr_14	0	:fish	1	:*	d2b2,202x59,0,0[202x41,0,0,12,202x17,0,42{88x17,0,42,13,113x17,89,42,14}]	:
+window	qr_20	0	:fish	1	:*	70ed,150x49,0,0[150x39,0,0,15,150x9,0,40{85x9,0,40,16,64x9,86,40,17}]	:
+window	qr_21	0	:nvim	1	:*	39bb,202x59,0,0[202x46,0,0,18,202x12,0,47{98x12,0,47,19,103x12,99,47,20}]	:
+window	qr_22	0	:fish	1	:*	932c,202x59,0,0[202x41,0,0,21,202x17,0,42{98x17,0,42,22,103x17,99,42,23}]	:
+state	qr_22	

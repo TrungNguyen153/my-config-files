@@ -1,0 +1,7 @@
+pane	nvim_settings	0	1	:*	0	:/Users/bth/.config/nvim	1	fish	:
+pane	qr_20	0	1	:*	0	:/Users/bth/ReactNative/qr_20	1	nvim	:nvim
+pane	qr_20	0	1	:*	1	:/Users/bth/ReactNative/qr_20	0	fish	:
+pane	qr_20	0	1	:*	2	:/Users/bth/ReactNative/qr_20/android	0	fish	:
+window	nvim_settings	0	:fish	1	:*	6901,202x59,0,0,12	:
+window	qr_20	0	:nvim	1	:*	2142,202x59,0,0[202x44,0,0,2,202x14,0,45{111x14,0,45,3,90x14,112,45,4}]	:
+state	nvim_settings	

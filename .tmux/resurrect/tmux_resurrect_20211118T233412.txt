@@ -1,0 +1,37 @@
+pane	demojsi	0	1	:*	0	:/Users/bth/ReactNative/demoJSI	0	nvim	:nvim
+pane	demojsi	0	1	:*	1	:/Users/bth/ReactNative/demoJSI	0	fish	:
+pane	demojsi	0	1	:*	2	:/Users/bth/ReactNative/demoJSI/example	1	fish	:
+pane	discoverjsi	0	1	:*	0	:/Users/bth/ReactNative/discovering-turbomodules-main	1	nvim	:nvim
+pane	discoverjsi	0	1	:*	1	:/Users/bth/ReactNative/discovering-turbomodules-main/example	0	fish	:
+pane	discoverjsi	0	1	:*	2	:/Users/bth/ReactNative/discovering-turbomodules-main/example	0	fish	:
+pane	keystorelocal	0	1	:*	0	:/Users/bth/Keystore\ Local	1	fish	:
+pane	nguyenqr1	0	1	:*	0	:/Users/bth/ReactNative/nguyen_qr_code_1	1	nvim	:nvim
+pane	nguyenqr1	0	1	:*	1	:/Users/bth/ReactNative/nguyen_qr_code_1	0	fish	:
+pane	nguyenqr1	0	1	:*	2	:/Users/bth/ReactNative/nguyen_qr_code_1	0	fish	:
+pane	nvim_settings	0	1	:*	0	:/Users/bth/.config/nvim	1	nvim	:nvim
+pane	qr_14	0	1	:*	0	:/Users/bth/ReactNative/Android_1-QR-14_QR-Barcode-Reader-for-Android	0	nvim	:nvim
+pane	qr_14	0	1	:*	1	:/Users/bth/ReactNative/Android_1-QR-14_QR-Barcode-Reader-for-Android	1	fish	:
+pane	qr_14	0	1	:*	2	:/Users/bth/ReactNative/Android_1-QR-14_QR-Barcode-Reader-for-Android	0	fish	:
+pane	qr_20	0	1	:*	0	:/Users/bth/ReactNative/qr_20	1	nvim	:nvim
+pane	qr_20	0	1	:*	1	:/Users/bth/ReactNative/qr_20	0	fish	:
+pane	qr_20	0	1	:*	2	:/Users/bth/ReactNative/qr_20	0	fish	:
+pane	qr_21	0	1	:*	0	:/Users/bth/ReactNative/Android_Trung_qr-lite_01_com.samagitacolor.quickqrscan	0	nvim	:nvim
+pane	qr_21	0	1	:*	1	:/Users/bth/ReactNative/Android_Trung_qr-lite_01_com.samagitacolor.quickqrscan	0	fish	:
+pane	qr_21	0	1	:*	2	:/Users/bth/ReactNative/Android_Trung_qr-lite_01_com.samagitacolor.quickqrscan	1	fish	:
+pane	qr_22	0	1	:*	0	:/Users/bth/ReactNative/Android_Trung_qr-lite_02_com.windtamari.qrcodewind	0	fish	:
+pane	qr_22	0	1	:*	1	:/Users/bth/ReactNative/Android_Trung_qr-lite_02_com.windtamari.qrcodewind	1	fish	:
+pane	qr_22	0	1	:*	2	:/Users/bth/ReactNative/Android_Trung_qr-lite_02_com.windtamari.qrcodewind	0	fish	:
+pane	reminder	0	1	:*	0	:/Users/bth/ReactNative/Medicine\ Reminder	1	fish	:
+pane	reminder	0	1	:*	1	:/Users/bth/ReactNative/Medicine\ Reminder	0	fish	:
+pane	reminder	0	1	:*	2	:/Users/bth/ReactNative/Medicine\ Reminder	0	fish	:
+window	demojsi	0	:fish	1	:*	0e4a,202x59,0,0[202x41,0,0,43,202x17,0,42{93x17,0,42,44,108x17,94,42,45}]	:
+window	discoverjsi	0	:nvim	1	:*	1374,202x59,0,0[202x41,0,0,39,202x17,0,42{98x17,0,42,40,103x17,99,42,41}]	:
+window	keystorelocal	0	:fish	1	:*	6904,202x59,0,0,34	:
+window	nguyenqr1	0	:nvim	1	:*	d1ea,150x49,0,0[150x36,0,0,11,150x12,0,37{72x12,0,37,12,77x12,73,37,13}]	:
+window	nvim_settings	0	:nvim	1	:*	cfc4,150x49,0,0,7	:
+window	qr_14	0	:fish	1	:*	52c3,202x59,0,0[202x41,0,0,51,202x17,0,42{88x17,0,42,52,113x17,89,42,53}]	:
+window	qr_20	0	:nvim	1	:*	f711,150x49,0,0[150x39,0,0,8,150x9,0,40{85x9,0,40,9,64x9,86,40,10}]	:
+window	qr_21	0	:fish	1	:*	1bec,150x49,0,0[150x41,0,0,26,150x7,0,42{72x7,0,42,27,77x7,73,42,28}]	:
+window	qr_22	0	:fish	1	:*	46de,202x59,0,0[202x51,0,0,30,202x7,0,52{98x7,0,52,31,103x7,99,52,32}]	:
+window	reminder	0	:fish	1	:*	e270,202x59,0,0[202x39,0,0,56,202x19,0,40{103x19,0,40,57,98x19,104,40,58}]	:
+state	reminder	

@@ -1,0 +1,11 @@
+pane	nguyenqr1	0	1	:*	0	:/Users/bth/ReactNative/nguyen_qr_code_1	1	nvim	:nvim
+pane	nguyenqr1	0	1	:*	1	:/Users/bth/ReactNative/nguyen_qr_code_1	0	fish	:
+pane	nguyenqr1	0	1	:*	2	:/Users/bth/ReactNative/nguyen_qr_code_1	0	fish	:
+pane	nvim_settings	0	1	:*	0	:/Users/bth/.config/nvim	1	nvim	:nvim
+pane	qr_20	0	1	:*	0	:/Users/bth/ReactNative/qr_20	1	fish	:
+pane	qr_20	0	1	:*	1	:/Users/bth/ReactNative/qr_20	0	fish	:
+pane	qr_20	0	1	:*	2	:/Users/bth/ReactNative/qr_20	0	fish	:
+window	nguyenqr1	0	:nvim	1	:*	c472,204x59,0,0[204x41,0,0,11,204x17,0,42{99x17,0,42,12,104x17,100,42,13}]	:
+window	nvim_settings	0	:nvim	1	:*	d1a4,202x59,0,0,7	:
+window	qr_20	0	:fish	1	:*	f15b,202x59,0,0[202x44,0,0,8,202x14,0,45{111x14,0,45,9,90x14,112,45,10}]	:
+state	qr_20	

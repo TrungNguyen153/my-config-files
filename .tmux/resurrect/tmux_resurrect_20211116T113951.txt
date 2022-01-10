@@ -1,0 +1,29 @@
+pane	keystorelocal	0	1	:*	0	:/Users/bth/Keystore\ Local	1	fish	:
+pane	myjsi	0	1	:*	0	:/Users/bth/ReactNative/react-native-myjsi	1	nvim	:nvim
+pane	myjsi	0	1	:*	1	:/Users/bth/ReactNative/react-native-myjsi/example	0	fish	:
+pane	myjsi	0	1	:*	2	:/Users/bth/ReactNative/react-native-myjsi	0	fish	:
+pane	nguyenqr1	0	1	:*	0	:/Users/bth/ReactNative/nguyen_qr_code_1	1	nvim	:nvim
+pane	nguyenqr1	0	1	:*	1	:/Users/bth/ReactNative/nguyen_qr_code_1	0	fish	:
+pane	nguyenqr1	0	1	:*	2	:/Users/bth/ReactNative/nguyen_qr_code_1	0	fish	:
+pane	nvim_settings	0	1	:*	0	:/Users/bth/.config/nvim	1	nvim	:nvim
+pane	qr_20	0	1	:*	0	:/Users/bth/ReactNative/qr_20	1	nvim	:nvim
+pane	qr_20	0	1	:*	1	:/Users/bth/ReactNative/qr_20	0	fish	:
+pane	qr_20	0	1	:*	2	:/Users/bth/ReactNative/qr_20	0	fish	:
+pane	qr_21	0	1	:*	0	:/Users/bth/ReactNative/Android_Trung_qr-lite_01_com.samagitacolor.quickqrscan	1	nvim	:nvim
+pane	qr_21	0	1	:*	1	:/Users/bth/ReactNative/Android_Trung_qr-lite_01_com.samagitacolor.quickqrscan/android	0	fish	:
+pane	qr_21	0	1	:*	2	:/Users/bth/ReactNative/Android_Trung_qr-lite_01_com.samagitacolor.quickqrscan	0	fish	:
+pane	qr_22	0	1	:*	0	:/Users/bth/ReactNative/Android_Trung_qr-lite_02_com.windtamari.qrcodewind	0	nvim	:nvim
+pane	qr_22	0	1	:*	1	:/Users/bth/ReactNative/Android_Trung_qr-lite_02_com.windtamari.qrcodewind	1	fish	:
+pane	qr_22	0	1	:*	2	:/Users/bth/ReactNative/Android_Trung_qr-lite_02_com.windtamari.qrcodewind	0	node	:node /usr/local/bin/yarn start --reset-cache
+pane	template-jsi	0	1	:*	0	:/Users/bth/ReactNative/react-native-jsi-template-master	0	nvim	:nvim
+pane	template-jsi	0	1	:*	1	:/Users/bth/ReactNative/react-native-jsi-template-master/example	1	fish	:
+pane	template-jsi	0	1	:*	2	:/Users/bth/ReactNative/react-native-jsi-template-master	0	fish	:
+window	keystorelocal	0	:fish	1	:*	6904,202x59,0,0,34	:
+window	myjsi	0	:nvim	1	:*	529f,202x59,0,0[202x49,0,0,17,202x9,0,50{101x9,0,50,18,100x9,102,50,19}]	:
+window	nguyenqr1	0	:nvim	1	:*	c472,204x59,0,0[204x41,0,0,11,204x17,0,42{99x17,0,42,12,104x17,100,42,13}]	:
+window	nvim_settings	0	:nvim	1	:*	d1a4,202x59,0,0,7	:
+window	qr_20	0	:nvim	1	:*	f15b,202x59,0,0[202x44,0,0,8,202x14,0,45{111x14,0,45,9,90x14,112,45,10}]	:
+window	qr_21	0	:nvim	1	:*	d9a4,202x59,0,0[202x46,0,0,26,202x12,0,47{98x12,0,47,27,103x12,99,47,28}]	:
+window	qr_22	0	:fish	1	:*	46de,202x59,0,0[202x51,0,0,30,202x7,0,52{98x7,0,52,31,103x7,99,52,32}]	:
+window	template-jsi	0	:fish	1	:*	46b8,202x59,0,0[202x41,0,0,21,202x17,0,42{108x17,0,42,22,93x17,109,42,23}]	:
+state	keystorelocal	
