@@ -12,52 +12,67 @@ return require('packer').startup(function(use)
   use {'wbthomason/packer.nvim', opt=true}
   -- Require ulti
   use 'nvim-lua/plenary.nvim'
+  -- Integrated with tmux navigator
   use 'christoomey/vim-tmux-navigator'
-  use {
-    'sgur/vim-editorconfig',
-    config = function()
-      vim.cmd([[
-        let g:editorconfig_verbose = 1
-      ]])
-    end,
-  }
+  -- Menu action
+  use 'kizza/actionmenu.nvim'
   -- Theme
   use {
     'morhetz/gruvbox',
+    -- Perform set theme when loaded plugin
     config = function()
       vim.cmd([[
           set background=dark
           execute 'colorscheme' 'gruvbox'
       ]])
     end,
-
   }
-  -- HighLight
+  -- TreeSitter Group {{{
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
+    -- add plugin for treesitter
     requires = {
       {'nvim-treesitter/nvim-treesitter-textobjects'},
       {'p00f/nvim-ts-rainbow'},
       {'JoosepAlviste/nvim-ts-context-commentstring'},
+      {'windwp/nvim-ts-autotag'},
     },
     config = function() require('configs.treesitter') end,
   }
+
+  -- }}}
   
+  -- LSP Group {{{
   use {
     'neovim/nvim-lspconfig',
     requires = {{'hrsh7th/cmp-nvim-lsp'}, {'folke/lsp-colors.nvim'}},
     config = function()
+      -- Load setup for each lsp source
 			require('configs.lspconfig') 
 			require'lspconfig'.cssls.setup{}
 			require'lspconfig'.tailwindcss.setup{}
-			-- require('lsp.clangd-lsp')
-      -- require('lsp.ccls-lsp')
-      -- require('lsp.sourcekit-lsp')
 		end,
   }
 
-  -- Completion
+  use {
+    'jose-elias-alvarez/nvim-lsp-ts-utils',
+    after = {'nvim-lspconfig'},
+    config = function() require('lsp.tsserver-rc') end
+  }
+
+  -- Lsp helper but not use this time
+  -- use {
+  --   'jose-elias-alvarez/null-ls.nvim',
+  --   after = {'nvim-lspconfig', 'plenary.nvim'},
+  --   config = function() require('lsp.null-ls-rc') end
+  -- }
+  --- }}}
+
+
+
+
+  -- Completion Group {{{
   use {
     'hrsh7th/nvim-cmp',
     config = function() require('configs.cmp') end
@@ -81,66 +96,99 @@ return require('packer').startup(function(use)
     end,
   }
   use { 'hrsh7th/cmp-vsnip', after = {'vim-vsnip'}}
+
+  -- Disable for docker, should open for real devices
+  -- use {'tzachar/cmp-tabnine',
+  --   run='./install.sh',
+  --   after = 'nvim-cmp',
+  --   config = function()
+  --     require('configs.cmp-tabnine')
+  --   end,
+  -- }
+  -- }}}
+
+  -- Formater {{{
   use {
     'sbdchd/neoformat',
     cmd = 'Neoformat',
   }
-  use {'tzachar/cmp-tabnine',
-    run='./install.sh',
-    after = 'nvim-cmp',
-    config = function()
-      require('configs.cmp-tabnine')
-    end,
-  }
+  -- }}}
   
-  -- Lsp
-  use {
-    'jose-elias-alvarez/null-ls.nvim',
-    after = {'nvim-lspconfig', 'plenary.nvim'},
-    config = function() require('lsp.null-ls-rc') end
-  }
-  use {
-    'jose-elias-alvarez/nvim-lsp-ts-utils',
-    after = {'null-ls.nvim'},
-    config = function() require('lsp.tsserver-rc') end
-  }
 
-  -- use {
-  --   'apple/sourcekit-lsp',
-  --   after = {'nvim-lspconfig'},
-  --   config = function()
-  --     require('lsp.sourcekit-lsp')
-  --   end,
-  -- }
-
+  -- UI {{{
   -- Status line
   use {
     'nvim-lualine/lualine.nvim',
     requires = {'kyazdani42/nvim-web-devicons'},
     config = function() require('configs.lualine') end,
   }
-  -- find file
+
+  -- Color tag
+  use {
+    'norcalli/nvim-colorizer.lua',
+    config = function()
+      require('configs.colorizer')
+    end,
+  }
+  -- }}}
+
+  -- TELESCOPE {{{
   use {
     'nvim-telescope/telescope.nvim',
     requires = {
       {'nvim-lua/plenary.nvim'}, 
       {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
+      {'jvgrootveld/telescope-zoxide'},
+      {'LinArcX/telescope-env.nvim'},
+
     },
     config = function()
       require('configs.telescope').setup()
       require('configs.telescope').preload()
       require('telescope').load_extension('fzf')
+      -- finder helper
+      require('telescope._extensions.zoxide.config').setup({
+        prompt_title = '[ Zoxide directories ]',
+        mappings = {
+          default = {
+            action = function(selection)
+              vim.cmd('lcd ' .. selection.path)
+            end,
+            after_action = function(_) end,
+          },
+        },
+      })
+      require('telescope').load_extension('zoxide')
+      require('telescope').load_extension('env')
     end,
   }
+
+  use {
+    'rmagatti/auto-session',
+    event= 'VimEnter',
+    config = function()
+      require('configs.auto-session')
+    end,
+  }
+  use {
+    'rmagatti/session-lens',
+    after = "auto-session",
+    config = function()
+      require('session-lens').setup({
+        path_display = { 'shorten' },
+        winblend = 0,
+      })
+      require('telescope').load_extension('session-lens')
+    end,
+  }
+
+  -- }}}
   
-  -- Explorer
+  -- Explorer {{{
   use {
     'lambdalisue/fern.vim',
     config = function()
       vim.cmd(':runtime! lua/configs/fern.vim')
-      vim.cmd([[
-        autocmd VimEnter * ++nested Fern -drawer %:h | if argc() > 0 || exists("s:std_in") | wincmd p | endif
-        ]])
     end,
   }
 
@@ -184,6 +232,7 @@ return require('packer').startup(function(use)
       ]])
     end,
   }
+
   use {
     'lambdalisue/glyph-palette.vim',
     after = 'fern.vim',
@@ -193,8 +242,9 @@ return require('packer').startup(function(use)
       ]])
     end,
   }
+  -- }}}
 
-  -- ulti
+  -- ulti {{{
   use {
     'max397574/better-escape.nvim',
     event = 'InsertEnter',
@@ -211,21 +261,7 @@ return require('packer').startup(function(use)
     }
     end,
   }
-  use {
-    'folke/which-key.nvim',
-    cmd = 'WhichKey',
-    config = function()
-      require('configs.which-key')
-    end,
-  }
-  use {
-    'folke/zen-mode.nvim',
-    cmd = 'ZenMode',
-    config = function()
-      require('configs.zen-mode')
-    end,
-  }
-
+  -- HIGH SILL NEOVIM -> NEED TO MASTER THIS
   use {
     'machakann/vim-sandwich',
     config = function()
@@ -254,16 +290,40 @@ return require('packer').startup(function(use)
       ]])
     end,
   }
-
-  use {
-    'rhysd/accelerated-jk',
+  -- Moving j k faster in normal/visual mode
+  use{
+    "PHSix/faster.nvim",
+    event = {"VimEnter *"},
     config = function()
-      vim.cmd([[
-        nmap <silent> j <Plug>(accelerated_jk_gj)
-	      nmap <silent> k <Plug>(accelerated_jk_gk)
-      ]])
+      -- vim.api.nvim_set_keymap('n', 'j', '<Plug>(faster_move_j)', {noremap=false, silent=true})
+      -- vim.api.nvim_set_keymap('n', 'k', '<Plug>(faster_move_k)', {noremap=false, silent=true})
+      -- or 
+      vim.api.nvim_set_keymap('n', 'j', '<Plug>(faster_move_gj)', {noremap=false, silent=true})
+      vim.api.nvim_set_keymap('n', 'k', '<Plug>(faster_move_gk)', {noremap=false, silent=true})
+      -- if you need map in visual mode
+      vim.api.nvim_set_keymap('v', 'j', '<Plug>(faster_vmove_j)', {noremap=false, silent=true})
+      vim.api.nvim_set_keymap('v', 'k', '<Plug>(faster_vmove_k)', {noremap=false, silent=true})
+    end
+  }
+  -- Helper Remember key but lazy for config
+  use {
+    'folke/which-key.nvim',
+    cmd = 'WhichKey',
+    config = function()
+      require('configs.which-key')
     end,
   }
+
+  -- focus on code -> Funny
+  use {
+    'folke/zen-mode.nvim',
+    cmd = 'ZenMode',
+    config = function()
+      require('configs.zen-mode')
+    end,
+  }
+
+  -- move j k by foward
   use {
     'haya14busa/vim-edgemotion',
     config = function()
@@ -275,32 +335,16 @@ return require('packer').startup(function(use)
       ]])
     end,
   }
-  use 'windwp/nvim-ts-autotag'
 
+  -- jump anywhere on screen
   use {
     'easymotion/vim-easymotion',
-    setup = function()
+    config = function()
       vim.cmd([[
         let g:EasyMotion_do_mapping = 0
-        " Jump to anywhere you want with minimal keystrokes, with just one key binding.
-        " `sm{char}{label}`
-        nmap sm <Plug>(easymotion-overwin-f)
-        " or
-        " `sm{char}{char}{label}`
-        " Need one more keystroke, but on average, it may be more comfortable.
-        nmap sm <Plug>(easymotion-overwin-f2)
-        
+        nmap <Leader><Leader>s <Plug>(easymotion-overwin-f2)
         " Turn on case-insensitive feature
         let g:EasyMotion_smartcase = 1
-        
-        " JK motions: Line motions
-        " map <Leader>j <Plug>(easymotion-j)
-        " map <Leader>k <Plug>(easymotion-k)
-      ]])
-    end,
-    configs = function()
-      vim.cmd([[
-        
       ]])
     end,
   }
@@ -317,14 +361,6 @@ return require('packer').startup(function(use)
     end,
     config = function()
       require('configs.bqf')
-    end,
-  }
-
-  -- Color tag
-  use {
-    'norcalli/nvim-colorizer.lua',
-    config = function()
-      require('configs.colorizer')
     end,
   }
 
@@ -362,6 +398,14 @@ return require('packer').startup(function(use)
       ]])
     end,
   }
+
+  -- }}}
+
+
+
+
+
+
 
 
 end)

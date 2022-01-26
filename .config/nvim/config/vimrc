@@ -71,5 +71,7 @@ endif
 
 set secure
 
-
+if len(nvim_list_uis()) > 0
+" TODO: open fern on startup 
+endif
 

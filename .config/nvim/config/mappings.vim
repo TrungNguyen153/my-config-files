@@ -21,6 +21,7 @@ if get(g:, 'elite_mode')
 endif
 
 " }}}
+
 " Navigation {{{
 " ----------
 
@@ -34,11 +35,6 @@ nnoremap <CR> za
 " Focus the current fold by closing all others
 nnoremap <S-Return> zMzv
 
-" The plugin rhysd/accelerated-jk moves through display-lines in normal mode,
-" these mappings will move through display-lines in visual mode too.
-xnoremap j gj
-xnoremap k gk
-
 " Easier line-wise movement
 nnoremap gh g^
 nnoremap gl g$
@@ -48,10 +44,6 @@ nmap ]q <cmd>cnext<CR>
 nmap [q <cmd>cprev<CR>
 nmap ]a <cmd>lnext<CR>
 nmap [a <cmd>lprev<CR>
-
-" Whitespace jump (see plugin/whitespace.vim)
-nnoremap ]w <cmd>WhitespaceNext<CR>
-nnoremap [w <cmd>WhitespacePrev<CR>
 
 " Navigation in command line
 cnoremap <C-h> <Home>
@@ -237,11 +229,10 @@ nmap <Leader>th <cmd>nohlsearch<CR>
 nmap <Leader>tw <cmd>execute('setlocal wrap! breakindent! colorcolumn=' .
 	\ (&colorcolumn == '' ? &textwidth : ''))<CR>
 
-" Tabs: Many ways to navigate them
+" Tabs: Many ways to navigate them -- Really good for Alt
 nnoremap g1 <cmd>tabnext<CR>
 nnoremap g2 <cmd>tabprevious<CR>
 nnoremap g9 <cmd>tablast<CR>
-
 nnoremap <A-j>     <cmd>tabnext<CR>
 nnoremap <A-k>     <cmd>tabprevious<CR>
 nnoremap <A-[>     <cmd>tabprevious<CR>

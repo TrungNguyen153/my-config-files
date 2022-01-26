@@ -3,6 +3,9 @@ local lspconfig = require("lspconfig")
 
 local config = _G.lsp_pre_default_config()
 
+
+config.init_options = require("nvim-lsp-ts-utils").init_options
+
 config.on_attach = function(client, bufnr)
     -- client.resolved_capabilities.document_formatting = false
     -- client.resolved_capabilities.document_range_formatting = false
@@ -32,6 +35,24 @@ config.on_attach = function(client, bufnr)
         -- inlay hints
         auto_inlay_hints = true,
         inlay_hints_highlight = "Comment",
+        inlay_hints_priority = 200, -- priority of the hint extmarks
+        inlay_hints_throttle = 150, -- throttle the inlay hint request
+        inlay_hints_format = { -- format options for individual hint kind
+            Type = {},
+            Parameter = {},
+            Enum = {},
+            -- Example format customization for `Type` kind:
+            -- Type = {
+            --     highlight = "Comment",
+            --     text = function(text)
+            --         return "->" .. text:sub(2)
+            --     end,
+            -- },
+        },
+        -- update imports on file move
+        update_imports_on_move = false,
+        require_confirmation_on_move = false,
+        watch_dir = nil,
     })
     ts_utils.setup_client(client)
     _G.lsp_buf_map(bufnr, "n", ",o", ":TSLspOrganize<CR>")

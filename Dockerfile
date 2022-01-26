@@ -28,7 +28,10 @@ RUN apt-get update
 RUN apt-get install -y fish neovim tmux fzf ripgrep
 RUN apt-get install -y golang
 RUN apt-get install -y python3-dev python3-pip python3-tk
-RUN apt-get install -y ranger curl fontconfig
+RUN apt-get install -y ranger curl fontconfig 
+
+# Install Zoxide searching for fish
+RUN curl -sS https://webinstall.dev/zoxide | bash
 
 # Enable Fish by Default
 RUN grep -q -F 'fish' ~/.bashrc || echo 'exec fish' >> ~/.bashrc
@@ -40,7 +43,7 @@ RUN update-alternatives --config vim
 RUN update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 RUN update-alternatives --config editor
 
-# fonts
+# Install fonts
 RUN mkdir -p $XDG_DATA_HOME/fonts \
   && cd /usr/local/share/fonts \
   && curl --silent -fLo "Roboto Mono Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Regular/complete/Roboto%20Mono%20Nerd%20Font%20Complete.ttf \

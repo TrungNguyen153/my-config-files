@@ -1,6 +1,7 @@
 -- rafi user functions
 -- https://github.com/rafi/vim-config
-
+-- This automatic perform <CMD>....<Enter>
+-- Example this is used for telescope for open mini quickfix list under terminal then move bw them without popup telescope
 local lists = {
 	qf = {
 		qf_isLoc = 0,

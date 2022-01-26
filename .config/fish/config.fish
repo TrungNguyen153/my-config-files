@@ -1,6 +1,8 @@
 set fish_greeting ""
 
 set -gx TERM xterm-256color
+# Plugin
+zoxide init fish | source
 
 # theme
 set -g theme_color_scheme terminal-dark
