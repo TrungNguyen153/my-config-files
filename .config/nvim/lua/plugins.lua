@@ -22,7 +22,16 @@ return require('packer').startup(function(use)
     end,
   }
   -- Theme
-  use 'morhetz/gruvbox'
+  use {
+    'morhetz/gruvbox',
+    config = function()
+      vim.cmd([[
+          set background=dark
+          execute 'colorscheme' 'gruvbox'
+      ]])
+    end,
+
+  }
   -- HighLight
   use {
     'nvim-treesitter/nvim-treesitter',
@@ -129,6 +138,9 @@ return require('packer').startup(function(use)
     'lambdalisue/fern.vim',
     config = function()
       vim.cmd(':runtime! lua/configs/fern.vim')
+      vim.cmd([[
+        autocmd VimEnter * ++nested Fern -drawer %:h | if argc() > 0 || exists("s:std_in") | wincmd p | endif
+        ]])
     end,
   }
 

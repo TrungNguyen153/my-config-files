@@ -402,10 +402,6 @@ let g:PHP_removeCRwhenUnix = 0
 
 
 " Load cached colorscheme
-if has('vim_starting')
-	set background=dark
-	execute 'colorscheme' 'gruvbox'
-endif
 " }}}
 
 " vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

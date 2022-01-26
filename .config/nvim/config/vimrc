@@ -71,6 +71,5 @@ endif
 
 set secure
 
-autocmd VimEnter * ++nested Fern -drawer %:h | if argc() > 0 || exists("s:std_in") | wincmd p | endif
 
 
