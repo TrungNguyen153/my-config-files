@@ -62,7 +62,7 @@ COPY ./.config/nvim $XDG_CONFIG_HOME/nvim
 # auto Compile Packer
 RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 # auto update nvim-treesitter after compile
-RUN nvim --headless +'TSInstallSync all' +qall
+RUN nvim --headless -c 'TSInstallSync all' -c 'quitall'
 
 # tmux config
 COPY .tmux.conf $HOME/.tmux.conf
