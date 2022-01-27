@@ -32,7 +32,6 @@ RUN apt-get install -y ranger curl fontconfig
 
 # Install Zoxide searching for fish
 RUN curl -sS https://webinstall.dev/zoxide | bash
-
 # Enable Fish by Default
 RUN grep -q -F 'fish' ~/.bashrc || echo 'exec fish' >> ~/.bashrc
 
@@ -59,8 +58,11 @@ COPY ./.config/fish $XDG_CONFIG_HOME/fish
 COPY ./.config/nvim $XDG_CONFIG_HOME/nvim
 # RUN git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 #  $XDG_DATA_HOME/nvim/site/pack/packer/start/packer.nvim
+
 # auto Compile Packer
 RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+# auto update nvim-treesitter after compile
+RUN nvim --headless +'TSInstallSync all' +qall
 
 # tmux config
 COPY .tmux.conf $HOME/.tmux.conf

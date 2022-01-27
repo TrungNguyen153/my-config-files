@@ -140,6 +140,7 @@ return require('packer').startup(function(use)
       {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
       {'jvgrootveld/telescope-zoxide'},
       {'LinArcX/telescope-env.nvim'},
+      { 'nvim-telescope/telescope-ui-select.nvim'},
 
     },
     config = function()
@@ -160,6 +161,7 @@ return require('packer').startup(function(use)
       })
       require('telescope').load_extension('zoxide')
       require('telescope').load_extension('env')
+      require("telescope").load_extension("ui-select")
     end,
   }
 

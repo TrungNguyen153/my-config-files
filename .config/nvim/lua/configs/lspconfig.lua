@@ -38,21 +38,12 @@ _G.lsp_on_attach = function(client, bufnr)
 	map_buf('n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 	map_buf('n', '<Leader>ce', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
 
-	-- See https://github.com/ray-x/lsp_signature.nvim
-	--  require('lsp_signature').on_attach({
-	-- 	bind = true,
-	-- 	check_pumvisible = true,
-	-- 	hint_enable = false,
-	-- 	hint_prefix = '🐼 ',  --🐼
-	-- 	handler_opts = { border = 'single' },
-	-- 	zindex = 50,
-	--  }, bufnr)
 
 	-- Set some keybinds conditional on server capabilities
 	if client.resolved_capabilities.document_formatting then
 		map_buf('n', ',f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-		-- map_buf('n', ',f', '<cmd>Neoformat<CR>', opts)
 	end
+	-- format in visual mode
 	if client.resolved_capabilities.document_range_formatting then
 		map_buf('x', ',f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
 	end
@@ -78,24 +69,42 @@ _G.lsp_pre_default_config = function()
 	c.capabilities = vim.lsp.protocol.make_client_capabilities()
 	c.capabilities = require('cmp_nvim_lsp').update_capabilities(c.capabilities)
 	c.flags = {
-		debounce_text_changes = 150,
+		debounce_text_changes = vim.opt.updatetime:get(),
 	}
 	return c
 end
 
 
+
+-- Config
+vim.diagnostic.config({
+	virtual_text = true,
+	signs = true,
+	underline = true,
+	update_in_insert = false,
+	severity_sort = true,
+})
+
+-- Diagnostics signs and highlights
+--   Error:   ✘
+--   Warn:  ⚠ 
+--   Hint:  
+--   Info:   ⁱ
+local signs = { Error = '✘', Warn = '', Hint = '', Info = 'ⁱ'}
+for type, icon in pairs(signs) do
+	local hl = 'DiagnosticSign' .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
+end
+
 -- Configure diagnostics publish settings
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-	vim.lsp.diagnostic.on_publish_diagnostics, {
-		signs = true,
-		underline = false,
-		update_in_insert = false,
-		virtual_text = {
-			spacing = 4,
-			-- prefix = '',
-		}
-	}
-)
+		vim.lsp.diagnostic.on_publish_diagnostics, {
+			virtual_text = {
+				-- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#show-source-in-diagnostics-neovim-06-only
+				source = 'if_many',
+				prefix = '●',
+			},
+		})
 
 -- Configure hover (normal K) handle
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(

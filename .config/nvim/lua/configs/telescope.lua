@@ -430,19 +430,15 @@ local setup = function()
 			  override_file_sorter = true,     -- override the file sorter
 			  case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
 											   -- the default case_mode is "smart_case"
+			},
+			['ui-select'] = {
+				require('telescope.themes').get_cursor {
+					layout_config = { width = 0.35, height = 0.35 },
+				}
 			}
-		  }
+		}
 	}
 
-	-- Enable indent-guides in telescope preview
-	-- vim.cmd [[
-	-- 	augroup telescope_events
-	-- 		autocmd!
-	-- 		autocmd User TelescopePreviewerLoaded setlocal list | IndentGuidesEnable
-	-- 	augroup END
-	-- ]]
-
-	-- Telescope extensions are loaded in each plugin.
 end
 
 -- Public functions
