@@ -396,12 +396,5 @@ let g:ruby_no_expensive = 1
 let g:PHP_removeCRwhenUnix = 0
 
 " }}}
-" Theme {{{
-" ---
-" Autoloads theme according to user selected colorschemes
-
-
-" Load cached colorscheme
-" }}}
 
 " vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

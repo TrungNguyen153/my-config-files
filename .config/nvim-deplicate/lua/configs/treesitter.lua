@@ -3,14 +3,6 @@
 -- rafi settings
 
 local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
-
-
--- vim.cmd [[
---   set foldenable=true
---   set foldmethod=expr
---   set foldexpr=nvim_treesitter#foldexpr()
--- ]]
-
 parser_configs.http = {
 	install_info = {
 		url = 'https://github.com/NTBBloodbath/tree-sitter-http',
@@ -19,21 +11,30 @@ parser_configs.http = {
 	},
 	filetype = 'http',
 }
+
 require('nvim-treesitter.configs').setup({
 	ensure_installed = 'maintained', -- all, maintained, or list of languages
 	highlight = {
 		enable = true,
-		additional_vim_regex_highlighting = true,
 	},
 	autotag = {
 		enable = true,
-	},
+	  },
+	-- incremental_selection = {
+	-- 	enable = true,
+	-- 	keymaps = {
+	-- 		init_selection = 'gnn',
+	-- 		node_incremental = 'grn',
+	-- 		scope_incremental = 'grc',
+	-- 		node_decremental = 'grm',
+	-- 	},
+	-- },
 	indent = {
 		enable = true,
 	},
 	refactor = {
 		highlight_definitions = { enable = true },
-	-- highlight_current_scope = { enable = true },
+		highlight_current_scope = { enable = true },
 	},
 	-- See: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 	textobjects = {
