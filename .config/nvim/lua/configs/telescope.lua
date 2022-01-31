@@ -44,7 +44,7 @@ keymap("n", "<localleader>v", "<cmd>Telescope registers<CR>", opts)
 keymap("n", "<localleader>u", "<cmd>Telescope spell_suggest<CR>", opts)
 keymap("n", "<localleader>s", "<cmd>Telescope session-lens search_session<CR>", opts)
 keymap("n", "<localleader>x", "<cmd>Telescope oldfiles<CR>", opts)
-keymap("n", "<localleader>z", '<cmd>lua require"configs.telescope".pickers.zoxide()<CR>', opts)
+-- keymap("n", "<localleader>z", '<cmd>lua require"configs.telescope".pickers.zoxide()<CR>', opts)
 keymap("n", "<localleader>;", "<cmd>Telescope command_history<CR>", opts)
 keymap("n", "<localleader>/", "<cmd>Telescope search_history<CR>", opts)
 

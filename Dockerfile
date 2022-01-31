@@ -30,8 +30,8 @@ RUN apt-get install -y golang
 RUN apt-get install -y python3-dev python3-pip python3-tk
 RUN apt-get install -y ranger curl fontconfig 
 
-# Install Zoxide searching for fish
-RUN curl -sS https://webinstall.dev/zoxide | bash
+# # Install Zoxide searching for fish (optional)
+# RUN curl -sS https://webinstall.dev/zoxide | bash
 # Enable Fish by Default
 RUN grep -q -F 'fish' ~/.bashrc || echo 'exec fish' >> ~/.bashrc
 
@@ -48,6 +48,9 @@ RUN mkdir -p $XDG_DATA_HOME/fonts \
   && curl --silent -fLo "Roboto Mono Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Regular/complete/Roboto%20Mono%20Nerd%20Font%20Complete.ttf \
   && fc-cache -fv
 
+# Install nvm ( Node Version Manager )
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+
 # Install dotfiles
 RUN echo "Installing dotfiles..."
 
@@ -59,8 +62,10 @@ COPY ./.config/nvim $XDG_CONFIG_HOME/nvim
 # RUN git clone --depth 1 https://github.com/wbthomason/packer.nvim\
 #  $XDG_DATA_HOME/nvim/site/pack/packer/start/packer.nvim
 
+# RUN rm -rf $XDG_DATA_HOME/nvim/plugin
+
 # auto Compile Packer
-RUN nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+RUN nvim --headless -c 'autocmd User PackerComplete quitall' #-c 'PackerSync' #dont need because bootstrap
 # auto update nvim-treesitter after compile
 RUN nvim --headless -c 'TSInstallSync all' -c 'quitall'
 
