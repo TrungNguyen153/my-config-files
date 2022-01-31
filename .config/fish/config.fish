@@ -31,6 +31,8 @@ set -gx PATH ~/.local/bin $PATH
 # NodeJS
 set -gx PATH node_modules/.bin $PATH
 
+set --universal nvm_default_version v16
+
 # Dart & Flutter
 set PATH $HOME/flutter/bin $PATH
 set PATH $HOME/flutter/.pub-cache/bin $PATH
