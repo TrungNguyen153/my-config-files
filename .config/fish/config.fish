@@ -31,7 +31,11 @@ set -gx PATH ~/.local/bin $PATH
 # NodeJS
 set -gx PATH node_modules/.bin $PATH
 
+# Default Node Version Manager plugin
 set --universal nvm_default_version v16
+
+# Rust plugin installed by cargo
+set PATH $HOME/.cargo/bin $PATH
 
 # Dart & Flutter
 set PATH $HOME/flutter/bin $PATH

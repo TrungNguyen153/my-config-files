@@ -108,7 +108,7 @@ return require("packer").startup(function(use)
 
 	use({
 		"williamboman/nvim-lsp-installer",
-    requires = {"jose-elias-alvarez/nvim-lsp-ts-utils"}, -- for typescript helper
+		requires = { "jose-elias-alvarez/nvim-lsp-ts-utils" }, -- for typescript helper
 		config = function()
 			require("lsp.lsp-installer")
 		end,
