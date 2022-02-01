@@ -39,8 +39,8 @@ sudo update-alternatives --config editor
 grep -q -F 'fish' ~/.bashrc || echo 'exec fish' >> ~/.bashrc
 
 ## Pre-create config dir
-mkdir -p ~/.config/fish
-mkdir -p ~/.config/nvim
+# mkdir -p ~/.config/fish
+# mkdir -p ~/.config/nvim
 
 ## Install Tmux Plugin Manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
