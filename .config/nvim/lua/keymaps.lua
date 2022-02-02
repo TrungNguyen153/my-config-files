@@ -27,6 +27,13 @@ keymap("n", "[window]o", "<cmd>only<CR>", opts)
 -- Quit buffer by q
 keymap("n", "q", "<cmd>Bdelete<CR>", opts)
 
+
+-- Yank from cusor to end
+keymap("n", "Y", "yg$", opts)
+-- Jump and focus highlight word
+keymap("n", "n", "nzzzv", opts)
+keymap("n", "N", "Nzzzv", opts)
+
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)

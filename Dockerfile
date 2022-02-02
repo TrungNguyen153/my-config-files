@@ -12,7 +12,6 @@ ENV LANGUAGE=en_US.UTF-8
 ENV LANG=en_US.UTF-8
 RUN apt-get update && apt-get install -y locales && locale-gen en_US.UTF-8
 
-#!/bin/bash
 # Install Core Packages
 RUN apt-get update
 RUN apt-get upgrade -y
@@ -72,7 +71,9 @@ RUN nvim --headless -c 'TSInstallSync all' -c 'quitall'
 # tmux config
 COPY .tmux.conf $HOME/.tmux.conf
 COPY .tmux.conf.osx $HOME/.tmux.conf.osx
+COPY .tmux.conf.linux $HOME/.tmux.conf.linux
 COPY .tmux.powerline.conf $HOME/.tmux.powerline.conf
+# Install tmux plugin manager
 RUN git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm \
   && $HOME/.tmux/plugins/tpm/bin/install_plugins
 
