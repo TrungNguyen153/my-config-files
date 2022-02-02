@@ -3,13 +3,19 @@ set fish_greeting ""
 set -gx TERM xterm-256color
 
 
-# aliases
+# aliases short cut
 alias ls "ls -p -G"
 alias la "ls -A"
 alias ll "ls -l"
 alias lla "ll -A"
 alias g git
+alias vimconfig "nvim ~/.config/nvim/"
+alias tmuxconfig "nvim ~/.tmux.conf"
+alias fishconfig "nvim ~/.config/fish/"
+alias fishsource "source ~/.config/fish/config.fish"
 
+# custom shortcut into my dot file
+alias mydotfile "nvim ~/My-Workspace/my-config-files/"
 
 command -qv nvim && alias vim nvim
 

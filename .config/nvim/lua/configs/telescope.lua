@@ -30,6 +30,7 @@ local keymap = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
 -- General pickers
+keymap("n", "<localleader>ca", "<cmd>Telescope lsp_code_actions<CR>", opts)
 keymap("n", "<localleader>r", "<cmd>Telescope resume<CR>", opts)
 keymap("n", "<localleader>R", "<cmd>Telescope pickers<CR>", opts)
 keymap("n", "<localleader>f", "<cmd>Telescope find_files<CR>", opts)
@@ -181,13 +182,15 @@ telescope.setup({
 				},
 			},
 		},
-		-- find_files = {
-		-- 	theme = 'dropdown',
-		-- 	previewer = false,
-		-- 	layout_config = {
-		-- 		width = width_for_nopreview,
-		-- 		height = height_dropdown_nopreview,
-		-- 	},
+		find_files = {
+			-- theme = 'dropdown',
+      hidden = true,
+			-- previewer = false,
+			-- layout_config = {
+			-- 	width = width_for_nopreview,
+			-- 	height = height_dropdown_nopreview,
+   --      }
+			},
 		-- 	find_command = {
 		-- 		'rg',
 		-- 		'--smart-case',
