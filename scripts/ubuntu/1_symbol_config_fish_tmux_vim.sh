@@ -1,6 +1,7 @@
 #!/bin/bash
 
 
+echo 'Start symbol link configs file...'
 
 sudo ln -s -f $(realpath ../../.config/nvim) ~/.config
 sudo ln -s -f $(realpath ../../.config/fish) ~/.config

@@ -1,7 +1,6 @@
 #!/bin/bash
 
 
-
 ## Add repository
 sudo add-apt-repository ppa:fish-shell/release-3 -y
 sudo add-apt-repository ppa:neovim-ppa/stable -y
@@ -37,10 +36,6 @@ sudo update-alternatives --config editor
 # sudo chsh -s /usr/bin/fish
 # option 2, work by start fish at end bashrc
 grep -q -F 'fish' ~/.bashrc || echo 'exec fish' >> ~/.bashrc
-
-## Pre-create config dir
-# mkdir -p ~/.config/fish
-# mkdir -p ~/.config/nvim
 
 ## Install Tmux Plugin Manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm

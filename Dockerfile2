@@ -2,6 +2,11 @@ FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND noninteractive
 
+ENV HOME /root
+ENV XDG_CONFIG_HOME /usr/local/etc
+ENV XDG_DATA_HOME /usr/local/share
+ENV XDG_CACHE_HOME /usr/local/cache
+
 # Locales
 ENV LANGUAGE=en_US.UTF-8
 ENV LANG=en_US.UTF-8
@@ -38,7 +43,7 @@ RUN update-alternatives --config editor
 
 # Install fonts
 RUN mkdir -p $XDG_DATA_HOME/fonts \
-  && cd $XDG_DATA_HOME/fonts \
+  && cd /usr/local/share/fonts \
   && curl --silent -fLo "Roboto Mono Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Regular/complete/Roboto%20Mono%20Nerd%20Font%20Complete.ttf \
   && fc-cache -fv
 
