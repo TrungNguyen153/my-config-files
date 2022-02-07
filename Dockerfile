@@ -1,76 +1,28 @@
 FROM ubuntu:latest 
 
 ENV DEBIAN_FRONTEND noninteractive
-
-# Locales
-ENV LANGUAGE=en_US.UTF-8
-ENV LANG=en_US.UTF-8
-RUN apt-get update && apt-get install -y locales && locale-gen en_US.UTF-8
-
-# Install Core Packages
-RUN apt-get update
-RUN apt-get upgrade -y
-RUN apt-get install -y git cmake build-essential silversearcher-ag exuberant-ctags
-RUN apt-get install -y software-properties-common
-
-# Add repo for install newest version
-RUN add-apt-repository ppa:fish-shell/release-3 -y
-RUN add-apt-repository ppa:neovim-ppa/stable -y
-RUN apt-get update
+ENV HOME /root
 
 
-RUN apt-get install -y fish neovim tmux fzf ripgrep
-RUN apt-get install -y golang
-RUN apt-get install -y python3-dev python3-pip python3-tk
-RUN apt-get install -y ranger curl fontconfig 
 
-# # Install Zoxide searching for fish (optional)
-# RUN curl -sS https://webinstall.dev/zoxide | bash
-# Enable Fish by Default
-RUN grep -q -F 'fish' ~/.bashrc || echo 'exec fish' >> ~/.bashrc
+WORKDIR /$HOME/myconfig-file
 
-RUN update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
-RUN update-alternatives --config vi
-RUN update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
-RUN update-alternatives --config vim
-RUN update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
-RUN update-alternatives --config editor
+COPY ./.config .config
+COPY ./scripts scripts
 
-# Install fonts
-RUN mkdir -p $XDG_DATA_HOME/fonts \
-  && cd $XDG_DATA_HOME/fonts \
-  && curl --silent -fLo "Roboto Mono Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Regular/complete/Roboto%20Mono%20Nerd%20Font%20Complete.ttf \
-  && fc-cache -fv
+RUN chmod +x ./scripts/ubuntu/0_install_fish_tmux_vim.sh
+RUN chmod +x ./scripts/ubuntu/1_symbol_config_fish_tmux_vim.sh
+RUN chmod +x ./scripts/ubuntu/2_install_font_nvm_cargo.sh
+RUN chmod +x ./scripts/ubuntu/3_1_install_alacritty_terminal.sh
 
-# Install nvm ( Node Version Manager )
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+# set workdir for install sh
+WORKDIR /$HOME/myconfig-file/scripts/ubuntu
+RUN ./0_install_fish_tmux_vim.sh
+RUN ./1_symbol_config_fish_tmux_vim.sh
+RUN fish -c ./2_install_font_nvm_cargo.sh
+# RUN ./3_1_install_alacritty_terminal.sh
 
-# Install dotfiles
-RUN echo "Installing dotfiles..."
-
-RUN mkdir -p $XDG_CONFIG_HOME/nvim
-RUN mkdir -p $XDG_CONFIG_HOME/fish
-
-COPY ./.config/fish $XDG_CONFIG_HOME/fish
-COPY ./.config/nvim $XDG_CONFIG_HOME/nvim
-# RUN git clone --depth 1 https://github.com/wbthomason/packer.nvim\
-#  $XDG_DATA_HOME/nvim/site/pack/packer/start/packer.nvim
-
-RUN rm -rf $XDG_CONFIG_HOME/nvim/plugin
-
-# auto Compile Packer
-RUN nvim --headless -c 'autocmd User PackerComplete quitall' #-c 'PackerSync' #dont need because bootstrap
-# auto update nvim-treesitter after compile
-RUN nvim --headless -c 'TSInstallSync all' -c 'quitall'
-
-# tmux config
-COPY .tmux.conf $HOME/.tmux.conf
-COPY .tmux.conf.osx $HOME/.tmux.conf.osx
-COPY .tmux.conf.linux $HOME/.tmux.conf.linux
-COPY .tmux.powerline.conf $HOME/.tmux.powerline.conf
-# Install tmux plugin manager
-RUN git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm \
-  && $HOME/.tmux/plugins/tpm/bin/install_plugins
-
+# start at home
+WORKDIR /$HOME
 # auto forward to fish
 ENTRYPOINT [ "bash" ]

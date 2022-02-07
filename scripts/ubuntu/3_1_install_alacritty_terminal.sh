@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
-
+apt-get -y install libfontconfig libfontconfig1-dev
 cargo install alacritty
 
-sudo ln -s -f $(realpath ../../.alacritty.yml) $HOME/.alacritty.yml.
+ln -s -f $(realpath ../../.alacritty.yml) $HOME/.alacritty.yml.

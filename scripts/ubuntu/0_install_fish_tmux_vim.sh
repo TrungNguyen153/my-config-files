@@ -1,35 +1,37 @@
-#!/bin/bash
+#!/bin/sh
 
 
-## Add repository
-sudo add-apt-repository ppa:fish-shell/release-3 -y
-sudo add-apt-repository ppa:neovim-ppa/stable -y
 
 ## Install Core Packages
-sudo apt update
-sudo apt upgrade -y
-sudo apt install -y cmake build-essential silversearcher-ag exuberant-ctags
-sudo apt install -y software-properties-common
+apt update
+apt upgrade -y
+apt install -y cmake build-essential silversearcher-ag exuberant-ctags
+apt install -y software-properties-common
+
+## Add repository (require software-properties-common)
+add-apt-repository ppa:fish-shell/release-3 -y
+add-apt-repository ppa:neovim-ppa/stable -y
+add-apt-repository ppa:deadsnakes/ppa -y # Python repo
 
 ## Install python
-sudo apt install -y python3 python3-pip
+apt install -y python3.9 python3-pip
 
 ## Install terminal explorer management
-sudo apt install -y ranger
+apt install -y ranger
 
-## install git
-sudo apt install -y git
+## install git and curl
+apt install -y git curl
 
 ## Main super star
-sudo apt install -y fish neovim tmux fzf ripgrep
+apt install -y fish neovim tmux fzf ripgrep
 
 ## Enable nvim as default selection priority
-sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
-sudo update-alternatives --config vi
-sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
-sudo update-alternatives --config vim
-sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
-sudo update-alternatives --config editor
+update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
+update-alternatives --config vi
+update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
+update-alternatives --config vim
+update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
+update-alternatives --config editor
 
 # Enable Fish by Default
 # Option 1, seem not work, unknow why
@@ -55,7 +57,7 @@ curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fi
 # fisher add patrickf3139/fzf.fish
 
 # Another option is to use fzf extension
-sudo apt remove -y fzf
+apt remove -y fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
