@@ -10,7 +10,7 @@ mkdir -p $XDG_DATA_HOME/fonts \
 
 # Install Node version mananger
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-chsh -s `which fish`
+# chsh -s (which fish)
 # Install node Long Time Suport (v16 now)
 nvm install lts
 # Install yarn for add feature

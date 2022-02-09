@@ -19,6 +19,8 @@ RUN chmod +x ./scripts/ubuntu/0_install_fish_tmux_vim.sh
 RUN chmod +x ./scripts/ubuntu/1_symbol_config_fish_tmux_vim.sh
 RUN chmod +x ./scripts/ubuntu/2_install_font_nvm_cargo.sh
 RUN chmod +x ./scripts/ubuntu/3_1_install_alacritty_terminal.sh
+RUN chmod +x ./scripts/ubuntu/4_install_android_sdk.sh
+RUN chmod +x ./scripts/ubuntu/5_install_flutter.sh
 
 # set workdir for install sh
 WORKDIR /$HOME/myconfig-file/scripts/ubuntu
@@ -26,6 +28,9 @@ WORKDIR /$HOME/myconfig-file/scripts/ubuntu
 RUN ./0_install_fish_tmux_vim.sh
 RUN ./1_symbol_config_fish_tmux_vim.sh
 RUN fish ./2_install_font_nvm_cargo.sh
+RUN fish ./4_install_android_sdk.sh
+RUN fish ./5_install_flutter.sh
+
 # RUN ./3_1_install_alacritty_terminal.sh
 
 # start at home

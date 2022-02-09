@@ -20,7 +20,7 @@ apt install -y python3.9 python3-pip
 apt install -y ranger
 
 ## install git and curl
-apt install -y git curl
+apt install -y git curl unzip
 
 ## Main super star
 apt install -y fish neovim tmux fzf ripgrep
