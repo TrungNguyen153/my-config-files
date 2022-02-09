@@ -14,6 +14,11 @@ alias tmuxconfig "nvim ~/.tmux.conf"
 alias fishconfig "nvim ~/.config/fish/"
 alias fishsource "source ~/.config/fish/config.fish"
 
+# Docker ulti
+alias dockerclearimage "docker image prune --filter=\"dangling=true\""
+alias dockerclearcontainer "docker rm -f (docker ps -a -q)"
+alias dc "docker-compose"
+
 # custom shortcut into my dot file
 alias mydotfile "nvim ~/My-Workspace/my-config-files/"
 
@@ -38,6 +43,7 @@ set -gx PATH ~/.local/bin $PATH
 set -gx PATH node_modules/.bin $PATH
 
 # Default Node Version Manager plugin
+set --universal nvm_data $XDG_CONFIG_HOME/nvm
 set --universal nvm_default_version v16
 
 # Rust plugin installed by cargo
