@@ -1,14 +1,14 @@
-#!/bin/sh
+#!/usr/bin/fish
 
 
 sudo apt install -y openjdk-11-jdk-headless # For android dev
 
 # set default build arguments
-SDK_VERSION=commandlinetools-linux-7302050_latest.zip
-ANDROID_BUILD_VERSION=31
-ANDROID_TOOLS_VERSION=31.0.0
-NDK_VERSION=21.4.7075529
-ANDROID_NDK=$ANDROID_HOME/ndk/$NDK_VERSION
+set -l SDK_VERSION commandlinetools-linux-7302050_latest.zip
+set -l ANDROID_BUILD_VERSION 31
+set -l ANDROID_TOOLS_VERSION 31.0.0
+set -l NDK_VERSION 21.4.7075529
+set -l ANDROID_NDK $ANDROID_HOME/ndk/$NDK_VERSION
 
 rm -rf $ANDROID_HOME
 echo "Begin install android sdk"

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/fish
 
 apt-get update
 apt-get install -y fontconfig

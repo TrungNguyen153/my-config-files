@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/fish
 
 apt-get -y install libfontconfig libfontconfig1-dev
 cargo install alacritty

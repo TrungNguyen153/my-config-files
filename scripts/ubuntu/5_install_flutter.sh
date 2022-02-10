@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/fish
 
 # Clear dir
 rm -rf $HOME/flutter

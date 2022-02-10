@@ -30,7 +30,6 @@ local keymap = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
 -- General pickers
-keymap("n", "<localleader>ca", "<cmd>Telescope lsp_code_actions<CR>", opts)
 keymap("n", "<localleader>r", "<cmd>Telescope resume<CR>", opts)
 keymap("n", "<localleader>R", "<cmd>Telescope pickers<CR>", opts)
 keymap("n", "<localleader>f", "<cmd>Telescope find_files<CR>", opts)
@@ -48,6 +47,8 @@ keymap("n", "<localleader>x", "<cmd>Telescope oldfiles<CR>", opts)
 -- keymap("n", "<localleader>z", '<cmd>lua require"configs.telescope".pickers.zoxide()<CR>', opts)
 keymap("n", "<localleader>;", "<cmd>Telescope command_history<CR>", opts)
 keymap("n", "<localleader>/", "<cmd>Telescope search_history<CR>", opts)
+keymap("n", "<localleader>ca", "<cmd>Telescope flutter commands<CR>", opts)
+
 
 local actions = require("telescope.actions")
 

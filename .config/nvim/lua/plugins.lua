@@ -124,6 +124,16 @@ return require("packer").startup(function(use)
 			require("lsp.null-ls")
 		end,
 	})
+
+	use({
+		"akinsho/flutter-tools.nvim",
+		requires ={ "nvim-lua/plenary.nvim", "RobertBrunhage/flutter-riverpod-snippets"},
+    after ={ "telescope.nvim", "LuaSnip"},
+		config = function()
+			require("lsp.settings.flutter-tools")
+      require("telescope").load_extension("flutter")
+		end,
+	})
 	--- }}}
 
 	-- Completion Group {{{
@@ -310,6 +320,15 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+  -- HIGH SILL NEOVIM -> NEED TO MASTER THIS
+  use {
+    'machakann/vim-sandwich',
+    config = function()
+      vim.cmd([[
+				runtime macros/sandwich/keymap/surround.vim
+      ]])
+    end,
+  }
 	-- }}}
 
 	-- Automatically set up your configuration after cloning packer.nvim
