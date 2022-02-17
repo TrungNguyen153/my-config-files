@@ -321,6 +321,8 @@ return require("packer").startup(function(use)
 	})
 
   -- HIGH SILL NEOVIM -> NEED TO MASTER THIS
+  -- textobj-sandwich  -> ib is ab as
+  -- operator-sandwich -> sa sd sr
   use {
     'machakann/vim-sandwich',
     config = function()
