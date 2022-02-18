@@ -108,7 +108,7 @@ return require("packer").startup(function(use)
 
 	use({
 		"williamboman/nvim-lsp-installer",
-		requires = { "jose-elias-alvarez/nvim-lsp-ts-utils" }, -- for typescript helper
+		requires = { "jose-elias-alvarez/nvim-lsp-ts-utils", "folke/lua-dev.nvim" }, -- for typescript helper
 		config = function()
 			require("lsp.lsp-installer")
 		end,
@@ -127,11 +127,21 @@ return require("packer").startup(function(use)
 
 	use({
 		"akinsho/flutter-tools.nvim",
-		requires ={ "nvim-lua/plenary.nvim", "RobertBrunhage/flutter-riverpod-snippets"},
-    after ={ "telescope.nvim", "LuaSnip"},
+		requires = { "nvim-lua/plenary.nvim", "RobertBrunhage/flutter-riverpod-snippets" },
+		after = { "telescope.nvim", "LuaSnip" },
 		config = function()
 			require("lsp.settings.flutter-tools")
-      require("telescope").load_extension("flutter")
+			require("telescope").load_extension("flutter")
+		end,
+	})
+
+	-- Rust stuff
+	use({
+		"saecki/crates.nvim",
+		event = { "BufRead Cargo.toml" },
+		requires = { { "nvim-lua/plenary.nvim" } },
+		config = function()
+			require("crates").setup()
 		end,
 	})
 	--- }}}
@@ -308,29 +318,37 @@ return require("packer").startup(function(use)
 	})
 
 	-- jump anywhere on screen
+	-- use({
+	-- 	"easymotion/vim-easymotion",
+	-- 	config = function()
+	-- 		vim.cmd([[
+	--          let g:EasyMotion_do_mapping = 0
+	--          nmap <Leader><Leader>s <Plug>(easymotion-overwin-f)
+	--          " Turn on case-insensitive feature
+	--          let g:EasyMotion_smartcase = 1
+	--        ]])
+	-- 	end,
+	-- })
 	use({
-		"easymotion/vim-easymotion",
+		"phaazon/hop.nvim",
+		branch = "v1", -- optional but strongly recommended
 		config = function()
-			vim.cmd([[
-          let g:EasyMotion_do_mapping = 0
-          nmap <Leader><Leader>s <Plug>(easymotion-overwin-f)
-          " Turn on case-insensitive feature
-          let g:EasyMotion_smartcase = 1
-        ]])
+			-- you can configure Hop the way you like here; see :h hop-config
+			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
+			vim.api.nvim_set_keymap("n", "ss", "<cmd>HopChar2<CR>", { noremap = false })
 		end,
 	})
-
-  -- HIGH SILL NEOVIM -> NEED TO MASTER THIS
-  -- textobj-sandwich  -> ib is ab as
-  -- operator-sandwich -> sa sd sr
-  use {
-    'machakann/vim-sandwich',
-    config = function()
-      vim.cmd([[
+	-- HIGH SILL NEOVIM -> NEED TO MASTER THIS
+	-- textobj-sandwich  -> ib is ab as
+	-- operator-sandwich -> sa sd sr
+	use({
+		"machakann/vim-sandwich",
+		config = function()
+			vim.cmd([[
 				runtime macros/sandwich/keymap/surround.vim
       ]])
-    end,
-  }
+		end,
+	})
 	-- }}}
 
 	-- Automatically set up your configuration after cloning packer.nvim

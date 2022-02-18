@@ -7,10 +7,13 @@ local snip_status_ok, luasnip = pcall(require, "luasnip")
 if not snip_status_ok then
   return
 end
-
+-- https://github.com/L3MON4D3/LuaSnip#add-snippets
 require("luasnip/loaders/from_vscode").lazy_load()
 require'luasnip'.filetype_extend("ruby", {"rails"})
 require'luasnip'.filetype_extend("dart", {"flutter"})
+
+require("luasnip.loaders.from_snipmate").lazy_load()
+
 local check_backspace = function()
   local col = vim.fn.col "." - 1
   return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
@@ -118,6 +121,8 @@ cmp.setup {
     { name = "luasnip" },
     { name = "buffer" },
     { name = "path" },
+    -- Rust dependency manager
+    { name = "crates" },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
