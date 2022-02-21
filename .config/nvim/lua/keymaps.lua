@@ -4,7 +4,6 @@ local term_opts = { silent = true }
 
 -- Shorten function name
 local keymap = vim.api.nvim_set_keymap
-local buf_keymap = vim.api.nvim_buf_set_keymap
 
 --Remap space as leader key
 vim.g.mapleader = " "
@@ -19,7 +18,7 @@ keymap("n", "[window]", "<Nop>", opts)
 keymap("n", "s", "[window]", term_opts)
 keymap("n", "[window]b", "<cmd>buffer#<CR>", opts)
 keymap("n", "[window]c", "<cmd>close<CR>", opts)
-keymap("n", "[window]d", "<cmd>bd<CR>", opts)
+keymap("n", "[window]d", "<cmd>Bdelete<CR>", opts)
 keymap("n", "[window]v", "<cmd>split<CR>", opts)
 keymap("n", "[window]g", "<cmd>vsplit<CR>", opts)
 keymap("n", "[window]t", "<cmd>tabnew<CR>", opts)
@@ -27,7 +26,7 @@ keymap("n", "[window]o", "<cmd>only<CR>", opts)
 keymap("n", "<C-x>", "<C-w>x", opts )
 
 -- Quit buffer by q
-keymap("n", "q", "<cmd>bd<CR>", opts)
+keymap("n", "q", "<cmd>q<CR>", opts)
 -- vim.cmd([[
 --   	autocmd BufWinEnter,VimEnter *
 -- 		\  if ! maparg('q', 'n')

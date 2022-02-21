@@ -58,17 +58,49 @@ return require("packer").startup(function(use)
 		end,
 	})
 	-- Theme
+	-- use({
+	-- 	"morhetz/gruvbox",
+	-- 	-- Perform set theme when loaded plugin
+	-- 	config = function()
+	-- 		vim.cmd([[
+	--            set background=dark
+	--            execute 'colorscheme' 'gruvbox'
+	--        ]])
+	-- 	end,
+	-- })
 	use({
-		"morhetz/gruvbox",
-		-- Perform set theme when loaded plugin
+		"NTBBloodbath/doom-one.nvim",
 		config = function()
-			vim.cmd([[
-            set background=dark
-            execute 'colorscheme' 'gruvbox'
-        ]])
+			require("doom-one").setup({
+				cursor_coloring = true,
+				terminal_colors = true,
+				italic_comments = true,
+				enable_treesitter = true,
+				transparent_background = true,
+				pumblend = {
+					enable = true,
+					transparency_amount = 20,
+				},
+				plugins_integrations = {
+					neorg = true,
+					barbar = true,
+					bufferline = true,
+					gitgutter = false,
+					gitsigns = true,
+					telescope = false,
+					neogit = true,
+					nvim_tree = true,
+					dashboard = true,
+					startify = true,
+					whichkey = true,
+					indent_blankline = true,
+					vim_illuminate = true,
+					lspsaga = false,
+				},
+			})
 		end,
 	})
-
+  
 	-- TreeSitter Group {{{
 	use({
 		"nvim-treesitter/nvim-treesitter",
