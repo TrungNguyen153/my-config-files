@@ -100,7 +100,7 @@ return require("packer").startup(function(use)
 			})
 		end,
 	})
-  
+
 	-- TreeSitter Group {{{
 	use({
 		"nvim-treesitter/nvim-treesitter",
@@ -140,15 +140,13 @@ return require("packer").startup(function(use)
 
 	use({
 		"williamboman/nvim-lsp-installer",
-		requires = { "jose-elias-alvarez/nvim-lsp-ts-utils", "folke/lua-dev.nvim" }, -- for typescript helper
+		requires = {  "tamago324/nlsp-settings.nvim", "jose-elias-alvarez/nvim-lsp-ts-utils", "folke/lua-dev.nvim" }, -- for typescript helper
 		config = function()
 			require("lsp.lsp-installer")
 		end,
 	})
 
-	-- language server settings defined in json for
-	use("tamago324/nlsp-settings.nvim")
-
+	-- Many useful stuff (Format Diagnostic CodeAction)
 	use({
 		"jose-elias-alvarez/null-ls.nvim",
 		after = { "nvim-lspconfig", "plenary.nvim" },
@@ -156,7 +154,7 @@ return require("packer").startup(function(use)
 			require("lsp.null-ls")
 		end,
 	})
-
+	-- Flutter stuff
 	use({
 		"akinsho/flutter-tools.nvim",
 		requires = { "nvim-lua/plenary.nvim", "RobertBrunhage/flutter-riverpod-snippets" },
@@ -168,6 +166,13 @@ return require("packer").startup(function(use)
 	})
 
 	-- Rust stuff
+	use({
+		"simrat39/rust-tools.nvim",
+		requires = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("lsp.settings.rust-tools")
+		end,
+	})
 	use({
 		"saecki/crates.nvim",
 		event = { "BufRead Cargo.toml" },

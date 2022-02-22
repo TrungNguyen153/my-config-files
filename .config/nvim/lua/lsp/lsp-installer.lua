@@ -33,6 +33,20 @@ lsp_installer.on_server_ready(function(server)
 		opts = vim.tbl_deep_extend("force", tsserver_opts, opts)
 	end
 
+	if server.name == "rust_analyzer" then
+		local rust_tools_config = require("lsp.settings.rust-tools")
+		local merge_option = vim.tbl_deep_extend("force",rust_tools_config.server, opts)
+		require("rust-tools").setup({
+      tools = rust_tools_config.tools,
+			server = vim.tbl_deep_extend("force", server:get_default_options(), merge_option),
+		})
+		return
+	end
+
+	-- Ignore server setup because plugin handle this for us
+	if server.name == "dartls" then
+		return
+	end
 	-- This setup() function is exactly the same as lspconfig's setup function.
 	-- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 	server:setup(opts)

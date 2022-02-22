@@ -33,7 +33,7 @@ if not status_ok then
 end
 
 nvim_tree.setup({
-	disable_netrw = true,
+	disable_netrw = true, -- Disable default neovim explorer
 	hijack_netrw = true,
 	open_on_setup = false,
 	ignore_ft_on_setup = {
@@ -88,6 +88,7 @@ nvim_tree.setup({
 		hide_root_folder = false,
 		side = "left",
 		auto_resize = true,
+    preserve_window_proportions = true,
 		mappings = {
 			custom_only = true,
 			list = {
@@ -115,6 +116,14 @@ nvim_tree.setup({
 		},
 		number = false,
 		relativenumber = false,
+	},
+	actions = {
+		open_file = {
+			quit_on_open = true,
+			window_picker = {
+				enable = true,
+			},
+		},
 	},
 	trash = {
 		cmd = "trash",
