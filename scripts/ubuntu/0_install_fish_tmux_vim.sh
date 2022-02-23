@@ -3,41 +3,43 @@
 
 
 ## Install Core Packages
-apt update
-apt upgrade -y
-apt install -y cmake build-essential silversearcher-ag exuberant-ctags
-apt install -y software-properties-common
+sudo apt update
+sudo apt upgrade -y
+sudo apt install -y cmake build-essential silversearcher-ag exuberant-ctags
+sudo apt install -y software-properties-common
 
 ## Add repository (require software-properties-common)
-add-apt-repository ppa:fish-shell/release-3 -y
-add-apt-repository ppa:neovim-ppa/stable -y
-add-apt-repository ppa:deadsnakes/ppa -y # Python repo
+sudo add-apt-repository ppa:fish-shell/release-3 -y
+sudo add-apt-repository ppa:neovim-ppa/stable -y
+sudo add-apt-repository ppa:deadsnakes/ppa -y # Python repo
 
 ## Install python
-apt install -y python3.9 python3-pip
+sudo apt install -y python3.9 python3-pip
 
 ## Install terminal explorer management
-apt install -y ranger
+sudo apt install -y ranger
 
 ## install git and curl
-apt install -y git curl unzip
+sudo apt install -y git curl unzip
 
 ## Main super star
-apt install -y fish neovim tmux fzf ripgrep
+sudo apt install -y fish neovim tmux fzf ripgrep
 
 ## Enable nvim as default selection priority
-update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
-update-alternatives --config vi
-update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
-update-alternatives --config vim
-update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
-update-alternatives --config editor
+sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
+sudo update-alternatives --auto vi
+sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
+sudo update-alternatives --auto vim
+sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
+sudo update-alternatives --auto editor
 
 # Enable Fish by Default
 # Option 1, seem not work, unknow why
 # sudo chsh -s /usr/bin/fish
 # option 2, work by start fish at end bashrc
 grep -q -F 'fish' ~/.bashrc || echo 'exec fish' >> ~/.bashrc
+# Add some env for bashrc install my dir
+grep -q -F 'NVM_DIR' ~/.bashrc || echo 'export NVM_DIR="$HOME/.config/nvm"' >> ~/.bashrc
 
 ## Install Tmux Plugin Manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -57,7 +59,7 @@ curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fi
 # fisher add patrickf3139/fzf.fish
 
 # Another option is to use fzf extension
-apt remove -y fzf
+sudo apt remove -y fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
