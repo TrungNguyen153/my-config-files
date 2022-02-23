@@ -45,8 +45,8 @@ set -gx PATH ~/.local/bin $PATH
 set -gx PATH node_modules/.bin $PATH
 
 # Default Node Version Manager plugin
-#set --universal nvm_data $XDG_CONFIG_HOME/nvm
-#set --universal NVM_DIR $XDG_CONFIG_HOME/nvm
+set --universal nvm_data $XDG_CONFIG_HOME/nvm
+set --universal NVM_DIR $XDG_CONFIG_HOME/nvm
 set --universal nvm_default_version v16
 
 # Rust plugin installed by cargo
