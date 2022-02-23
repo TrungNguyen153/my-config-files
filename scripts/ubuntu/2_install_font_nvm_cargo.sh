@@ -18,5 +18,5 @@ nvm install lts
 npm install --global yarn
 yarn add --global typescript-language-server
 
-# Install cargo (installer of Rust app)
+# Install Rust (Cargo package manager)
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
