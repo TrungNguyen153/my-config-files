@@ -45,10 +45,6 @@ nvim_tree.setup({
 	open_on_tab = false,
 	hijack_cursor = false,
 	update_cwd = true,
-	update_to_buf_dir = {
-		enable = true,
-		auto_open = true,
-	},
 	diagnostics = {
 		enable = true,
 		-- Diagnostics signs and highlights
@@ -65,7 +61,7 @@ nvim_tree.setup({
 		},
 	},
 	update_focused_file = {
-		enable = true,
+		enable = false,
 		update_cwd = true,
 		ignore_list = {},
 	},
@@ -88,7 +84,7 @@ nvim_tree.setup({
 		hide_root_folder = false,
 		side = "left",
 		auto_resize = true,
-    preserve_window_proportions = true,
+    preserve_window_proportions = false,
 		mappings = {
 			custom_only = true,
 			list = {
@@ -114,8 +110,8 @@ nvim_tree.setup({
 				{ key = "<Tab>", action = "preview" },
 			},
 		},
-		number = false,
-		relativenumber = false,
+		number = true,
+		relativenumber = true,
 	},
 	actions = {
 		open_file = {
@@ -129,10 +125,6 @@ nvim_tree.setup({
 		cmd = "trash",
 		require_confirm = true,
 	},
-	quit_on_open = 0,
-	git_hl = 1,
-	disable_window_picker = 0,
-	root_folder_modifier = ":t",
 	show_icons = {
 		git = 1,
 		folders = 1,
