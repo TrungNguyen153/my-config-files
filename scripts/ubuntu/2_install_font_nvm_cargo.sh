@@ -7,7 +7,8 @@ mkdir -p $XDG_DATA_HOME/fonts \
   && cd $XDG_DATA_HOME/fonts \
   && curl --silent -fLo "Roboto Mono Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/RobotoMono/Regular/complete/Roboto%20Mono%20Nerd%20Font%20Complete.ttf \
   && fc-cache -fv
-
+# Noto Sans Mono [Another good fond]
+# curl -fLo "Noto Sans Mono Regular Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Noto/Sans-Mono/complete/Noto%20Sans%20Mono%20Regular%20Nerd%20Font%20Complete.ttf
 # Install Node version mananger
 mkdir -p $XDG_CONFIG_HOME/nvm
 export NVM_DIR=$XDG_CONFIG_HOME/nvm && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash

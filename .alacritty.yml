@@ -110,7 +110,8 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
     family: 'RobotoMono Nerd Font'
-    style: Regular
+    # style: Regular
+    # family: 'Noto Sans Mono Nerd Font'
     # family: 'monospace'
     # style: Regular
 
