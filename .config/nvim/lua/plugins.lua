@@ -208,13 +208,14 @@ return require("packer").startup(function(use)
 	})
 
 	-- Disable for docker, should open for real devices
-	-- use {'tzachar/cmp-tabnine',
-	--   run='./install.sh',
-	--   after = 'nvim-cmp',
-	--   config = function()
-	--     require('configs.cmp-tabnine')
-	--   end,
-	-- }
+	use {'tzachar/cmp-tabnine',
+	  run='./install.sh',
+    requires = 'hrsh7th/nvim-cmp',
+	  after = 'nvim-cmp',
+	  config = function()
+	    require('configs.cmp-tabnine')
+	  end,
+	}
 	-- }}}
 
 	-- TELESCOPE {{{
@@ -306,6 +307,7 @@ return require("packer").startup(function(use)
 			require("configs.colorizer")
 		end,
 	})
+  
 	-- }}}
 
 	-- Explorer {{{

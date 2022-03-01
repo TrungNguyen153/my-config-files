@@ -2,12 +2,12 @@
 -- see: https://github.com/hrsh7th/nvim-cmp
 -- rafi settings
 
-local cmp = require('cmp')
+local cmp = require("cmp")
 
 _G.cmp_source_list = function(arr)
 	local config = {
 		buffer = {
-			name = 'buffer',
+			name = "buffer",
 			-- option = {
 			-- 	-- Use all visible buffers
 			-- 	get_bufnrs = function()
@@ -19,14 +19,14 @@ _G.cmp_source_list = function(arr)
 			-- 	end,
 			-- },
 		},
-		tabnine = { name = 'cmp_tabnine' },
-		nvim_lsp = { name = 'nvim_lsp' },
-		nvim_lua = { name = 'nvim_lua' },
-		path  = { name = 'path' },
-		emoji = { name = 'emoji' },
-		vsnip = { name = 'vsnip' },
-		tmux  = { name = 'tmux', option = { all_panes = true }},
-		latex = { name = 'latex_symbols' },
+		tabnine = { name = "cmp_tabnine" },
+		nvim_lsp = { name = "nvim_lsp" },
+		nvim_lua = { name = "nvim_lua" },
+		path = { name = "path" },
+		emoji = { name = "emoji" },
+		vsnip = { name = "vsnip" },
+		tmux = { name = "tmux", option = { all_panes = true } },
+		latex = { name = "latex_symbols" },
 	}
 	local sources = {}
 	for _, name in ipairs(arr) do
@@ -36,35 +36,41 @@ _G.cmp_source_list = function(arr)
 end
 
 _G.cmp_setup_markdown = function()
-	require('cmp').setup.buffer{ sources = cmp_source_list(
-		{ 'emoji', 'nvim_lsp', 'buffer', 'path', 'vsnip', 'tmux' })}
+	require("cmp").setup.buffer({
+		sources = cmp_source_list({ "emoji", "nvim_lsp", "buffer", "path", "vsnip", "tmux" }),
+	})
 end
 
 _G.cmp_setup_lua = function()
-	require('cmp').setup.buffer{ sources = cmp_source_list(
-		{ 'nvim_lua', 'nvim_lsp', 'buffer', 'path', 'vsnip', 'tmux' })}
+	require("cmp").setup.buffer({
+		sources = cmp_source_list({ "nvim_lua", "nvim_lsp", "buffer", "path", "vsnip", "tmux" }),
+	})
 end
 
 _G.cmp_setup_org = function()
-	require('cmp').setup.buffer{ sources = cmp_source_list(
-		{ 'orgmode', 'emoji', 'nvim_lsp', 'buffer', 'path', 'vsnip', 'tmux' })}
+	require("cmp").setup.buffer({
+		sources = cmp_source_list({ "orgmode", "emoji", "nvim_lsp", "buffer", "path", "vsnip", "tmux" }),
+	})
 end
 
-vim.api.nvim_exec([[
+vim.api.nvim_exec(
+	[[
 	augroup user_cmp
 		autocmd!
 		autocmd FileType markdown,text call v:lua.cmp_setup_markdown()
 		autocmd FileType lua call v:lua.cmp_setup_lua()
 		autocmd FileType org call v:lua.cmp_setup_org()
 	augroup END
-]], false)
+]],
+	false
+)
 
 local has_words_before = function()
-	if vim.api.nvim_buf_get_option(0, 'buftype') == 'prompt' then
+	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
 		return false
 	end
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 local t = function(str)
@@ -72,90 +78,89 @@ local t = function(str)
 end
 
 -- Setup cmp
-cmp.setup {
+cmp.setup({
 	sources = cmp_source_list({
-		'nvim_lsp',
+		"nvim_lsp",
 		-- 'buffer',
 		-- 'path',
-		'vsnip',
-		'tabnine',
+		"vsnip",
+		"tabnine",
 		-- 'tmux',
 	}),
 
 	mapping = {
-		['<C-p>'] = cmp.mapping.select_prev_item(),
-		['<C-n>'] = cmp.mapping.select_next_item(),
-		['<C-u>'] = cmp.mapping.scroll_docs(-4),
-		['<C-d>'] = cmp.mapping.scroll_docs(4),
-		['<C-Space>'] = cmp.mapping.complete(),
-		['<C-e>'] = cmp.mapping.close(),
-		['<C-c>'] = function(fallback)
+		["<C-p>"] = cmp.mapping.select_prev_item(),
+		["<C-n>"] = cmp.mapping.select_next_item(),
+		["<C-u>"] = cmp.mapping.scroll_docs(-4),
+		["<C-d>"] = cmp.mapping.scroll_docs(4),
+		["<C-Space>"] = cmp.mapping.complete(),
+		["<C-e>"] = cmp.mapping.close(),
+		["<C-c>"] = function(fallback)
 			cmp.close()
 			fallback()
 		end,
-		['<CR>'] = cmp.mapping.confirm({
+		["<CR>"] = cmp.mapping.confirm({
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = true,
 		}),
-		['<Tab>'] = cmp.mapping(function(_)
+		["<Tab>"] = cmp.mapping(function(_)
 			if cmp.visible() then
 				cmp.select_next_item()
-			elseif vim.fn['vsnip#available']() == 1 then
-				vim.api.nvim_feedkeys(t('<Plug>(vsnip-expand-or-jump)'), '', true)
+			elseif vim.fn["vsnip#available"]() == 1 then
+				vim.api.nvim_feedkeys(t("<Plug>(vsnip-expand-or-jump)"), "", true)
 			elseif has_words_before() then
 				cmp.complete()
 			else
-				vim.fn.feedkeys(t('<Tab>'), 'n')
+				vim.fn.feedkeys(t("<Tab>"), "n")
 			end
-		end, { 'i', 's' }),
-		['<S-Tab>'] = cmp.mapping(function(_)
+		end, { "i", "s" }),
+		["<S-Tab>"] = cmp.mapping(function(_)
 			if cmp.visible() then
 				cmp.select_prev_item()
-			elseif vim.fn['vsnip#jumpable'](-1) == 1 then
-				vim.api.nvim_feedkeys(t('<Plug>(vsnip-jump-prev)'), '', true)
+			elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+				vim.api.nvim_feedkeys(t("<Plug>(vsnip-jump-prev)"), "", true)
 			elseif has_words_before() then
 				cmp.complete()
 			else
-				vim.api.nvim_feedkeys(t('<C-h>'), 'n')
+				vim.api.nvim_feedkeys(t("<C-h>"), "n")
 			end
-		end, { 'i', 's' }),
+		end, { "i", "s" }),
 	},
 
 	documentation = {
-		border = 'rounded',
-		winhighlight = 'NormalFloat:UserFloat,FloatBorder:UserBorder',
+		border = "rounded",
+		winhighlight = "NormalFloat:UserFloat,FloatBorder:UserBorder",
 	},
 
 	formatting = {
 		format = function(entry, vim_item)
 			-- Prepend with a fancy icon
-			local symbol = require('lsp_kind').preset()[vim_item.kind]
+			local symbol = require("lsp_kind").preset()[vim_item.kind]
 			if symbol ~= nil then
-				vim_item.kind = symbol
-					.. (vim.g.global_symbol_padding or ' ') .. vim_item.kind
+				vim_item.kind = symbol .. (vim.g.global_symbol_padding or " ") .. vim_item.kind
 			end
 
 			-- Set menu source name
 			vim_item.menu = ({
 				nvim_lsp = "[LSP]",
 				nvim_lua = "[Lua]",
-				buffer   = "[Buf]",
-				spell    = "[Spell]",
-				path     = "[Path]",
-				vsnip    = "[VSnip]",
+				buffer = "[Buf]",
+				spell = "[Spell]",
+				path = "[Path]",
+				vsnip = "[VSnip]",
 				cmp_tabnine = "[TN]",
-				tmux     = "[Tmux]",
-				orgmode  = "[Org]"
+				tmux = "[Tmux]",
+				orgmode = "[Org]",
 			})[entry.source.name]
 
 			local tempMenu = vim_item.menu
 
-			if entry.source.name == 'cmp_tabnine' then
+			if entry.source.name == "cmp_tabnine" then
 				if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
-					tempMenu = entry.completion_item.data.detail .. ' ' .. tempMenu
+					tempMenu = entry.completion_item.data.detail .. " " .. tempMenu
 				end
 				-- overwrite
-				vim_item.kind = ''
+				vim_item.kind = ""
 				vim_item.menu = tempMenu
 			end
 
@@ -170,8 +175,7 @@ cmp.setup {
 
 	snippet = {
 		expand = function(args)
-			vim.fn['vsnip#anonymous'](args.body)
+			vim.fn["vsnip#anonymous"](args.body)
 		end,
 	},
-
-}
+})
