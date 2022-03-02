@@ -322,6 +322,11 @@ return require("packer").startup(function(use)
 	})
 	--}}}
 
+  --# FileType {{{
+  use({
+    "neoclide/jsonc.vim"
+  })
+  --}
 	-- ulti {{{
 	use({
 		"max397574/better-escape.nvim",

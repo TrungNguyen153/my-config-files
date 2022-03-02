@@ -2,6 +2,25 @@ local cmp_status_ok, cmp = pcall(require, "cmp")
 if not cmp_status_ok then
 	return
 end
+-- Dark+ Theme of VS Code for completion
+vim.cmd([[
+" gray
+highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
+" blue
+highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
+highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6
+" light blue
+highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE
+highlight! CmpItemKindInterface guibg=NONE guifg=#9CDCFE
+highlight! CmpItemKindText guibg=NONE guifg=#9CDCFE
+" pink
+highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0
+highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0
+" front
+highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
+highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
+highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
+]])
 
 local snip_status_ok, luasnip = pcall(require, "luasnip")
 if not snip_status_ok then
@@ -21,31 +40,31 @@ end
 
 --   פּ ﯟ   some other good icons
 local kind_icons = {
-	Text = "",
-	Method = "m",
-	Function = "",
-	Constructor = "",
-	Field = "",
-	Variable = "",
-	Class = "",
-	Interface = "",
-	Module = "",
-	Property = "",
-	Unit = "",
-	Value = "",
-	Enum = "",
-	Keyword = "",
-	Snippet = "",
-	Color = "",
-	File = "",
-	Reference = "",
-	Folder = "",
-	EnumMember = "",
-	Constant = "",
-	Struct = "",
-	Event = "",
-	Operator = "",
-	TypeParameter = "",
+	Text = " ",
+	Method = " ",
+	Function = " ",
+	Constructor = " ",
+	Field = " ",
+	Variable = " ",
+	Class = " ",
+	Interface = " ",
+	Module = " ",
+	Property = " ",
+	Unit = " ",
+	Value = " ",
+	Enum = " ",
+	Keyword = " ",
+	Snippet = " ",
+	Color = " ",
+	File = " ",
+	Reference = " ",
+	Folder = " ",
+	EnumMember = " ",
+	Constant = " ",
+	Struct = " ",
+	Event = " ",
+	Operator = " ",
+	TypeParameter = " ",
 }
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
@@ -102,30 +121,26 @@ cmp.setup({
 		}),
 	},
 	formatting = {
-		fields = { "kind", "abbr", "menu" },
+		-- fields = { "kind", "abbr", "menu" },
+		fields = { "abbr", "kind", "menu" }, -- The array of completion menu field to specify the order of them.
 		format = function(entry, vim_item)
 			-- Kind icons
 			-- vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
 			vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 			vim_item.menu = ({
 				nvim_lsp = "[LSP]",
-				luasnip = "[Snippet]",
-				buffer = "[Buffer]",
+				luasnip = "[LSnip]",
+				buffer = "[Buf]",
 				path = "[Path]",
-				cmp_tabnine = "[TN]",
+				cmp_tabnine = "[Tnine]",
 				tmux = "[Tmux]",
 				orgmode = "[Org]",
 			})[entry.source.name]
 
-			local tempMenu = vim_item.menu
-
 			if entry.source.name == "cmp_tabnine" then
 				if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
-					tempMenu = entry.completion_item.data.detail .. " " .. tempMenu
+					vim_item.kind = "" .. " " .. entry.completion_item.data.detail
 				end
-				-- overwrite
-				vim_item.kind = ""
-				vim_item.menu = tempMenu
 			end
 
 			return vim_item
@@ -149,7 +164,7 @@ cmp.setup({
 		border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
 	},
 	view = {
-		entries = "native", -- can be "custom", "wildmenu" or "native"
+		entries = "custom", -- can be "custom", "wildmenu" or "native"
 	},
 	experimental = {
 		ghost_text = true,
