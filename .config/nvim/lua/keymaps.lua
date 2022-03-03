@@ -35,7 +35,7 @@ keymap("n", "q", "<cmd>q<CR>", opts)
 -- ]])
 
 -- Yank from cusor to end
-keymap("n", "Y", "yg$", opts)
+keymap("n", "Y", "yg$<cmd>echo \"Copied\"<CR>", opts)
 -- Jump and focus highlight word
 keymap("n", "n", "nzzzv", opts)
 keymap("n", "N", "Nzzzv", opts)
