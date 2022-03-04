@@ -4,7 +4,7 @@
 local keymap = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
-keymap("n", "<localleader>e", "<cmd>NvimTreeRefresh<CR><cmd>NvimTreeToggle<CR>", opts)
+keymap("n", "<localleader>e", "<cmd>NvimTreeRefresh<CR><cmd>NvimTreeFindFileToggle<CR>", opts)
 
 vim.g.nvim_tree_icons = {
 	default = "",
