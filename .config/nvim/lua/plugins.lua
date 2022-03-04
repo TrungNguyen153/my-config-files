@@ -38,6 +38,7 @@ packer.init({
 	},
 })
 
+
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 	-- Require ulti
@@ -126,6 +127,32 @@ return require("packer").startup(function(use)
 			require("configs.comment")
 		end,
 	})
+
+	use({
+		"abecodes/tabout.nvim",
+		config = function()
+			require("tabout").setup({
+				tabkey = "<Tab>", -- key to trigger tabout, set to an empty string to disable
+				backwards_tabkey = "<S-Tab>", -- key to trigger backwards tabout, set to an empty string to disable
+				act_as_tab = false, -- shift content if tab out is not possible
+				act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
+				enable_backwards = true, -- well ...
+				completion = false, -- if the tabkey is used in a completion pum
+				tabouts = {
+					{ open = "'", close = "'" },
+					{ open = '"', close = '"' },
+					{ open = "`", close = "`" },
+					{ open = "(", close = ")" },
+					{ open = "[", close = "]" },
+					{ open = "{", close = "}" },
+				},
+				ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
+				exclude = {}, -- tabout will ignore these filetypes
+			})
+		end,
+		wants = { "nvim-treesitter" }, -- or require if not used so far
+		-- after = { "completion-nvim" }, -- if a completion plugin is using tabs load it before
+	})
 	-- }}}
 
 	-- LSP Group {{{
@@ -140,7 +167,7 @@ return require("packer").startup(function(use)
 
 	use({
 		"williamboman/nvim-lsp-installer",
-		requires = {  "tamago324/nlsp-settings.nvim", "jose-elias-alvarez/nvim-lsp-ts-utils", "folke/lua-dev.nvim" }, -- for typescript helper
+		requires = { "tamago324/nlsp-settings.nvim", "jose-elias-alvarez/nvim-lsp-ts-utils", "folke/lua-dev.nvim" }, -- for typescript helper
 		config = function()
 			require("lsp.lsp-installer")
 		end,
@@ -208,14 +235,15 @@ return require("packer").startup(function(use)
 	})
 
 	-- Disable for docker, should open for real devices
-	use {'tzachar/cmp-tabnine',
-	  run='./install.sh',
-    requires = 'hrsh7th/nvim-cmp',
-	  after = 'nvim-cmp',
-	  config = function()
-	    require('configs.cmp-tabnine')
-	  end,
-	}
+	use({
+		"tzachar/cmp-tabnine",
+		run = "./install.sh",
+		requires = "hrsh7th/nvim-cmp",
+		after = "nvim-cmp",
+		config = function()
+			require("configs.cmp-tabnine")
+		end,
+	})
 	-- }}}
 
 	-- TELESCOPE {{{
@@ -307,7 +335,7 @@ return require("packer").startup(function(use)
 			require("configs.colorizer")
 		end,
 	})
-  
+
 	-- }}}
 
 	-- Explorer {{{
@@ -322,11 +350,11 @@ return require("packer").startup(function(use)
 	})
 	--}}}
 
-  --# FileType {{{
-  use({
-    "neoclide/jsonc.vim"
-  })
-  --}
+	--# FileType {{{
+	use({
+		"neoclide/jsonc.vim",
+	})
+	--}
 	-- ulti {{{
 	use({
 		"max397574/better-escape.nvim",
@@ -373,6 +401,7 @@ return require("packer").startup(function(use)
 	--        ]])
 	-- 	end,
 	-- })
+  
 	use({
 		"phaazon/hop.nvim",
 		branch = "v1", -- optional but strongly recommended
