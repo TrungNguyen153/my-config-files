@@ -38,10 +38,9 @@ packer.init({
 	},
 })
 
-
 return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
-	-- Require ulti
+	-- Require util
 	use("nvim-lua/plenary.nvim")
 	-- Optimaze loader time lua module
 	use({
@@ -355,7 +354,7 @@ return require("packer").startup(function(use)
 		"neoclide/jsonc.vim",
 	})
 	--}
-	-- ulti {{{
+	-- utils {{{
 	use({
 		"max397574/better-escape.nvim",
 		event = "InsertEnter",
@@ -389,19 +388,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- jump anywhere on screen
-	-- use({
-	-- 	"easymotion/vim-easymotion",
-	-- 	config = function()
-	-- 		vim.cmd([[
-	--          let g:EasyMotion_do_mapping = 0
-	--          nmap <Leader><Leader>s <Plug>(easymotion-overwin-f)
-	--          " Turn on case-insensitive feature
-	--          let g:EasyMotion_smartcase = 1
-	--        ]])
-	-- 	end,
-	-- })
-  
 	use({
 		"phaazon/hop.nvim",
 		branch = "v1", -- optional but strongly recommended
@@ -420,6 +406,27 @@ return require("packer").startup(function(use)
 			vim.cmd([[
 				runtime macros/sandwich/keymap/surround.vim
       ]])
+		end,
+	})
+
+	use({
+		"voldikss/vim-browser-search",
+		config = function()
+      vim.api.nvim_set_var("browser_search_engines", {
+        cratesRust = "https://crates.io/keywords/%s",
+      })
+      --      Default will extend with above
+			--      {
+			--        \ 'baidu':'https://www.baidu.com/s?ie=UTF-8&wd=%s',
+			--        \ 'bing': 'https://www.bing.com/search?q=%s',
+			--        \ 'duckduckgo': 'https://duckduckgo.com/?q=%s',
+			--        \ 'github':'https://github.com/search?q=%s',
+			--        \ 'google':'https://google.com/search?q=%s',
+			--        \ 'stackoverflow':'https://stackoverflow.com/search?q=%s',
+			--        \ 'translate': 'https://translate.google.com/?sl=auto&tl=it&text=%s',
+			--        \ 'wikipedia': 'https://en.wikipedia.org/wiki/%s',
+			--        \ 'youtube':'https://www.youtube.com/results?search_query=%s&page=&utm_source=opensearch',
+			--    \ }
 		end,
 	})
 	-- }}}
