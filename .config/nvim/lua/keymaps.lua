@@ -23,7 +23,8 @@ keymap("n", "[window]v", "<cmd>split<CR>", opts)
 keymap("n", "[window]g", "<cmd>vsplit<CR>", opts)
 keymap("n", "[window]t", "<cmd>tabnew<CR>", opts)
 keymap("n", "[window]o", "<cmd>only<CR>", opts)
-keymap("n", "<C-x>", "<C-w>x", opts )
+keymap("n", "[window]z", "<cmd>ZoomWinTabToggle<CR>", opts)
+keymap("n", "<C-x>", "<C-w>x", opts ) -- Swap index window
 
 -- Quit buffer by q
 keymap("n", "q", "<cmd>q<CR>", opts)
@@ -36,6 +37,7 @@ keymap("n", "q", "<cmd>q<CR>", opts)
 
 -- Yank from cusor to end
 keymap("n", "Y", "yg$<cmd>echo \"Copied\"<CR>", opts)
+keymap("n", "Y", 'yg$<cmd>echo "Copied"<CR>', opts)
 -- Jump and focus highlight word
 keymap("n", "n", "nzzzv", opts)
 keymap("n", "N", "Nzzzv", opts)
@@ -59,8 +61,11 @@ keymap("n", "<CR>", "za", opts)
 keymap("n", "<C-n>", "<cmd>nohl<CR>", term_opts)
 
 -- Navigate buffers
-keymap("n", "<S-l>", ":bnext<CR>", opts)
-keymap("n", "<S-h>", ":bprevious<CR>", opts)
+-- keymap("n", "<S-l>", ":bnext<CR>", opts)
+-- keymap("n", "<S-h>", ":bprevious<CR>", opts)
+-- Navigate Tabs
+keymap("n", "<S-l>", ":tabnext<CR>", opts)
+keymap("n", "<S-h>", ":tabprev<CR>", opts)
 
 --Easier line-wise movement
 keymap("n", "gh", "g^", opts)

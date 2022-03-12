@@ -2,6 +2,7 @@
 # Android
 set --export ANDROID $HOME/Library/Android;
 set --export ANDROID_HOME $ANDROID/sdk;
+set --export ANDROID_SDK_ROOT $ANDROID_HOME # Some apps may require this Variable
 set -gx PATH $ANDROID_HOME/tools $PATH;
 set -gx PATH $ANDROID_HOME/tools/bin $PATH;
 set -gx PATH $ANDROID_HOME/platform-tools $PATH;

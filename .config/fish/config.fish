@@ -64,9 +64,12 @@ set -gx PATH $GOPATH/bin $PATH
 
 switch (uname)
   case Darwin
+    # echo "Darwin"
     source (dirname (status --current-filename))/config-osx.fish
   case Linux
+    # echo "Linux"
     source (dirname (status --current-filename))/config-linux.fish
   case '*'
+    # echo "Maybe windows"
     source (dirname (status --current-filename))/config-windows.fish
 end
