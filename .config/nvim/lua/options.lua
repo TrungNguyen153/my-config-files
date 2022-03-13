@@ -1,3 +1,5 @@
+
+-- setup general options
 local options = {
   shell = "/usr/bin/fish",                 -- Set default shell for PATH (replace for your shell path)
   backup = false,                          -- creates a backup file
@@ -47,17 +49,20 @@ vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
 vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 
--- vim.cmd [[
---
--- set foldmethod=expr
---
--- set foldexpr=nvim_treesitter#foldexpr()
---
--- set foldtext=getline(v:foldstart).'...'.trim(getline(v:foldend))
---
--- set fillchars=fold:\\
---
--- set foldnestmax=3
---
--- set foldminlines=1
--- ]]
+
+-- Remenber fold
+vim.cmd([[
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave *.* mkview
+  autocmd BufWinEnter *.* silent! loadview
+augroup END
+]])
+-- Fold key helper
+-- zf - Apply fold to the selected lines
+-- zo - Open the folded lines
+-- zc - Close the open lines back to fold
+-- zM - Close all folds
+-- zR - Open all folds
+-- zE - Delete all the folds
+-- zd - Delete the fold under the cursor

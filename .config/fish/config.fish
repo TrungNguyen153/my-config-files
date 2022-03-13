@@ -1,7 +1,7 @@
 set fish_greeting ""
 
 # set -gx TERM xterm-256color # MacOs
-set -gx TERM screen-256color # Ubuntu
+# set -gx TERM screen-256color # Ubuntu
 set --universal XDG_CONFIG_HOME $HOME/.config
 set --universal XDG_DATA_HOME $HOME/.local/share
 

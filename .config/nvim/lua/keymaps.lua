@@ -1,7 +1,6 @@
 local opts = { noremap = true, silent = true }
 
 local term_opts = { silent = true }
-
 -- Shorten function name
 local keymap = vim.api.nvim_set_keymap
 
@@ -13,6 +12,7 @@ vim.g.maplocalleader = ";"
 
 -- Macro
 keymap("n", "Q", "q", opts)
+
 -- Spliter window
 keymap("n", "[window]", "<Nop>", opts)
 keymap("n", "s", "[window]", term_opts)
@@ -28,16 +28,12 @@ keymap("n", "<C-x>", "<C-w>x", opts ) -- Swap index window
 
 -- Quit buffer by q
 keymap("n", "q", "<cmd>q<CR>", opts)
--- vim.cmd([[
---   	autocmd BufWinEnter,VimEnter *
--- 		\  if ! maparg('q', 'n')
--- 		\|   nnoremap <buffer> q <cmd>quit<CR>
--- 		\| endif
--- ]])
 
 -- Yank from cusor to end
 keymap("n", "Y", "yg$<cmd>echo \"Copied\"<CR>", opts)
 keymap("n", "Y", 'yg$<cmd>echo "Copied"<CR>', opts)
+
+
 -- Jump and focus highlight word
 keymap("n", "n", "nzzzv", opts)
 keymap("n", "N", "Nzzzv", opts)
@@ -48,13 +44,13 @@ keymap("n", "<C-j>", "<C-w>j", opts)
 keymap("n", "<C-k>", "<C-w>k", opts)
 keymap("n", "<C-l>", "<C-w>l", opts)
 
--- Resize with arrows
+-- Resize window with arrows
 keymap("n", "<C-Up>", ":resize -2<CR>", opts)
 keymap("n", "<C-Down>", ":resize +2<CR>", opts)
 keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
--- Toggle Fold
+-- Toggle Fold by enter in normal mode
 keymap("n", "<CR>", "za", opts)
 
 -- Clear highlight search
@@ -63,6 +59,7 @@ keymap("n", "<C-n>", "<cmd>nohl<CR>", term_opts)
 -- Navigate buffers
 -- keymap("n", "<S-l>", ":bnext<CR>", opts)
 -- keymap("n", "<S-h>", ":bprevious<CR>", opts)
+
 -- Navigate Tabs
 keymap("n", "<S-l>", ":tabnext<CR>", opts)
 keymap("n", "<S-h>", ":tabprev<CR>", opts)
@@ -75,8 +72,6 @@ keymap("n", "gl", "g$", opts)
 keymap("n", "<A-j>", "<cmd>move+<CR>==", opts)
 keymap("n", "<A-k>", "<cmd>move-2<CR>==", opts)
 
--- Double leader key for toggling visual-line mode
--- keymap("n", "<leader><leader>", "V", term_opts)
 -- Visual --
 
 -- Double leader key for toggling visual-line mode
@@ -92,6 +87,7 @@ keymap("v", "<A-k>", ":m .-2<CR>==", opts)
 keymap("v", "p", '"_dP', opts)
 
 -- Visual Block --
+
 -- Move text up and down
 keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "K", ":move '<-2<CR>gv-gv", opts)

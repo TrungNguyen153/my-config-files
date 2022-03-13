@@ -2,13 +2,20 @@ local opts = {
 	tools = {
 		autoSetHints = true,
 		hover_with_actions = true,
-		runnables = {
-			use_telescope = true,
-		},
 		inlay_hints = {
-			show_parameter_hints = false,
+			only_current_line = false,
+			show_parameter_hints = true,
 			parameter_hints_prefix = "",
 			other_hints_prefix = "",
+		},
+		hover_actions = {
+			auto_focus = false,
+		},
+		debuggables = {
+			use_telescope = true,
+		},
+		runnables = {
+			use_telescope = true,
 		},
 	},
 
@@ -20,9 +27,48 @@ local opts = {
 			-- to enable rust-analyzer settings visit:
 			-- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
 			["rust-analyzer"] = {
-				-- enable clippy on save
+				assist = {
+					importGranularity = "module",
+					importPrefix = "by_self",
+				},
+				diagnostics = {
+					-- https://github.com/rust-analyzer/rust-analyzer/issues/6835
+					disabled = { "unresolved-macro-call" },
+				},
+				completion = {
+					autoimport = {
+						enable = true,
+					},
+					postfix = {
+						enable = true,
+					},
+				},
+				cargo = {
+					loadOutDirsFromCheck = true,
+					autoreload = true,
+					runBuildScripts = true,
+				},
+				procMacro = {
+					enable = true,
+				},
+				lens = {
+					enable = true,
+					run = true,
+					methodReferences = true,
+					implementations = true,
+				},
+				hoverActions = {
+					enable = true,
+				},
+				inlayHints = {
+					chainingHintsSeparator = "‣ ",
+					typeHintsSeparator = "‣ ",
+					typeHints = true,
+				},
 				checkOnSave = {
+					enable = true,
 					command = "clippy",
+					allFeatures = true,
 				},
 			},
 		},
