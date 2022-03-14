@@ -68,9 +68,9 @@ keymap("n", "<S-h>", ":tabprev<CR>", opts)
 keymap("n", "gh", "g^", opts)
 keymap("n", "gl", "g$", opts)
 
--- Move text up and down
-keymap("n", "<A-j>", "<cmd>move+<CR>==", opts)
-keymap("n", "<A-k>", "<cmd>move-2<CR>==", opts)
+-- Move line up and down
+-- keymap("n", "<A-j>", "<cmd>move+<CR>==", opts)
+-- keymap("n", "<A-k>", "<cmd>move-2<CR>==", opts)
 
 -- Visual --
 

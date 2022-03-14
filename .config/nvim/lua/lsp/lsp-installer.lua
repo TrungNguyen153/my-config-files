@@ -43,6 +43,7 @@ lsp_installer.on_server_ready(function(server)
 		local merge_option = vim.tbl_deep_extend("force",rust_tools_config.server, opts)
 		require("rust-tools").setup({
       tools = rust_tools_config.tools,
+      dap = rust_tools_config.dap,
 			server = vim.tbl_deep_extend("force", server:get_default_options(), merge_option),
 		})
 		return

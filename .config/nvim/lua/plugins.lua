@@ -1,4 +1,6 @@
 local fn = vim.fn
+-- Good person config
+-- https://github.com/augustocdias/dotfiles/blob/main/.config/nvim/lua/plugins.lua
 
 -- Automatically install packer
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
@@ -39,9 +41,12 @@ packer.init({
 })
 
 return require("packer").startup(function(use)
+	-- packer embbed itself
 	use("wbthomason/packer.nvim")
+
 	-- Require util
 	use("nvim-lua/plenary.nvim")
+
 	-- Optimaze loader time lua module
 	use({
 		"lewis6991/impatient.nvim",
@@ -49,14 +54,18 @@ return require("packer").startup(function(use)
 			require("configs.impatient")
 		end,
 	})
+
 	-- Integrated with tmux navigator
 	use("christoomey/vim-tmux-navigator")
+
+	-- Amazing terminal
 	use({
 		"akinsho/toggleterm.nvim",
 		config = function()
 			require("configs.toggleterm")
 		end,
 	})
+
 	-- Theme
 	-- use({
 	-- 	"morhetz/gruvbox",
@@ -180,6 +189,7 @@ return require("packer").startup(function(use)
 			require("lsp.null-ls")
 		end,
 	})
+
 	-- Flutter stuff
 	use({
 		"akinsho/flutter-tools.nvim",
@@ -208,6 +218,24 @@ return require("packer").startup(function(use)
 		end,
 	})
 	--- }}}
+
+	-- debug
+	-- check https://github.com/Pocco81/DAPInstall.nvim
+	use({
+		"Pocco81/DAPInstall.nvim",
+		config = function()
+			require("dap-install").setup({
+				installation_path = vim.fn.stdpath("data") .. "/dapinstall/",
+			})
+		end,
+	})
+	use({
+		"theHamsta/nvim-dap-virtual-text",
+		config = function()
+			require("nvim-dap-virtual-text").setup()
+		end,
+	}) -- virtual text during debugging
+	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 
 	-- Completion Group {{{
 	use({
@@ -251,7 +279,8 @@ return require("packer").startup(function(use)
 		requires = {
 			{ "nvim-lua/plenary.nvim" },
 			{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-			{ "LinArcX/telescope-env.nvim" },
+			{ "LinArcX/telescope-env.nvim" }, -- Watch environment variables with telescop
+			{ "nvim-telescope/telescope-dap.nvim" },
 			{ "nvim-telescope/telescope-ui-select.nvim" },
 		},
 		config = function()
@@ -259,6 +288,7 @@ return require("packer").startup(function(use)
 			require("telescope").load_extension("fzf")
 			require("telescope").load_extension("env")
 			require("telescope").load_extension("ui-select")
+			require("telescope").load_extension("dap")
 		end,
 	})
 
@@ -293,6 +323,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- Tab line
 	use({
 		"seblj/nvim-tabline",
 		requires = { "kyazdani42/nvim-web-devicons" },
@@ -310,21 +341,22 @@ return require("packer").startup(function(use)
 			})
 		end,
 	})
-  -- Zoom window
-  use({
-    "troydm/zoomwintab.vim",
-    -- event = "ZoomWinTabToggle",
-  })
+	-- Zoom window
+	use({
+		"troydm/zoomwintab.vim",
+		-- event = "ZoomWinTabToggle",
+	})
 
 	--Scrollbar
-  use({
-    "petertriho/nvim-scrollbar",
-    requires = {"kevinhwang91/nvim-hlslens"},
-    config = function ()
-      require("configs.nvim-scrollbar")
-    end
-  })
+	use({
+		"petertriho/nvim-scrollbar",
+		requires = { "kevinhwang91/nvim-hlslens" },
+		config = function()
+			require("configs.nvim-scrollbar")
+		end,
+	})
 
+	-- indent virtual
 	use({
 		"lukas-reineke/indent-blankline.nvim",
 		config = function()
@@ -332,6 +364,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- Better quick fix plugin
 	use({
 		"kevinhwang91/nvim-bqf",
 		ft = "qf",
@@ -377,8 +410,12 @@ return require("packer").startup(function(use)
 	use({
 		"neoclide/jsonc.vim",
 	})
-	--}
-	-- utils {{{
+	--}}}
+
+	-- Misc {{{
+	-- replaces filetype load from vim for a more performant one
+	use("nathom/filetype.nvim")
+	-- jj to exit insert mode
 	use({
 		"max397574/better-escape.nvim",
 		event = "InsertEnter",
@@ -392,6 +429,25 @@ return require("packer").startup(function(use)
 				-- keys = function()
 				--   return vim.fn.col '.' - 2 >= 1 and '<esc>l' or '<esc>'
 				-- end,
+			})
+		end,
+	})
+
+
+
+	-- makes better line moving
+	use({
+		"booperlv/nvim-gomove",
+		config = function()
+			require("gomove").setup({
+				-- whether or not to map default key bindings, (true/false)
+				map_defaults = true,
+				-- whether or not to reindent lines moved vertically (true/false)
+				reindent = true,
+				-- whether or not to undojoin same direction moves (true/false)
+				undojoin = false,
+				-- whether to not to move past end column when moving blocks horizontally, (true/false)
+				move_past_end_col = false,
 			})
 		end,
 	})
@@ -412,6 +468,7 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- Jumper like vim-motion
 	use({
 		"phaazon/hop.nvim",
 		branch = "v1", -- optional but strongly recommended
@@ -421,6 +478,7 @@ return require("packer").startup(function(use)
 			vim.api.nvim_set_keymap("n", "ss", "<cmd>HopChar2<CR>", { noremap = false })
 		end,
 	})
+	-- text object + operator object
 	-- HIGH SILL NEOVIM -> NEED TO MASTER THIS
 	-- textobj-sandwich  -> ib is ab as
 	-- operator-sandwich -> sa sd sr
@@ -432,7 +490,7 @@ return require("packer").startup(function(use)
       ]])
 		end,
 	})
-
+	-- Search in browser
 	use({
 		"voldikss/vim-browser-search",
 		config = function()

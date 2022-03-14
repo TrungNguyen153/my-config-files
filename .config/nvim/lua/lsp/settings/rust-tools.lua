@@ -19,6 +19,16 @@ local opts = {
 		},
 	},
 
+	-- debugging stuff
+	--sudo apt install lldb-11
+	-- sudo ln -s /usr/bin/lldb-vscode-11 /usr/bin/lldb-vscode
+	dap = {
+		adapter = {
+			type = "executable",
+			command = "/usr/bin/lldb-vscode", -- adjust as needed
+			name = "lldb",
+		},
+	},
 	-- all the opts to send to nvim-lspconfig
 	-- these override the defaults set by rust-tools.nvim
 	-- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
