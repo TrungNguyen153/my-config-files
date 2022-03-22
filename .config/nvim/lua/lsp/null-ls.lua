@@ -38,6 +38,6 @@ null_ls.setup({
 		formatting.stylua,
 		formatting.isort,
 		formatting.codespell.with({ filetypes = { "markdown" } }),
-    code_actions.gitsigns,
+    -- code_actions.gitsigns, // Not helpful
 	},
 })

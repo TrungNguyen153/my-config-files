@@ -314,6 +314,9 @@ return require("packer").startup(function(use)
 	-- }}}
 
 	-- UI {{{
+  use({
+    'stevearc/dressing.nvim'
+  })
 	-- Status line
 	use({
 		"nvim-lualine/lualine.nvim",
@@ -415,6 +418,7 @@ return require("packer").startup(function(use)
 	-- Misc {{{
 	-- replaces filetype load from vim for a more performant one
 	use("nathom/filetype.nvim")
+
 	-- jj to exit insert mode
 	use({
 		"max397574/better-escape.nvim",
@@ -432,8 +436,6 @@ return require("packer").startup(function(use)
 			})
 		end,
 	})
-
-
 
 	-- makes better line moving
 	use({
@@ -494,21 +496,7 @@ return require("packer").startup(function(use)
 	use({
 		"voldikss/vim-browser-search",
 		config = function()
-			vim.api.nvim_set_var("browser_search_engines", {
-				cratesRust = "https://crates.io/keywords/%s",
-			})
-			--      Default will extend with above
-			--      {
-			--        \ 'baidu':'https://www.baidu.com/s?ie=UTF-8&wd=%s',
-			--        \ 'bing': 'https://www.bing.com/search?q=%s',
-			--        \ 'duckduckgo': 'https://duckduckgo.com/?q=%s',
-			--        \ 'github':'https://github.com/search?q=%s',
-			--        \ 'google':'https://google.com/search?q=%s',
-			--        \ 'stackoverflow':'https://stackoverflow.com/search?q=%s',
-			--        \ 'translate': 'https://translate.google.com/?sl=auto&tl=it&text=%s',
-			--        \ 'wikipedia': 'https://en.wikipedia.org/wiki/%s',
-			--        \ 'youtube':'https://www.youtube.com/results?search_query=%s&page=&utm_source=opensearch',
-			--    \ }
+      require("configs.vim-browser-search")
 		end,
 	})
 	-- }}}
