@@ -74,9 +74,6 @@ keymap("n", "gl", "g$", opts)
 
 -- Visual --
 
--- Double leader key for toggling visual-line mode
-keymap("x", "<leader><leader>", "<esc>", term_opts)
-
 -- Stay in indent mode
 keymap("v", "<S-Tab>", "<gv", opts)
 keymap("v", "<Tab>", ">gv", opts)
@@ -89,7 +86,7 @@ keymap("v", "p", '"_dP', opts)
 -- Visual Block --
 
 -- Move text up and down
-keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
-keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
-keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
-keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
+-- keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
+-- keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
+-- keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
+-- keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
