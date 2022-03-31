@@ -135,6 +135,7 @@ cmp.setup({
 				cmp_tabnine = "[Tnine]",
 				tmux = "[Tmux]",
 				orgmode = "[Org]",
+        nvim_lsp_signature_help = "[help]",
 			})[entry.source.name]
 
 			if entry.source.name == "cmp_tabnine" then
@@ -148,6 +149,7 @@ cmp.setup({
 	},
 	sources = {
 		{ name = "nvim_lsp" },
+		{ name = "nvim_lsp_signature_help" },
 		{ name = "luasnip" },
 		{ name = "buffer" },
 		{ name = "path" },

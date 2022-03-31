@@ -239,19 +239,21 @@ return require("packer").startup(function(use)
 
 	-- Completion Group {{{
 	use({
+		requires = {
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-cmdline",
+			"saadparwaiz1/cmp_luasnip",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lsp-signature-help",
+      "L3MON4D3/LuaSnip", --snippet engine
+      "rafamadriz/friendly-snippets", -- a bunch of snippets to use
+		},
 		"hrsh7th/nvim-cmp",
 		config = function()
 			require("configs.cmp")
 		end,
 	})
-	use("hrsh7th/cmp-buffer") -- buffer completions
-	use("hrsh7th/cmp-path") -- path completions
-	use("hrsh7th/cmp-cmdline") -- cmdline completions
-	use("saadparwaiz1/cmp_luasnip") -- snippet completions
-	use("hrsh7th/cmp-nvim-lsp")
-	-- snippets
-	use("L3MON4D3/LuaSnip") --snippet engine
-	use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
 	-- Auto Pairs
 	use({
 		"windwp/nvim-autopairs",
@@ -314,9 +316,9 @@ return require("packer").startup(function(use)
 	-- }}}
 
 	-- UI {{{
-  use({
-    'stevearc/dressing.nvim'
-  })
+	use({
+		"stevearc/dressing.nvim",
+	})
 	-- Status line
 	use({
 		"nvim-lualine/lualine.nvim",
@@ -496,7 +498,7 @@ return require("packer").startup(function(use)
 	use({
 		"voldikss/vim-browser-search",
 		config = function()
-      require("configs.vim-browser-search")
+			require("configs.vim-browser-search")
 		end,
 	})
 	-- }}}
