@@ -482,6 +482,9 @@ return require("packer").startup(function(use)
 			vim.api.nvim_set_keymap("n", "ss", "<cmd>HopChar2<CR>", { noremap = false })
 		end,
 	})
+  -- use({
+  --   "ggandor/lightspeed.nvim",
+  -- })
 	-- text object + operator object
 	-- HIGH SILL NEOVIM -> NEED TO MASTER THIS
 	-- textobj-sandwich  -> ib is ab as

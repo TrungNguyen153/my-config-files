@@ -106,7 +106,6 @@ nvim_tree.setup({
 		"alpha",
 	},
 	update_cwd = true,
-	auto_close = true,
 	open_on_setup = false,
 	diagnostics = {
 		enable = true,
