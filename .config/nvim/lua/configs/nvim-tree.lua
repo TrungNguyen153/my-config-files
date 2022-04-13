@@ -135,6 +135,16 @@ nvim_tree.setup({
 			".DS_Store",
 		},
 	},
+	renderer = {
+		indent_markers = {
+			enable = true,
+			icons = {
+				corner = "└ ",
+				edge = "│ ",
+				none = "  ",
+			},
+		},
+	},
 	actions = {
 		change_dir = {
 			enable = true,
