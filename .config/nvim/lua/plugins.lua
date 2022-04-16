@@ -1,3 +1,4 @@
+---@diagnostic disable: different-requires
 local fn = vim.fn
 -- Good person config
 -- https://github.com/augustocdias/dotfiles/blob/main/.config/nvim/lua/plugins.lua
@@ -16,7 +17,6 @@ if fn.empty(fn.glob(install_path)) > 0 then
 	print("Installing packer close and reopen Neovim...")
 	vim.cmd([[packadd packer.nvim]])
 end
-
 
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
@@ -73,33 +73,7 @@ return require("packer").startup(function(use)
 	use({
 		"NTBBloodbath/doom-one.nvim",
 		config = function()
-			require("doom-one").setup({
-				cursor_coloring = true,
-				terminal_colors = true,
-				italic_comments = true,
-				enable_treesitter = true,
-				transparent_background = false,
-				pumblend = {
-					enable = true,
-					transparency_amount = 20,
-				},
-				plugins_integrations = {
-					neorg = true,
-					barbar = true,
-					bufferline = true,
-					gitgutter = false,
-					gitsigns = true,
-					telescope = false,
-					neogit = true,
-					nvim_tree = true,
-					dashboard = true,
-					startify = true,
-					whichkey = true,
-					indent_blankline = true,
-					vim_illuminate = true,
-					lspsaga = false,
-				},
-			})
+			require("configs.doom-one")
 		end,
 	})
 
@@ -132,27 +106,10 @@ return require("packer").startup(function(use)
 	use({
 		"abecodes/tabout.nvim",
 		config = function()
-			require("tabout").setup({
-				tabkey = "<Tab>", -- key to trigger tabout, set to an empty string to disable
-				backwards_tabkey = "<S-Tab>", -- key to trigger backwards tabout, set to an empty string to disable
-				act_as_tab = false, -- shift content if tab out is not possible
-				act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
-				enable_backwards = true, -- well ...
-				completion = false, -- if the tabkey is used in a completion pum
-				tabouts = {
-					{ open = "'", close = "'" },
-					{ open = '"', close = '"' },
-					{ open = "`", close = "`" },
-					{ open = "(", close = ")" },
-					{ open = "[", close = "]" },
-					{ open = "{", close = "}" },
-				},
-				ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
-				exclude = {}, -- tabout will ignore these filetypes
-			})
+			require("configs.tabout")
 		end,
 		wants = { "nvim-treesitter" }, -- or require if not used so far
-		-- after = { "completion-nvim" }, -- if a completion plugin is using tabs load it before
+		after = { "nvim-cmp" }, -- if a completion plugin is using tabs load it before
 	})
 	-- }}}
 
@@ -239,9 +196,9 @@ return require("packer").startup(function(use)
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
-      "hrsh7th/cmp-nvim-lua",
-      "L3MON4D3/LuaSnip", --snippet engine
-      "rafamadriz/friendly-snippets", -- a bunch of snippets to use
+			"hrsh7th/cmp-nvim-lua",
+			"L3MON4D3/LuaSnip", --snippet engine
+			"rafamadriz/friendly-snippets", -- a bunch of snippets to use
 		},
 		"hrsh7th/nvim-cmp",
 		config = function()
@@ -252,6 +209,7 @@ return require("packer").startup(function(use)
 	use({
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
+		after = { "nvim-cmp" },
 		config = function()
 			require("configs.autopairs")
 		end,
@@ -327,17 +285,7 @@ return require("packer").startup(function(use)
 		"seblj/nvim-tabline",
 		requires = { "kyazdani42/nvim-web-devicons" },
 		config = function()
-			require("tabline").setup({
-				no_name = "[No Name]", -- Name for buffers with no name
-				modified_icon = "", -- Icon for showing modified buffer
-				close_icon = "", -- Icon for closing tab with mouse
-				separator = "▌", -- Separator icon on the left side
-				padding = 3, -- Prefix and suffix space
-				color_all_icons = false, -- Color devicons in active and inactive tabs
-				right_separator = false, -- Show right separator on the last tab
-				show_index = false, -- Shows the index of tab before filename
-				show_icon = true, -- Shows the devicon
-			})
+			require("configs.tabline")
 		end,
 	})
 	-- Zoom window
@@ -409,28 +357,31 @@ return require("packer").startup(function(use)
 	-- use({
 	-- 	"neoclide/jsonc.vim",
 	-- })
-  use("nathom/filetype.nvim")
+	-- replaces filetype load from vim for a more performant one
+	use({
+		"nathom/filetype.nvim",
+		config = function()
+			require("filetype").setup({
+				overrides = {
+					complex = {
+						["Dockerfile*"] = "dockerfile",
+						-- Set the filetype of any full filename matching the regex to gitconfig
+						[".*git/config"] = "gitconfig", -- Included in the plugin
+					},
+				},
+			})
+		end,
+	})
 	--}}}
 
 	-- Misc {{{
-	-- replaces filetype load from vim for a more performant one
-	use("nathom/filetype.nvim")
 
 	-- jj to exit insert mode
 	use({
 		"max397574/better-escape.nvim",
 		event = "InsertEnter",
 		config = function()
-			require("better_escape").setup({
-				mapping = { "jj" }, -- a table with mappings to use
-				timeout = vim.o.timeoutlen, -- the time in which the keys must be hit in ms. Use option timeoutlen by default
-				clear_empty_lines = false, -- clear line after escaping if there is only whitespace
-				keys = "<Esc>", -- keys used for escaping, if it is a function will use the result everytime
-				-- example
-				-- keys = function()
-				--   return vim.fn.col '.' - 2 >= 1 and '<esc>l' or '<esc>'
-				-- end,
-			})
+			require("configs.better-escape")
 		end,
 	})
 
@@ -438,16 +389,7 @@ return require("packer").startup(function(use)
 	use({
 		"booperlv/nvim-gomove",
 		config = function()
-			require("gomove").setup({
-				-- whether or not to map default key bindings, (true/false)
-				map_defaults = true,
-				-- whether or not to reindent lines moved vertically (true/false)
-				reindent = true,
-				-- whether or not to undojoin same direction moves (true/false)
-				undojoin = false,
-				-- whether to not to move past end column when moving blocks horizontally, (true/false)
-				move_past_end_col = false,
-			})
+			require("configs.gomove")
 		end,
 	})
 
@@ -456,14 +398,7 @@ return require("packer").startup(function(use)
 		"PHSix/faster.nvim",
 		event = { "VimEnter *" },
 		config = function()
-			-- vim.api.nvim_set_keymap('n', 'j', '<Plug>(faster_move_j)', {noremap=false, silent=true})
-			-- vim.api.nvim_set_keymap('n', 'k', '<Plug>(faster_move_k)', {noremap=false, silent=true})
-			-- or
-			vim.api.nvim_set_keymap("n", "j", "<Plug>(faster_move_gj)", { noremap = false, silent = true })
-			vim.api.nvim_set_keymap("n", "k", "<Plug>(faster_move_gk)", { noremap = false, silent = true })
-			-- if you need map in visual mode
-			vim.api.nvim_set_keymap("v", "j", "<Plug>(faster_vmove_j)", { noremap = false, silent = true })
-			vim.api.nvim_set_keymap("v", "k", "<Plug>(faster_vmove_k)", { noremap = false, silent = true })
+			require("configs.faster")
 		end,
 	})
 
@@ -472,26 +407,10 @@ return require("packer").startup(function(use)
 		"phaazon/hop.nvim",
 		branch = "v1", -- optional but strongly recommended
 		config = function()
-			-- you can configure Hop the way you like here; see :h hop-config
-			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
-			vim.api.nvim_set_keymap("n", "ss", "<cmd>HopChar2<CR>", { noremap = false })
+			require("configs.hop")
 		end,
 	})
-  -- use({
-  --   "ggandor/lightspeed.nvim",
-  -- })
-	-- text object + operator object
-	-- HIGH SILL NEOVIM -> NEED TO MASTER THIS
-	-- textobj-sandwich  -> ib is ab as
-	-- operator-sandwich -> sa sd sr
-	use({
-		"machakann/vim-sandwich",
-		config = function()
-			vim.cmd([[
-				runtime macros/sandwich/keymap/surround.vim
-      ]])
-		end,
-	})
+	use("ur4ltz/surround.nvim") -- add surround commands
 	-- Search in browser
 	use({
 		"voldikss/vim-browser-search",
@@ -501,6 +420,86 @@ return require("packer").startup(function(use)
 	})
 	-- }}}
 
+	use("tpope/vim-repeat") -- adds repeat functionality for other plugins
+	use("andymass/vim-matchup") -- Enhances the %
+	use({
+		"nvim-pack/nvim-spectre",
+		config = function()
+			require("spectre").setup()
+		end,
+	}) -- special search and replace buffer
+	use("rcarriga/nvim-notify") -- overides the default vim notify method for a floating window
+	use({"j-hui/fidget.nvim", config = function ()
+	  require"fidget".setup{}
+	end}) -- status progress for lsp servers
+	-- use({
+	-- 	"wyattjsmith1/weather.nvim",
+	-- 	requires = {
+	-- 		"nvim-lua/plenary.nvim",
+	-- 	},
+	-- 	config = function()
+	-- 		require("weather").setup({})
+	-- 	end,
+	-- }) -- adds weather information to status line
+	use("meznaric/conmenu")
+	use("segeljakt/vim-silicon") -- Generates an image from selected text. Needs silicon installed (cargo install silicon)
+	use({
+		"luukvbaal/stabilize.nvim",
+		config = function()
+			require("stabilize").setup()
+		end,
+	}) -- stabilize buffer content on window open/close events
+	use("farmergreg/vim-lastplace") -- remembers cursor position with nice features in comparison to just an autocmd
+	use({
+		"folke/trouble.nvim",
+		requires = "kyazdani42/nvim-web-devicons",
+		config = function()
+			-- Trouble
+			require("trouble").setup({
+				use_diagnostic_signs = true,
+			})
+		end,
+	}) -- adds a bottom panel with lsp diagnostics, quickfixes, etc.
+	use({
+		"GustavoKatel/sidebar.nvim",
+		config = function()
+			require("sidebar-nvim").setup({
+				open = false,
+				side = "left",
+				initial_width = 30,
+				update_interval = 1000,
+				hide_statusline = true,
+				sections = { "git", "todos", "symbols", "diagnostics", "containers" },
+				todos = {
+					ignored_paths = { "~" },
+					initially_closed = false,
+				},
+			})
+		end,
+	}) -- useful sidebar with todos, git status, etc.
+	use({
+		"folke/todo-comments.nvim",
+		requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("todo-comments").setup({
+				signs = false,
+				highlight = {
+					comments_only = true,
+				},
+				search = {
+					command = "rg",
+					args = {
+						"--max-depth=10",
+						"--color=never",
+						"--no-heading",
+						"--with-filename",
+						"--line-number",
+						"--column",
+					},
+				},
+			})
+		end,
+	}) -- todo comments helper
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then

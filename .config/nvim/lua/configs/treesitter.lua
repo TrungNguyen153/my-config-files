@@ -29,6 +29,10 @@ require("nvim-treesitter.configs").setup({
 	},
 	indent = {
 		enable = true,
+		disable = {
+			"rust",
+			"python",
+		},
 	},
 	refactor = {
 		highlight_definitions = { enable = true },
@@ -46,7 +50,17 @@ require("nvim-treesitter.configs").setup({
 				["if"] = "@function.inner",
 				["ac"] = "@class.outer",
 				["ic"] = "@class.inner",
+				-- ["gc"] = "@comment.outer",
 			},
+		},
+	},
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			init_selection = "<CR>",
+			scope_incremental = "<CR>",
+			node_incremental = "<TAB>",
+			node_decremental = "<S-TAB>",
 		},
 	},
 	-- https://github.com/p00f/nvim-ts-rainbow
@@ -65,3 +79,14 @@ require("nvim-treesitter.configs").setup({
 		enable_autocmd = false,
 	},
 })
+
+require("vim.treesitter.query").set_query(
+	"rust",
+	"injections",
+	[[
+((
+  (raw_string_literal) @constant
+  (#match? @constant "(SELECT|select|INSERT|insert|UPDATE|update|DELETE|delete).*")
+) @injection.content (#set! injection.language "sql"))
+]]
+) -- inject sql in raw_string_literals

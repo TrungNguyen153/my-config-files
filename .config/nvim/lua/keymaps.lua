@@ -51,7 +51,7 @@ keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
 -- Toggle Fold by enter in normal mode
-keymap("n", "<CR>", "za", opts)
+-- keymap("n", "<CR>", "za", opts)
 
 -- Clear highlight search
 keymap("n", "<C-n>", "<cmd>nohl<CR>", term_opts)
