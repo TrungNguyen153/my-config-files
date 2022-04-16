@@ -130,12 +130,13 @@ cmp.setup({
 			vim_item.menu = ({
 				nvim_lsp = "[LSP]",
 				luasnip = "[LSnip]",
-				buffer = "[Buf]",
+				buffer = "[Buff]",
 				path = "[Path]",
-				cmp_tabnine = "[Tnine]",
+				cmp_tabnine = "[TN]",
 				tmux = "[Tmux]",
 				orgmode = "[Org]",
-        nvim_lsp_signature_help = "[help]",
+				nvim_lsp_signature_help = "[Help]",
+        nvim_lua = "[Lua]",
 			})[entry.source.name]
 
 			if entry.source.name == "cmp_tabnine" then
@@ -148,22 +149,25 @@ cmp.setup({
 		end,
 	},
 	sources = {
-		{ name = "nvim_lsp" },
-		{ name = "nvim_lsp_signature_help" },
-		{ name = "luasnip" },
-		{ name = "buffer" },
-		{ name = "path" },
+		{ name = "nvim_lsp", priority = 99 },
+		{ name = "luasnip", priority = 90 },
+		{ name = "nvim_lsp_signature_help", priority = 50 },
+		{ name = "nvim_lua", priority = 80 },
+		{ name = "path", priority = 10 },
+    { name = "buffer", priority = 0 },
 		-- Rust dependency manager
-		{ name = "crates" },
+		-- { name = "crates" }, -- autocommand load for us
 		-- Tabnice (AI completion)
-		{ name = "cmp_tabnine" },
+    { name = "cmp_tabnine", priority = 80 },
 	},
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
 		select = false,
 	},
-	documentation = {
-		border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+	-- completion_item
+	window = {
+		documentation = cmp.config.window.bordered(),
+		completion = cmp.config.window.bordered(),
 	},
 	view = {
 		entries = "custom", -- can be "custom", "wildmenu" or "native"

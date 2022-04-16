@@ -59,7 +59,7 @@ local opts = {
 			vim.api.nvim_buf_set_keymap(bufnr, ...)
 		end
 		local opts = { noremap = true, silent = true }
-		map_buf(bufnr, "n", ",o", ":TSLspOrganize<CR>", opts)
+		map_buf(bufnr, "g", ",o", ":TSLspOrganize<CR>", opts)
 	end,
 }
 

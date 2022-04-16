@@ -2,8 +2,7 @@
 -- see: https://github.com/nvim-treesitter/nvim-treesitter
 -- rafi settings
 
-local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
-
+local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 
 -- vim.cmd [[
 --   set foldenable=true
@@ -13,14 +12,14 @@ local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
 
 parser_configs.http = {
 	install_info = {
-		url = 'https://github.com/NTBBloodbath/tree-sitter-http',
-		files = { 'src/parser.c' },
-		branch = 'main',
+		url = "https://github.com/NTBBloodbath/tree-sitter-http",
+		files = { "src/parser.c" },
+		branch = "main",
 	},
-	filetype = 'http',
+	filetype = "http",
 }
-require('nvim-treesitter.configs').setup({
-	ensure_installed = 'maintained', -- all, maintained, or list of languages
+require("nvim-treesitter.configs").setup({
+	ensure_installed = "all", -- A list of parser names, or "all"
 	highlight = {
 		enable = true,
 		additional_vim_regex_highlighting = true,
@@ -33,7 +32,7 @@ require('nvim-treesitter.configs').setup({
 	},
 	refactor = {
 		highlight_definitions = { enable = true },
-	-- highlight_current_scope = { enable = true },
+		-- highlight_current_scope = { enable = true },
 	},
 	-- See: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 	textobjects = {
@@ -43,10 +42,10 @@ require('nvim-treesitter.configs').setup({
 			lookahead = true,
 			keymaps = {
 				-- You can use the capture groups defined in textobjects.scm
-				['af'] = '@function.outer',
-				['if'] = '@function.inner',
-				['ac'] = '@class.outer',
-				['ic'] = '@class.inner',
+				["af"] = "@function.outer",
+				["if"] = "@function.inner",
+				["ac"] = "@class.outer",
+				["ic"] = "@class.inner",
 			},
 		},
 	},
@@ -57,7 +56,7 @@ require('nvim-treesitter.configs').setup({
 		max_file_lines = nil, -- Do not enable for files with more than n lines, int
 		-- colors = {}, -- table of hex strings
 		-- termcolors = {} -- table of colour name strings
-	  },
+	},
 
 	-- See: https://github.com/JoosepAlviste/nvim-ts-context-commentstring
 	context_commentstring = {

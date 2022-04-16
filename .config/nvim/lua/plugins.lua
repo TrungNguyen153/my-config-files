@@ -17,13 +17,6 @@ if fn.empty(fn.glob(install_path)) > 0 then
 	vim.cmd([[packadd packer.nvim]])
 end
 
--- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]])
 
 -- Use a protected call so we don't error out on first use
 local status_ok, packer = pcall(require, "packer")
@@ -175,7 +168,7 @@ return require("packer").startup(function(use)
 
 	use({
 		"williamboman/nvim-lsp-installer",
-		requires = { "tamago324/nlsp-settings.nvim", "jose-elias-alvarez/nvim-lsp-ts-utils", "folke/lua-dev.nvim" }, -- for typescript helper
+		requires = { "b0o/schemastore.nvim", "jose-elias-alvarez/nvim-lsp-ts-utils", "folke/lua-dev.nvim" }, -- for typescript helper
 		config = function()
 			require("lsp.lsp-installer")
 		end,
@@ -246,6 +239,7 @@ return require("packer").startup(function(use)
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
+      "hrsh7th/cmp-nvim-lua",
       "L3MON4D3/LuaSnip", --snippet engine
       "rafamadriz/friendly-snippets", -- a bunch of snippets to use
 		},
@@ -412,9 +406,10 @@ return require("packer").startup(function(use)
 	--}}}
 
 	--# FileType {{{
-	use({
-		"neoclide/jsonc.vim",
-	})
+	-- use({
+	-- 	"neoclide/jsonc.vim",
+	-- })
+  use("nathom/filetype.nvim")
 	--}}}
 
 	-- Misc {{{

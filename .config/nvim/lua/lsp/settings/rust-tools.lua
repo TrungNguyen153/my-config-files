@@ -44,6 +44,7 @@ local opts = {
 				diagnostics = {
 					-- https://github.com/rust-analyzer/rust-analyzer/issues/6835
 					disabled = { "unresolved-macro-call" },
+          enableExperimental = true,
 				},
 				completion = {
 					autoimport = {
@@ -77,7 +78,8 @@ local opts = {
 				},
 				checkOnSave = {
 					enable = true,
-					command = "clippy",
+          -- https://github.com/rust-analyzer/rust-analyzer/issues/9768
+					-- command = "clippy",
 					allFeatures = true,
 				},
 			},

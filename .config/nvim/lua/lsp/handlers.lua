@@ -1,3 +1,8 @@
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = function(name)
+	vim.api.nvim_create_augroup(name, { clear = true })
+end
+
 local M = {}
 
 -- TODO: backfill this to template
@@ -23,8 +28,8 @@ M.setup = function()
 	local diagnosticConfig = {
 		-- disable virtual text
 		virtual_text = {
-			prefix = 'x', -- Could be '●', '▎', 'x', '■'
-      source = "always",
+			prefix = "x", -- Could be '●', '▎', 'x', '■'
+			source = "always",
 		}, -- show signs
 		signs = {
 			active = signs,
@@ -53,22 +58,6 @@ M.setup = function()
 	})
 end
 
-local function lsp_highlight_document(client)
-	-- Set autocommands conditional on server_capabilities
-	if client.resolved_capabilities.document_highlight then
-		vim.api.nvim_exec(
-			[[
-      augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]],
-			false
-		)
-	end
-end
-
 local function lsp_keymaps(bufnr)
 	local function map_buf(...)
 		vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -86,7 +75,6 @@ local function lsp_keymaps(bufnr)
 	map_buf("n", "<Leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	map_buf("n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
 	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
-	vim.cmd([[ command! Neoformat execute 'lua vim.lsp.buf.formatting()' ]])
 end
 
 M.on_attach = function(client, bufnr)
@@ -94,7 +82,37 @@ M.on_attach = function(client, bufnr)
 		client.resolved_capabilities.document_formatting = false
 	end
 	lsp_keymaps(bufnr)
-	lsp_highlight_document(client)
+	if client.resolved_capabilities.code_lens then
+		autocmd({ "BufEnter", "InsertLeave" }, {
+			desc = "Auto show code lenses",
+			pattern = "<buffer>",
+			command = "silent! lua vim.lsp.codelens.refresh()",
+		})
+	end
+	if client.resolved_capabilities.document_highlight then
+		local group = augroup("HighlightLSPSymbols")
+		-- Highlight text at cursor position
+		autocmd({ "CursorHold", "CursorHoldI" }, {
+			desc = "Highlight references to current symbol under cursor",
+			pattern = "<buffer>",
+			command = "silent! lua vim.lsp.buf.document_highlight()",
+			group = group,
+		})
+		autocmd({ "CursorMoved" }, {
+			desc = "Clear highlights when cursor is moved",
+			pattern = "<buffer>",
+			command = "silent! lua vim.lsp.buf.clear_references()",
+			group = group,
+		})
+	end
+	if client.resolved_capabilities.document_formatting then
+		-- auto format file on save
+		autocmd({ "BufWritePre" }, {
+			desc = "Auto format file before saving",
+			pattern = "<buffer>",
+			command = "silent! undojoin | lua vim.lsp.buf.formatting_seq_sync()",
+		})
+	end
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
