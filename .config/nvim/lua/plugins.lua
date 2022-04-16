@@ -410,7 +410,22 @@ return require("packer").startup(function(use)
 			require("configs.hop")
 		end,
 	})
-	use("ur4ltz/surround.nvim") -- add surround commands
+	use({
+		"ur4ltz/surround.nvim",
+		config = function()
+			-- surround
+			require("surround").setup({
+				brackets = { "(", "{", "[", "<" },
+				pairs = {
+					nestable = { { "(", ")" }, { "{", "}" }, { "[", "]" }, { "<", ">" } },
+					linear = { { '"', '"' }, { "'", "'" }, { 'r#"', '"#' } },
+				},
+				mappings_style = "surround",
+				surround_map_insert_mode = false,
+				prefix = "s",
+			})
+		end,
+	}) -- add surround commands
 	-- Search in browser
 	use({
 		"voldikss/vim-browser-search",
@@ -429,9 +444,12 @@ return require("packer").startup(function(use)
 		end,
 	}) -- special search and replace buffer
 	use("rcarriga/nvim-notify") -- overides the default vim notify method for a floating window
-	use({"j-hui/fidget.nvim", config = function ()
-	  require"fidget".setup{}
-	end}) -- status progress for lsp servers
+	use({
+		"j-hui/fidget.nvim",
+		config = function()
+			require("fidget").setup({})
+		end,
+	}) -- status progress for lsp servers
 	-- use({
 	-- 	"wyattjsmith1/weather.nvim",
 	-- 	requires = {
