@@ -1,4 +1,6 @@
 # https://gist.github.com/raulqf/f42c718a658cddc16f9df07ecc627be7
+# Remove: 
+# Go in build folder opencv then: sudo make uninstall && sudo rm /usr/local/{bin,lib}/*opencv*  
 
 sudo apt update
 sudo apt upgrade -y

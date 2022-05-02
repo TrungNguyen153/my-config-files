@@ -45,13 +45,13 @@ autocmd({ "ModeChanged" }, {
 	end,
 })
 
-autocmd({ "CursorHold", "CursorHoldI" }, {
-	desc = "Show box with diagnosticis for current line",
-	pattern = "*",
-	callback = function()
-		vim.diagnostic.open_float({ focusable = false })
-	end,
-})
+-- autocmd({ "CursorHold", "CursorHoldI" }, {
+-- 	desc = "Show box with diagnosticis for current line",
+-- 	pattern = "*",
+-- 	callback = function()
+-- 		vim.diagnostic.open_float({ focusable = false })
+-- 	end,
+-- })
 
 -- TODO: apply this to any file outside the cwd
 autocmd({ "BufRead" }, {

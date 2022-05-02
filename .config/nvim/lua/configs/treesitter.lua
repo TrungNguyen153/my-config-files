@@ -80,6 +80,9 @@ require("nvim-treesitter.configs").setup({
 	},
 })
 
+vim.g.foldmethod = "expr"
+vim.g.foldexpr = 'nvim_treesitter#foldexpr()'
+
 require("vim.treesitter.query").set_query(
 	"rust",
 	"injections",
@@ -90,3 +93,4 @@ require("vim.treesitter.query").set_query(
 ) @injection.content (#set! injection.language "sql"))
 ]]
 ) -- inject sql in raw_string_literals
+

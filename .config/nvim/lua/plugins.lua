@@ -172,12 +172,12 @@ return require("packer").startup(function(use)
 	-- debug
 	-- check https://github.com/Pocco81/DAPInstall.nvim
 	use({
-		"Pocco81/DAPInstall.nvim",
-		config = function()
-			require("dap-install").setup({
-				installation_path = vim.fn.stdpath("data") .. "/dapinstall/",
-			})
-		end,
+		"Pocco81/dap-buddy.nvim",
+		-- config = function()
+		-- 	require("dap-install").setup({
+		-- 		installation_path = vim.fn.stdpath("data") .. "/dapinstall/",
+		-- 	})
+		-- end,
 	})
 	use({
 		"theHamsta/nvim-dap-virtual-text",
@@ -435,7 +435,7 @@ return require("packer").startup(function(use)
 	})
 	-- }}}
 
-	use("tpope/vim-repeat") -- adds repeat functionality for other plugins
+	-- use("tpope/vim-repeat") -- adds repeat functionality for other plugins
 	use("andymass/vim-matchup") -- Enhances the %
 	use({
 		"nvim-pack/nvim-spectre",

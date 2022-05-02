@@ -194,56 +194,57 @@ nvim_tree.setup({
 	},
 })
 
-local guicursor_orig = vim.o.guicursor
-
-local function cursor_hide()
-	vim.wo.winhighlight = "CursorLine:WildMenu"
-	vim.o.guicursor = guicursor_orig .. ",a:TransparentCursor/lCursor"
-	vim.wo.cursorline = true
-end
-
-local function cursor_restore()
-	vim.o.guicursor = "a:Cursor/lCursor"
-	vim.o.guicursor = guicursor_orig
-	vim.wo.cursorline = false
-end
-
--- Attach events on new NvimTree buffer.
-local function cursor_attach_events()
-	local ok, group_id = pcall(vim.api.nvim_create_augroup, "nvim-tree-custom", {})
-	if not ok then
-		return
-	end
-	vim.cmd([[ highlight default TransparentCursor gui=strikethrough blend=100 ]])
-
-	vim.api.nvim_create_autocmd("FileType", {
-		pattern = "NvimTree",
-		group = group_id,
-		callback = function()
-			local bufnr = vim.api.nvim_get_current_buf()
-
-			-- Hide when entering buffer.
-			vim.api.nvim_create_autocmd("BufEnter,WinEnter,CmdwinLeave,CmdlineLeave", {
-				buffer = bufnr,
-				group = group_id,
-				callback = cursor_hide,
-			})
-
-			-- Restore when leaving buffer.
-			vim.api.nvim_create_autocmd("BufLeave,WinLeave,CmdwinEnter,CmdlineEnter", {
-				buffer = bufnr,
-				group = group_id,
-				callback = cursor_restore,
-			})
-
-			-- Restore original cursor when exiting Neovim.
-			vim.api.nvim_create_autocmd("VimLeave", {
-				buffer = bufnr,
-				group = group_id,
-				callback = cursor_restore,
-			})
-		end,
-	})
-end
-
-cursor_attach_events()
+-- https://github.com/rafi/vim-config/blob/master/lua/plugins/tree.lua
+-- local guicursor_orig = vim.o.guicursor
+--
+-- local function cursor_hide()
+-- 	vim.wo.winhighlight = "CursorLine:WildMenu"
+-- 	vim.o.guicursor = guicursor_orig .. ",a:TransparentCursor/lCursor"
+-- 	vim.wo.cursorline = true
+-- end
+--
+-- local function cursor_restore()
+-- 	vim.o.guicursor = "a:Cursor/lCursor"
+-- 	vim.o.guicursor = guicursor_orig
+-- 	vim.wo.cursorline = false
+-- end
+--
+-- -- Attach events on new NvimTree buffer.
+-- local function cursor_attach_events()
+-- 	local ok, group_id = pcall(vim.api.nvim_create_augroup, "nvim-tree-custom", {})
+-- 	if not ok then
+-- 		return
+-- 	end
+-- 	vim.cmd([[ highlight default TransparentCursor gui=strikethrough blend=100 ]])
+--
+-- 	vim.api.nvim_create_autocmd("FileType", {
+-- 		pattern = "NvimTree",
+-- 		group = group_id,
+-- 		callback = function()
+-- 			local bufnr = vim.api.nvim_get_current_buf()
+--
+-- 			-- Hide when entering buffer.
+-- 			vim.api.nvim_create_autocmd("BufEnter,WinEnter,CmdwinLeave,CmdlineLeave", {
+-- 				buffer = bufnr,
+-- 				group = group_id,
+-- 				callback = cursor_hide,
+-- 			})
+--
+-- 			-- Restore when leaving buffer.
+-- 			vim.api.nvim_create_autocmd("BufLeave,WinLeave,CmdwinEnter,CmdlineEnter", {
+-- 				buffer = bufnr,
+-- 				group = group_id,
+-- 				callback = cursor_restore,
+-- 			})
+--
+-- 			-- Restore original cursor when exiting Neovim.
+-- 			vim.api.nvim_create_autocmd("VimLeave", {
+-- 				buffer = bufnr,
+-- 				group = group_id,
+-- 				callback = cursor_restore,
+-- 			})
+-- 		end,
+-- 	})
+-- end
+--
+-- cursor_attach_events()
