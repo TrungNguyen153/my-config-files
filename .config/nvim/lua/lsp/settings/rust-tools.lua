@@ -79,7 +79,7 @@ local opts = {
 				checkOnSave = {
 					enable = true,
           -- https://github.com/rust-analyzer/rust-analyzer/issues/9768
-					command = "clippy",
+					-- command = "clippy",
 					allFeatures = true,
 				},
 			},

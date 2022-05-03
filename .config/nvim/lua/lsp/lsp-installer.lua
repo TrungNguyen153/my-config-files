@@ -41,6 +41,7 @@ lsp_installer.on_server_ready(function(server)
 	if server.name == "rust_analyzer" then
 		local rust_tools_config = require("lsp.settings.rust-tools")
 		local merge_option = vim.tbl_deep_extend("force",rust_tools_config.server, opts)
+---@diagnostic disable-next-line: different-requires
 		require("rust-tools").setup({
       tools = rust_tools_config.tools,
       dap = rust_tools_config.dap,
