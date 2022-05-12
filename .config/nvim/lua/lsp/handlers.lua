@@ -62,6 +62,7 @@ local function lsp_keymaps(bufnr)
 	local function map_buf(...)
 		vim.api.nvim_buf_set_keymap(bufnr, ...)
 	end
+
 	local opts = { noremap = true, silent = true }
 	map_buf("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 	map_buf("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
@@ -78,7 +79,10 @@ local function lsp_keymaps(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
-	if client.name == "tsserver" or client.name == "dartls" then
+	-- HIGHLIGHT: Ignore format on save with
+	-- if client.name == "tsserver" or client.name == "dartls" then
+	print("On Attach For " .. client.name)
+	if client.name == "dartls" then
 		client.resolved_capabilities.document_formatting = false
 	end
 	lsp_keymaps(bufnr)
