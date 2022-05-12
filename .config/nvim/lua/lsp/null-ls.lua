@@ -7,6 +7,7 @@ end
 local formatting = null_ls.builtins.formatting
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
 local diagnostics = null_ls.builtins.diagnostics
+---@diagnostic disable-next-line: unused-local
 local code_actions = null_ls.builtins.code_actions
 
 null_ls.setup({
@@ -24,7 +25,7 @@ null_ls.setup({
 			prefer_local = "node_modules/.bin",
 		}),
 		-- formatting.black.with({ extra_args = { "--fast" } }),
-		formatting.gofmt,
+		-- formatting.gofmt,
 		formatting.shfmt,
 		formatting.clang_format,
 		formatting.cmake_format,

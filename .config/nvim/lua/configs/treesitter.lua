@@ -19,7 +19,7 @@ parser_configs.http = {
 	filetype = "http",
 }
 require("nvim-treesitter.configs").setup({
-	ensure_installed = "all", -- A list of parser names, or "all"
+	ensure_installed = "all", -- A list of parser names { "c", "lua", "rust" }, or "all"
 	highlight = {
 		enable = true,
 		additional_vim_regex_highlighting = true,
