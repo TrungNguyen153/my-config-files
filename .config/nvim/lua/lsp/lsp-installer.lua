@@ -15,7 +15,7 @@ local function ensure_server(name)
 end
 
 -- Normal Server Config
-local servers = { "jsonls", "sumneko_lua", "pyright", "yamlls" }
+local servers = { "jsonls", "sumneko_lua", "pyright", "yamlls", "tailwindcss" }
 
 for _, server in pairs(servers) do
 	local opts = {

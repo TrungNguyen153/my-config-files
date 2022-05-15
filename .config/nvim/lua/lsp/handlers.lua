@@ -85,7 +85,14 @@ M.on_attach = function(client, bufnr)
 	if client.name == "dartls" then
 		client.resolved_capabilities.document_formatting = false
 	end
+
 	lsp_keymaps(bufnr)
+
+	-- Tailwind class name color
+	if client.server_capabilities.colorProvider then
+		require("lsp/utils/documentcolors").buf_attach(bufnr)
+	end
+
 	if client.resolved_capabilities.code_lens then
 		autocmd({ "BufEnter", "InsertLeave" }, {
 			desc = "Auto show code lenses",
