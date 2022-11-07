@@ -114,6 +114,7 @@ return require("packer").startup(function(use)
 
   use({
     "williamboman/nvim-lsp-installer",
+    after = "nvim-dap",
     requires = { "b0o/schemastore.nvim", "jose-elias-alvarez/nvim-lsp-ts-utils", "folke/lua-dev.nvim" }, -- for typescript helper
     config = function()
       require("lsp.lsp-installer")
@@ -155,23 +156,6 @@ return require("packer").startup(function(use)
   })
   --- }}}
 
-  -- debug
-  -- check https://github.com/Pocco81/DAPInstall.nvim
-  use({
-    "Pocco81/dap-buddy.nvim",
-    -- config = function()
-    -- 	require("dap-install").setup({
-    -- 		installation_path = vim.fn.stdpath("data") .. "/dapinstall/",
-    -- 	})
-    -- end,
-  })
-  use({
-    "theHamsta/nvim-dap-virtual-text",
-    config = function()
-      require("nvim-dap-virtual-text").setup()
-    end,
-  }) -- virtual text during debugging
-  use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 
   -- Completion Group {{{
   use({
@@ -185,6 +169,8 @@ return require("packer").startup(function(use)
       "hrsh7th/cmp-nvim-lua",
       "L3MON4D3/LuaSnip", --snippet engine
       "rafamadriz/friendly-snippets", -- a bunch of snippets to use
+      "github/copilot.vim",
+      "hrsh7th/cmp-copilot",
     },
     "hrsh7th/nvim-cmp",
     config = function()
@@ -222,15 +208,15 @@ return require("packer").startup(function(use)
       -- { "nvim-telescope/telescope-fzf-native.nvim",
       --   run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build" },
       { "LinArcX/telescope-env.nvim" }, -- Watch environment variables with telescop
-      { "nvim-telescope/telescope-dap.nvim" },
       { "nvim-telescope/telescope-ui-select.nvim" },
+      { "nvim-telescope/telescope-dap.nvim" },
     },
     config = function()
       require("configs.telescope")
       -- require("telescope").load_extension("fzf")
       require("telescope").load_extension("env")
       require("telescope").load_extension("ui-select")
-      require("telescope").load_extension("dap")
+      require('telescope').load_extension('dap')
     end,
   })
 
@@ -431,6 +417,7 @@ return require("packer").startup(function(use)
       require("spectre").setup()
     end,
   }) -- special search and replace buffer
+
   use("rcarriga/nvim-notify") -- overides the default vim notify method for a floating window
   use({
     "j-hui/fidget.nvim",
@@ -438,17 +425,11 @@ return require("packer").startup(function(use)
       require("fidget").setup({})
     end,
   }) -- status progress for lsp servers
-  -- use({
-  -- 	"wyattjsmith1/weather.nvim",
-  -- 	requires = {
-  -- 		"nvim-lua/plenary.nvim",
-  -- 	},
-  -- 	config = function()
-  -- 		require("weather").setup({})
-  -- 	end,
-  -- }) -- adds weather information to status line
+
   use("meznaric/conmenu")
+
   use("segeljakt/vim-silicon") -- Generates an image from selected text. Needs silicon installed (cargo install silicon)
+
   use({
     "luukvbaal/stabilize.nvim",
     config = function()
@@ -506,6 +487,42 @@ return require("packer").startup(function(use)
       })
     end,
   }) -- todo comments helper
+
+  -- debug
+  -- check https://github.com/Pocco81/DAPInstall.nvim
+  -- use({
+  --   "Pocco81/dap-buddy.nvim",
+  --   branch = "dev"
+  -- })
+  use({
+    "mfussenegger/nvim-dap",
+    config = function()
+      require("configs/nvim-dap")
+    end
+  })
+
+  use({
+    "theHamsta/nvim-dap-virtual-text",
+    after = "nvim-dap",
+    config = function()
+      require('nvim-dap-virtual-text').setup({
+        all_frames = true,
+      })
+    end,
+  }) -- virtual text during debugging
+  use({ "rcarriga/nvim-dap-ui",
+    requires = { "mfussenegger/nvim-dap" },
+    config = function()
+      require("dapui").setup()
+    end,
+  })
+
+  use({
+    'folke/which-key.nvim',
+    config = function()
+      require("configs/which-key")
+    end,
+  }) -- help with vim commands.
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
