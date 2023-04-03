@@ -12,6 +12,7 @@ return {
     local liblldb_path = extension_path .. '/extension/lldb/lib/liblldb.dylib'
     require('rust-tools').setup({
       tools = {
+        executor = require("rust-tools.executors").termopen,
         inlay_hints = {
           auto = true,
           only_current_line = false,
@@ -19,6 +20,7 @@ return {
           parameter_hints_prefix = '◂ ',
           other_hints_prefix = '▸ ',
         },
+        reload_workspace_from_cargo_toml = true,
         hover_actions = { auto_focus = true },
       },
       dap = {
@@ -35,6 +37,7 @@ return {
               enable = true,
               -- https://github.com/rust-analyzer/rust-analyzer/issues/6835
               disabled = { 'unresolved-macro-call' },
+              experimental = { enable = true},
               enableExperimental = true,
             },
             completion = {
@@ -52,12 +55,11 @@ return {
               },
             },
             cargo = {
-              loadOutDirsFromCheck = true,
               autoreload = true,
-              runBuildScripts = true,
+              buildScripts = { enable = true },
               features = 'all',
               -- https://github.com/rust-lang/rust-analyzer/issues/13400
-              target = 'aarch64-apple-darwin',
+              -- target = 'aarch64-apple-darwin',
             },
             procMacro = { enable = true },
             lens = {

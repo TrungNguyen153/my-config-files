@@ -1,6 +1,8 @@
 -- default shell
 -- vim.o.shell = '/opt/homebrew/bin/fish'
-
+vim.g.mapleader = ' ' -- <leader>
+vim.g.maplocalleader = ";" -- <localleader>
+vim.o.timeoutlen = 500
 -- clipboard
 vim.go.clipboard = 'unnamedplus'
 
@@ -83,9 +85,9 @@ vim.o.wildignore =
 '.hg,.svn,*~,*.png,*.jpg,*.gif,*.settings,Thumbs.db,*.min.js,*.swp,publish/*,intermediate/*,*.o,*.hi,Zend,vendor,*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite'
 
 -- Use wide tabs
-vim.o.shiftwidth = 4
+vim.o.shiftwidth = 2
 vim.o.softtabstop = 4
-vim.o.tabstop = 4
+vim.o.tabstop = 2
 vim.o.expandtab = true
 
 -- Backspace over newline
@@ -121,6 +123,8 @@ vim.o.diffopt = vim.o.diffopt .. ',iwhite'
 -- Make diffing better: https://vimways.org/2018/the-power-of-diff/
 vim.o.diffopt = vim.o.diffopt .. ',algorithm:patience'
 vim.o.diffopt = vim.o.diffopt .. ',indent-heuristic'
+-- https://github.com/neovim/neovim/pull/14537
+-- vim.o.diffopt = vim.o.diffopt .. ',linematch:50'
 
 -- Avoid showing extra messages when using completion
 vim.o.shortmess = vim.o.shortmess .. 'c'

@@ -53,7 +53,7 @@ return {
           end,
         }),
         null_ls.builtins.code_actions.refactoring.with({
-          filetypes = { 'go', 'javascript', 'lua', 'python', 'typescript', 'ruby', 'java' },
+          filetypes = { 'go', 'javascript', 'lua', 'python', 'typescript', 'svelte', 'ruby', 'java' },
         }),
       },
       on_attach = on_attach,

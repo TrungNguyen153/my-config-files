@@ -1,15 +1,58 @@
-vim.g.mapleader = ' ' -- <leader>
-vim.g.maplocalleader = ";" -- <localleader>
-vim.o.timeoutlen = 500
 local no_remap_opt = { noremap = true }
 local silent_opt = { silent = true }
 local no_remap_silent_opt = { noremap = true, silent = true }
 
 local sidebar = require('sidebar')
 local keymap_table = {
-  { shortcut = '+', cmd = '<C-a>', opts = no_remap_opt, modes = { 'n' }, description = 'Increment number' },
-  { shortcut = '-', cmd = '<C-x>', opts = no_remap_opt, modes = { 'n' }, description = 'Decrement number' },
-  { shortcut = '<C-a>', cmd = 'gg<S-v>G', opts = {}, modes = { 'n' }, description = 'Select all' },
+  {
+    shortcut = '+',
+    cmd = '<C-a>',
+    opts = no_remap_opt,
+    modes = { 'n' },
+    description = 'Increment number',
+  },
+  {
+    shortcut = '-',
+    cmd = '<C-x>',
+    opts = no_remap_opt,
+    modes = { 'n' },
+    description = 'Decrement number',
+  },
+  {
+    shortcut = '<C-a>',
+    cmd = 'gg<S-v>G',
+    opts = {},
+    modes = { 'n' },
+    description = 'Select all',
+  },
+  {
+    shortcut = '<M-p>',
+    cmd = require('telescope.builtin').buffers,
+    opts = no_remap_silent_opt,
+    modes = { 'n' },
+    description = 'Open buffers',
+  },
+  {
+    shortcut = '<C-p>',
+    cmd = require('telescope.builtin').find_files,
+    opts = no_remap_silent_opt,
+    modes = { 'n' },
+    description = 'Open file in workspace',
+  },
+  {
+    shortcut = '<M-r>',
+    cmd = ':e!<CR>',
+    opts = no_remap_silent_opt,
+    modes = { 'n' },
+    description = 'Refresh buffer',
+  },
+  {
+    shortcut = '<M-w>',
+    cmd = require('session-lens').search_session,
+    opts = no_remap_silent_opt,
+    modes = { 'n' },
+    description = 'Open saved session',
+  },
   {
     shortcut = '<localleader>b',
     cmd = require('telescope.builtin').buffers,
@@ -44,13 +87,6 @@ local keymap_table = {
     opts = no_remap_silent_opt,
     modes = { 'n' },
     description = 'Open command history',
-  },
-  {
-    shortcut = '<M-w>',
-    cmd = require('session-lens').search_session,
-    opts = no_remap_silent_opt,
-    modes = { 'n' },
-    description = 'Open saved session',
   },
   {
     shortcut = '<M-t>',
@@ -118,101 +154,10 @@ local keymap_table = {
   },
   {
     shortcut = '<C-x>',
-    cmd = ':BufferClose<CR>',
+    cmd = ':Bdelete<CR>',
     opts = no_remap_opt,
     modes = { 'n' },
     description = 'Close current buffer',
-  },
-  {
-    shortcut = '<leader><left>',
-    cmd = ':BufferPrevious<CR>',
-    opts = no_remap_opt,
-    modes = { 'n' },
-    description = 'Switch to buffer on the left',
-  },
-  {
-    shortcut = '<leader><right>',
-    cmd = ':BufferNext<CR>',
-    opts = no_remap_opt,
-    modes = { 'n' },
-    description = 'Switch to buffer on the right',
-  },
-  {
-    shortcut = '<M-1>', -- Alt-1
-    cmd = ':BufferGoto 1<CR>',
-    opts = no_remap_opt,
-    modes = { 'n' },
-    description = 'Go to buffer 1',
-  },
-  {
-    shortcut = '<M-2>',
-    cmd = ':BufferGoto 2<CR>',
-    opts = no_remap_opt,
-    modes = { 'n' },
-    description = 'Go to buffer 2',
-  },
-  {
-    shortcut = '<M-3>',
-    cmd = ':BufferGoto 3<CR>',
-    opts = no_remap_opt,
-    modes = { 'n' },
-    description = 'Go to buffer 3',
-  },
-  {
-    shortcut = '<M-4>',
-    cmd = ':BufferGoto 4<CR>',
-    opts = no_remap_opt,
-    modes = { 'n' },
-    description = 'Go to buffer 4',
-  },
-  {
-    shortcut = '<M-5>',
-    cmd = ':BufferGoto 5<CR>',
-    opts = no_remap_opt,
-    modes = { 'n' },
-    description = 'Go to buffer 5',
-  },
-  {
-    shortcut = '<M-6>',
-    cmd = ':BufferGoto 6<CR>',
-    opts = no_remap_opt,
-    modes = { 'n' },
-    description = 'Go to buffer 6',
-  },
-  {
-    shortcut = '<M-7>',
-    cmd = ':BufferGoto 7<CR>',
-    opts = no_remap_opt,
-    modes = { 'n' },
-    description = 'Go to buffer 7',
-  },
-  {
-    shortcut = '<M-8>',
-    cmd = ':BufferGoto 8<CR>',
-    opts = no_remap_opt,
-    modes = { 'n' },
-    description = 'Go to buffer 8',
-  },
-  {
-    shortcut = '<M-9>',
-    cmd = ':BufferGoto 9<CR>',
-    opts = no_remap_opt,
-    modes = { 'n' },
-    description = 'Go to buffer 9',
-  },
-  {
-    shortcut = '<M-0>',
-    cmd = ':BufferLast<CR>',
-    opts = no_remap_opt,
-    modes = { 'n' },
-    description = 'Go to last buffer',
-  },
-  {
-    shortcut = '<M-i>',
-    cmd = ':BufferPick<CR>',
-    opts = no_remap_opt,
-    modes = { 'n' },
-    description = 'Pick buffer',
   },
   {
     shortcut = '<M><left>',
@@ -243,7 +188,7 @@ local keymap_table = {
     description = 'Hopping another character by 2 character',
   },
   {
-    shortcut = '<C-h>',
+    shortcut = '<C-n>',
     cmd = ':nohlsearch<CR>',
     opts = no_remap_opt,
     modes = { 'n', 'v' },
@@ -434,7 +379,7 @@ local keymap_table = {
     shortcut = '<M-k>',
     cmd = vim.lsp.buf.signature_help,
     opts = silent_opt,
-    modes = { 'n', 'i' },
+    modes = { 'i' },
     description = 'Signature help',
   },
   -- calling twice make the cursor go into the float window. good for navigating big docs
@@ -453,6 +398,20 @@ local keymap_table = {
     opts = silent_opt,
     modes = { 'n' },
     description = 'Format code',
+  },
+  {
+    shortcut = '<leader>rn',
+    cmd = "<cmd>lua vim.lsp.buf.rename()<CR>",
+    opts = silent_opt,
+    modes = { 'n' },
+    description = 'Rename symbol',
+  },
+  {
+    shortcut = '<leader>ca',
+    cmd = "<cmd>lua vim.lsp.buf.code_action()<CR>",
+    opts = silent_opt,
+    modes = { 'n' },
+    description = 'Code Action',
   },
   {
     shortcut = '<F4>',
@@ -710,8 +669,7 @@ return {
         },
         s = {
           name = 'Shell',
-          a = { ':ToggleTermOpenAll<CR>', 'Open All' },
-          c = { ':ToggleTermCloseAll<CR>', 'Open All' },
+          a = { ':ToggleTermToggleAll<CR>', 'Toggle Term All' },
           h = { ':ToggleTerm direction=horizontal<CR>', 'Horizontal' },
           v = { ':ToggleTerm direction=vertical<CR>', 'Vertical' },
           f = { ':ToggleTerm direction=float<CR>', 'Float' },

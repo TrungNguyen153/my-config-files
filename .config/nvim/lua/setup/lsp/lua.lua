@@ -7,7 +7,7 @@ return {
     for _, v in pairs(vim.api.nvim_get_runtime_file('', true)) do
       lua_runtime[v] = true
     end
-    lspconfig.sumneko_lua.setup({
+    lspconfig.lua_ls.setup({
       on_attach = on_attach,
       capabilities = capabilities,
       settings = {
@@ -22,6 +22,8 @@ return {
           workspace = {
             -- Make the server aware of Neovim runtime files
             library = lua_runtime,
+            -- stop the annoying message from luassert
+            checkThirdParty = false,
           },
           -- Do not send telemetry data containing a randomized but unique identifier
           telemetry = {

@@ -62,14 +62,14 @@ return {
         },
       },
     })
-    -- require('neo-tree.events.queue').subscribe({
-    --   event = 'file_opened',
-    --   handler = function()
-    --     vim.schedule(function()
-    --       require('sidebar'):toggle('neotree')
-    --     end)
-    --   end,
-    -- })
+    require('neo-tree.events.queue').subscribe({
+      event = 'file_opened',
+      handler = function()
+        vim.schedule(function()
+          require('sidebar'):toggle('neotree')
+        end)
+      end,
+    })
     local open_neotree = function()
       vim.api.nvim_cmd({
         cmd = 'Neotree',
@@ -94,6 +94,7 @@ return {
     end
 
     require('sidebar'):register_sidebar('neotree', open_neotree, close_neotree)
+    --require('sidebar'):toggle('neotree')
   end,
   neogit = function()
     vim.api.nvim_cmd({
