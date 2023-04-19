@@ -119,7 +119,7 @@ M.setup = function()
 			"black",
 			"clangd",
 			"ktlint",
-			"markdownlint",
+			-- "markdownlint",
 			"shfmt",
 			"stylua",
 			"codespell",

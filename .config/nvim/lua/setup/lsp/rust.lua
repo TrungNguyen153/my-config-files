@@ -1,15 +1,17 @@
 -- WARN: Update this path for another platform
 -- For [WINDOW_NT]
---[[ local extension_path = vim.env.HOME .. '\\.vscode\\extensions\\vadimcn.vscode-lldb-1.7.0\\' ]]
---[[ local codelldb_path = extension_path .. 'adapter\\codelldb' ]]
---[[ local liblldb_path = extension_path .. 'lldb\\bin\\liblldb.dll' ]]
+-- local codelldb_path = extension_path .. '\\extension\\adapter\\codelldb.exe'
+-- local liblldb_path = extension_path .. '\\extension\\lldb\\bin\\liblldb.dll'
+-- For [LINUX]
+-- local codelldb_path = extension_path .. '/extension/adapter/codelldb'
+-- local liblldb_path = extension_path .. '/extension/lldb/lib/liblldb.dylib'
 return {
   setup = function(capabilities, on_attach)
     local mason_registry = require('mason-registry')
     local codelldb = mason_registry.get_package('codelldb')
     local extension_path = codelldb:get_install_path()
-    local codelldb_path = extension_path .. '/extension/adapter/codelldb'
-    local liblldb_path = extension_path .. '/extension/lldb/lib/liblldb.dylib'
+    local codelldb_path = extension_path .. '\\extension\\adapter\\codelldb.exe'
+    local liblldb_path = extension_path .. '\\extension\\lldb\\bin\\liblldb.dll'
     require('rust-tools').setup({
       tools = {
         executor = require("rust-tools.executors").termopen,

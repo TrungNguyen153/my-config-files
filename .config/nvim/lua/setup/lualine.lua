@@ -1,8 +1,8 @@
 -- local luffy = { '􏾾', '􏾿', '􏿀', '􏿁', '􏿂', '􏿃' }
 return {
 	setup = function(signature, weather, winbar_sig, substitute)
-		local spotify_status = require("nvim-spotify").status
-		spotify_status:start()
+		-- local spotify_status = require("nvim-spotify").status
+		-- spotify_status:start()
 
 		local lualine = require("lualine")
 
@@ -70,7 +70,7 @@ return {
 				},
 				lualine_z = {
 					-- weather(),
-					spotify_status.listen,
+					-- spotify_status.listen,
 				},
 			},
 			inactive_sections = {

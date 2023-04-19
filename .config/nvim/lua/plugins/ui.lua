@@ -16,16 +16,22 @@ return {
       )
     end,
   }, -- status line
+  {
+    'Mofiqul/vscode.nvim',
+    config = function()
+      require('setup.vscode-theme').setup()
+    end,
+  }, -- theme
   -- {
   --   'catppuccin/nvim',
   --   config = function()
   --     require('setup.catppuccin').setup('latte')
   --   end,
   -- }, -- theme
-  {
-    "NTBBloodbath/doom-one.nvim",
-    config = require("setup.doom-one").setup,
-  },
+  -- {
+  --   "NTBBloodbath/doom-one.nvim",
+  --   config = require("setup.doom-one").setup,
+  -- },
   -- {
   --   "marko-cerovac/material.nvim",
   --   config = require("setup.material-color").setup,
@@ -49,13 +55,13 @@ return {
   { 'folke/todo-comments.nvim', config = require('setup.todo-comments').setup }, -- todo comments helper
   -- { 'wyattjsmith1/weather.nvim', config = require('setup.weather').setup }, -- adds weather information to status line
   { 'zbirenbaum/neodim', event = 'LspAttach', config = require('setup.neodim').setup },
-  {
-    'KadoBOT/nvim-spotify',
-    build = 'make',
-    config = function()
-      require('nvim-spotify').setup({
-        update_interval = 5000,
-      })
-    end,
-  },
+  -- {
+  --   'KadoBOT/nvim-spotify',
+  --   build = 'make',
+  --   config = function()
+  --     require('nvim-spotify').setup({
+  --       update_interval = 5000,
+  --     })
+  --   end,
+  -- },
 }

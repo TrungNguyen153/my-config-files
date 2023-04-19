@@ -636,9 +636,10 @@ return {
           name = 'Debug Adapter',
           c = { '<cmd>lua require("telescope").extensions.dap.commands()<CR>', 'Commands' },
           f = { '<cmd>lua require("telescope").extensions.dap.configurations()<CR>', 'Configurations' },
-          b = { '<cmd>lua require("telescope").extensions.dap.list_breakpoints()<CR>', 'Breakpoints' },
+          b = { '<cmd>lua require("telescope").extensions.dap.list_breakpoints()<CR>', 'List Breakpoints' },
           v = { '<cmd>lua require("telescope").extensions.dap.variables()<CR>', 'Variables' },
           r = { '<cmd>lua require("telescope").extensions.dap.frames()<CR>', 'Frames' },
+          t = { '<cmd>lua require("dapui").toggle()<CR>', 'Toggle DAP UI' },
         },
         r = {
           name = 'Rust',

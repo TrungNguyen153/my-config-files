@@ -35,4 +35,7 @@ return {
 		dependencies = { "rmagatti/auto-session", "nvim-telescope/telescope.nvim" },
 		config = require("setup.session").setup,
 	},
+	{
+		"dstein64/vim-startuptime",
+	},
 }
