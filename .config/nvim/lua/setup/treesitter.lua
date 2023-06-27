@@ -1,9 +1,9 @@
 return {
   setup = function()
-    require('nvim-treesitter.configs').setup({
-      ensure_installed = 'all',
+    require("nvim-treesitter.configs").setup({
+      ensure_installed = "all",
       ignore_install = {
-        'phpdoc',
+        "phpdoc",
       },
       highlight = {
         enable = true,
@@ -13,8 +13,8 @@ return {
       indent = {
         enable = true,
         disable = {
-          'rust',
-          'python',
+          "rust",
+          "python",
         },
       },
       matchup = {
@@ -25,49 +25,44 @@ return {
           enable = true,
           lookahead = true,
           keymaps = {
-            ['au'] = '@comment.outer',
-            ['iu'] = '@comment.inner',
-            ['af'] = '@function.outer',
-            ['if'] = '@function.inner',
-            ['ac'] = '@class.outer',
-            ['ic'] = '@class.inner',
-            ['ab'] = '@block.outer',
-            ['ib'] = '@block.inner',
-          },
-          selection_modes = {
-            ['@parameter.outer'] = 'v', -- charwise
-            ['@function.outer'] = 'V', -- linewise
-            ['@class.outer'] = '<c-v>', -- blockwise
+            ["au"] = "@comment.outer",
+            ["iu"] = "@comment.inner",
+            ["af"] = "@function.outer",
+            ["if"] = "@function.inner",
+            ["ac"] = "@class.outer",
+            ["ic"] = "@class.inner",
+            ["ab"] = "@block.outer",
+            ["ib"] = "@block.inner",
           },
         },
         move = {
           enable = true,
           set_jumps = true, -- whether to set jumps in the jumplist
           goto_next_start = {
-            [']m'] = '@function.outer',
-            [']]'] = { query = '@class.outer', desc = 'Next class start' },
+            ["]m"] = "@function.outer",
+            ["]]"] = { query = "@class.outer", desc = "Next class start" },
           },
           goto_next_end = {
-            [']M'] = '@function.outer',
-            [']['] = '@class.outer',
+            ["]M"] = "@function.outer",
+            ["]["] = "@class.outer",
           },
           goto_previous_start = {
-            ['[m'] = '@function.outer',
-            ['[['] = '@class.outer',
+            ["[m"] = "@function.outer",
+            ["[["] = "@class.outer",
           },
           goto_previous_end = {
-            ['[M'] = '@function.outer',
-            ['[]'] = '@class.outer',
+            ["[M"] = "@function.outer",
+            ["[]"] = "@class.outer",
           },
         },
       },
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = '<CR>',
-          scope_incremental = '<CR>',
-          node_incremental = '<TAB>',
-          node_decremental = '<S-TAB>',
+          init_selection = "<CR>",
+          scope_incremental = "<CR>",
+          node_incremental = "<TAB>",
+          node_decremental = "<S-TAB>",
         },
       },
     })
@@ -81,41 +76,41 @@ return {
     -- ) @injection.content (#set! injection.language "sql"))
     -- ]]
     -- ) -- inject sql in raw_string_literals
---     require('vim.treesitter.query').set(
---       'rust',
---       'injections',
---       [[
--- ((
---   (line_comment) @constant
--- ) @injection.content (#set! injection.language "markdown_inline"))
--- ]]
---     ) -- inject markdown in comments
+    --     require('vim.treesitter.query').set(
+    --       'rust',
+    --       'injections',
+    --       [[
+    -- ((
+    --   (line_comment) @constant
+    -- ) @injection.content (#set! injection.language "markdown_inline"))
+    -- ]]
+    --     ) -- inject markdown in comments
 
-    require('treesitter-context').setup({
+    require("treesitter-context").setup({
       enable = true,
       max_lines = 3,
-      mode = 'topline',
+      mode = "topline",
       patterns = {
         default = {
-          'class',
-          'function',
-          'method',
-          'for',
-          'while',
-          'if',
-          'switch',
-          'case',
+          "class",
+          "function",
+          "method",
+          "for",
+          "while",
+          "if",
+          "switch",
+          "case",
         },
         rust = {
-          'impl_item',
-          'struct',
-          'enum',
+          "impl_item",
+          "struct",
+          "enum",
         },
         json = {
-          'pair',
+          "pair",
         },
         yaml = {
-          'block_mapping_pair',
+          "block_mapping_pair",
         },
       },
     })

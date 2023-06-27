@@ -166,5 +166,12 @@ return {
 			end,
 		})
 
+
+		autocmd({"FileType"}, {
+			desc = "q for quit floating widget dap windows",
+			pattern = "dap-float",
+			command = "nnoremap <buffer><silent> q <cmd>close!<CR>",
+		})
+
 	end,
 }

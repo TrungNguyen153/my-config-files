@@ -14,12 +14,12 @@ return {
         null_ls.builtins.formatting.gofmt,
         null_ls.builtins.formatting.goimports,
         null_ls.builtins.formatting.ktlint,
-        null_ls.builtins.formatting.markdownlint,
+        -- null_ls.builtins.formatting.markdownlint,
         null_ls.builtins.formatting.shfmt,
         null_ls.builtins.formatting.stylua,
-        null_ls.builtins.diagnostics.codespell.with({
-          filetypes = { 'markdown', 'tex', 'asciidoc' },
-        }),
+        -- null_ls.builtins.diagnostics.codespell.with({
+        --   filetypes = { 'markdown', 'tex', 'asciidoc' },
+        -- }),
         null_ls.builtins.diagnostics.eslint_d,
         null_ls.builtins.diagnostics.hadolint,
         null_ls.builtins.diagnostics.ktlint,
@@ -38,7 +38,7 @@ return {
         }),
         null_ls.builtins.diagnostics.cppcheck,
         null_ls.builtins.diagnostics.write_good,
-        null_ls.builtins.diagnostics.markdownlint,
+        -- null_ls.builtins.diagnostics.markdownlint,
         null_ls.builtins.diagnostics.pylint,
         null_ls.builtins.diagnostics.yamllint,
         null_ls.builtins.diagnostics.vale.with({

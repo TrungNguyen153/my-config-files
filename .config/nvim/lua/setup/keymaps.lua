@@ -48,7 +48,7 @@ local keymap_table = {
   },
   {
     shortcut = '<M-w>',
-    cmd = require('session-lens').search_session,
+    cmd = require('auto-session.session-lens').search_session,
     opts = no_remap_silent_opt,
     modes = { 'n' },
     description = 'Open saved session',

@@ -215,7 +215,7 @@ return {
 		cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 		npairs.add_rule(Rule('r#"', '"#', "rust"))
-		npairs.add_rule(Rule("|", "|", "rust"))
+		-- npairs.add_rule(Rule("|", "|", "rust"))
 
 		-- copilot
 		-- vim.g.copilot_no_tab_map = true

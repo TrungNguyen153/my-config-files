@@ -78,7 +78,7 @@ return {
         dashboard = true,
         neogit = true,
         barbar = true,
-        markdown = true,
+        -- markdown = true,
         notify = true,
         symbols_outline = true,
         aerial = true,

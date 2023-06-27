@@ -1,56 +1,61 @@
 return {
   setup = function()
-    require('telescope').setup({
+    require("telescope").setup({
       defaults = {
         -- Appearance
-        entry_prefix = ' ',
-        prompt_prefix = ' ',
-        selection_caret = ' ',
+        entry_prefix = " ",
+        prompt_prefix = " ",
+        selection_caret = " ",
         color_devicons = true,
-
+        path_display = {
+          shorten = {
+            len = 1,
+            exclude = { -1, -2 },
+          },
+          "truncate",
+        },
         -- Searching
-        set_env = { COLORTERM = 'truecolor' },
+        set_env = { COLORTERM = "truecolor" },
         file_ignore_patterns = {
-          '.git/',
-          '%.jpg',
-          '%.jpeg',
-          '%.png',
-          '%.svg',
-          '%.otf',
-          '%.ttf',
-          '%.lock',
-          '__pycache__',
-          '%.sqlite3',
-          '%.ipynb',
-          'vendor',
-          'node_modules',
-          'dotbot',
-          'packer_compiled.lua',
+          ".git/",
+          "%.jpg",
+          "%.jpeg",
+          "%.png",
+          "%.svg",
+          "%.otf",
+          "%.ttf",
+          "%.lock",
+          "__pycache__",
+          "%.sqlite3",
+          "%.ipynb",
+          "vendor",
+          "node_modules",
+          "dotbot",
+          "packer_compiled.lua",
         },
 
         -- Telescope smart history
         history = {
-          path = vim.fn.stdpath('data') .. '/databases/telescope_history.sqlite3',
+          path = vim.fn.stdpath("data") .. "/databases/telescope_history.sqlite3",
           limit = 100,
         },
 
         -- Mappings
         mappings = {
           i = {
-            ['<ESC>'] = require('telescope.actions').close,
-            ['<C-j>'] = require('telescope.actions').move_selection_next,
-            ['<C-k>'] = require('telescope.actions').move_selection_previous,
-            ['<C-q>'] = require('telescope.actions').send_to_qflist,
+            ["<ESC>"] = require("telescope.actions").close,
+            ["<C-j>"] = require("telescope.actions").move_selection_next,
+            ["<C-k>"] = require("telescope.actions").move_selection_previous,
+            ["<C-q>"] = require("telescope.actions").send_to_qflist,
           },
-          n = { ['<ESC>'] = require('telescope.actions').close },
+          n = { ["<ESC>"] = require("telescope.actions").close },
         },
       },
     })
-    require('telescope').load_extension('fzf')
-    require('telescope').load_extension('lsp_handlers')
-    require('telescope').load_extension('dap')
-    require('telescope').load_extension('session-lens')
-    require('telescope').load_extension('file_browser')
+    require("telescope").load_extension("fzf")
+    require("telescope").load_extension("lsp_handlers")
+    require("telescope").load_extension("dap")
+    require("telescope").load_extension("session-lens")
+    require("telescope").load_extension("file_browser")
   end,
 }
-
