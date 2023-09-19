@@ -17,6 +17,9 @@ return {
           "python",
         },
       },
+      autotag = {
+        enable = true,
+      },
       matchup = {
         enable = true,
       },

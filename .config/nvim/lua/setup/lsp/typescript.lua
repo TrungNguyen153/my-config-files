@@ -33,9 +33,9 @@ return {
           eslint_opts = {},
 
           -- formatting
-          enable_formatting = true,
-          formatter = 'eslint_d',
-          formatter_opts = {},
+          -- enable_formatting = true,
+          -- formatter = 'eslint_d',
+          -- formatter_opts = {},
 
           -- update imports on file move
           update_imports_on_move = true,

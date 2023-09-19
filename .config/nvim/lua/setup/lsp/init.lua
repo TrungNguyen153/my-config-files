@@ -8,6 +8,11 @@ M.on_attach = function(client, bufnr)
 	require("setup.autocommand").lsp_autocmds(client, bufnr)
 	-- check if this is applicable (for rust for example it is not)
 	-- https://github.com/L3MON4D3/LuaSnip/wiki/Misc#improve-language-server-snippets
+
+	-- enable inlay hints if server supports it
+    if client.server_capabilities.inlayHintProvider then
+        vim.lsp.inlay_hint(bufnr, true)
+    end
 end
 M.capabilities = function()
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -92,10 +97,10 @@ M.config_defaults = function()
 		cmd = { "sql-language-server", "up", "--method", "stdio" },
 	})
 	-- swift
-	lspconfig.sourcekit.setup({
-		on_attach = M.on_attach,
-		capabilities = M.capabilities(),
-	})
+	-- lspconfig.sourcekit.setup({
+	-- 	on_attach = M.on_attach,
+	-- 	capabilities = M.capabilities(),
+	-- })
 	-- kotlin
 	lspconfig.kotlin_language_server.setup({
 		on_attach = M.on_attach,
@@ -130,7 +135,7 @@ M.setup = function()
 		ensure_installed = {
 			"codelldb",
 			"eslint_d",
-			"black",
+			-- "black", -- python formater
 			"clangd",
 			"ktlint",
 			-- "markdownlint",
@@ -138,12 +143,12 @@ M.setup = function()
 			"stylua",
 			"codespell",
 			"vale",
-			'clang-format',
+			-- 'clang-format',
 			-- "luacheck",
-			"pylint",
+			-- "pylint",
 			"write-good",
-			"yamllint",
-			"cmakelang",
+			-- "yamllint",
+			-- "cmakelang",
 		},
 	})
 	-- general LSP config

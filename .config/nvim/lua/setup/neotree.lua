@@ -52,9 +52,13 @@ return {
             'thumbs.db',
           },
         },
-        follow_current_file = true,
-        hijack_netrw_behavior = 'open_default', -- netrw disabled, opening a directory opens neo-tree
-        use_libuv_file_watcher = true,
+        follow_current_file = {
+          enabled = true, -- This will find and focus the file in the active buffer every time
+          --               -- the current file is changed while the tree is open.
+          leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+        },
+        hijack_netrw_behavior = 'disabled', -- netrw disabled, opening a directory opens neo-tree
+        use_libuv_file_watcher = false, -- set to true will cause https://github.com/nvim-neo-tree/neo-tree.nvim/issues/914
       },
       git_status = {
         window = {
@@ -75,7 +79,8 @@ return {
         cmd = 'Neotree',
         args = {
           'source=filesystem',
-          'reveal=true',
+          -- 'reveal=true',
+          -- 'reveal_force_cwd=true',
           'position=left',
           'action=focus',
         },

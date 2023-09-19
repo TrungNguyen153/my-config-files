@@ -9,6 +9,7 @@ return {
   "bennypowers/nvim-regexplainer", -- shows popup explaining regex under cursor
   {
     "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
     dependencies = { "MunifTanjim/nui.nvim" },
     config = require("setup.neotree").setup,
   }, -- file browser
@@ -26,6 +27,7 @@ return {
       "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-symbols.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      { 'natecraddock/workspaces.nvim', config = true }
     },
     config = require("setup.telescope").setup,
   },
@@ -35,7 +37,11 @@ return {
     dependencies = { "nvim-telescope/telescope.nvim" },
     config = require("setup.session").setup,
   },
+
   {
-    "dstein64/vim-startuptime",
-  },
+    "nvim-neorg/neorg",
+    build = ":Neorg sync-parsers",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = require("setup.neorg").setup,
+  }
 }

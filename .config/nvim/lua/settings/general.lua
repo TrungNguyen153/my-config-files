@@ -1,3 +1,6 @@
+-- enables experimental lua loader
+vim.loader.enable()
+
 -- default shell
 -- vim.o.shell = '/opt/homebrew/bin/fish'
 vim.g.mapleader = " " -- <leader>
@@ -8,31 +11,31 @@ vim.go.clipboard = "unnamedplus"
 
 -- secure modelines
 vim.g.secure_modelines_allowed_items = {
-  "textwidth",
-  "tw",
-  "softtabstop",
-  "sts",
-  "tabstop",
-  "ts",
-  "shiftwidth",
-  "sw",
-  "expandtab",
-  "et",
-  "noexpandtab",
-  "noet",
-  "filetype",
-  "ft",
-  "foldmethod",
-  "fdm",
-  "readonly",
-  "ro",
-  "noreadonly",
-  "noro",
-  "rightleft",
-  "rl",
-  "norightleft",
-  "norl",
-  "colorcolumn",
+	"textwidth",
+	"tw",
+	"softtabstop",
+	"sts",
+	"tabstop",
+	"ts",
+	"shiftwidth",
+	"sw",
+	"expandtab",
+	"et",
+	"noexpandtab",
+	"noet",
+	"filetype",
+	"ft",
+	"foldmethod",
+	"fdm",
+	"readonly",
+	"ro",
+	"noreadonly",
+	"noro",
+	"rightleft",
+	"rl",
+	"norightleft",
+	"norl",
+	"colorcolumn",
 }
 
 -- replace grep with rg
@@ -45,7 +48,8 @@ vim.g.localvimrc_ask = 0
 -- size of cmd bar
 vim.go.cmdheight = 2
 -- You will have bad experience for diagnostic messages when it's default 4000.
-vim.go.updatetime = 100
+-- this is time trigger CursorHold[i] -> Laggy if large text file
+vim.go.updatetime = 666
 
 -- Editor settings
 vim.cmd("filetype plugin indent on")
@@ -57,9 +61,9 @@ vim.o.showmode = false
 vim.o.hidden = true
 vim.o.wrap = false
 vim.o.joinspaces = false
-vim.o.printfont = ":h10"
-vim.o.printencoding = "utf-8"
-vim.o.printoptions = "paper:letter"
+-- vim.o.printfont = ":h10"
+-- vim.o.printencoding = "utf-8"
+-- vim.o.printoptions = "paper:letter"
 -- current line will have a background
 vim.o.cursorline = true
 -- Always draw sign column. Prevent buffer moving when adding/deleting sign.
@@ -83,7 +87,7 @@ vim.o.undofile = true
 vim.o.wildmenu = true
 vim.o.wildmode = "list:longest"
 vim.o.wildignore =
-".hg,.svn,*~,*.png,*.jpg,*.gif,*.settings,Thumbs.db,*.min.js,*.swp,publish/*,intermediate/*,*.o,*.hi,Zend,vendor,*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite"
+	".hg,.svn,*~,*.png,*.jpg,*.gif,*.settings,Thumbs.db,*.min.js,*.swp,publish/*,intermediate/*,*.o,*.hi,Zend,vendor,*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite"
 
 -- Use wide tabs
 vim.o.shiftwidth = 2

@@ -21,9 +21,22 @@ return {
           show_parameter_hints = true,
           parameter_hints_prefix = "◂ ",
           other_hints_prefix = "▸ ",
+          max_len_align = false,
+          max_len_align_padding = 1,
+          right_align = false,
+          right_align_padding = 7,
+          highlight = "Comment",
         },
         reload_workspace_from_cargo_toml = true,
-        hover_actions = { auto_focus = true },
+        hover_actions = { auto_focus = true, border = "rounded", },
+        -- on_initialized = function()
+        --   vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "CursorHold", "InsertLeave" }, {
+        --     pattern = { "*.rs" },
+        --     callback = function()
+        --       local _, _ = pcall(vim.lsp.codelens.refresh)
+        --     end,
+        --   })
+        -- end,
       },
       dap = {
         adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),
@@ -32,7 +45,6 @@ return {
         on_attach = on_attach,
         capabilities = capabilities,
         standalone = false,
-        -- cmd = rust_server:get_default_options().cmd,
         settings = {
           ["rust-analyzer"] = {
             diagnostics = {
@@ -59,7 +71,8 @@ return {
             cargo = {
               autoreload = true,
               buildScripts = { enable = true },
-              features = "all",
+              -- allFeatures = true, // this will make all feature active => not good
+              features = "all", -- so just use special feature "all"
               -- https://github.com/rust-lang/rust-analyzer/issues/13400
               -- target = 'aarch64-apple-darwin',
             },
@@ -115,6 +128,10 @@ return {
       },
     })
     -- Cargo.toml
-    require("crates").setup({})
+    require("crates").setup({
+      null_ls = {
+        enabled = true,
+    },
+    })
   end,
 }

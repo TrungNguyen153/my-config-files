@@ -17,9 +17,7 @@ return {
   }, -- status line
   {
     'Mofiqul/vscode.nvim',
-    config = function()
-      require('setup.vscode-theme').setup()
-    end,
+    config = require('setup.vscode-theme').setup,
   }, -- theme
   -- {
   --   'catppuccin/nvim',
@@ -58,6 +56,11 @@ return {
     event = 'LspAttach',
     config = require('setup.neodim').setup,
   },
+  {
+    'goolord/alpha-nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = require'setup.alpha'.setup
+  }
   -- {
   --   'KadoBOT/nvim-spotify',
   --   build = 'make',

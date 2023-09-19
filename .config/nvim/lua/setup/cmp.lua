@@ -118,21 +118,32 @@ return {
 		-- end
 
 		cmp.setup({
+			experimental = {
+                ghost_text = true,
+            },
 			completion = {
 				completeopt = vim.o.completeopt,
 			},
+			performance = {
+				debounce = 60,
+				throttle = 30,
+				fetching_timeout = 500,
+				confirm_resolve_timeout = 80,
+				async_budget = 100,
+				max_view_entries = 200,
+			  },
 			view = {
 				entries = { name = "custom", selection_order = "near_cursor" },
 			},
 			sources = {
-				{ name = "nvim_lsp", priority = 99 },
-				{ name = "luasnip", priority = 90 },
-				{ name = "nvim_lua", priority = 80 },
-				{ name = "cmp_tabnine", priority = 80 },
-				{ name = "path", priority = 10 },
+				{ name = "nvim_lsp" },
+				{ name = "luasnip" },
+				{ name = "nvim_lua" },
+				{ name = "cmp_tabnine" },
+				{ name = "path" },
 				{ name = "copilot", group_index = 2 },
-				{ name = "buffer", priority = 0 },
-				{ name = "crates", priority = 90 },
+				{ name = "buffer" },
+				{ name = "crates" },
 			},
 			snippet = {
 				expand = function(args)
@@ -156,6 +167,31 @@ return {
 					return vim_item
 				end,
 			},
+
+			sorting = {
+                comparators = {
+                    cmp.config.compare.offset,
+                    cmp.config.compare.exact,
+                    cmp.config.compare.score,
+
+                    function(entry1, entry2)
+                        local _, entry1_under = entry1.completion_item.label:find('^_+')
+                        local _, entry2_under = entry2.completion_item.label:find('^_+')
+                        entry1_under = entry1_under or 0
+                        entry2_under = entry2_under or 0
+                        if entry1_under > entry2_under then
+                            return false
+                        elseif entry1_under < entry2_under then
+                            return true
+                        end
+                    end,
+                    cmp.config.compare.kind,
+                    cmp.config.compare.sort_text,
+                    cmp.config.compare.length,
+                    cmp.config.compare.order,
+                },
+            },
+			
 			mapping = {
 				["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
 				["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),

@@ -2,7 +2,7 @@ return {
 	setup = function(capabilities, on_attach)
 		-- alternatively you can override the default configs
 		local isSuccess, flutter_tool = pcall("flutter-tools")
-		if !isSuccess then return end
+		if not isSuccess then return end
 		flutter_tool.setup({
 			ui = {
 				-- the border type to use for all floating windows, the same options/formats

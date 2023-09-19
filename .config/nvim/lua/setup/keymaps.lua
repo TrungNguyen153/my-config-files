@@ -3,7 +3,82 @@ local silent_opt = { silent = true }
 local no_remap_silent_opt = { noremap = true, silent = true }
 
 local sidebar = require('sidebar')
+local ts_repeat_move = require('nvim-treesitter.textobjects.repeatable_move')
+local gitsigns = require('gitsigns')
+
 local keymap_table = {
+  {
+    shortcut = ';',
+    cmd = ts_repeat_move.repeat_last_move,
+    opts = no_remap_opt,
+    modes = { 'n', 'x', 'o' },
+    description = 'Repeat last move',
+},
+{
+    shortcut = ',',
+    cmd = ts_repeat_move.repeat_last_move_opposite,
+    opts = no_remap_opt,
+    modes = { 'n', 'x', 'o' },
+    description = 'Repeat last move opposite direction',
+},
+{
+    shortcut = 'f',
+    cmd = ts_repeat_move.builtin_f,
+    opts = no_remap_opt,
+    modes = { 'n', 'x', 'o' },
+    description = 'Go to char ocurrence to the right',
+},
+{
+    shortcut = 'F',
+    cmd = ts_repeat_move.builtin_F,
+    opts = no_remap_opt,
+    modes = { 'n', 'x', 'o' },
+    description = 'Go to char ocurrence to the left',
+},
+{
+    shortcut = 't',
+    cmd = ts_repeat_move.builtin_t,
+    opts = no_remap_opt,
+    modes = { 'n', 'x', 'o' },
+    description = 'Go to before char ocurrence to the right',
+},
+{
+    shortcut = 'T',
+    cmd = ts_repeat_move.builtin_T,
+    opts = no_remap_opt,
+    modes = { 'n', 'x', 'o' },
+    description = 'Go to after char ocurrence to the left',
+},
+{
+    shortcut = ']c',
+    cmd = function()
+        if vim.wo.diff then
+            return ']c'
+        end
+        vim.schedule(function()
+            gitsigns.next_hunk()
+        end)
+        return '<Ignore>'
+    end,
+    opts = { expr = true },
+    modes = { 'n' },
+    description = 'Next git hunk',
+},
+{
+    shortcut = '[c',
+    cmd = function()
+        if vim.wo.diff then
+            return '[c'
+        end
+        vim.schedule(function()
+            gitsigns.prev_hunk()
+        end)
+        return '<Ignore>'
+    end,
+    opts = { expr = true },
+    modes = { 'n' },
+    description = 'Previous git hunk',
+},
   {
     shortcut = '+',
     cmd = '<C-a>',
@@ -645,7 +720,7 @@ return {
           name = 'Rust',
           r = { ':RustRunnables<CR>', 'Runnables' },
           d = { ':RustDebuggables<CR>', 'Debuggables' },
-          e = { ':RustExpandMacro<CR>', 'Expand Macro' },
+          e = { ":lua require('rust-tools.expand_macro').expand_macro()<CR>", 'Expand Macro' },
           c = { ':RustOpenCargo<CR>', 'Open Cargo.toml' },
           g = { ':RustViewCrateGraph<CR>', 'View Crate Graph' },
           m = { ':RustParentModule<CR>', 'Parent Module' },
