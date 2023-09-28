@@ -71,8 +71,7 @@ return {
             cargo = {
               autoreload = true,
               buildScripts = { enable = true },
-              -- allFeatures = true, // this will make all feature active => not good
-              features = "all", -- so just use special feature "all"
+              features = '', -- so just use special feature "all"
               -- https://github.com/rust-lang/rust-analyzer/issues/13400
               -- target = 'aarch64-apple-darwin',
             },
@@ -120,8 +119,8 @@ return {
               enable = true,
               -- https://github.com/rust-analyzer/rust-analyzer/issues/9768
               command = "clippy",
-              features = "all",
-              allTargets = true,
+              -- features = "all",
+              -- allTargets = true,
             },
           },
         },

@@ -1,8 +1,0 @@
-Windows Registry Editor Version 5.00
-
-[HKEY_CLASSES_ROOT\Directory\Background\shell\alacritty]
-@="Open Alacritty here"
-"Icon"="C:\\Users\\TN963\\scoop\\apps\\alacritty\\current\\alacritty.exe"
-
-[HKEY_CLASSES_ROOT\Directory\Background\shell\alacritty\command]
-@="\"C:\\Users\\TN963\\scoop\\apps\\alacritty\\current\\alacritty.exe\" \"--working-directory\" \"%V%\""
