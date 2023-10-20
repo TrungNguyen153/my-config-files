@@ -7,7 +7,7 @@ vim.g.mapleader = " "      -- <leader>
 vim.g.maplocalleader = ";" -- <localleader>
 vim.o.timeoutlen = 500
 -- clipboard
-vim.g.clipboard = "unnamedplus"
+vim.go.clipboard = "unnamedplus"
 
 -- secure modelines
 vim.g.secure_modelines_allowed_items = {

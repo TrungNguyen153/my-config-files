@@ -71,7 +71,6 @@ Write-Done
 Write-Start -msg "Install Scoop's package for dev"
     scoop install main/ripgrep
     scoop install main/fd
-    scoop install main/win32yank
     scoop install main/sed
     scoop install main/clangd
     scoop install java/corretto19-jdk

@@ -33,3 +33,22 @@ cls
 nvim .
 nvim
 cls
+cargo make sign
+cargo install --force cargo-make
+nvim
+scoop list
+scoop uninstall win32yank
+cls
+nvim
+scoop install win32yank
+nvim
+cls
+nvim
+vim --version
+nvim --version
+nvim
+scoop uninstall win32yank
+nvim
+cls
+scoop list
+cargo make sign
