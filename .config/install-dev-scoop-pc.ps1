@@ -75,7 +75,7 @@ Write-Start -msg "Install Scoop's package for dev"
     scoop install main/sed
     scoop install main/clangd
     scoop install java/corretto19-jdk
-    scoop install main/fork
+    scoop install extras/fork
     scoop install main/gcc
     scoop install main/make
     scoop install main/neovim
@@ -86,5 +86,6 @@ Write-Start -msg "Install Scoop's package for dev"
     scoop install extras/debugviewpp
     scoop install versions/python311
     scoop install versions/nodejs18
+	scoop install extras/skype
     scoop install nerd-fonts/RobotoMono-NF-Propo
 Write-Done

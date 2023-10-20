@@ -25,7 +25,7 @@ xcopy %AppData%\nushell %cd%\nushell /I /E /Y
 
 echo Done !!!
 pause
-goto menu
+goto exit
 
 :LABEL-2 Restore
 echo Restore nvim settings...
@@ -39,7 +39,7 @@ xcopy %cd%\nushell %AppData%\nushell /I /E /Y
 
 echo Done restore !!!
 pause
-goto menu
+goto exit
 
 :LABEL-3 Exit
 :exit
