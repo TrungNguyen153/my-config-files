@@ -28,3 +28,8 @@ rustup toolchain install nightly-msvc
 rustup default nightly-msvc
 rustup show
 cls
+nvim .
+cls
+nvim .
+nvim
+cls
