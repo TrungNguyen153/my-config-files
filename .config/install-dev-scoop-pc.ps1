@@ -87,4 +87,5 @@ Write-Start -msg "Install Scoop's package for dev"
     scoop install versions/nodejs18
 	scoop install extras/skype
     scoop install nerd-fonts/RobotoMono-NF-Propo
+    scoop install cmake
 Write-Done
