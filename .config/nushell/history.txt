@@ -52,3 +52,690 @@ nvim
 cls
 scoop list
 cargo make sign
+nvim .
+cls
+cd ..
+ls
+cd punisher\
+nvim
+config nu
+nvim
+cls
+nvim .
+cls
+nvim .
+start .
+nvim .
+cls
+nvim .
+cls
+cd spoof-client\
+cls
+cargo build --release
+nvim .
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+nvim .
+cls
+cargo build --release
+cls
+cargo run --release
+start .
+cargo run --release
+cls
+cargo run --release
+cls
+cargo run --release
+cls
+cargo run --release
+cargo build --release
+cargo run --release
+cargo build --release
+cargo run --release
+cargo build --release
+cls
+cargo build --release
+nvim .
+cls
+nvim .
+cls
+cd spoof-client\
+cargo build --release
+start
+start .
+cargo build --release
+nvim .
+cls
+cls
+nvim .
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+nvim .
+cls
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+nvim .
+cd spoof-client\
+cargo build --release
+cls
+cargo build --release
+cls
+cls
+cargo build --release
+cls
+cargo build --release
+nvim .
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+nvim .
+cargo build --release
+cd spoof-client\
+cargo build --release
+cls
+cargo build --release
+start .
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cd spoof-client\
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+nvim .
+cls
+cargo build --release
+cargo expand
+cargo install cargo-expand
+cargo expand
+rustup component add rustfmt
+cargo expand --lib
+cargo expand --lib --release
+cls
+cargo build --release
+cls
+cargo build --release
+nvim .
+cd spoof-client\
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+cd ..
+cargo make sign
+cls
+cargo make sign
+cls
+cargo build --release --package spoof-client
+cls
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo build --release --package spoof-client
+nvim .
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cargo build --release --package spoof-client
+nvim .
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo build --release --package spoof-client
+cls
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo build --release --package spoof-client
+cls
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cargo build --release --package spoof-client
+nvim .
+cargo build --release --package spoof-client
+cargo make sign
+cls
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cargo build --release --package spoof-client\
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cls
+cargo make sign
+cls
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cargo build --release --package spoof-client
+nvim .
+cargo init
+cargo b -r
+cls
+cargo b -r
+cls
+cargo b -r
+start .
+cargo b -r
+cls
+cargo b -r
+cls
+cargo b -r
+nvim .
+cls
+cls
+cargo make sign
+cargo build --release --package spoof-client
+nvim .
+cls
+cargo make sign
+cls
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cargo build --release --package spoof-client
+nvim .
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cls
+cargo make sign
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+nvim .
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cls
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cls
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo build --release --package spoof-client
+cargo make sign
+cargo make all
+cls
+cargo make all
+cls
+cargo make all
+cls
+cargo make all
+cls
+cargo make all
+cls
+cargo make all
+cls
+cargo make all
+cls
+cargo make all
+cls
+cargo make all
+cls
+cargo make all
+nvim .
+cargo make all
+cls
+cargo b -e mydemo
+cargo b --example mydemo
+cargo run -r --example export_to_csv
+start .
+cargo run -r --example export_to_csv
+nvim .
+cargo make all
+cls
+cargo make all
+cls
+cargo make all
+cargo new --lib
+cargo new --lib .
+cargo init --lib
+nvim .
+cargo test
+cargo test -- --nocapture
+cargo add gamai
+cargo test -- --nocapture
+cargo expand
+cargo test -- --nocapture
+nvim .
+cargo run
+cargo test -- --nocapture
+cls
+cargo test -- --nocapture
+cls
+cargo test -- --nocapture
+cls
+cargo test -- --nocapture
+cls
+cargo test -- --nocapture
+cargo run
+cls
+cargo test -- --nocapture
+cls
+cargo test -- --nocapture
+nvim .
+cargo test -- --nocapture
+nvim .
+cargo test -- --nocapture
+cls
+cargo test -- --nocapture
+cargo init --lib
+cd macros\
+nvim init --lib
+cargo init --lib
+cargo test -- --nocapture
+start .
+cargo expand
+nvim .
+cls
+nvim .
+cargo expand
+nvim .
+cargo expand
+cargo expand --example demo
+cls
+cargo expand --example demo
+cls
+cargo expand --example demo
+cls
+cargo expand --example demo
+nvim .
+cls
+cargo expand --example demo
+nvim .
+cargo expand --example demo
+cls
+cargo expand --example demo
+cls
+cargo expand --example demo
+nvim .
+cargo expand --example demo
+cargo r -e demo
+cargo r --example demo
+nvim .
+cargo r --example demo
+nvim .
+cargo expand --example demo
+cargo r --example demo
+nvim .
+cargo r --example demo
+nvim .
+cargo r --example demo
+cls
+cd egui-graph-bhv\
+cargo init --lib
+cargo build --bin
+cargo build --bin egui-graph-bhv
+nvim .
+cd ..
+cargo r --example demo
+nvim .
+cd egui-graph-bhv\
+cargo run --bin egui-graph-bhv
+cd ..
+cargo run --bin egui-graph-bhv
+cd egui-graph-bhv\
+cargo run --bin egui-graph-bhv
+cargo r --example demo
+nvim .
+cargo r --example demo
+cargo init --lib
+cargo new --lib unpacker
+cargo new --lib offset-scanner
+nvim .
+nvim .
+cargo test --release
+cargo b --release --verbor
+cargo b --release --verbose
+cargo b
+nvim .
+cargo init --lib
+nvim .
+cargo init --lib
+cargo add obfstr
+nvim .
+cargo check
+cargo b
+cls
+cargo check
+start .
+cargo check
+nvim .
+cargo check
+cargo check -Z macro-backtrace
+cargo rustc -- -Zproc-macro-backtrace
+cargo rustc -- -Zproc-macro-backtrace --bin tns
+cargo rustc --bin tns -- -Zproc-macro-backtrace
+cargo rustc --bin tns -- -Z macro-backtrace
+RUSTFLAG="-Z macro-backtrace" cargo check
+RUSTFLAG="-Zmacro-backtrace" cargo check
+RUSTFLAGS="-Zproc-macro-backtrace" cargo check
+rustup list
+rustup show
+nvim .
+cargo build
+cls
+cargo build
+scoop install main/postgresql
+cargo build
+nvim .
+cls
+cargo build
+start .
+cargo run --features bin
+cargo add chemars
+cargo add schemars
+cargo run --features bin -- --help
+cargo run --features bin -- --DB_USERNAME postgres --DB_PASSWORD "" --DB_HOST 127.0.0.1 --DB_NAME postgres
+cargo run --features bin -- --db-username postgres --db-password "" --db-host 127.0.0.1 --db-name postgres
+cargo run --features bin -- --db-username postgres --db-host 127.0.0.1 --db-name postgres
+cargo run --features bin -- --help
+cls
+cargo run --features bin -- --db-username postgres --db-host 127.0.0.1 --db-name postgres
+cargo run -- --db-username postgres --db-host 127.0.0.1 --db-name postgres
+scoop list
+scoop install llvm
+cls
+git clone https://github.com/Kingtous/rustdesk_thirdpary_lib --depth=1
+nvim .
+grep
+rustdesk-utils.exe 
+rustdesk-utils.exe genkeypair
+rustdesk-utils.exe validatekeypair 5gtqOBeQ1oj2PyTof/8+3jNoUB+T+e43sxKWGZ8PKgM= rtLjwEwC8rfC6RG/8UfSF75+fW5n9QioZbWeuW3NNj/mC2o4F5DWiPY/JOh//z7eM2hQH5P57jezEpYZnw8qAw==
+cargo run -- --db-username postgres --db-host 127.0.0.1 --db-name postgres
+cargo run -r --bin naming -- "" "" "http://127.0.0.1:8787"
+nvim .
+cargo run -r --bin naming -- rustdesk-licensed-0nI3gzN4oTMuAjLw4yNyEzLvoDc0RHaiojIpBXYiwiIiojI0N3boJCLiIiOikXZrJye.exe
+cargo run -r --bin naming -- rustdesk-licensed-0nI3gzN4oTMuAjLw4yNyEzLvoDc0RHaiojIpBXYiwiIiojI0N3boJCLiIiOikXZrJye-qs.exe
+cargo run -r --bin naming -- rustdesk-licensed-0nI3gzN4oTMuAjLw4yNyEzLvoDc0RHaiojIpBXYiwiIiojI0N3boJCLiIiOikXZrJye--qs.exe
+cargo run -r --bin naming -- rustdesk--0nI3gzN4oTMuAjLw4yNyEzLvoDc0RHaiojIpBXYiwiIiojI0N3boJCLiIiOikXZrJye--qs.exe
+cargo run -r --bin naming -- "" "http://127.0.0.1:9999" "http://127.0.0.1:8787"
+cargo run -r --bin naming -- "" "" "http://127.0.0.1:8787"
+rm -f -r -p "./flutter/build/windows/runner/Release/RustDeskIddDriver";python3 .\build.py --portable --hwcodec --flutter --feature IddDriver
+cargo run -r --bin naming -- "" "" "http://127.0.0.1:8787"
+cargo run -- --db-username postgres --db-host 127.0.0.1 --db-name postgres
+cls
+cargo run -- --db-username postgres --db-host 127.0.0.1 --db-name postgres
+cls
+cargo run -- --db-username postgres --db-host 127.0.0.1 --db-name postgres
+start .
+cargo run -- --db-username postgres --db-host 127.0.0.1 --db-name postgres
+cls
+cargo run -- --db-username postgres --db-host 127.0.0.1 --db-name postgres
+cls
+cargo run -- --db-username postgres --db-host 127.0.0.1 --db-name postgres
+start .
+sqlx migrate
+cargo install sqlx-cli
+cargo sqlx migrate run
+cargo run -- --db-username postgres --db-host 127.0.0.1 --db-name postgres
+cls
+scoop install extras/podman-desktop
+scoop remove extras/podman-desktop
+scoop uninstall extras/podman-desktop
+nvim .
+cargo run -- --db-username postgres --db-host 127.0.0.1 --db-name postgres
+cls
+cargo install cross --git https://github.com/cross-rs/cross
+cargo make build-linux
+nvim .
+cargo make all
+cls
+nvim .
+cargo expand my_database::services::custom_services::rustdesk::rd_models
+cargo expand --lib my_database::services::custom_services::rustdesk::rd_models
+cargo expand --lib tns::services::custom_services::rustdesk::rd_models
+cargo expand --lib services::custom_services::rustdesk::rd_models
+cargo run -- --db-username postgres --db-host 127.0.0.1 --db-name postgres
+start .
+cargo check
+cls
+cargo sqlx migrate run
+cargo run -- --db-username postgres --db-host 127.0.0.1 --db-name postgres
+cls
+cargo run -- --db-username postgres --db-host 127.0.0.1 --db-name postgres
+cls
+cargo run -- --db-username postgres --db-host 127.0.0.1 --db-name postgres
+cls
+cargo run -- --db-username postgres --db-host 127.0.0.1 --db-name postgres
+cargo sqlx prepare
+cargo make build-linux
+cargo run -- --db-username postgres --db-host 127.0.0.1 --db-name postgres
+cls
+cargo make build-linux
+cls
+cargo make build-linux
+cls
+cargo make build-linux
+start .
+cargo make build-linux
+scoop install extras/filezilla
+scoop install extras/winscp
+scoop install extras/putty
+cls
+start .
+cargo run -- --db-username postgres --db-host 127.0.0.1 --db-name postgres
+cargo make build-linux
+nvim .
+cls
+nvim .
+pnpm dev
+node --version
+iwr https://get.pnpm.io/install.ps1 -useb | iex
+pnpm dev
+cargo make build-linux
+start .
+scoop uninstall filezilla
+cls
+nvim .
+cls
+nvim .
+cls
+pnpm dev
+cls

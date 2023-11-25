@@ -57,6 +57,7 @@ Write-Start -msg "Initializing Scoop..."
     scoop bucket add java
     scoop bucket add nerd-fonts
     scoop bucket add versions
+    scoop bucket add sysinternals
     scoop update
 Write-Done
 
@@ -81,11 +82,13 @@ Write-Start -msg "Install Scoop's package for dev"
     scoop install extras/wezterm
     scoop install extras/vscode
     scoop install extras/putty
+    scoop install extras/winscp
     scoop install extras/dnspyex
     scoop install extras/debugviewpp
     scoop install versions/python311
     scoop install versions/nodejs18
-	scoop install extras/skype
+    scoop install extras/skype
     scoop install nerd-fonts/RobotoMono-NF-Propo
     scoop install cmake
+    scoop install sysinternals/tcpview
 Write-Done
