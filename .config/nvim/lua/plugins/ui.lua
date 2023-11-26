@@ -15,6 +15,14 @@ return {
 			)
 		end,
 	}, -- status line
+	-- {
+	-- 	'AlexvZyl/nordic.nvim',
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		require 'nordic' .load()
+	-- 	end
+	-- }, -- theme
 	{
 		"Mofiqul/vscode.nvim",
 		config = require("setup.vscode-theme").setup,
@@ -28,11 +36,11 @@ return {
 	-- {
 	--   "NTBBloodbath/doom-one.nvim",
 	--   config = require("setup.doom-one").setup,
-	-- },
+	-- }, -- theme
 	-- {
 	--   "marko-cerovac/material.nvim",
 	--   config = require("setup.material-color").setup,
-	-- },
+	-- }, -- theme
 	{
 		-- 'romgrk/barbar.nvim',
 		"nanozuki/tabby.nvim",

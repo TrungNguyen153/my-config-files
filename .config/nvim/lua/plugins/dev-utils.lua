@@ -19,6 +19,7 @@ return {
 	{ 'NeogitOrg/neogit', config = require('setup.neogit').setup },
 	{
 		"mfussenegger/nvim-dap", -- debug adapter for debugging
+		event = { 'User NvimStartupDone' },
 		dependencies = {
 			"rcarriga/nvim-dap-ui", -- ui for nvim-dap
 			"theHamsta/nvim-dap-virtual-text", -- virtual text during debugging

@@ -34,7 +34,7 @@ return {
         -- component_separators = { left = '', right = '' },
         component_separators = { left = "", right = "" },
         disabled_filetypes = {
-          winbar = { "neo-tree", "packer", "help", "toggleterm" },
+          winbar = { "neo-tree", "packer", "help", "toggleterm", "dap-repl" },
         },
         globalstatus = true,
       },

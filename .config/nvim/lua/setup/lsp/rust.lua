@@ -29,14 +29,6 @@ return {
         },
         reload_workspace_from_cargo_toml = true,
         hover_actions = { auto_focus = true, border = "rounded", },
-        -- on_initialized = function()
-        --   vim.api.nvim_create_autocmd({ "BufWritePost", "BufEnter", "CursorHold", "InsertLeave" }, {
-        --     pattern = { "*.rs" },
-        --     callback = function()
-        --       local _, _ = pcall(vim.lsp.codelens.refresh)
-        --     end,
-        --   })
-        -- end,
       },
       dap = {
         adapter = require("rust-tools.dap").get_codelldb_adapter(codelldb_path, liblldb_path),

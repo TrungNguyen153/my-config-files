@@ -493,7 +493,7 @@ local keymap_table = {
     cmd = require('dap').repl.toggle,
     opts = silent_opt,
     modes = { 'n' },
-    description = 'DAP Toggle repl',
+    description = 'DAP Toggle repl COMPLETION',
   },
   {
     shortcut = '<F5>',
@@ -510,6 +510,13 @@ local keymap_table = {
     description = 'DAP Stop',
   },
   {
+    shortcut = '<M-F5>',
+    cmd = require('dap').terminate,
+    opts = silent_opt,
+    modes = { 'n' },
+    description = 'DAP Terminate',
+  },
+  {
     shortcut = '<C-F5>',
     cmd = require('dap').run_last,
     opts = silent_opt,
@@ -522,6 +529,13 @@ local keymap_table = {
     opts = silent_opt,
     modes = { 'n' },
     description = 'DAP Pause',
+  },
+  {
+    shortcut = '<F7>',
+    cmd = require('dap.ui.widgets').hover,
+    opts = silent_opt,
+    modes = { 'x' },
+    description = 'DAP Hover',
   },
   {
     shortcut = '<F9>',
@@ -576,13 +590,7 @@ local keymap_table = {
     modes = { 'n' },
     description = 'DAP Step out',
   },
-  {
-    shortcut = '<F7>',
-    cmd = require('dap.ui.widgets').hover,
-    opts = silent_opt,
-    modes = { 'x' },
-    description = 'DAP Hover',
-  },
+  
 }
 
 return {
@@ -709,11 +717,11 @@ return {
         },
         d = {
           name = 'Debug Adapter',
-          c = { '<cmd>lua require("telescope").extensions.dap.commands()<CR>', 'Commands' },
-          f = { '<cmd>lua require("telescope").extensions.dap.configurations()<CR>', 'Configurations' },
-          b = { '<cmd>lua require("telescope").extensions.dap.list_breakpoints()<CR>', 'List Breakpoints' },
-          v = { '<cmd>lua require("telescope").extensions.dap.variables()<CR>', 'Variables' },
-          r = { '<cmd>lua require("telescope").extensions.dap.frames()<CR>', 'Frames' },
+          c = { '<cmd>lua require("telescope").extensions.dap.commands()<CR>', 'Telescope DAP Commands' },
+          f = { '<cmd>lua require("telescope").extensions.dap.configurations()<CR>', 'Telescope DAP Configurations' },
+          b = { '<cmd>lua require("telescope").extensions.dap.list_breakpoints()<CR>', 'Telescope DAP List Breakpoints' },
+          v = { '<cmd>lua require("telescope").extensions.dap.variables()<CR>', 'Telescope DAP Variables' },
+          r = { '<cmd>lua require("telescope").extensions.dap.frames()<CR>', 'Telescope DAP Frames' },
           t = { '<cmd>lua require("dapui").toggle()<CR>', 'Toggle DAP UI' },
         },
         r = {

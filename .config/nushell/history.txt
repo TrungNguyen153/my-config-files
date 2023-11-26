@@ -739,3 +739,66 @@ nvim .
 cls
 pnpm dev
 cls
+nvim .
+pnpm dev
+nvim .
+cargo make all
+cls
+cargo make all
+cls
+cargo make all
+nvim .
+pnpm dev
+cargo sqlx migrate run
+cargo sqlx prepare
+nvim .
+cls
+cargo make build
+cargo make build-bin
+start .
+cargo r --bin tns -r
+cargo r --bin tns -r -- -h
+cargo r --bin tns -r -- --help
+cargo r --bin tns -r -- -h 127.0.0.1
+cls
+cargo make build-linux
+cargo sqlx prepare
+cargo make build-linux
+cargo make cross-linux
+start .
+cls
+nvim .
+pnpm dev
+cls
+nvim .
+ls
+cd unpacker\
+cargo add thiserror
+cargo add obfstr
+cls
+cargo add log
+cargo add windows -F "Win32_System_Diagnostics_Debug Win32_System_SystemInformation Win32_System_SystemServices"
+cargo add pelite
+cls
+start .
+cargo build
+cargo build -b
+cargo build --bin
+cargo build --bin unpacker
+nvim .
+nvim --version
+nvim .
+nvim
+nvim .
+nvim .
+pnpm dev
+nvim .
+cd unpacker\
+cargo add clap-rs
+cargo add clap
+cargo add clap -F derive
+cargo b --bin unpack-it
+nvim .
+cargo b --bin unpack-it -F="bin"
+cargo b --bin unpack-it -r
+cls
