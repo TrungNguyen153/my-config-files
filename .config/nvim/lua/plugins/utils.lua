@@ -1,5 +1,4 @@
 return {
-  "rmagatti/auto-session",
   { "dgrbrady/nvim-docker", enabled = false }, -- docker manager. TODO: enable and configure when needed
   -- {
   --     'krivahtoo/silicon.nvim',
@@ -40,6 +39,7 @@ return {
 
   {
     "nvim-neorg/neorg",
+    ft = {"norg"},
     build = ":Neorg sync-parsers",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = require("setup.neorg").setup,

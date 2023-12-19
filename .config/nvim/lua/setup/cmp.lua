@@ -101,6 +101,7 @@ return {
 		}
 
 		local source_mapping = {
+			codeium = "[Codium]",
 			nvim_lsp = "[LSP]",
 			luasnip = "[Snippet]",
 			treesitter = "[TS]",
@@ -141,6 +142,7 @@ return {
 				{ name = "nvim_lua" },
 				{ name = "cmp_tabnine" },
 				{ name = "path" },
+				{ name = "codeium" },
 				{ name = "copilot", group_index = 2 },
 				{ name = "buffer" },
 				{ name = "crates" },
@@ -162,6 +164,8 @@ return {
 					elseif entry.source.name == "copilot" then
 						vim_item.kind = "ﯙ Copilot"
 						vim_item.kind_hl_group = "CmpItemKindCopilot"
+					elseif entry.source.name == "codeium" then
+						vim_item.kind = " Codeium"
 					end
 					vim_item.menu = menu
 					return vim_item

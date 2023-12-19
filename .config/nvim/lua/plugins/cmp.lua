@@ -1,5 +1,6 @@
 return {
   'hrsh7th/nvim-cmp', -- auto completion
+  event = "UIEnter",
   config = require('setup.cmp').setup,
   dependencies = {
     'hrsh7th/cmp-nvim-lsp',
@@ -11,7 +12,7 @@ return {
     'hrsh7th/cmp-nvim-lua',
     'hrsh7th/cmp-cmdline',
     -- { 'tzachar/cmp-tabnine', build = './install.sh' }, -- unix
-    { 'tzachar/cmp-tabnine', build = 'powershell ./install.ps1' }, -- windows
+    -- { 'tzachar/cmp-tabnine', build = 'powershell ./install.ps1' }, -- windows
     'windwp/nvim-autopairs', -- helps with auto closing blocks
     { 'Saecki/crates.nvim', dependencies = { 'nvim-lua/plenary.nvim' } }, -- auto complete for Cargo.toml
     'onsails/lspkind-nvim', -- show pictograms in the auto complete popup
@@ -22,5 +23,18 @@ return {
     --   dependencies = { 'zbirenbaum/copilot.lua' },
     -- },
     -- use({ 'github/copilot.vim' }), -- before first time using the lua version, this has to be installed and then run :Copilot to setup. Uninstall afterwards
+    { "Exafunction/codeium.nvim",
+     dependencies = { 'nvim-lua/plenary.nvim' },
+     config = function()
+      require("codeium").setup({
+        config_path = "D:\\ai-completions\\codeium\\config",
+        bin_path = "D:\\ai-completions\\codeium",
+        tools = {
+          language_server = "D:\\ai-completions\\codeium\\1.6.7\\language_server_windows_x64.exe",
+          gzip = "powershell.exe"
+        }
+      })
+      end
+    }
   },
 }

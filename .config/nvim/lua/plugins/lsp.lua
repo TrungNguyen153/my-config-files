@@ -18,6 +18,7 @@ return {
 	}, -- collection of LSP configurations for nvim
 	{
 		"stevearc/aerial.nvim",
+		event = "BufEnter",
 		config = require("setup.lsp.aerial").setup,
 	}, -- show symbol tree in the current buffer
 	{

@@ -802,3 +802,685 @@ nvim .
 cargo b --bin unpack-it -F="bin"
 cargo b --bin unpack-it -r
 cls
+ls
+cd offset-scanner\
+cargo add derive_builder
+cls
+cargo run scan-it -- D:\Tools\WoW-Versions\3.4.3.52237\WowClassic_3.4.3.52237.exe
+cargo run scan-it -- "D:\Tools\WoW-Versions\3.4.3.52237\WowClassic_3.4.3.52237.exe"
+cargo run scan-it -- --D:\Tools\WoW-Versions\3.4.3.52237\WowClassic_3.4.3.52237.exe
+cargo run scan-it -- -- D:\Tools\WoW-Versions\3.4.3.52237\WowClassic_3.4.3.52237.exe
+cargo run scan-it -- --help
+cargo run scan-it
+cargo run scan-it D:\Tools\WoW-Versions\3.4.3.52237\WowClassic_3.4.3.52237.exe
+cargo run scan-it --help
+cargo run scan-it D:\\Tools\\WoW-Versions\\3.4.3.52237\\WowClassic_3.4.3.52237.exe
+start .
+cargo run scan-it --help
+cargo b scan-it
+cargo build scan-it
+cargo build --bin scan-it
+cargo build --bin scan-it -r
+nvim .
+cls
+cargo add rayon
+cargo remove rayon
+cls
+cargo build --bin scan-it -r
+start .
+cargo build --bin scan-it -r
+cls
+cargo build --bin scan-it -r
+cls
+cargo build --bin scan-it -r
+cls
+cargo add serde -F derive
+cargo add serde_json
+cls
+cargo build --bin scan-it -r
+cls
+cargo build --bin scan-it -r
+nvim .
+cargo build --bin scan-it -r
+start .
+cargo build --bin scan-it -r
+cd offset-scanner\
+cargo add chrono
+cls
+cargo build --bin scan-it -r
+cd ..
+git init
+git commit -m "first commit"
+git remote add origin https://github.com/TrungNguyen153/wow-toolkit.git
+cls
+cargo build --bin scan-it -r
+cls
+cargo build --bin scan-it -r
+cls
+cargo add eframe
+cargo add eframe --package offset-scanner
+cargo --package offset-scanner add eframe -F "persistence serde"
+cargo add eframe -F "persistence serde"  --package offset-scanner
+nvim .
+cls
+start .
+cls
+ls
+cd offset-scanner\
+cargo add egui_dock
+cargo add egui_dock -F serde
+nvim .
+cls
+nvim .
+cargo add rfd --package scan-it-ui
+cd offset-scanner\
+cargo add rfd
+exit
+cargo build --bin scan-it-ui -r
+cargo build --bin scan-it-ui -F bin-ui -r
+start .
+cargo build --bin scan-it-ui -F bin-ui -r
+cls
+cd offset-scanner\
+cargo remvoe rfd
+cargo remove rfd
+cargo add egui_extras
+cargo build --bin scan-it-ui -F bin-ui -r
+cargo add egui_extras -F syntect
+cargo build --bin scan-it-ui -F bin-ui -r
+nvim .
+cargo build --bin scan-it-ui -F bin-ui -r
+cls
+cargo build --bin scan-it-ui -F bin-ui -r
+cls
+cargo build --bin scan-it-ui -F bin-ui -r
+cd offset-scanner\
+cargo add egui-toast
+cargo build --bin scan-it-ui -F bin-ui -r
+cargo add lazy-static
+nvim .
+cls
+cargo build --bin scan-it-ui -F bin-ui -r
+cls
+cargo build --bin scan-it-ui -F bin-ui -r
+cls
+cargo build --bin scan-it-ui -F bin-ui -r
+cls
+cargo build --bin scan-it-ui -F bin-ui -r
+cls
+cargo add rfd
+cargo build --bin scan-it-ui -F bin-ui -r
+cls
+cargo build --bin scan-it-ui -F bin-ui -r
+cls
+cargo build --bin scan-it-ui -F bin-ui -r
+cls
+cargo build --bin scan-it-ui -F bin-ui -r
+start .
+cls
+cargo build --bin scan-it-ui -F bin-ui -r
+rg
+rg -c Value | lines
+rg -c
+rg --help
+cls
+cd D:\rust-workspace\ida-plugin-rs
+ls
+cargo new --lib scanner
+nvim .
+start .
+nvim .
+cls
+cd scanner\
+cargo build -r
+cls
+cargo build -r
+cls
+nvim .
+cls
+cd ..
+ls
+cd ida_rust_plugin\
+cargo build -r
+cd ida_rust_plugin\
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+nvim .
+cls
+cargo build -r
+cargo check
+nvim .
+cd ..
+cargo build --example --release
+cargo build --example intel_v --release
+start .
+cargo build --example intel_v --release
+cd D:\rust-workspace\punisher
+nvim .
+cd D:\rust-workspace\punisher
+nvim .
+cargo build --bin
+cargo build --bin gdrv --release
+start .
+cargo build --bin gdrv --release
+cls
+ls
+cd scanner\
+ls
+cargo build --release
+start .
+nvim .
+cargo build --release
+cls
+cargo build --release
+cargo build --release
+nvim .
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+nvim .
+cargo build --release
+cls
+cargo build --release
+cargo build --release --bin
+cargo build --release --bin scan-it-ui
+nvim .
+cargo build --release --bin scan-it-ui
+cargo build --release
+nvim .
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+cargo add paste
+cargo build --release
+nvim .
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cargo build --release
+cls
+cargo add eframe -F "persistence serde" 
+cargo add egui-toast lazy_static serde_json thiserror rfd log egui_logger
+cargo add serde -F derive
+cargo add egui_dock -F serde
+cargo add egui_extras -F syntect
+cargo add windows -F "Win32_System_Diagnostics_Debug Win32_System_SystemInformation Win32_System_SystemServices"
+cls
+cargo build --release
+cargo add egui_logger
+cargo build --release
+cls
+cargo build --release
+nvim .
+nvim .
+cls
+nvim .
+cargo build --release
+cargo check --release
+cargo build --release
+nvim .
+cargo build --release
+start .
+cargo build --release
+nvim .
+cls
+nvim .
+cargo build --release
+nvim .
+cls
+nvim .
+cargo build --release
+nvim .
+cargo build --release
+nvim .
+cargo build --release
+start .
+cls
+cargo build --release
+nvim .
+cargo build --release
+cargo build --release --verbose
+cargo build --release
+nvim .
+cargo build --release
+cls
+cargo build --release
+nvim .
+cls
+cargo build --release
+RUST_BACKTRACE=1 cargo build -r
+nvim .
+RUST_BACKTRACE=1 cargo build -r
+nvim .
+RUST_BACKTRACE=1 cargo build -r
+cls
+RUST_BACKTRACE=1 cargo build -r
+cls
+RUST_BACKTRACE=1 cargo build -r
+cargo add anyhow
+RUST_BACKTRACE=1 cargo build -r
+cls
+RUST_BACKTRACE=1 cargo build -r
+nvim .
+RUST_BACKTRACE=1 cargo build -r
+cls
+RUST_BACKTRACE=1 cargo build -r
+cls
+RUST_BACKTRACE=1 cargo build -r
+cls
+nvim .
+RUST_BACKTRACE=1 cargo build -r
+cls
+RUST_BACKTRACE=1 cargo build -r
+start .
+git init
+RUST_BACKTRACE=1 cargo build -r
+cls
+cargo build -r
+cargo remove anyhow
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+start .
+cargo build -r
+cls
+cargo build -r
+nvim .
+cargo build -r
+cls
+cargo build -r
+cls
+cargo add thiserror anyhow
+nvim .
+cargo build -r
+nvim .
+scoop install nonportable/qttabbar-indiff-np
+scoop bucket add nonportable
+scoop install nonportable/qttabbar-indiff-np
+cls
+cargo build -r
+nvim .
+cls
+cargo build -r
+nvim .
+cls
+cargo build -r
+nvim .
+nvim
+nvim .
+cls
+cargo build -r
+nvim .
+cargo build -r
+cls
+cargo build -r
+cls
+nvim .
+cargo build -r
+nvim .
+cargo build -r
+cls
+cargo build -r
+nvim .
+cls
+cargo build -r
+nvim .
+cargo build -r
+nvim .
+cargo add bitflags
+cargo build -r
+nvim .
+cargo build -r
+cls
+cargo build -r
+nvim .
+cargo build -r
+nvim .
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+nvim .
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+nvim .
+nvim .
+cd C:\Program Files (x86)\IDA 7.7 Cracked\python\3
+cd "C:\\Program Files (x86)\\IDA 7.7 Cracked\\python\\3"
+start .
+nvim .
+cargo build -r
+nvim .
+cargo build -r
+nvim .
+cargo build -r
+cls
+nushell --version
+nu --version
+nvim .
+cargo build -r
+nvim .
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+nvim .
+nu --version
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+cls
+cargo build -r
+nvim .
+cls
+nvim .
+cargo build -r
+cls
+cargo build -r
+nvim .
+cargo build -r
+cls
+cargo build -r
+cargo add autocxx
+cargo add cxx
+cargo add autocxx-build --dev
+cargo build -r
+nvim .
+cargo add serde_with
+cargo build -r
+nvim .
+cargo add iced-86 --no-default-features --optional
+cargo add iced-x86 --no-default-features --optional
+cargo build -r
+nvim .
+cargo build -r
+cls
+cargo expand --lib assembly::asm_encoder
+nvim .
+cargo build --example
+cargo build --example demo_asm
+nvim .
+cls
+cargo build --example demo_asm
+cargo run --example demo_asm
+cargo expand --example demo_asm
+cargo run --example demo_asm
+cls
+cargo run --example demo_asm
+cls
+cargo run --example demo_asm
+cargo expand --example demo_asm
+cargo run --example demo_asm
+cls
+cargo run --example demo_asm
+cargo add log
+cargo run --example demo_asm
+nvim .
+cargo run --example demo_asm
+cls
+cargo run --example demo_asm
+cls
+cargo run --example demo_asm
+cls
+cargo run --example demo_asm
+nvim .
+cargo run --example demo_asm
+cls
+cargo run --example demo_asm
+cls
+cargo run --example demo_asm
+s
+cargo run --example demo_asm
+cls
+cargo run --example demo_asm
+cls
+cargo run --example demo_asm
+cls
+cargo run --example demo_asm
+cls
+cargo run --example demo_asm
+cls
+cargo run --example demo_asm
+cls
+cargo build --example demo_asm
+cargo add rand
+cargo add lazy-static
+nvim .
+cls
+git checkout .
+git pull
+git pull .
+nvim .
+cargo build --example demo_asm
+cls
+cargo build --example demo_asm
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+a
+asd
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+nvim .
+nvim .
+cargo add cgmath
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm\
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+nvim .
+cls
+cargo r --example demo_asm
+cargo add clipboard-win
+cargo add clipboard-win -F std
+cls
+cargo add clipboard-win -F std
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cargo add bitflags
+cls
+cargo add collision
+nvim .
+cargo add maths-rs
+cls
+cargo add maths-rs
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cls
+cargo r --example demo_asm
+cargo init --lib
+nvim .
+cls
+cd ..\memory-rs\
+nvim .
+nvim .
+scoop install zoxide
+$nu.env-path
+start C:\Users\Silyum\AppData\Roaming\nushell\
+$nu.config-path
+zoxide.exe 
+nvim .
+cls
+:qa

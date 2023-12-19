@@ -2,7 +2,7 @@
 vim.loader.enable()
 
 -- default shell
--- vim.o.shell = '/opt/homebrew/bin/fish'
+vim.o.shell = 'powershell'
 vim.g.mapleader = " "      -- <leader>
 vim.g.maplocalleader = ";" -- <localleader>
 vim.o.timeoutlen = 500

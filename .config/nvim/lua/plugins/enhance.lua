@@ -34,6 +34,7 @@ return {
   { "chrishrb/gx.nvim", config = true }, -- gx opens urls, github issues etc in the browser
   {
     "max397574/better-escape.nvim",
+    event = "InsertEnter",
     config = function()
       require("better_escape").setup()
     end,

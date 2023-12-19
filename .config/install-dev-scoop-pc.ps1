@@ -91,4 +91,5 @@ Write-Start -msg "Install Scoop's package for dev"
     scoop install nerd-fonts/RobotoMono-NF-Propo
     scoop install cmake
     scoop install sysinternals/tcpview
+    scoop install zoxide
 Write-Done

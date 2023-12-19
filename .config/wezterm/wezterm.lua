@@ -1,5 +1,22 @@
 local wezterm = require("wezterm")
 local mux = wezterm.mux
+local workspace_switcher = wezterm.plugin.require("https://github.com/MLFlexer/smart_workspace_switcher.wezterm")
+
+local function base_path_name(str)
+  return string.gsub(str, "(.*[/\\])(.*)", "%2")
+end
+
+local function update_right_status(window)
+  local title = base_path_name(window:active_workspace())
+  window:set_right_status(wezterm.format({
+    { Foreground = { Color = "green" } },
+    { Text = title .. "  " },
+  }))
+end
+
+wezterm.on("update-right-status", function(window, _)
+  update_right_status(window)
+end)
 
 wezterm.on('gui-attached', function(domain)
   -- maximize all displayed windows on startup
@@ -76,6 +93,7 @@ local config = {
     -- Copy paste
     { key = "v", mods = "SHIFT|CTRL",   action = wezterm.action.PasteFrom("Clipboard") },
     { key = "c", mods = "SHIFT|CTRL",   action = wezterm.action.CopyTo("Clipboard") },
+	{ key = "w", mods = "LEADER", 		action = workspace_switcher.switch_workspace(), },
   },
   set_environment_variables = {},
 }
