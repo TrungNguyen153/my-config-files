@@ -78,7 +78,7 @@ return {
 			autocmd({ "BufWritePre" }, {
 				desc = "Auto format file before saving",
 				buffer = bufnr,
-				command = "silent! undojoin | lua vim.lsp.buf.format({timeout = 200})",
+				command = "silent! undojoin | lua vim.lsp.buf.format({timeout = 200, filter = function(client) return client.name ~= \"rust_analyzer\" end})",
 				group = group,
 			})
 		end

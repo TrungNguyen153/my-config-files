@@ -31,7 +31,8 @@ return {
         bin_path = "D:\\ai-completions\\codeium",
         tools = {
           language_server = "D:\\ai-completions\\codeium\\1.6.7\\language_server_windows_x64.exe",
-          gzip = "powershell.exe"
+          gzip = "powershell.exe",
+          curl = "C:\\Windows\\system32\\curl.exe",
         }
       })
       end

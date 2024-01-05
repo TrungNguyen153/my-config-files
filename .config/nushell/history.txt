@@ -1484,3 +1484,745 @@ zoxide.exe
 nvim .
 cls
 :qa
+start .
+cargo new --lib poe-framework
+cd poe-framework\
+ls
+cks
+ck
+cl
+cls
+cargo add log lazy_static bitflags math-rs windows
+nvim .
+cargo new memory-viewer --lib
+cd ..
+cargo new memory-viewer --lib
+cargo add toml --package memory-viewer
+cargo build --package memory-viewer
+nvim .
+cls
+cargo run -r --package memory-viewer
+cls
+cargo run -r --package memory-viewer
+cargo add toml --package memory-viewer
+cargo run -r --package memory-viewer
+cls
+cargo run -r --package memory-viewer
+cls
+cargo run -r --package memory-viewer
+mkfile cargo.toml
+cat cargo.toml
+mf cargo.toml
+nvim .
+cls
+cargo new --lib x64dbg-sdk-sys
+start .
+cargo add thiserror
+cargo add bindgen cfg-if --dev
+cargo build -r
+cargo build -r --package x64dbg-sdk-sys
+cargo build -r --package x64dbg-sdk-sys --verbose
+cargo build -r --package x64dbg-sdk-sys -vv
+cargo build -r --package x64dbg-sdk-sys --v
+cargo build -r --package x64dbg-sdk-sys -- --nocapture
+cargo build -r --package x64dbg-sdk-sys
+cls
+cargo build -r --package x64dbg-sdk-sys
+start .
+cargo build -r --package x64dbg-sdk-sys
+cargo new xdbg-restruct --lib
+cls
+cargo build -r
+cargo add iced-x86 [package]
+name = "x64dbg_ext"
+version = "0.1.0"
+edition = "2021"
+[lib]
+crate-type=["dylib"]
+[dependencies]
+# waiting for: https://github.com/luyikk/dbg64_plugins/pull/1
+x64dbg_sdk_sys = { git = "https://github.com/expend20/dbg64_plugins", branch = "update-01-09-2022" }
+iced-x86 = "1.17.0"
+unicorn-engine = "2.0.0"
+cargo add iced-x86 lazy_static --package xdbg-restruct
+cls
+cargo build -r
+cls
+cargo build -r
+start .
+cargo make make-link
+cd xdbg-restruct\
+cargo make make-link
+cd ..
+cargo make make-link
+cargo make --makefile makefile.toml make-link
+echo "Linking"
+cls
+echo "Linking"
+cargo make --makefile makefile.toml make-link
+cd xdbg-restruct\
+cargo make make-link
+cd ..
+cargo make make-link
+cd xdbg-restruct\
+mklink ..\target\release\xdbg_restruct.dll D:\Tools\x64dbg_2023-12-04_17-51\release\x64\plugins\restruct.dp64
+cargo make make-link
+cls
+cargo make make-link
+cd ..
+cargo build -r
+cargo make make-link
+cargo build -r
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cp
+cp --help
+cargo make build-and-deploy
+git init
+nvim .
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cd D:\rust-workspace\ce-plugins
+cargo new ce-sdk-sys --lib
+start .
+cls
+cargo build -r
+cargo new restruct-ce-rs --lib
+nvim .
+cargo build -r
+cls
+cargo build -r
+cargo make build-and-deploy
+pnpm dev
+cls
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+start .
+cargo make build-and-deploy
+cargo add lua_src -F lua53 --package ce-sdk-sys
+cargo add lua_src -F lua53 --build --package ce-sdk-sys
+cargo add lua_src --build --package ce-sdk-sys
+cargo make build-and-deploy
+cargo clean
+cargo make build-and-deploy
+nvim .
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+nvim .
+cls
+cargo make build-and-deploy
+pnpm dev
+cargo add serde_json --package restruct-ce-rs
+cargo build -r
+cargo make build-and-deploy
+cls
+cargo make build-and-deploy
+nvim .
+cls
+cargo make build-and-deploy
+cd D:\rust-workspace\wow-toolkit\
+cargo build -r
+start .
+cargo build -r
+nvim .
+cargo build -r
+cargo make deploy
+cd offset-scanner\
+RUSTFLAGS="-Zlocation-detail=none" cargo +nightly build -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --release
+cargo make deploy
+RUSTFLAGS="-Zlocation-detail=none" cargo +nightly build --release
+cargo build -r
+cls
+cd D:\rust-workspace\yclass
+nvim .
+cargo run -r
+start .
+cls
+nvim .
+cargo build -r
+cls
+cargo run -r
+start .
+cargo run -r
+cargo add lazy-static
+nvim .
+cargo run -r
+nvim .
+cargo run -r
+cls
+cargo run -r
+cls
+cargo run -r
+cls
+cargo run -r
+cargo build -r
+nvim .
+cls
+:q
+cd D:\rust-workspace\rclass
+cargo clean
+nvim .
+cargo check --release
+cargo run -r
+cls
+cargo run -r
+nvim .
+cargo run -r
+cls
+cargo run -r
+start .
+cargo run -r
+cls
+cargo run -r
+cls
+cargo run -r
+cls
+cargo run -r
+cls
+cargo run -r
+cls
+cargo run -r
+cls
+cargo run -r
+cls
+cargo run -r
+cls
+cargo run -r
+nvim .
+cargo build -r
+cls
+nvim .
+start .
+cargo run -r
+start .
+cls
+nvim .
+nv
+nvim .
+cargo new rclass-ce --lib
+start .
+nvim .
+cargo b -r -p rclass-ce
+cargo add lazy-regex -p rclass-ce
+cargo b -r -p rclass-ce
+cargo remove lazy-regex -p rclass-ce
+cargo add regex -p rclass-ce
+cargo add lazy-regex -p rclass-ce
+cargo remove regex -p rclass-ce
+cargo b -r -p rclass-ce
+cls
+cargo b -r -p rclass-ce
+cls
+start .
+cargo b -r -p rclass-ce
+cls
+cargo b -r -p rclass-ce
+nvim .
+cargo b -r -p rclass-ce
+nvim .
+cargo b -r -p rclass-ce
+start .
+cargo b -r -p rclass-ce
+cargo add tracing tracing_subscriber -p rclass-ce
+cls
+cargo b -r -p rclass-ce
+cls
+cargo b -r -p rclass-ce
+nvim .
+cargo b -r -p rclass-ce
+nvim .
+cargo b -r -p rclass-ce
+cls
+cargo b -r -p rclass-ce
+cls
+cargo b -r -p rclass-ce
+cls
+cargo b -r -p rclass-ce
+cls
+cargo b -r -p rclass-ce
+nvim .
+cls
+nvim .
+scoop update neovim
+nvim .
+cls
+cargo b -r -p rclass-ce
+start .
+cargo b -r -p rclass-ce
+cargo add itertools -p rclass-ce
+cls
+cargo add itertools -p rclass-ce
+cargo b -r -p rclass-ce
+nvim .
+cls
+scoop update chrome
+scoop list
+scoop update googlechrome
+scoop --help
+scoop cleanup
+scoop cleanup *
+scoop cleanup .
+scoop cleanup 
+scoop cleanup googlechrome
+cls
+cargo b -r -p rclass-ce
+cls
+cargo b -r -p rclass-ce
+cls
+nvim .
+cargo b -r -p rclass-ce
+cls
+cargo b -r -p rclass-ce
+cls
+cargo b -r -p rclass-ce
+nvim .
+cls
+nvim .
+start .
+cls
+cargo r --example demo_asm -r
+which curl
+cargo r --example demo_asm -r
+cls
+cargo r --example demo_asm -r
+cls
+cargo r --example demo_asm -r
+cls
+cargo r --example demo_asm -r
+cls
+cargo r --example demo_asm -r
+cls
+cargo r --example demo_asm -r
+cls
+cargo r --example demo_asm -r
+cargo r --example demo_asm -r -f debug_hook
+cargo r --example demo_asm -r -F debug_hook
+cls
+cargo r --example demo_asm -r -F debug_hook
+cls
+cargo r --example demo_asm -r -F debug_hook
+cls
+cargo r --example demo_asm -r -F debug_hook
+cls
+cargo r --example demo_asm -r -F debug_hook
+cls
+cargo r --example demo_asm -r -F debug_hook
+cls
+cargo r --example demo_asm -r -F debug_hook
+cls
+cargo r --example demo_asm -r -F debug_hook
+nvim .
+cargo r --example demo_asm -r -F debug_mode
+cls
+cargo r --example demo_asm -r -F debug_mode
+cls
+cargo r --example demo_asm -r -F debug_mode
+cls
+cargo r --example demo_asm -r -F debug_mode
+cls
+cargo r --example demo_asm -r -F debug_mode
+cls
+cargo r --example demo_asm -r -F debug_mode
+nvim .
+cargo r --example demo_asm -r -F debug_mode
+cls
+cargo r --example demo_asm -r -F debug_mode
+nvim .
+cls
+cargo add struct_layout -p poe-framwork
+cargo add struct_layout -p poe-framework
+cargo b -r -p poe-framework
+nvim .
+cls
+nvim .
+cargo add paste -p poe-framework
+cls
+cargo add paste
+start .
+cargo remove struct_layout -p poe-framework
+cls
+cargo b -r -p poe-framework
+nvim .
+cargo b -r -p poe-framework
+cls
+cls
+nvim .
+cls
+start .
+cls
+cargo b -r -p poe-framework
+nvim .
+cls
+cls
+nvim .
+cargo b -r -p poe-framework
+nvim .
+cls
+nvim .
+cls
+cargo new egui_overlay --lib
+nvim .
+cargo add egui_window_glfw_passthrough -p egui_overlay
+cargo add egui
+cargo add egui -p egui_overlay
+cargo add egui_render_three_d -p egui_overlay
+cargo add raw_window_handle -p egui_overlay
+cargo b -r -p egui_overlay
+nvim .
+cls
+cargo new poe-overlay --lib
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+nvim .
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+nvim .
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+nvim .
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+nvim .
+cls
+nvim .
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo r poe-overlay --r
+cls
+cargo b poe-overlay --r
+cargo b -p poe-overlay -r
+nvim .
+cls
+start .
+cargo new gamai --lib
+cd gamai
+cargo new gamai_macro --lib
+nvim .
+cargo b -r
+cls
+cargo expand builtin_nodes::actions::simple_action
+nvim .
+cls
+cargo expand builtin_nodes::actions::simple_action
+cargo expand action::action
+cargo b -r
+cls
+cargo b -r
+cargo expand builtin_nodes::actions::simple_action
+cargo b -r
+nvim .
+cargo expand builtin_nodes::actions::simple_action
+nvim .
+cls
+rustup component add rust-analyzer
+rustup component list
+nvim .
+cls
+cargo b -r
+cd ..
+cargo b -r -p egui_overlay
+nvim .
+nvim --version
+cls

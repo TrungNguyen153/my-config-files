@@ -39,14 +39,25 @@ return {
 			require("setup.lsp.java").setup(lspconfig.capabilities(), lspconfig.on_attach)
 		end,
 	}, -- java enhancements
+	-- {
+	-- 	"simrat39/rust-tools.nvim",
+	-- 	ft = { "rust" },
+	-- 	config = function()
+	-- 		local lspconfig = require("setup.lsp")
+	-- 		require("setup.lsp.rust").setup(lspconfig.capabilities(), lspconfig.on_attach)
+	-- 	end,
+	-- }, -- rust enhancements -- deprecate
+
 	{
-		"simrat39/rust-tools.nvim",
-		ft = { "rust" },
+		'mrcjkb/rustaceanvim',
+		version = '^3', -- Recommended
+		ft = { 'rust' },
 		config = function()
 			local lspconfig = require("setup.lsp")
 			require("setup.lsp.rust").setup(lspconfig.capabilities(), lspconfig.on_attach)
 		end,
-	}, -- rust enhancements
+	},
+
 	{
 		"akinsho/flutter-tools.nvim",
 		ft = { "dart" },

@@ -6,6 +6,7 @@ M.on_attach = function(client, bufnr)
 	end
 
 	require("setup.autocommand").lsp_autocmds(client, bufnr)
+	-- vim.lsp.set_log_level("OFF") -- ON CAUSE LAG
 
 	-- check if this is applicable (for rust for example it is not)
 	-- https://github.com/L3MON4D3/LuaSnip/wiki/Misc#improve-language-server-snippets
