@@ -79,6 +79,7 @@ Write-Start -msg "Install Scoop's package for dev"
     scoop install main/gcc
     scoop install main/make
     scoop install main/neovim
+    scoop install sysinternals/process-explorer
     scoop install extras/wezterm
     scoop install extras/vscode
     scoop install extras/putty
