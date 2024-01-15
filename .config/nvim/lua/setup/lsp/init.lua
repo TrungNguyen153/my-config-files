@@ -12,8 +12,12 @@ M.on_attach = function(client, bufnr)
 	-- https://github.com/L3MON4D3/LuaSnip/wiki/Misc#improve-language-server-snippets
 
 	-- enable inlay hints if server supports it
-    if client.server_capabilities.inlayHintProvider and vim.version().api_prerelease then
-        vim.lsp.inlay_hint(bufnr, true)
+    if client.server_capabilities.inlayHintProvider then
+		if vim.version().api_prerelease then
+			vim.lsp.inlay_hint.enable(bufnr, true)
+		else
+			require("lsp-inlayhints").on_attach(client, bufnr)
+		end
     end
 end
 M.capabilities = function()
@@ -130,14 +134,14 @@ M.setup = function()
 	local lspconfig = require("lspconfig")
 	require("mason").setup()
 	require("mason-lspconfig").setup({
-		ensure_installed = { "jdtls" },
-		automatic_installation = true,
+		-- ensure_installed = { "jdtls", },
 	})
 	require("mason-tool-installer").setup({
 		ensure_installed = {
 			"codelldb",
 			"eslint_d",
-			-- "black", -- python formater
+			-- "rust-analyzer",
+			"black", -- python formater
 			"clangd",
 			"ktlint",
 			-- "markdownlint",

@@ -2226,3 +2226,637 @@ cargo b -r -p egui_overlay
 nvim .
 nvim --version
 cls
+scoop remove neovim
+scoop uninstall neovim
+scoop cleanup neovim
+scoop install versions/neovim-nightly
+nvim --version
+cls
+nvim .
+cls
+nvim .
+cls
+nvim .
+cls
+cargo b -r -p egui_overlay
+nvim .
+cls
+cargo b -r -p egui_overlay
+cls
+nvim .
+cls
+nvim .
+cls
+scoop uninstall versions/neovim-nightly
+cargo b -r -p poe-framework
+scoop install main/neovim
+cls
+nvim .
+cls
+nvim .
+cargo b -r -p poe-framework
+cargo b -r -p poe-overlay
+cls
+cargo b -r -p poe-overlay
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cargo b -r -p gamai
+cls
+cargo b -r -p gamai
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+nvim .
+cls
+cargo b -r
+cls
+cargo r --example demo_asm -r -F debug_mode
+nvim .
+cargo r -r -p poe-overlay
+cls
+nvim .
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+nvim .
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+nvim .
+cls
+cls
+rustup component remove rust-analyzer
+nvim .
+cls
+rust-analyzer --version
+where rust-analyzer.exe
+where.exe rust-analyzer.exe
+start C:\Users\Silyum\.cargo\bin\
+rustup component list
+rustup component remove rust-analyzer
+rustup show
+cd ..
+rustup show
+rustup component remove rust-analyzer
+where.exe rust-analyzer.exe
+nvim .
+where.exe rust-analyzer.exe
+cls
+nvim .
+rust-analyzer --version
+rust-analyzer
+where.exe rust-analyzer.exe
+where.exe rust-analyzer
+cargo meta
+nvim .
+nvim
+cls
+nvim .
+cls
+rustup component install rust-analyzer
+rustup component add rust-analyzer
+cls
+nvim .
+cls
+rustup component list
+cls
+rust-analyzer
+rust-analyzer.exe
+cls
+:qa
+cls
+nvim .
+where.exe rust-analyzer
+cls
+rustup component add rust-analyzer
+rustup show
+cls
+rustup toolchain install nightly --component rust-analyzer
+cls
+nvim .
+cls
+rustup component list
+rustup component list | grep installed
+rustup component list | grep "installed"
+cls
+rustup component list
+rustup component remove rust-analyzer
+cls
+rustup component add rust-analyzer
+cls
+nvim .
+cls
+scoop install sysinternals/process-explorer
+rustup component add rust-analyzer-nightly
+rustup show
+cls
+rustup --help
+rustup check
+rustup completions
+cls
+cargo r -r -p poe-overlay
+cls
+nvim .
+cls
+cargo r -r -p poe-overlay
+clscls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+clcls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+nvim .
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+nvim .
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+nvim .
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+nvim .
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+nvim .
+cargo r -r -p poe-overlay
+cls
+cargo b -r -p poe-overlay
+nvim .
+cls
+nvim .
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo b -r -p poe-overlay
+cls
+cargo b -r -p poe-overlay
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+nvim .
+cd D:\rust-workspace\A-Test-Crate
+cd egui_graph\
+cargo r -r --example demo
+nvim .
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+cargo r -r -p poe-overlay
+cls
+nvim .
+cls
+nvim .
+cargo r -r -p poe-overlay
+nvim .
+cls
+scoop install extras/obs-studio
+cls
+cargo r -r -p poe-overlay
+nvim .
+ls
+cd egui_graphs
+cargo r -r --example
+cargo r -r bevy_basic
+cd examples\bevy_basic\
+cargo r -r
+cls
+nvim .
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+nvim .
+cls
+cls
+cargo r -r
+nvim .
+cls
+nvim .
+cls
+rustup component remove rust-analyzer
+rustup component add rust-analyzer
+where.exe rust-analyzer
+rustup component remove rust-analyzer
+where.exe rust-analyzer
+cls
+nvim .
+cargo metadata --no-deps --format-version 1
+cd gamai\src\graph_utils\
+ls
+cargo metadata --no-deps --format-version 1
+cls
+cd ../..
+cd ..
+ls
+echo $CARGO_HOME
+echo CARGO_HOME
+echo $RUSTUP_HOME
+echo $PATH
+echo $Path
+$env.RUSTUP_HOME
+$env.CARGO_HOME
+cls
+cls
+neovide
+where.exe nvim
+start where.exe nvim
+start C:\Users\Silyum\scoop\shims\
+cls
+nvim .
+cls
+nvim .
+scoop install extras/neovide
+neovide .
+cls
+nvide
+neovide .
+nvide
+nvim .
+cls
+scoop uninstall neovim
+scoop install versions/neovim-nightly
+neovide .
+cls
+neovide .
+nvim .
+cls
+neovide .
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+neovide .
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+nvim .
+cargo r -r
+cls
+cargo r -r
+start .
+scoop uninstall versions/neovim-nightly
+scoop install main/neovim
+cls
+cls
+neovide .
+neovide . --frame none
+$env.NEOVIDE_FRAME = 'none'
+neovide .
+scoop uninstall main/neovim
+scoop install versions/neovim-nightly
+cargo r -r
+cls
+nvim .
+neovide .
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+neovide .
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+neovide .
+nvim .
+cls
+nvim .
+cargo metadata --no-deps --format-version 1 --manifest-path D:/rust-workspace/poe-framework/poe-framework/Cargo.toml
+cls
+cargo metadata --no-deps --format-version 1 --manifest-path D:/rust-workspace/poe-framework/poe-framework/Cargo.toml
+cargo metadata --no-deps --format-version 1 --manifest-path d:/rust-workspace/poe-framework/poe-framework/Cargo.toml
+nvim .
+cls
+nvim .
+start .
+neovide .
+$env.NEOVIDE_FRAME = 'none'
+cls
+neovide .
+nvim .
+cls
+cargo new poe-framework-macros --lib
+cargo b -r
+cls
+cargo b -r
+cls
+cargo b -r
+cls
+cargo b -r
+cls
+cargo expand poe_frame_workd::game_structs::terrain_data_struct
+cd poe-framework\
+cargo expand game_struct::terrain_data_struct
+cls
+cargo expand game_struct::terrain_data_struct -r
+cargo expand game_struct::terrain_data_struct
+cargo expand game_structs::terrain_data_struct
+cls
+cargo b -r
+cls
+nvim .
+cd ..
+cargo r -r
+cls
+cargo r -r
+cls
+neovide .
+$env.NEOVIDE_FRAME = 'none'
+cargo r -r
+cls
+cargo r -r
+neovide .
+cls
+neovide .
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+neovide .
+cls
+$env.NEOVIDE_FRAME = 'none'
+neovide .
+cargo r -r
+cls
+cargo r -r
+nvim .
+cls
+nvim .
+cls
+nvim .
+cls
+cargo r -r
+cls
+cargo r -r

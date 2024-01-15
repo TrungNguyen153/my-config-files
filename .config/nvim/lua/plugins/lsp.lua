@@ -1,9 +1,6 @@
 return {
 	{
 		"williamboman/mason.nvim", -- lsp server installer
-		config = function()
-			require("mason").setup()
-		end,
 		dependencies = { "williamboman/mason-lspconfig.nvim", "WhoIsSethDaniel/mason-tool-installer.nvim" },
 	},
 	{
@@ -39,6 +36,16 @@ return {
 			require("setup.lsp.java").setup(lspconfig.capabilities(), lspconfig.on_attach)
 		end,
 	}, -- java enhancements
+	{
+		'mrcjkb/rustaceanvim',
+		version = '^3', -- Recommended
+		-- dir = 'D:\\rust-workspace\\rustaceanvim',
+		ft = { 'rust' },
+		config = function()
+			local lspconfig = require("setup.lsp")
+			require("setup.lsp.rust").setup(lspconfig.capabilities(), lspconfig.on_attach)
+		end,
+	},
 	-- {
 	-- 	"simrat39/rust-tools.nvim",
 	-- 	ft = { "rust" },
@@ -46,18 +53,10 @@ return {
 	-- 		local lspconfig = require("setup.lsp")
 	-- 		require("setup.lsp.rust").setup(lspconfig.capabilities(), lspconfig.on_attach)
 	-- 	end,
-	-- }, -- rust enhancements -- deprecate
-
-	{
-		'mrcjkb/rustaceanvim',
-		version = '^3', -- Recommended
-		ft = { 'rust' },
-		config = function()
-			local lspconfig = require("setup.lsp")
-			require("setup.lsp.rust").setup(lspconfig.capabilities(), lspconfig.on_attach)
-		end,
-	},
-
+	-- }, -- rust enhancements
+	{ 	'lvimuser/lsp-inlayhints.nvim',
+		config = require("setup.lsp.lsp-inlayhints").setup,
+	}, -- for Neovim < 0.10
 	{
 		"akinsho/flutter-tools.nvim",
 		ft = { "dart" },
