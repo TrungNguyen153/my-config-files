@@ -123,7 +123,7 @@ local keymap_table = {
   },
   {
     shortcut = '<M-w>',
-    cmd = require('auto-session.session-lens').search_session,
+    cmd = ':Telescope neovim-project history<CR>',
     opts = no_remap_silent_opt,
     modes = { 'n' },
     description = 'Open saved session',
@@ -747,7 +747,7 @@ return {
           h = { ':RustLsp hover range<CR>', 'Range Hover Actions' },
           w = { ':RustLsp reloadWorkspace<CR>', 'Reload Workspace' },
           s = { ':RustLsp syntaxTree<CR>', 'Syntax Tree' },
-          f = { ':RustLsp flyCheck<CR>', 'Cargo Check Background' },
+          c = { ':RustLsp flyCheck<CR>', 'Cargo Check Background' },
           t = { '<cmd>require("setup.toggleterm").run_float("cargo test")<CR>', 'Run tests' },
         },
         j = {

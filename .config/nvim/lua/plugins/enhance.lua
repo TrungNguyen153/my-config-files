@@ -25,13 +25,22 @@ return {
   }, -- makes better line moving
   {
     "nvim-pack/nvim-spectre",
+    cmd = 'LazySpectre',
     config = function()
       require("spectre").setup()
     end,
   }, -- special search and replace buffer
   "famiu/bufdelete.nvim", -- delete buffer and keep window layout
   "samjwill/nvim-unception", -- prevents an instance of neovim to be openend within neovim
-  { "chrishrb/gx.nvim", config = true }, -- gx opens urls, github issues etc in the browser
+  { "chrishrb/gx.nvim",
+    keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
+    cmd = { "Browse" },
+    init = function ()
+      vim.g.netrw_nogx = 1 -- disable netrw gx
+    end,
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = true
+  }, -- gx opens urls, github issues etc in the browser
   {
     "max397574/better-escape.nvim",
     event = "InsertEnter",

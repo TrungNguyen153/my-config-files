@@ -23,19 +23,19 @@ return {
     --   dependencies = { 'zbirenbaum/copilot.lua' },
     -- },
     -- use({ 'github/copilot.vim' }), -- before first time using the lua version, this has to be installed and then run :Copilot to setup. Uninstall afterwards
-    { "Exafunction/codeium.nvim",
-     dependencies = { 'nvim-lua/plenary.nvim' },
-     config = function()
-      require("codeium").setup({
-        config_path = "D:\\ai-completions\\codeium\\config",
-        bin_path = "D:\\ai-completions\\codeium",
-        tools = {
-          language_server = "D:\\ai-completions\\codeium\\1.6.7\\language_server_windows_x64.exe",
-          gzip = "powershell.exe",
-          curl = "C:\\Windows\\system32\\curl.exe",
-        }
-      })
-      end
-    }
+    -- { "Exafunction/codeium.nvim",
+    --   dependencies = { 'nvim-lua/plenary.nvim' },
+    --   config = function()
+    --     require("codeium").setup({
+    --       config_path = "D:\\ai-completions\\codeium\\config",
+    --       bin_path = "D:\\ai-completions\\codeium",
+    --       tools = {
+    --         language_server = "D:\\ai-completions\\codeium\\1.6.7\\language_server_windows_x64.exe",
+    --         gzip = "powershell.exe",
+    --         curl = "C:\\Windows\\system32\\curl.exe",
+    --       }
+    --     })
+    --     end
+    -- }
   },
 }

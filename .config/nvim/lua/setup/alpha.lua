@@ -1,15 +1,25 @@
+local is_unix = vim.fn.has "unix" == 1
+local is_macos = vim.fn.has "mac" == 1 or vim.fn.has "macunix" == 1
+local is_wsl = vim.fn.has "wsl" == 1
+-- false for WSL
+local is_windows = vim.fn.has "win32" == 1 or vim.fn.has "win32unix" == 1
+local function open_system_dir_command(path)
+	if is_windows then
+		return ":lua os.execute('cmd /c start " .. path .. "')<CR>"
+	end
+	if is_macos then
+		return ":lua os.execute('open /c start " .. path .. "')<CR>"
+	end
+	if is_unix then
+		return ":lua os.execute('xdg-open /c start " .. path .. "')<CR>"
+	end
+end
+
 return {
 	setup = function()
 		-- Setting up the greeter
 		local alpha = require("alpha")
 		local dashboard = require("alpha.themes.dashboard")
-
-		local is_windows = (function()
-			if package.config:sub(1, 1) == "\\" then
-				return true
-			end
-			return false
-		end)()
 
 		local short_heading = {
 			[[  _  _ ___ _____   _____ __  __  ]],
@@ -21,7 +31,7 @@ return {
 
 		dashboard.section.header.val = short_heading
 
-		local host_file_location = is_windows and "C:/windows/system32/drivers/etc/hosts" or "/etc/hosts"
+		local host_file_location = is_windows and "C:/windows/system32/drivers/etc" or "/etc"
 		local config_file_location = is_windows and "~/AppData/Local/nvim/init.lua" or "~/.config/nvim/init.lua"
 		local config_wezterm = "~/.config/wezterm/wezterm.lua"
 		local config_nushell = is_windows and "~/AppData/Roaming/nushell/config.nu" or "~/.config/nushell/config.nu"
@@ -38,7 +48,7 @@ return {
 			dashboard.button("s", "  > Neovim settings", ":e " .. config_file_location .. " | :cd %:p:h<CR>"),
 			dashboard.button("w", "  > Wezterm settings", ":e " .. config_wezterm .. " | :cd %:p:h<CR>"),
 			dashboard.button("n", "  > Nushell settings", ":e " .. config_nushell .. " | :cd %:p:h<CR>"),
-			dashboard.button("h", "  > Edit hosts file", ":e " .. host_file_location .. "<CR>"),
+			dashboard.button("h", "  > Open hosts file dir", open_system_dir_command(host_file_location)),
 			dashboard.button("q", "  > Quit NVIM", ":qa<CR>"),
 		}
 		local function footer()
@@ -53,3 +63,4 @@ return {
 		alpha.setup(dashboard.opts)
 	end,
 }
+

@@ -6,7 +6,7 @@ M.on_attach = function(client, bufnr)
 	end
 
 	require("setup.autocommand").lsp_autocmds(client, bufnr)
-	-- vim.lsp.set_log_level("OFF") -- ON CAUSE LAG
+	vim.lsp.set_log_level("OFF") -- ON CAUSE LAG
 
 	-- check if this is applicable (for rust for example it is not)
 	-- https://github.com/L3MON4D3/LuaSnip/wiki/Misc#improve-language-server-snippets
@@ -54,59 +54,60 @@ M.config_defaults = function()
 		capabilities = M.capabilities(),
 	})
 	-- yaml
-	lspconfig.yamlls.setup({
-		on_attach = M.on_attach,
-		capabilities = M.capabilities(),
-		settings = {
-			yaml = {
-				schemaStore = {
-					enable = true,
-					url = "https://www.schemastore.org/api/json/catalog.json",
-				},
-				schemas = {
-					["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-				},
-				format = {
-					enable = true,
-				},
-			},
-		},
-	})
+    lspconfig.yamlls.setup({
+        on_attach = M.on_attach,
+        capabilities = M.capabilities(),
+        settings = {
+            yaml = {
+                schemaStore = {
+                    enable = false,
+                    url = 'https://www.schemastore.org/api/json/catalog.json',
+                },
+                schemas = require('schemastore').yaml.schemas(),
+                format = {
+                    enable = true,
+                },
+            },
+        },
+    })
 	-- json
-	lspconfig.jsonls.setup({
-		on_attach = M.on_attach,
-		capabilities = M.capabilities(),
-		commands = {
-			Format = {
-				function()
-					vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line("$"), 0 })
-				end,
-			},
-		},
-		settings = {
-			json = {
-				schemas = require("schemastore").json.schemas(),
-			},
-		},
-	})
+    lspconfig.jsonls.setup({
+        on_attach = M.on_attach,
+        capabilities = M.capabilities(),
+        commands = {
+            Format = {
+                function()
+                    vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line('$'), 0 })
+                end,
+            },
+        },
+        settings = {
+            json = {
+                schemas = require('schemastore').json.schemas({
+                    extra = {
+                        {
+                            description = 'Monkeys Schema',
+                            fileMatch = { 'monkeys/config.json', 'monkeys/example.json' },
+                            name = 'Infinite Monkeys',
+                            url = 'file://' .. vim.fn.getcwd() .. '/monkeys/schema.json',
+                        },
+                    },
+                }),
+                validate = { enable = true },
+            },
+        },
+    })
 	-- docker
 	lspconfig.dockerls.setup({
 		on_attach = M.on_attach,
 		capabilities = M.capabilities(),
 	})
-	-- deno
-	-- ensure_server('denols'):setup({})
 	-- sql
 	lspconfig.sqlls.setup({
 		on_attach = M.on_attach,
 		capabilities = M.capabilities(),
 		cmd = { "sql-language-server", "up", "--method", "stdio" },
 	})
-	-- swift
-	-- lspconfig.sourcekit.setup({
-	-- 	on_attach = M.on_attach,
-	-- 	capabilities = M.capabilities(),
-	-- })
 	-- kotlin
 	lspconfig.kotlin_language_server.setup({
 		on_attach = M.on_attach,
@@ -126,8 +127,6 @@ M.config_defaults = function()
         on_attach = M.on_attach,
         capabilities = M.capabilities(),
     })
-	-- typescript
-	require("setup.lsp.typescript").setup(lspconfig, M.capabilities(), M.on_attach)
 end
 
 M.setup = function()

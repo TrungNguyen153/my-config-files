@@ -5,7 +5,7 @@ return {
   --     build = './install.sh build',
   --     config = require('setup.silicon').setup,
   -- }, -- Generates an image from selected text. Needs silicon installed (cargo install silicon)
-  "bennypowers/nvim-regexplainer", -- shows popup explaining regex under cursor
+  { 'bennypowers/nvim-regexplainer', cmd = 'LazyRegexplainer' }, -- shows popup explaining regex under cursor
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
@@ -26,22 +26,34 @@ return {
       "nvim-telescope/telescope-file-browser.nvim",
       "nvim-telescope/telescope-symbols.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-      { 'natecraddock/workspaces.nvim', config = true }
     },
     config = require("setup.telescope").setup,
   },
-  -- session management and picker
-  {
-    "rmagatti/auto-session",
-    dependencies = { "nvim-telescope/telescope.nvim" },
-    config = require("setup.session").setup,
-  },
-
   {
     "nvim-neorg/neorg",
     ft = {"norg"},
     build = ":Neorg sync-parsers",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = require("setup.neorg").setup,
-  }
+  },
+  {
+    "coffebar/neovim-project",
+    init = function()
+      -- enable saving the state of plugins in the session
+      vim.opt.sessionoptions:append("globals") -- save global variables that start with an uppercase letter and contain at least one lowercase letter.
+    end,
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-telescope/telescope.nvim" },
+      { "Shatur/neovim-session-manager" },
+    },
+    lazy = false,
+    priority = 100,
+    opts = {
+      projects = { -- define project roots
+        "~/projects/*",
+        "D:/rust-workspace/*",
+      },
+    },
+  },
 }

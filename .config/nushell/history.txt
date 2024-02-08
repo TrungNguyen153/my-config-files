@@ -2860,3 +2860,478 @@ cls
 cargo r -r
 cls
 cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+nvim .
+cls
+cls
+scoop uninstall versions/neovim-nightly
+cls
+bob
+cargo install bob-nvim
+bob
+bob list
+bob complete
+bob complete --help
+bob install 0.9.5
+bob use 0.9.5
+nvim .
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+cargo r -r
+cls
+nvim .
+cls
+nvim .
+cls
+scoop --help
+scoop update zoxide
+zoxide init nushell | str replace --all "-- $rest" "-- ...$rest" | save -f ~/.zoxide.nu
+$nu.env-path
+zoxide init nushell | str replace --all "-- $rest" "-- ...$rest" | save -f ~/.zoxide.nu
+z 
+z
+z D
+zi k
+cls
+z
+z Downloads\
+cls
+ls
+z ow
+neovide .
+$env.NEOVIDE_FRAME = 'none'
+neovide .
+cargo r -r
+cls
+cargo r -r
+ls -d
+cls
+nvim .
+cargo r -r
+bob list
+bob --help
+bob rm 0.9.5
+bob erase
+bob list
+cargo uninstall bob-nvim
+bob
+ls
+cls
+scoop install main/neovim
+cls
+where.exe rust-lld
+where.exe rust-lld.exe
+nvim .
+cargo clean
+rustup component add llvm-tools-preview
+cargo install -f cargo-binutils
+cls
+cls
+start .
+cargo r
+cls
+cargo r
+cls
+cargo r
+nvim .
+z poe
+cd ..
+z poe
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+neovide .
+cls
+cargo r
+ls
+exit
+neovide .
+$env.NEOVIDE_FRAME = 'none'
+cls
+cls
+cargo r
+start .
+exit
+cargo r
+cls
+cargo r
+neovide .
+cls
+$env.NEOVIDE_FRAME = 'none'
+cargo r
+cls
+neovide .
+cargo r
+cargo b
+cargo r
+cargo b
+cargo r
+neovide .
+neovide . --frame none
+cargo b -r
+nvim .
+neovide .
+neovide . --novsync
+cargo b
+cargo r
+cls
+cargo r
+cargo b
+neovide . --no-vsync
+start .
+cargo r
+neovide .
+cargo r
+cargo r
+neovide .
+cls
+cargo r
+nvim .
+cls
+nvim .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+nvim .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+nvim .
+cls
+cargo r
+cargo r
+cls
+cargo b
+nvim .
+cargo b
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cargo b
+cls
+cargo b
+cls
+cargo b
+cargo r
+cks
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cargo b
+nvim .
+cls
+cargo clean
+cargo b
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+nvim .
+cls
+cargo r
+nvim .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+nvim .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+nvim .
+cargo clippy
+nvim .
+nvim
+nvim .
+nvim
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+nvim .
+cargo r
+cls
+cargo r
+cls
+nvim .
+nvim
+nvim .
+rustup component list
+rustup --help
+rustup update
+cls
+nvim .
+rustup component add rust-analyzer
+cargo clean
+cargo r
+rustup list
+rustup show
+rustup --help
+rustup default msvc
+rustup default --help
+rustup default stable
+rustup component add rust-analyzer
+rustup component add llvm-tools-preview
+rustup component add rustfmt
+rustup component add clippy
+cls
+nvim .
+cargo remove rust-analzyer
+cargo uninstall rust-analyzer
+cargo uninstall -p rust-analyzer
+cargo help uninstall
+cargo uninstall -bin rust-analyzer
+cargo uninstall --bin rust-analyzer
+cd ..
+cargo uninstall --bin rust-analyzer
+cargo help remove
+cargo remove rust-analyzer
+cargo uninstall rust-analyzer
+rustup component remove rust-analyzer
+cargo uninstall rust-analyzer
+rustup component add rust-analyzer
+nvim .
+rustup component remove rust-analyzer
+nvim .
+rustup component add rust-analyzer
+cargo r
+nvim .
+rustup default nightly
+nvim .cls
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+nvim .
+neovide .
+cargo b
+cls
+cargo b
+cls
+cargo b
+cargo r
+cargo b
+neovide .
+cargo b
+rustup show
+neovide .
+cargo b
+start .
+cargo b
+cargo r
+scoop update neovide
+$env.NEOVIDE_FRAME = 'none'
+neovide .
+cls
+cargo b
+neovide .
+cargo b
+cargo r
+nvim-qt .
+cargo r
+neovide .
+start .
+neovide .
+cargo rustc -p clippy_lints -- -Ztime-passes
+neovide .
+$env.NEOVIDE_FRAME = 'none'
+neovide .
+cargo run
+cargo r
+cargo b
+neovide .
+cargo b
+cls
+cargo b
+nvim .
+start .
+nvim .
+cargo b
+nvim .
+scoop install main/helix
+helix .
+cls
+nvim .
+cls
+$env.NEOVIDE_FRAME = 'none'
+cargo b
+cargo r
+cargo b
+neovide .
+$env.NEOVIDE_FRAME = 'none'
+cargo b
+cargo r
+neovide .
+$env.NEOVIDE_FRAME = 'none'
+neovide .
+$env.NEOVIDE_FRAME = 'none'
+cargo b
+neovide .
+$env.NEOVIDE_FRAME = 'none'
+neovide .
+$env.NEOVIDE_FRAME = 'none'
+neovide .
+$env.NEOVIDE_FRAME = 'none'
+neovide .
+cargo b
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cd D:\rust-workspace\wow-toolkit
+$env.NEOVIDE_FRAME = 'none'
+nvim .
+cargo b -r
+neovide .
+$env.NEOVIDE_FRAME = 'none'
+neovide .
+cargo b
+cargo r
+$env.NEOVIDE_FRAME = 'none'
+neovide .
+nvim .
+neovide
+neovide .
+neovide
+neovide .
+nvim .
+neovide
+nvim .

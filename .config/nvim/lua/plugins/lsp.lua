@@ -10,12 +10,11 @@ return {
 			local conf = lspconfig.setup()
 			lspconfig.config_defaults()
 			require("setup.lsp.lua").setup(conf, lspconfig.capabilities(), lspconfig.on_attach)
-			require("setup.lsp.typescript").setup(conf, lspconfig.capabilities(), lspconfig.on_attach)
 		end,
 	}, -- collection of LSP configurations for nvim
 	{
 		"stevearc/aerial.nvim",
-		event = "BufEnter",
+		cmd = 'LazyAerial',
 		config = require("setup.lsp.aerial").setup,
 	}, -- show symbol tree in the current buffer
 	{
@@ -26,7 +25,6 @@ return {
 			require("setup.lsp.null-ls").setup(lspconfig.on_attach)
 		end,
 	}, -- can be ful to integrate with non LSP sources like eslint
-	"jose-elias-alvarez/nvim-lsp-ts-utils", -- improve typescript
 	{ "ray-x/lsp_signature.nvim", dependencies = "nvim-lspconfig", config = require("setup.lsp_signature").setup }, -- show signature from methods as float windows
 	{
 		"mfussenegger/nvim-jdtls",
@@ -39,24 +37,12 @@ return {
 	{
 		'mrcjkb/rustaceanvim',
 		version = '^3', -- Recommended
-		-- dir = 'D:\\rust-workspace\\rustaceanvim',
 		ft = { 'rust' },
 		config = function()
 			local lspconfig = require("setup.lsp")
 			require("setup.lsp.rust").setup(lspconfig.capabilities(), lspconfig.on_attach)
 		end,
 	},
-	-- {
-	-- 	"simrat39/rust-tools.nvim",
-	-- 	ft = { "rust" },
-	-- 	config = function()
-	-- 		local lspconfig = require("setup.lsp")
-	-- 		require("setup.lsp.rust").setup(lspconfig.capabilities(), lspconfig.on_attach)
-	-- 	end,
-	-- }, -- rust enhancements
-	{ 	'lvimuser/lsp-inlayhints.nvim',
-		config = require("setup.lsp.lsp-inlayhints").setup,
-	}, -- for Neovim < 0.10
 	{
 		"akinsho/flutter-tools.nvim",
 		ft = { "dart" },
@@ -65,4 +51,12 @@ return {
 			require("setup.lsp.flutter-tools").setup(lspconfig.capabilities(), lspconfig.on_attach)
 		end,
 	},
+	{
+        'pmizio/typescript-tools.nvim',
+        ft = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
+        config = function()
+            local lspconfig = require('setup.lsp')
+            require('setup.lsp.typescript').setup(lspconfig.capabilities(), lspconfig.on_attach)
+        end, -- typescript enhancements
+    },
 }

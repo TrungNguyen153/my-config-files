@@ -4,7 +4,6 @@ return {
     'farmergreg/vim-lastplace', -- remembers cursor position with nice features in comparison to just an autocmd
     {
         'nvim-lua/plenary.nvim', -- serveral lua utilities
-        -- commit = "62d1e2e5691865586187bd6aa890e43b85c00518" -- use this commit because lasted broken Codium [https://github.com/Exafunction/codeium.nvim/issues/121#issuecomment-1832819652]
     },
     {
         'nvim-tree/nvim-web-devicons',
