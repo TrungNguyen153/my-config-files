@@ -3522,3 +3522,17 @@ cargo r
 cls
 cargo r
 nvim .
+cargo r
+cls
+cargo r
+cls
+cargo r
+nvim
+scoop list
+cls
+nvim
+nvim .
+nvim
+scoop update neovide
+nvim
+cls

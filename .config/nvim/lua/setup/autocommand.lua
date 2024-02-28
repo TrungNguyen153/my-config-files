@@ -105,38 +105,6 @@ return {
 			return vim.api.nvim_create_augroup(name, { clear = true })
 		end
 
-		local packer_group = augroup("PackerUserConfig")
-		-- autocmd({ 'BufWritePost' }, {
-		--     desc = 'Auto update packer plugins once the plugins definition file is changed',
-		--     pattern = 'plugins.lua,*nvim/lua/plugins/*.lua',
-		--     -- command = 'source <amatch> | PackerSync',
-		--     callback = function(evt)
-		--         vim.cmd('luafile ' .. evt.match)
-		--         vim.cmd('luafile ' .. vim.fn.stdpath('config') .. '/lua/plugins.lua')
-		--         local packer = require('packer')
-		--         packer.reset()
-		--         packer.sync()
-		--     end,
-		--     group = packer_group,
-		-- })
-		-- autocmd({ 'BufWritePost' }, {
-		--     desc = 'Auto update packer plugins once the plugins definition file is changed',
-		--     pattern = '*nvim/lua/settings/*.lua,*nvim/lua/setup/*.lua',
-		--     command = 'source <amatch> | PackerCompile',
-		--     group = packer_group,
-		-- })
-		autocmd("User", {
-			group = packer_group,
-			pattern = "PackerCompileDone",
-			callback = function() -- Autocompile colorscheme
-				-- safety check
-				local hasCatppuccin, catppuccin = pcall(require, "catppuccin")
-				if hasCatppuccin then
-					catppuccin.compile()
-				end
-			end,
-		})
-
 		autocmd({ "ModeChanged" }, {
 			desc = "Stop snippets when you leave to normal mode",
 			pattern = "*",

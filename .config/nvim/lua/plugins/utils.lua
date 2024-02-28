@@ -36,6 +36,11 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     config = require("setup.neorg").setup,
   },
+  -- {
+	-- 	"goolord/alpha-nvim",
+	-- 	dependencies = { "nvim-tree/nvim-web-devicons" },
+	-- 	config = require("setup.alpha").setup,
+	-- },
   {
     "coffebar/neovim-project",
     init = function()
@@ -48,10 +53,9 @@ return {
       { "Shatur/neovim-session-manager" },
     },
     lazy = false,
-    priority = 100,
+    priority = 10,
     opts = {
       projects = { -- define project roots
-        "~/projects/*",
         "D:/rust-workspace/*",
       },
     },

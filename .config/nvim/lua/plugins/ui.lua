@@ -39,6 +39,8 @@ return {
 	-- }, -- theme
 	{
 	  'catppuccin/nvim',
+	  lazy = false,
+	  priority = 150,
 	  config = function()
 	    require('setup.catppuccin').setup('latte')
 	  end,
@@ -69,6 +71,7 @@ return {
 	}, -- creates a tab focd on diff view and git history
     {
         'lukas-reineke/indent-blankline.nvim',
+		dependencies = {"nvim-treesitter/nvim-treesitter"},
         main = 'ibl',
         config = require('setup.blankline').setup,
     }, -- Adds a | to show indentation levels
@@ -79,11 +82,6 @@ return {
 	-- 	event = "LspAttach",
 	-- 	config = require("setup.neodim").setup,
 	-- },
-	{
-		"goolord/alpha-nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		config = require("setup.alpha").setup,
-	},
 	-- {
 	--   'KadoBOT/nvim-spotify',
 	--   build = 'make',
