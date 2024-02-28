@@ -3335,3 +3335,190 @@ neovide .
 nvim .
 neovide
 nvim .
+$env.NEOVIDE_FRAME = 'none'
+neovide .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cargo b
+nvim .
+cls
+$env.NEOVIDE_FRAME = 'none'
+cargo r
+neovide .
+neovide
+cargo b -r -package kernel_client
+cargo b -r -package kernel-client
+cargo b -r --package kernel-client
+cargo b -r -f default --package kernel-client
+cargo b -r --features default --package kernel-client
+start .
+cargo make all
+start .
+exit
+nvim
+nvim .
+cargo r
+nvim .
+cls
+cargo clean
+cargo b -r
+nvim .
+cargo b
+nvim .
+cargo b
+nv
+nvim .
+cargo b
+cls
+cargo r
+cargo b
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+nvim .
+cargo r
+exit
+cls
+cargo r
+nvim .
+cargo r
+cls
+cargo r
+nvim .
+start .
+cargo r
+cls
+cargo r
+nvim .
+cargo rcls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+nvim .
+cls
+cargo r
+cls
+cargo r
+nvim .
+cls
+cargo r
+nvim .
+cargo r
+cls
+cargo r
+exit
+nvim .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cargo rcls
+cls
+cargo r
+cls
+cargo r
+nvim .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+nvim .
+cls
+cargo r
+nvim .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+nvim .
+cargo b
+cargo r
+cls
+cargo clean
+start .
+cargo r
+cls
+cargo clean
+cargo r
+nvim .
+cargo r
+start .
+cargo r
+cargo clean
+cargo b
+cargo r
+nvim .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+nvim .
