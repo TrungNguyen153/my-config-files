@@ -18,6 +18,7 @@ return {
     'onsails/lspkind-nvim', -- show pictograms in the auto complete popup
     'hrsh7th/cmp-nvim-lsp-document-symbol',
     'b0o/schemastore.nvim', -- adds schemas for json lsp
+    "luckasRanarison/tailwind-tools.nvim",
     -- {
     --   'zbirenbaum/copilot-cmp',
     --   dependencies = { 'zbirenbaum/copilot.lua' },

@@ -8,13 +8,13 @@ return {
       highlight = {
         enable = true,
         -- add languages not supported by treesitter here
-        disable = function(lang, buf)
-          local max_filesize = 30 * 1024 -- 100 KB
-          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-          if ok and stats and stats.size > max_filesize then
-              return true
-          end
-        end,
+        -- disable = function(lang, buf)
+        --   local max_filesize = 30 * 1024 -- 30 KB
+        --   local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        --   if ok and stats and stats.size > max_filesize then
+        --       return true
+        --   end
+        -- end,
         additional_vim_regex_highlighting = false,
       },
       indent = {
@@ -28,7 +28,7 @@ return {
         enable = true,
       },
       matchup = {
-        enable = true,
+        enable = false,
       },
       textobjects = {
         select = {

@@ -14,7 +14,6 @@ return {
 	}, -- collection of LSP configurations for nvim
 	{
 		"stevearc/aerial.nvim",
-		cmd = 'LazyAerial',
 		config = require("setup.lsp.aerial").setup,
 	}, -- show symbol tree in the current buffer
 	{
@@ -59,4 +58,9 @@ return {
             require('setup.lsp.typescript').setup(lspconfig.capabilities(), lspconfig.on_attach)
         end, -- typescript enhancements
     },
+	{
+		"luckasRanarison/tailwind-tools.nvim",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		opts = {} -- your configuration
+	},
 }

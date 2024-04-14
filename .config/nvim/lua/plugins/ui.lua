@@ -37,14 +37,14 @@ return {
 	-- 	"Mofiqul/vscode.nvim",
 	-- 	config = require("setup.vscode-theme").setup,
 	-- }, -- theme
-	{
-	  'catppuccin/nvim',
-	  lazy = false,
-	  priority = 150,
-	  config = function()
-	    require('setup.catppuccin').setup('latte')
-	  end,
-	}, -- theme
+	-- {
+	--   'catppuccin/nvim',
+	--   lazy = false,
+	--   priority = 150,
+	--   config = function()
+	--     require('setup.catppuccin').setup('latte')
+	--   end,
+	-- }, -- theme
 	-- {
 	--   "NTBBloodbath/doom-one.nvim",
 	--   config = require("setup.doom-one").setup,
@@ -53,6 +53,7 @@ return {
 	--   "marko-cerovac/material.nvim",
 	--   config = require("setup.material-color").setup,
 	-- }, -- theme
+	{ "ellisonleao/gruvbox.nvim", priority = 1000 , config = require("setup.gruvbox").setup },
 	{
 		-- 'romgrk/barbar.nvim',
 		"nanozuki/tabby.nvim",

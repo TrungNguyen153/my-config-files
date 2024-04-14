@@ -121,6 +121,30 @@ M.config_defaults = function()
 	lspconfig.tailwindcss.setup({
 		on_attach = M.on_attach,
 		capabilities = M.capabilities(),
+		-- There add every filetype you want tailwind to work on
+		filetypes = {
+			"css",
+			"scss",
+			"sass",
+			"postcss",
+			"html",
+			"javascript",
+			"javascriptreact",
+			"typescript",
+			"typescriptreact",
+			"svelte",
+			"vue",
+			"rust",
+		  },
+		  init_options = {
+			-- There you can set languages to be considered as different ones by tailwind lsp I guess same as includeLanguages in VSCod
+			userLanguages = {
+			  rust = "html",
+			},
+		  },
+		  -- Here If any of files from list will exist tailwind lsp will activate.
+		  root_dir = lspconfig.util.root_pattern('tailwind.config.js', 'tailwind.config.ts', 'postcss.config.js',
+			'postcss.config.ts', 'windi.config.ts'),
 	})
 	-- C/C++
     lspconfig.clangd.setup({
@@ -140,20 +164,11 @@ M.setup = function()
 			"codelldb",
 			"eslint_d",
 			-- "rust-analyzer",
-			"black", -- python formater
 			"clangd",
-			"ktlint",
-			-- "markdownlint",
 			"shfmt",
 			"stylua",
 			"codespell",
-			"vale",
-			-- 'clang-format',
-			-- "luacheck",
-			-- "pylint",
 			"write-good",
-			-- "yamllint",
-			-- "cmakelang",
 		},
 	})
 	-- general LSP config

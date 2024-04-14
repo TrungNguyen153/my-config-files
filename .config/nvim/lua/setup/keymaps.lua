@@ -212,11 +212,11 @@ local keymap_table = {
   {
     shortcut = '<F2>',
     cmd = function()
-      sidebar:toggle('neotree')
+      require('oil').toggle_float()
     end,
     opts = no_remap_opt,
     modes = { 'n' },
-    description = 'Toggle Neo-tree',
+    description = 'Toggle File Manager',
   },
   {
     shortcut = '<localleader>e',
@@ -371,9 +371,10 @@ local keymap_table = {
   },
   {
     shortcut = '<F1>',
-    cmd = function()
-      sidebar:toggle('sidebar')
-    end,
+    -- cmd = function()
+    --   sidebar:toggle('sidebar')
+    -- end,
+    cmd = ':AerialToggle<CR>',
     opts = no_remap_opt,
     modes = { 'n' },
     description = 'Toggle sidebar',
@@ -618,7 +619,7 @@ return {
           b = { '<cmd>lua require("telescope.builtin").buffers()<CR>', 'Buffers' },
           f = { '<cmd>lua require("telescope.builtin").find_files()<CR>', 'Files' },
           w = { '<cmd>lua require("telescope").extensions.file_browser.file_browser()<CR>', 'File Browser' },
-          o = { '<cmd>lua require("telescope.builtin").oldfiles()<CR>', 'Prev Open Files' },
+          o = { '<cmd>%bd|e#<CR>', 'Close All Buffer But This' },
         },
         v = {
           name = 'Vim',

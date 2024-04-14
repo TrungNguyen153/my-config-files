@@ -96,6 +96,12 @@ local config = {
 	{ key = "w", mods = "LEADER", 		action = workspace_switcher.switch_workspace(), },
   },
   set_environment_variables = {},
+  window_padding = {
+    left = '0cell',
+    right = '0cell',
+    top = '0.1cell',
+    bottom = '0cell',
+  },
 }
 
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then

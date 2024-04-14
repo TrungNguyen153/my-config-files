@@ -22,7 +22,7 @@ return {
 		"mfussenegger/nvim-dap", -- debug adapter for debugging
 		event = { 'User NvimStartupDone' },
 		dependencies = {
-			"rcarriga/nvim-dap-ui", -- ui for nvim-dap
+			{"rcarriga/nvim-dap-ui", dependencies = {"nvim-neotest/nvim-nio"} }, -- ui for nvim-dap
 			"theHamsta/nvim-dap-virtual-text", -- virtual text during debugging
 		},
 		config = require("setup.dap").setup,

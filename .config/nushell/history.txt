@@ -3536,3 +3536,2551 @@ nvim
 scoop update neovide
 nvim
 cls
+cargo r
+cargo r\
+cargo r
+cargo b
+cargo r
+cls
+cargo r
+cd rcdt\
+cargo init --lib
+cd ..
+nvim
+cls
+nvim
+nvim .
+cls
+cargo r
+cargo check rcdt
+cargo check -lib rcdt
+cargo check -l rcdt
+cargo check --lib rcdt
+nvim .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cargo b
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cargo add triangulate --package rcdt
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+nvim
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cargo remove earcutr --package rcdt
+cargo r
+cls
+cargo r
+nvim .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+exit
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cargo rca
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+start .
+cargo clean
+cargo r
+exit
+cls
+cargo b
+cls
+nvim
+cargo b
+cargo clean
+cargo check
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r --verbose
+cls
+cargo r --verbose
+cls
+cargo r --verbose
+cls
+cargo r --verbose
+cls
+cargo r --verbose
+cls
+cargo r --verbose
+cls
+cargo r --verbose
+cls
+cargo r --release
+cls
+cargo r --release
+cls
+cargo r --release
+cls
+cargo r
+cls
+cargo r
+RUST_BACKTRACE=1 cargo r
+cls
+rustup list
+rustup component list
+RUST_BACKTRACE=1 cargo r
+nvim .
+cls
+cargo r --verbose
+cls
+cargo clean
+cargo r --verbose
+nvim .
+cargo clean
+cargo r --verbose
+cargo r
+nvim .
+cargo check
+cls
+cargo r
+cls
+cargo clean
+cargo r
+nvim .
+start .
+cargo r
+cls
+nvim .
+cargo r
+cls
+cargo bloat
+cargo install bloat
+cargo install cargo-bloat
+nvim .
+cargo r
+cls
+cargo r
+nvim .
+cls
+cargo r
+clscls
+cls
+nvim .
+cargo r
+nvim .
+cls
+cargo r
+cls
+nvim .
+cls
+cargo r
+nvim .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo build --timings
+cargo r
+cls
+cargo build --timings
+cargo build --lib poe-framework --timings
+cargo build --package poe-framework --timings
+cls
+cargo bloat --help
+cargo bloat --package poe-framework
+cargo bloat
+start .
+cargo make-profile
+cargo --list
+cargo make-profile
+cargo rustc -- -Zself-profile
+cargo mp
+rustc --crate-name poe-framework -Zself-profile
+cd poe-framework\
+cargo rustc -- -Zself-profile
+cargo install --git https://github.com/rust-lang/measureme --branch stable summarize
+cls
+summarize summarize poe_framework-0008860.mm_profdata
+cls
+summarize summarize poe_framework-0008860.mm_profdata
+cd ..
+summarize summarize poe_framework-0008860.mm_profdata
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cacls
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo b
+start .
+cargo r
+cls
+cargo r
+cargo b
+start .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+$RUST_BACKTRACE=1 cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo clean
+cargo r
+cls
+nvim
+cargo r
+cls
+rustup show
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo rcls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cls
+cargo r
+cls
+cargo r
+start .
+nvim
+cls
+cargo r
+cls
+cargo r
+nvim
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+nvim
+cargo r
+start .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cargo b
+cargo r
+cls
+cargo r
+nvim --version
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+exit
+cargo r
+cls
+cargo r
+cls
+exit
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+exit
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo b
+cls
+cargo b
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+exit
+cargo r
+cls
+cargo r
+start .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+clscls
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+nvim .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+exit
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+ca
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+scoop update neovide
+scoop list
+scoop remove neovim
+scoop uninstall main/neovim
+scoop install versions/neovim-nightly
+nvim .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo rcls
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+ls -d
+cls
+git clone https://github.com/stevepryde/thirtyfour
+cargo r
+cls
+cls
+exit
+cls
+nvim .
+cargo new thirtyfour --lib
+cls
+cargo new thirtyfour-macros --lib
+start .
+cls
+cargo b
+cls
+cargo new ido-taker --lib
+chrome --product-version
+cls
+cargo check
+cls
+cargo test --help
+cargo check
+start .
+cls
+cargo test --lib ido-taker
+cargo test --lib ido-taker --nocapture
+cargo test --lib ido-taker -- --nocapture
+cargo test --lib ido-taker -- --no-capture
+cargo test --lib ido-taker -- --nocapture
+scoop uninstall versions/neovim-nightly
+scoop install main/neovim
+cls
+cargo b
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+jqqcls
+cls
+start .
+cargo b
+cls
+cargo b
+cls
+cargo b
+cls
+cargo b
+cls
+cargo b
+cls
+cargo b
+cls
+start .
+nvim .
+cls
+nvim .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cargo r -- -h
+cls
+cargo r -- -h
+cls
+cargo r -- -h
+start .
+cls
+cd target\debug
+ido-taker.exe -h
+ido-taker.exe --help
+.\ido-taker.exe -h
+cargo b
+.\ido-taker.exe -u "C:\Users\Silyum\AppData\Local\Google\Chrome\User Data" -m 1
+.\ido-taker.exe -u "C:/Users/Silyum/AppData/Local/Google/Chrome/User Data" -m 1
+cls
+.\ido-taker.exe -u "C:/Users/Silyum/AppData/Local/Google/Chrome/User Data" -m 1
+.\ido-taker.exe -u "C:/Users/Silyum/AppData/Local/Google/Chrome/User Data" -m 1 -h
+.\ido-taker.exe -u "C:/Users/Silyum/AppData/Local/Google/Chrome/User Data" -m 1 -p "Kat King"
+cargo b
+cls
+.\ido-taker.exe -u "C:/Users/Silyum/AppData/Local/Google/Chrome/User Data" -m 1
+cargo b --r
+cargo b --release
+cargo r --release
+cargo r --release -- -h
+cls
+cargo r --release -- -h
+ls
+git init
+cls
+neovide .
+cls
+start .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+start .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cargo rcls
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo b -r
+start .
+cls
+cargo b -r
+start .
+cls
+cargo b -r
+cls
+cargo b -r
+cls
+cargo b -r
+nvim .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo new poe_ai_context --lib
+cls
+cargo new poe_bevy --lib
+start .
+cargo check
+cls
+cargo check
+cls
+cargo check
+cls
+cargo check
+cls
+cargo check
+cls
+cargo check
+cls
+cargo check
+cls
+cargo check
+cls
+cargo check
+cls
+cargo check
+cls
+cargo check
+cls
+cargo check
+cls
+cargo check
+cls
+cargo check
+cls
+cargo check
+cls
+cargo check
+cls
+cargo b
+cls
+cargo b
+cls
+cargo b
+cls
+cargo b
+cls
+cargo b
+cls
+cargo b
+cls
+cargo b
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cargo b -r
+start .
+cargo b -r
+cls
+cargo b -r
+cargo r
+cls
+nvim .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cargo fmt
+:q
+exit
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cargo check
+cargo b
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cargo rcls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo rcls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+exit
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+exit
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo rcls
+cls
+cargo rcls
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+exit
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cls
+cargo rcls
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r]
+cargo r
+cls
+cargo r
+start .
+cargo fmt
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cargo check
+cls
+cargo r
+cls
+cargo r
+start .
+cls
+cargo r
+start .
+cargo r
+cargo check
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo rcls
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+nvim .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cargo check
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+start .
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+exit
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cacls
+cls
+cacls
+cargo r
+cls
+cargo rcls
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+exit
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+exit
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cls
+cargo r
+exit
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cargo check
+cls
+cargo check
+cargo r
+cargo check
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo install cargo-leptos
+rustup show
+rustup update
+cargo install cargo-leptos
+cargo leptos new --git leptos-rs/start-axum
+cd poe-life\
+cls
+cargo leptos watch
+cls
+rustup target add wasm32-unknown-unknown
+cargo leptos watch
+cls
+pnpm install tailwindcss
+pnpm remove tailwindcss
+pnpm install -d tailwindcss
+pnpm install -d @tailwindcss/typography preline
+pnpm remove tailwindcss @tailwindcss/typography preline
+pnpm --help
+pnpm add --help
+pnpm add -D tailwindcss @tailwindcss/typography preline
+cls
+nvim .
+nvim
+cargo leptos watch
+cls
+cargo leptos watch
+start .
+cargo leptos watch
+cls
+cls
+pnpm watch
+pnpm remove preline
+cd public\
+pnpm add -D preline
+start .
+cls
+cargo leptos watch
+cd ..
+cargo leptos watch
+cls
+cargo r
+cls
+cargo leptos watch
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+start .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo clean
+cargo b
+cls
+cargo b
+cargo new i_triangle --lib
+git clone https://github.com/iShape-Rust/iTriangle
+start .
+cls
+cargo b
+cls
+cargo b
+cls
+cargo b
+cargo r
+cargo b
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cargo install leptosfmt
+leptosfmt .
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cls
+cargo r
+cargo r\
+cargo r
+exit
+nvim .
+cargo leptos watch

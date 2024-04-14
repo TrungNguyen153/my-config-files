@@ -1,3 +1,28 @@
+
+function debounce(fn, debounce_time)
+	local timer = vim.loop.new_timer()
+	local is_debounce_fn = type(debounce_time) == "function"
+  
+	return function(...)
+	  timer:stop()
+  
+	  local time = debounce_time
+	  local args = { ... }
+  
+	  if is_debounce_fn then
+		time = debounce_time()
+	  end
+  
+	  timer:start(
+		time,
+		0,
+		vim.schedule_wrap(function()
+		  fn(unpack(args))
+		end)
+	  )
+	end
+end
+
 return {
 	term_autocmds = function()
 		local autocmd = vim.api.nvim_create_autocmd
@@ -57,16 +82,19 @@ return {
 			local group = augroup("LSPHighlightSymbols")
 
 			-- Highlight text at cursor position
-			autocmd({ "CursorHold", "CursorHoldI" }, {
-				desc = "Highlight references to current symbol under cursor",
-				buffer = bufnr,
-				callback = vim.lsp.buf.document_highlight,
-				group = group,
-			})
-			autocmd({ "CursorMoved" }, {
+			-- autocmd({ "CursorHold", "CursorHoldI" }, {
+			-- 	desc = "Highlight references to current symbol under cursor",
+			-- 	buffer = bufnr,
+			-- 	callback = vim.lsp.buf.document_highlight,
+			-- 	group = group,
+			-- })
+			autocmd({ "CursorMoved", "CursorMovedI" }, {
 				desc = "Clear highlights when cursor is moved",
 				buffer = bufnr,
-				callback = vim.lsp.buf.clear_references,
+				callback = debounce(function()
+						vim.lsp.buf.clear_references()
+						vim.lsp.buf.document_highlight()
+				end, 500),
 				group = group,
 			})
 		end
@@ -78,7 +106,8 @@ return {
 			autocmd({ "BufWritePre" }, {
 				desc = "Auto format file before saving",
 				buffer = bufnr,
-				command = "silent! undojoin | lua vim.lsp.buf.format({timeout = 200, filter = function(client) return client.name ~= \"rust_analyzer\" end})",
+				-- command = "silent! undojoin | lua vim.lsp.buf.format({timeout = 200, filter = function(client) return client.name ~= \"rust_analyzer\" end})",
+				command = "silent! undojoin | lua vim.lsp.buf.format({timeout = 200})",
 				group = group,
 			})
 		end

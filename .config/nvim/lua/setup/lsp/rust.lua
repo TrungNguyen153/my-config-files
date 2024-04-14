@@ -7,6 +7,18 @@ return {
         enabled = true,
       },
     })
+    require("dap").adapters.codelldb = {
+			type = 'server',
+			host = '127.0.0.1',
+			port = 13000,
+			executable = {
+				command = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/adapter/codelldb",
+				args = {"--port", "13000"},
+
+				-- on windows you may have to uncomment this:
+				-- detached = false,
+			},
+		}
     vim.g.rustaceanvim = {
         -- Plugin configuration
         tools = {
@@ -20,71 +32,6 @@ return {
           standalone = false,
           settings = {
             ["rust-analyzer"] = {
-              -- cachePriming = {
-              --   enable = false,
-              --   numThreads = 2,
-              -- },
-              -- server = {
-              --   extraEnv = {
-              --     RUSTUP_TOOLCHAIN = "stable",
-              --   },
-              -- },
-              -- diagnostics = {
-              --   enable = true,
-              --   -- https://github.com/rust-analyzer/rust-analyzer/issues/6835
-              --   disabled = { "unresolved-macro-call", "unresolved-proc-macro", "macro-error" },
-              --   experimental = { enable = true },
-              --   enableExperimental = true,
-              -- },
-              -- completion = {
-              --   autoself = { enable = true },
-              --   autoimport = { enable = true },
-              --   postfix = { enable = true },
-              -- },
-              -- imports = {
-              --   group = { enable = true },
-              --   merge = { glob = false },
-              --   prefix = "self",
-              --   granularity = {
-              --     enforce = true,
-              --     group = "crate",
-              --   },
-              -- },
-              -- cargo = {
-              --   loadOutDirsFromCheck = true,
-              --   autoreload = true,
-              --   runBuildScripts = true,
-              --   -- https://github.com/rust-lang/rust-analyzer/issues/13400
-              --   -- target = 'x86_64-pc-windows-msvc',
-              -- },
-              -- procMacro = {
-              --   enable = true,
-              --   attributes = { enable = true },
-              -- },
-              -- lens = {
-              --   enable = true,
-              --   run = { enable = true },
-              --   debug = { enable = true },
-              --   implementations = { enable = true },
-              --   references = {
-              --     adt = { enable = true },
-              --     enumVariant = { enable = true },
-              --     method = { enable = true },
-              --     trait = { enable = true },
-              --   },
-              -- },
-              -- hover = {
-              --   actions = {
-              --     enable = true,
-              --     run = { enable = true },
-              --     debug = { enable = true },
-              --     gotoTypeDef = { enable = true },
-              --     implementations = { enable = true },
-              --     references = { enable = true },
-              --   },
-              --   links = { enable = true },
-              --   documentation = { enable = true },
-              -- },
               inlayHints = {
                 enable = true,
                 bindingModeHints = { enable = false },
@@ -99,13 +46,13 @@ return {
                   enable = "fieldless",
                 },
                 typeHints = { enable = true, hideClosureInitialization = false },
-                implicitDrops = { enable = true },
+                implicitDrops = { enable = false },
               },
-              -- check = {
-              --   enable = true,
-              --   -- command = "clippy",
-              -- },
-              -- checkOnSave = false,
+              check = {
+                enable = true,
+                -- command = "clippy",
+              },
+              checkOnSave = true,
             },
           },
         },

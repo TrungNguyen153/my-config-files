@@ -50,14 +50,53 @@ return {
     dependencies = {
       { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope.nvim" },
-      { "Shatur/neovim-session-manager" },
+      {
+        'Shatur/neovim-session-manager',
+        opts = {
+          autosave_ignore_not_normal = true,
+          autosave_ignore_dirs = { '/', '~', '/tmp/' },
+          autosave_last_session = true,
+          autosave_ignore_filetypes = {
+            -- All buffers of these file types will be closed before the session is saved
+            'ccc-ui',
+            'gitcommit',
+            'gitrebase',
+            'qf',
+            'toggleterm',
+            -- 'NvimTree',
+            'help',
+            'lazy',
+          },
+          autosave_ignore_buftypes = {
+            'help',
+            'terminal',
+          },
+        },
+        config = function(_, opts)
+          -- Auto save session
+          vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+            callback = function()
+              local session_manager = require 'session_manager'
+              for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+                -- Don't save while there's any 'nofile' buffer open.
+                if vim.api.nvim_get_option_value('buftype', { buf = buf }) == 'nofile' then
+                  return
+                end
+              end
+              session_manager.save_current_session()
+            end,
+          })
+          require('session_manager').setup(opts)
+        end,
+      },
     },
-    lazy = false,
-    priority = 10,
     opts = {
       projects = { -- define project roots
         "D:/rust-workspace/*",
       },
+      -- last_session_on_startup = false,
     },
+    lazy = false,
+    priority = 100,
   },
 }
