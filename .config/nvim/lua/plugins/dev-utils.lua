@@ -5,7 +5,7 @@ return {
 	{
 		"nvim-neotest/neotest",
 		dependencies = {
-			"rouge8/neotest-rust",
+			"rouge8/neotest-rust", "nvim-neotest/nvim-nio",
 		},
 		cmd = 'LazyNeoTest',
 		config = require("setup.neotest").setup,
@@ -28,7 +28,7 @@ return {
 		config = require("setup.dap").setup,
 	},
 	{ "stevearc/overseer.nvim", cmd = 'LazyOverseer', config = require("setup.overseer").setup }, -- A task runner and job management plugin for Neovim
-	{ 'lvimuser/lsp-inlayhints.nvim',
-		config = require("setup.lsp-inlayhints").setup,
-	}, -- for Neovim < 0.10
+	-- { 'lvimuser/lsp-inlayhints.nvim',
+	-- 	config = require("setup.lsp-inlayhints").setup,
+	-- }, -- for Neovim < 0.10
 }

@@ -9,6 +9,7 @@ vim.g.neovide_cursor_animation_length = 0.03
 vim.g.neovide_cursor_trail_size = 0.9
 vim.g.neovide_remember_window_size = true
 vim.g.neovide_remember_window_position = true
+vim.g.neovide_floating_shadow = false
 if vim.g.neovide then
     vim.keymap.set('v', '<C-S-c>', '"*y') -- Copy
     vim.keymap.set('n', '<C-S-v>', '"*p') -- Paste normal mode

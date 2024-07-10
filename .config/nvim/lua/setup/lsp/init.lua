@@ -13,11 +13,7 @@ M.on_attach = function(client, bufnr)
 
 	-- enable inlay hints if server supports it
     if client.server_capabilities.inlayHintProvider then
-		if vim.version().api_prerelease then
-			vim.lsp.inlay_hint.enable(bufnr, true)
-		else
-			require("lsp-inlayhints").on_attach(client, bufnr)
-		end
+		vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
     end
 end
 M.capabilities = function()

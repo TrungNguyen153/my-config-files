@@ -1,5 +1,7 @@
 return {
 	{ "rcarriga/nvim-notify", config = require("setup.notify").setup }, -- overides the default vim notify method for a floating window
+	{ 'MunifTanjim/nui.nvim',   enabled = not vim.g.vscode }, -- base ui components for nvim
+    { 'stevearc/dressing.nvim', enabled = not vim.g.vscode }, -- overrides the default vim input to provide better visuals
 	-- { "j-hui/fidget.nvim", tag = "legacy", config = require("setup.fidget").setup }, -- status progress for lsp servers
 	{
 		"nvim-lualine/lualine.nvim",

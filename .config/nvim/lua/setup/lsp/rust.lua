@@ -32,22 +32,22 @@ return {
           standalone = false,
           settings = {
             ["rust-analyzer"] = {
-              inlayHints = {
-                enable = true,
-                bindingModeHints = { enable = false },
-                chainingHints = { enable = true },
-                closingBraceHints = {
-                  enable = true,
-                  minLines = 10,
-                },
-                closureReturnTypeHints = { enable = "with_block" },
-                lifetimeElisionHints = { enable = "skip_trivial" },
-                discriminantHints = {
-                  enable = "fieldless",
-                },
-                typeHints = { enable = true, hideClosureInitialization = false },
-                implicitDrops = { enable = false },
-              },
+              -- inlayHints = {
+              --   enable = true,
+              --   bindingModeHints = { enable = false },
+              --   chainingHints = { enable = true },
+              --   closingBraceHints = {
+              --     enable = true,
+              --     minLines = 10,
+              --   },
+              --   closureReturnTypeHints = { enable = "with_block" },
+              --   lifetimeElisionHints = { enable = "skip_trivial" },
+              --   discriminantHints = {
+              --     enable = "fieldless",
+              --   },
+              --   typeHints = { enable = true, hideClosureInitialization = false },
+              --   implicitDrops = { enable = false },
+              -- },
               check = {
                 enable = true,
                 -- command = "clippy",
