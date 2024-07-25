@@ -58,6 +58,7 @@ Write-Start -msg "Initializing Scoop..."
     scoop bucket add nerd-fonts
     scoop bucket add versions
     scoop bucket add sysinternals
+    scoop bucket add main
     scoop update
 Write-Done
 
@@ -73,6 +74,7 @@ Write-Start -msg "Install Scoop's package for dev"
     scoop install main/ripgrep
     scoop install main/fd
     scoop install main/sed
+    scoop install main/nvm
     scoop install main/clangd
     scoop install java/corretto19-jdk
     scoop install extras/fork

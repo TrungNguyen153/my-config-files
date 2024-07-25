@@ -4,8 +4,8 @@
 
 :menu
 echo Simple script backup/restore personal config files on Windows
-echo 1 - Copy all configs to cwd
-echo 2 - Restore all configs in cwd to correct place
+echo 1 - Backup
+echo 2 - Restore
 echo 3 - exit
 choice /n /c:123 /M "Choose an options "
 GOTO LABEL-%ERRORLEVEL%

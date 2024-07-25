@@ -35,7 +35,7 @@ return {
 	}, -- java enhancements
 	{
 		'mrcjkb/rustaceanvim',
-		version = '^3', -- Recommended
+		version = '^4', -- Recommended
 		ft = { 'rust' },
 		config = function()
 			local lspconfig = require("setup.lsp")

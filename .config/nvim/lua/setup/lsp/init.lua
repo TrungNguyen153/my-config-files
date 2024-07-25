@@ -12,9 +12,9 @@ M.on_attach = function(client, bufnr)
 	-- https://github.com/L3MON4D3/LuaSnip/wiki/Misc#improve-language-server-snippets
 
 	-- enable inlay hints if server supports it
-    if client.server_capabilities.inlayHintProvider then
+	if client.server_capabilities.inlayHintProvider then
 		vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-    end
+	end
 end
 M.capabilities = function()
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -22,12 +22,12 @@ M.capabilities = function()
 	capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 	-- workaround until neovim supports multiple client encodings
-    capabilities = vim.tbl_deep_extend('force', capabilities, {
-        offsetEncoding = { 'utf-16' },
-        general = {
-            positionEncodings = { 'utf-16' },
-        },
-    })
+	capabilities = vim.tbl_deep_extend("force", capabilities, {
+		offsetEncoding = { "utf-16" },
+		general = {
+			positionEncodings = { "utf-16" },
+		},
+	})
 
 	return capabilities
 end
@@ -50,49 +50,49 @@ M.config_defaults = function()
 		capabilities = M.capabilities(),
 	})
 	-- yaml
-    lspconfig.yamlls.setup({
-        on_attach = M.on_attach,
-        capabilities = M.capabilities(),
-        settings = {
-            yaml = {
-                schemaStore = {
-                    enable = false,
-                    url = 'https://www.schemastore.org/api/json/catalog.json',
-                },
-                schemas = require('schemastore').yaml.schemas(),
-                format = {
-                    enable = true,
-                },
-            },
-        },
-    })
+	lspconfig.yamlls.setup({
+		on_attach = M.on_attach,
+		capabilities = M.capabilities(),
+		settings = {
+			yaml = {
+				schemaStore = {
+					enable = false,
+					url = "https://www.schemastore.org/api/json/catalog.json",
+				},
+				schemas = require("schemastore").yaml.schemas(),
+				format = {
+					enable = true,
+				},
+			},
+		},
+	})
 	-- json
-    lspconfig.jsonls.setup({
-        on_attach = M.on_attach,
-        capabilities = M.capabilities(),
-        commands = {
-            Format = {
-                function()
-                    vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line('$'), 0 })
-                end,
-            },
-        },
-        settings = {
-            json = {
-                schemas = require('schemastore').json.schemas({
-                    extra = {
-                        {
-                            description = 'Monkeys Schema',
-                            fileMatch = { 'monkeys/config.json', 'monkeys/example.json' },
-                            name = 'Infinite Monkeys',
-                            url = 'file://' .. vim.fn.getcwd() .. '/monkeys/schema.json',
-                        },
-                    },
-                }),
-                validate = { enable = true },
-            },
-        },
-    })
+	lspconfig.jsonls.setup({
+		on_attach = M.on_attach,
+		capabilities = M.capabilities(),
+		commands = {
+			Format = {
+				function()
+					vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line("$"), 0 })
+				end,
+			},
+		},
+		settings = {
+			json = {
+				schemas = require("schemastore").json.schemas({
+					extra = {
+						{
+							description = "Monkeys Schema",
+							fileMatch = { "monkeys/config.json", "monkeys/example.json" },
+							name = "Infinite Monkeys",
+							url = "file://" .. vim.fn.getcwd() .. "/monkeys/schema.json",
+						},
+					},
+				}),
+				validate = { enable = true },
+			},
+		},
+	})
 	-- docker
 	lspconfig.dockerls.setup({
 		on_attach = M.on_attach,
@@ -131,22 +131,27 @@ M.config_defaults = function()
 			"svelte",
 			"vue",
 			"rust",
-		  },
-		  init_options = {
+		},
+		init_options = {
 			-- There you can set languages to be considered as different ones by tailwind lsp I guess same as includeLanguages in VSCod
 			userLanguages = {
-			  rust = "html",
+				rust = "html",
 			},
-		  },
-		  -- Here If any of files from list will exist tailwind lsp will activate.
-		  root_dir = lspconfig.util.root_pattern('tailwind.config.js', 'tailwind.config.ts', 'postcss.config.js',
-			'postcss.config.ts', 'windi.config.ts'),
+		},
+		-- Here If any of files from list will exist tailwind lsp will activate.
+		root_dir = lspconfig.util.root_pattern(
+			"tailwind.config.js",
+			"tailwind.config.ts",
+			"postcss.config.js",
+			"postcss.config.ts",
+			"windi.config.ts"
+		),
 	})
 	-- C/C++
-    lspconfig.clangd.setup({
-        on_attach = M.on_attach,
-        capabilities = M.capabilities(),
-    })
+	lspconfig.clangd.setup({
+		on_attach = M.on_attach,
+		capabilities = M.capabilities(),
+	})
 end
 
 M.setup = function()
@@ -158,13 +163,13 @@ M.setup = function()
 	require("mason-tool-installer").setup({
 		ensure_installed = {
 			"codelldb",
-			"eslint_d",
+			-- "eslint_d", -- npm - but no longer use
+			"write-good", -- npm
 			-- "rust-analyzer",
 			"clangd",
 			"shfmt",
 			"stylua",
-			"codespell",
-			"write-good",
+			-- "codespell", -- require python for installer
 		},
 	})
 	-- general LSP config
