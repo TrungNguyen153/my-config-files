@@ -93,7 +93,7 @@ local config = {
     -- Copy paste
     { key = "v", mods = "SHIFT|CTRL",   action = wezterm.action.PasteFrom("Clipboard") },
     { key = "c", mods = "SHIFT|CTRL",   action = wezterm.action.CopyTo("Clipboard") },
-	{ key = "w", mods = "LEADER", 		action = workspace_switcher.switch_workspace(), },
+    { key = "w", mods = "LEADER", 		action = workspace_switcher.switch_workspace(), },
   },
   set_environment_variables = {},
   window_padding = {
