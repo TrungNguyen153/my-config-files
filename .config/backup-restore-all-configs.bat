@@ -4,9 +4,9 @@
 
 :menu
 echo Simple script backup/restore personal config files on Windows
-echo 1 - Backup
-echo 2 - Restore
-echo 3 - exit
+echo 1 - Save Config
+echo 2 - Load Config
+echo 3 - Exit
 choice /n /c:123 /M "Choose an options "
 GOTO LABEL-%ERRORLEVEL%
 
