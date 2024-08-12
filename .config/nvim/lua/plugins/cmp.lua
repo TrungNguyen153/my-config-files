@@ -20,6 +20,8 @@ return {
     'hrsh7th/cmp-nvim-lsp-document-symbol',
     'b0o/schemastore.nvim', -- adds schemas for json lsp
     "luckasRanarison/tailwind-tools.nvim",
+    'hrsh7th/cmp-nvim-lsp-signature-help',
+    'rcarriga/cmp-dap',     -- auto completion for the REPL in DAP. to check if dap client supports it: :lua= require("dap").session().capabilities.supportsCompletionsRequest
     -- {
     --   'zbirenbaum/copilot-cmp',
     --   dependencies = { 'zbirenbaum/copilot.lua' },

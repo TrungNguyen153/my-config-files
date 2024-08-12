@@ -110,7 +110,10 @@ return {
 			path = "[Path]",
 			buffer = "[Buffer]",
 			crates = "[Crates]",
+			lazydev = '[NeoVimD]',
 			copilot = "[Copilot]",
+			dap = '[DAP]',
+            nvim_lsp_signature_help = '[Signature]',
 		}
 
 		-- local has_words_before = function()
@@ -119,6 +122,10 @@ return {
 		-- end
 
 		cmp.setup({
+			enabled = function()
+                return vim.api.nvim_get_option_value('buftype', { buf = 0 }) ~= 'prompt'
+                    or require('cmp_dap').is_dap_buffer()
+            end,
 			experimental = {
                 ghost_text = true,
             },
@@ -146,6 +153,9 @@ return {
 				{ name = "copilot", group_index = 2 },
 				{ name = "buffer" },
 				{ name = "crates" },
+				{ name = 'lazydev', group_index = 0 },
+				{ name = 'neorg' },
+				{ name = 'nvim_lsp_signature_help' },
 			},
 			snippet = {
 				expand = function(args)
@@ -166,6 +176,8 @@ return {
 						vim_item.kind_hl_group = "CmpItemKindCopilot"
 					elseif entry.source.name == "codeium" then
 						vim_item.kind = " Codeium"
+					elseif entry.source.name == 'nvim_lsp_signature_help' then
+						vim_item.kind = ' Signature'
 					end
 					vim_item.menu = menu
 					return vim_item
@@ -221,7 +233,7 @@ return {
 				end, { "i", "s" }),
 				["<S-Tab>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
-						cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+						cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
 					elseif luasnip.jumpable(-1) then
 						luasnip.jump(-1)
 					else
@@ -234,6 +246,12 @@ return {
 				}),
 			},
 		})
+
+		require('cmp').setup.filetype({ 'dap-repl', 'dapui_watches', 'dapui_hover' }, {
+            sources = {
+                { name = 'dap' },
+            },
+        })
 
 		require("cmp").setup.cmdline("/", {
 			sources = {
