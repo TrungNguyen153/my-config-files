@@ -23,6 +23,10 @@ echo Copy Nushell setings...
 rd /s /q %cd%\nushell
 xcopy %AppData%\nushell %cd%\nushell /I /E /Y
 
+echo Copy Neovide setings...
+rd /s /q %cd%\neovide
+xcopy %AppData%\neovide %cd%\neovide /I /E /Y
+
 echo Done !!!
 pause
 goto exit
@@ -36,6 +40,9 @@ xcopy %cd%\wezterm %UserProfile%\.config\wezterm /I /E /Y
 
 echo Restore Nushell setings...
 xcopy %cd%\nushell %AppData%\nushell /I /E /Y
+
+echo Restore Neovide setings...
+xcopy %cd%\neovide %AppData%\neovide /I /E /Y
 
 echo Done restore !!!
 pause

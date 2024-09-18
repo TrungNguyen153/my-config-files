@@ -50,8 +50,7 @@ return {
 		dependencies = {
 			{ "nvim-lua/plenary.nvim" },
 			{ "nvim-telescope/telescope.nvim" },
-			{
-				"Shatur/neovim-session-manager",
+			{ "Shatur/neovim-session-manager",
 				opts = {
 					autosave_ignore_not_normal = true,
 					autosave_ignore_dirs = { "/", "~", "/tmp/" },
@@ -95,7 +94,10 @@ return {
 				"E:/rust-workspace/*",
 			},
 			-- last_session_on_startup = false,
+			-- Dashboard mode prevent session autoload on startup
+			dashboard_mode = false,
 		},
+
 		lazy = false,
 		priority = 100,
 	},
