@@ -126,7 +126,7 @@ local keymap_table = {
     cmd = ':Telescope neovim-project history<CR>',
     opts = no_remap_silent_opt,
     modes = { 'n' },
-    description = 'Open saved session',
+    description = 'Open sessions history',
   },
   {
     shortcut = '<localleader>b',
@@ -708,6 +708,8 @@ return {
           },
           m = { '<cmd>lua require("telescope.builtin").resume()<CR>', 'Resume Last Picker' },
           r = { '<cmd>lua require("telescope.builtin").pickers()<CR>', 'Previous Pickers' },
+          w = { '<cmd>Telescope neovim-project history<CR>', "Sessions History"},
+          d = { '<cmd>Telescope neovim-project discover<CR>', "Sessions Discover"},
         },
         d = {
           name = 'Debug Adapter',
