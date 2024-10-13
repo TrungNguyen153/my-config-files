@@ -152,6 +152,11 @@ M.config_defaults = function()
 		on_attach = M.on_attach,
 		capabilities = M.capabilities(),
 	})
+	-- Qml
+	lspconfig.qmlls.setup({
+		on_attach = M.on_attach,
+		capabilities = M.capabilities(),
+	})
 end
 
 M.setup = function()

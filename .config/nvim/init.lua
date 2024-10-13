@@ -20,7 +20,7 @@ require('settings.neovide')
 require("settings.unception")
 require("lazy").setup("plugins", {
   checker = {
-    enabled = true,
+    enabled = false,
     frequency = 7200,
   },
 })
