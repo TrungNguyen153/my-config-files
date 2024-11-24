@@ -157,6 +157,11 @@ M.config_defaults = function()
 		on_attach = M.on_attach,
 		capabilities = M.capabilities(),
 	})
+	-- Toml formatter
+	lspconfig.taplo.setup({
+		on_attach = M.on_attach,
+		capabilities = M.capabilities(),
+	})
 end
 
 M.setup = function()
@@ -174,6 +179,7 @@ M.setup = function()
 			"clangd",
 			"shfmt",
 			"stylua",
+			"taplo", -- toml formatter
 			-- "codespell", -- require python for installer
 		},
 	})
