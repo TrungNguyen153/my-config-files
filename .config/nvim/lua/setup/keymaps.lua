@@ -1,54 +1,11 @@
 local no_remap_opt = { noremap = true }
 local silent_opt = { silent = true }
 local no_remap_silent_opt = { noremap = true, silent = true }
+local no_remap_silent_expr_opt = { noremap = true, silent = true, expr = true }
 
 local sidebar = require('sidebar')
-local ts_repeat_move = require('nvim-treesitter.textobjects.repeatable_move')
-local gitsigns = require('gitsigns')
 
 local keymap_table = {
-  {
-    shortcut = ';',
-    cmd = ts_repeat_move.repeat_last_move,
-    opts = no_remap_opt,
-    modes = { 'n', 'x', 'o' },
-    description = 'Repeat last move',
-},
-{
-    shortcut = ',',
-    cmd = ts_repeat_move.repeat_last_move_opposite,
-    opts = no_remap_opt,
-    modes = { 'n', 'x', 'o' },
-    description = 'Repeat last move opposite direction',
-},
-{
-    shortcut = 'f',
-    cmd = ts_repeat_move.builtin_f,
-    opts = no_remap_opt,
-    modes = { 'n', 'x', 'o' },
-    description = 'Go to char ocurrence to the right',
-},
-{
-    shortcut = 'F',
-    cmd = ts_repeat_move.builtin_F,
-    opts = no_remap_opt,
-    modes = { 'n', 'x', 'o' },
-    description = 'Go to char ocurrence to the left',
-},
-{
-    shortcut = 't',
-    cmd = ts_repeat_move.builtin_t,
-    opts = no_remap_opt,
-    modes = { 'n', 'x', 'o' },
-    description = 'Go to before char ocurrence to the right',
-},
-{
-    shortcut = 'T',
-    cmd = ts_repeat_move.builtin_T,
-    opts = no_remap_opt,
-    modes = { 'n', 'x', 'o' },
-    description = 'Go to after char ocurrence to the left',
-},
 {
     shortcut = ']c',
     cmd = function()
@@ -56,7 +13,7 @@ local keymap_table = {
             return ']c'
         end
         vim.schedule(function()
-            gitsigns.next_hunk()
+          require('gitsigns').next_hunk()
         end)
         return '<Ignore>'
     end,
@@ -71,7 +28,7 @@ local keymap_table = {
             return '[c'
         end
         vim.schedule(function()
-            gitsigns.prev_hunk()
+          require('gitsigns').prev_hunk()
         end)
         return '<Ignore>'
     end,
@@ -584,226 +541,318 @@ local keymap_table = {
     modes = { 'n' },
     description = 'DAP Step out',
   },
-  
+  -- RHS
+  {
+    shortcut = '<leader>r',
+    cmd = 'rhs',
+    description = 'Rust',
+    opts = no_remap_opt,
+    modes = { 'n' },
+  },
+  {
+    shortcut = '<leader>rl',
+    cmd = ':RustAnalyzer restart<CR>',
+    description = 'Reload Rust LSP',
+    opts = no_remap_opt,
+    modes = { 'n' },
+  },
+  {
+    shortcut = '<leader>rr',
+    cmd = ':RustLsp runnables<CR>',
+    description = 'Runnables',
+    opts = no_remap_opt,
+    modes = { 'n' },
+  },
+  {
+    shortcut = '<leader>rd',
+    cmd = ':RustLsp debuggables<CR>',
+    description = 'Debuggables',
+    opts = no_remap_opt,
+    modes = { 'n' },
+  },
+  {
+    shortcut = '<leader>re',
+    cmd = ':RustLsp expandMacro<CR>',
+    description = 'Expand Macro',
+    opts = no_remap_opt,
+    modes = { 'n' },
+  },
+  {
+    shortcut = '<leader>rp',
+    cmd = ':RustLsp rebuildProcMacros<CR>',
+    description = 'Rebuild Proc Macro',
+    opts = no_remap_opt,
+    modes = { 'n' },
+  },
+  {
+    shortcut = '<leader>rc',
+    cmd = ':RustLsp openCargo<CR>',
+    description = 'Open Cargo.toml',
+    opts = no_remap_opt,
+    modes = { 'n' },
+  },
+  {
+    shortcut = '<leader>rg',
+    cmd = ':RustLsp crateGraph<CR>',
+    description = 'View Crate Graph',
+    opts = no_remap_opt,
+    modes = { 'n' },
+  },
+  {
+    shortcut = '<leader>rm',
+    cmd = ':RustLsp parentModule<CR>',
+    description = 'Goto Parent Module',
+    opts = no_remap_opt,
+    modes = { 'n' },
+  },
+  {
+    shortcut = '<leader>rj',
+    cmd = ':RustLsp joinLines<CR>',
+    description = 'Join Lines',
+    opts = no_remap_opt,
+    modes = { 'n' },
+  },
+  {
+    shortcut = '<leader>ra',
+    cmd = ':RustLsp hover actions<CR>',
+    description = 'Hover Actions',
+    opts = no_remap_opt,
+    modes = { 'n' },
+  },
+  {
+    shortcut = '<leader>rh',
+    cmd = ':RustLsp hover range<CR>',
+    description = 'Range Hover Actions',
+    opts = no_remap_opt,
+    modes = { 'n' },
+  },
+  {
+    shortcut = '<leader>rw',
+    cmd = ':RustLsp reloadWorkspace<CR>',
+    description = 'Reload Workspace',
+    opts = no_remap_opt,
+    modes = { 'n' },
+  },
+  {
+    shortcut = '<leader>rs',
+    cmd = ':RustLsp syntaxTree<CR>',
+    description = 'Syntax Tree',
+    opts = no_remap_opt,
+    modes = { 'n' },
+  },
+  {
+    shortcut = '<leader>rc',
+    cmd = ':RustLsp flyCheck<CR>',
+    description = 'Cargo Check Background',
+    opts = no_remap_opt,
+    modes = { 'n' },
+  },
+  {
+    shortcut = '<leader>rt',
+    cmd = '<cmd>require("setup.toggleterm").run_float("cargo test")<CR>',
+    description = 'Run tests',
+    opts = no_remap_opt,
+    modes = { 'n' },
+  },
+  -- RHS
+  {
+    shortcut = '<leader>d',
+    cmd = 'rhs',
+    description = 'Debug Adapter',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>dc',
+    cmd = '<cmd>lua require("telescope").extensions.dap.commands()<CR>',
+    description = 'Commands',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>df',
+    cmd = '<cmd>lua require("telescope").extensions.dap.configurations()<CR>',
+    description = 'Configurations',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>db',
+    cmd = '<cmd>lua require("telescope").extensions.dap.list_breakpoints()<CR>',
+    description = 'List Breakpoints',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>dv',
+    cmd = '<cmd>lua require("telescope").extensions.dap.variables()<CR>',
+    description = 'Variables',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>dr',
+    cmd = '<cmd>lua require("telescope").extensions.dap.frames()<CR>',
+    description = 'Frames',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>dt',
+    cmd = '<cmd>lua require("dapui").toggle()<CR>',
+    description = 'Toggle DAP UI',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  -- RHS
+  {
+    shortcut = '<leader>s',
+    cmd = 'rhs',
+    description = 'Shell',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>st',
+    cmd = function()
+      require('here-term').toggle_terminal()
+    end,
+    description = 'Toggle Terminal',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>sk',
+    cmd = function()
+      require('here-term').kill_terminal()
+    end,
+    description = 'Kill Terminal',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  -- RHS
+  {
+    shortcut = '<leader>a',
+    cmd = 'rhs',
+    description = 'Aerial',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>at',
+    cmd = ':AerialToggle<CR>',
+    description = 'Toggle',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>aa',
+    cmd = ':AerialOpenAll<CR>',
+    description = 'Open All',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>ac',
+    cmd = ':AerialCloseAll<CR>',
+    description = 'Close All',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>aa',
+    cmd = ':AerialTreeSyncFolds<CR>',
+    description = 'Sync code folding',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>ai',
+    cmd = ':AerialInfo<CR>',
+    description = 'Info',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  -- RHS
+  {
+    shortcut = '<leader>o',
+    cmd = 'rhs',
+    description = 'Overseer',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>ot',
+    cmd = ':OverseerToggle<CR>',
+    description = 'Toggle',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>os',
+    cmd = ':OverseerSaveBundle<CR>',
+    description = 'Save',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>ol',
+    cmd = ':OverseerLoadBundle<CR>',
+    description = 'Load',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>od',
+    cmd = ':OverseerDeleteBundle<CR>',
+    description = 'Delete',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>oc',
+    cmd = ':OverseerRunCmd<CR>',
+    description = 'Run shell command',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>or',
+    cmd = ':OverseerRun<CR>',
+    description = 'Run task',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>ob',
+    cmd = ':OverseerBuild<CR>',
+    description = 'Open task builder',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>oq',
+    cmd = ':OverseerQuickAction<CR>',
+    description = 'Run action on a task',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>oa',
+    cmd = ':OverseerTaskAction<CR>',
+    description = 'Select a task to run an action on',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
 }
 
 return {
-  keymap_table = keymap_table,
-  which_key = {
-    visual = {
-      maps = {
-        j = {
-          name = 'Java',
-          a = { '<cmd>lua require("jdtls").code_action(true)', 'Code Action' },
-          e = { '<cmd>lua require("jdtls").extract_variable(true)', 'Extract Variable' },
-          c = { '<cmd>lua require("jdtls").extract_constant(true)', 'Extract Constant' },
-          m = { '<cmd>lua require("jdtls").extract_method(true)', 'Extract Method' },
-        },
-        ['c'] = { '"*y', 'Copy selection to system clipboard' },
-        l = {
-          name = 'LSP',
-          a = { '<cmd>lua vim.lsp.buf.range_code_action()<CR>', 'Range Code Action' },
-        },
-      },
-      opts = {
-        prefix = '<leader>',
-        noremap = true,
-        silent = true,
-        mode = 'v',
-      },
-    },
-    normal = {
-      maps = {
-        f = {
-          name = 'File',
-          b = { '<cmd>lua require("telescope.builtin").buffers()<CR>', 'Buffers' },
-          f = { '<cmd>lua require("telescope.builtin").find_files()<CR>', 'Files' },
-          w = { '<cmd>lua require("telescope").extensions.file_browser.file_browser()<CR>', 'File Browser' },
-          o = { '<cmd>%bd|e#<CR>', 'Close All Buffer But This' },
-        },
-        v = {
-          name = 'Vim',
-          q = { '<cmd>lua require("telescope.builtin").quickfix()<CR>', 'Quickfix List' },
-          l = { '<cmd>lua require("telescope.builtin").loclist()<CR>', 'Location List' },
-          j = { '<cmd>lua require("telescope.builtin").jumplist()<CR>', 'Jump List' },
-          c = { '<cmd>lua require("telescope.builtin").commands()<CR>', 'Commands' },
-          h = { '<cmd>lua require("telescope.builtin").command_history()<CR>', 'Command History' },
-          s = { '<cmd>lua require("telescope.builtin").search_history()<CR>', 'Search History' },
-          m = { '<cmd>lua require("telescope.builtin").man_pages()<CR>', 'Man Pages' },
-          k = { '<cmd>lua require("telescope.builtin").marks()<CR>', 'Marks' },
-          o = { '<cmd>lua require("telescope.builtin").colorscheme()<CR>', 'Colorscheme' },
-          r = { '<cmd>lua require("telescope.builtin").registers()<CR>', 'Registers' },
-          a = { '<cmd>lua require("telescope.builtin").autocommands()<CR>', 'Autocommands' },
-          p = { '<cmd>lua require("telescope.builtin").vim_options()<CR>', 'Vim Options' },
-          e = { '<cmd>lua require("telescope.builtin").spell_suggest()<CR>', 'Spell Suggestions' },
-          y = { '<cmd>lua require("telescope.builtin").keymaps()<CR>', 'Normal Mode Keymaps' },
-        },
-        p = {
-          name = 'Grep',
-          g = { '<cmd>lua require("telescope.builtin").grep_string()<CR>', 'Grep String' },
-          l = { '<cmd>lua require("telescope.builtin").live_grep()<CR>', 'Live Grep' },
-          r = {
-            '<cmd>lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>',
-            'Live Grep Raw',
-          },
-          s = { '<cmd>lua require("spectre").open()<CR>', 'Spectre' },
-          w = {
-            '<cmd>lua require("spectre").open_visual({select_word = true})<CR>',
-            'Spectre Current Word',
-          },
-        },
-        g = {
-          name = 'Git',
-          f = { '<cmd>lua require("telescope.builtin").git_files()<CR>', 'Files' },
-          s = { '<cmd>lua require("telescope.builtin").git_status()<CR>', 'Status' },
-          c = { '<cmd>lua require("telescope.builtin").git_commits()<CR>', 'Commit Log' },
-          l = { '<cmd>lua require("telescope.builtin").git_bcommits()<CR>', 'Commit Log Current Buffer' },
-          b = { '<cmd>lua require("telescope.builtin").git_branches()<CR>', 'Branches' },
-          t = { '<cmd>lua require("telescope.builtin").git_stash()<CR>', 'Stash' },
-          d = { ':DiffviewOpen<CR>', 'Open Diff View' },
-          x = { ':DiffviewClose<CR>', 'Close Diff View' },
-          r = { ':DiffviewRefresh<CR>', 'Diff View Refresh' },
-          e = { ':DiffviewFocusFiles<CR>', 'Diff View Focus Files' },
-          h = { ':DiffviewFileHistory<CR>', 'Diff View File History' },
-          g = { '<cmd>lua require("setup.neotree").neogit("git")<CR>', 'Neo-tree git' },
-        },
-        l = {
-          name = 'LSP',
-          a = { '<cmd>lua vim.lsp.buf.code_action()<CR>', 'Code Actions' },
-          b = { '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', 'Show line diagnostics' },
-          d = { '<cmd>lua require("telescope.builtin").lsp_definitions()<CR>', 'Definitions' },
-          e = { '<cmd>lua require("telescope.builtin").treesitter()<CR>', 'Treesitter' },
-          g = {
-            '<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<CR>',
-            'Document Diagnostics',
-          },
-          i = { '<cmd>lua require("telescope.builtin").lsp_implementations()<CR>', 'Implementations' },
-          l = { '<cmd>lua vim.lsp.codelens.run()<CR>', 'Code Lens' },
-          m = { '<cmd>lua vim.lsp.buf.rename()<CR>', 'Rename symbol' },
-          o = {
-            '<cmd>lua require("telescope.builtin").diagnostics()<CR>',
-            'Workspace Diagnostics',
-          },
-          q = { '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', 'Diagnostic set loclist' },
-          r = { '<cmd>lua require("telescope.builtin").lsp_references()<CR>', 'References' },
-          s = { '<cmd>lua require("telescope.builtin").lsp_document_symbols()<CR>', 'Document Symbols' },
-          t = { '<cmd>lua require("telescope.builtin").lsp_type_definitions()<CR>', 'Type Definitions' },
-          v = {
-            '<cmd>lua require("telescope.builtin").lsp_dynamic_workspace_symbols()<CR>',
-            'Dynamic Workspace Symbols',
-          },
-          w = {
-            '<cmd>lua require("telescope.builtin").lsp_workspace_symbols()<CR>',
-            'Workspace Symbols',
-          },
-        },
-        t = {
-          name = 'Telescope',
-          s = { '<cmd>lua require("telescope.builtin").planets()<CR>', 'Use Telescope...' },
-          c = { '<cmd>lua require("telescope.builtin").builtin()<CR>', 'Builtin Pickers' },
-          h = { '<cmd>lua require("telescope.builtin").reloader()<CR>', 'Reload Lua Modules' },
-          y = {
-            '<cmd>lua require("telescope.builtin").symbols({"emoji", "kaomoji", "gitmoji", "julia", "math", "nerd"})<CR>',
-            'List Symbols',
-          },
-          m = { '<cmd>lua require("telescope.builtin").resume()<CR>', 'Resume Last Picker' },
-          r = { '<cmd>lua require("telescope.builtin").pickers()<CR>', 'Previous Pickers' },
-          w = { '<cmd>Telescope neovim-project history<CR>', "Sessions History"},
-          d = { '<cmd>Telescope neovim-project discover<CR>', "Sessions Discover"},
-        },
-        d = {
-          name = 'Debug Adapter',
-          c = { '<cmd>lua require("telescope").extensions.dap.commands()<CR>', 'Telescope DAP Commands' },
-          f = { '<cmd>lua require("telescope").extensions.dap.configurations()<CR>', 'Telescope DAP Configurations' },
-          b = { '<cmd>lua require("telescope").extensions.dap.list_breakpoints()<CR>', 'Telescope DAP List Breakpoints' },
-          v = { '<cmd>lua require("telescope").extensions.dap.variables()<CR>', 'Telescope DAP Variables' },
-          r = { '<cmd>lua require("telescope").extensions.dap.frames()<CR>', 'Telescope DAP Frames' },
-          t = { '<cmd>lua require("dapui").toggle()<CR>', 'Toggle DAP UI' },
-        },
-        r = {
-          name = 'Rust',
-          -- r = { ':RustRunnables<CR>', 'Runnables' },
-          -- d = { ':RustDebuggables<CR>', 'Debuggables' },
-          -- e = { ":RustExpandMacro<CR>", 'Expand Macro' },
-          -- -- p = { ":RustLsp rebuildProcMacros<CR>", 'Rebuild Proc Macro' },
-          -- c = { ':RustOpenCargo<CR>', 'Open Cargo.toml' },
-          -- -- g = { ':RustLsp crateGraph<CR>', 'View Crate Graph' },
-          -- m = { ':RustParentModule<CR>', 'Parent Module' },
-          -- j = { ':RustJoinLines<CR>', 'Join Lines' },
-          -- -- a = { ':RustLsp hover actions<CR>', 'Hover Actions' },
-          -- -- h = { ':RustLsp hover range<CR>', 'Range Hover Actions' },
-          -- w = { ':RustReloadWorkspace<CR>', 'Reload Workspace' },
-          -- -- s = { ':RustLsp syntaxTree<CR>', 'Syntax Tree' },
-          -- -- f = { ':RustLsp flyCheck<CR>', 'Cargo Check Background' },
-          -- t = { '<cmd>require("setup.toggleterm").run_float("cargo test")<CR>', 'Run tests' },
-
-          l = { ':RustAnalyzer restart<CR>', 'Reload Rust LSP' },
-          r = { ':RustLsp runnables<CR>', 'Runnables' },
-          d = { ':RustLsp debuggables<CR>', 'Debuggables' },
-          e = { ':RustLsp expandMacro<CR>', 'Expand Macro' },
-          p = { ':RustLsp rebuildProcMacros<CR>', 'Rebuild Proc Macro' },
-          c = { ':RustLsp openCargo<CR>', 'Open Cargo.toml' },
-          g = { ':RustLsp crateGraph<CR>', 'View Crate Graph' },
-          m = { ':RustLsp parentModule<CR>', 'Parent Module' },
-          j = { ':RustLsp joinLines<CR>', 'Join Lines' },
-          a = { ':RustLsp hover actions<CR>', 'Hover Actions' },
-          h = { ':RustLsp hover range<CR>', 'Range Hover Actions' },
-          w = { ':RustLsp reloadWorkspace<CR>', 'Reload Workspace' },
-          s = { ':RustLsp syntaxTree<CR>', 'Syntax Tree' },
-          c = { ':RustLsp flyCheck<CR>', 'Cargo Check Background' },
-          t = { '<cmd>require("setup.toggleterm").run_float("cargo test")<CR>', 'Run tests' },
-        },
-        j = {
-          name = 'Java',
-          a = { '<cmd>lua require("jdtls").code_action()', 'Code Action' },
-          r = { '<cmd>lua require("jdtls").code_action(false, "refactor")', 'Refactor' },
-          o = { '<cmd>lua require("jdtls").organize_imports()', 'Organize Imports' },
-          e = { '<cmd>lua require("jdtls").extract_variable()', 'Extract Variable' },
-          c = { '<cmd>lua require("jdtls").extract_constant()', 'Extract Constant' },
-          m = { '<cmd>lua require("jdtls").extract_method()', 'Extract Method' },
-          t = { '<cmd>lua require("jdtls").test_class()', 'Test Class' },
-          n = { '<cmd>lua require("jdtls").test_nearest_method()', 'Test Nearest Method' },
-        },
-        s = {
-          name = 'Shell',
-          a = { ':ToggleTermToggleAll<CR>', 'Toggle Term All' },
-          h = { ':ToggleTerm direction=horizontal<CR>', 'Horizontal' },
-          v = { ':ToggleTerm direction=vertical<CR>', 'Vertical' },
-          f = { ':ToggleTerm direction=float<CR>', 'Float' },
-        },
-        a = {
-          name = 'Aerial',
-          t = { ':AerialToggle<CR>', 'Toggle' },
-          a = { ':AerialOpenAll<CR>', 'Open All' },
-          c = { ':AerialCloseAll<CR>', 'Close All' },
-          s = { ':AerialTreeSyncFolds<CR>', 'Sync code folding' },
-          i = { ':AerialInfo<CR>', 'Info' },
-        },
-        o = {
-          name = 'Overseer',
-          t = { '<cmd>lua require("sidebar"):toggle("overseer")<CR>', 'Toggle' },
-          s = { ':OverseerSaveBundle<CR>', 'Save' },
-          l = { ':OverseerLoadBundle<CR>', 'Load' },
-          d = { ':OverseerDeleteBundle<CR>', 'Delete' },
-          c = { ':OverseerRunCmd<CR>', 'Run shell command' },
-          r = { ':OverseerRun<CR>', 'Run task' },
-          b = { ':OverseerBuild<CR>', 'Open task builder' },
-          q = { ':OverseerQuickAction<CR>', 'Run action on a task' },
-          a = { ':OverseerTaskAction<CR>', 'Select a task to run an action on' },
-        },
-      },
-      opts = {
-        prefix = '<leader>',
-        noremap = true,
-        silent = true,
-        mode = 'n',
-      },
-    },
-  },
   map_keys = function()
-    for _, keymap in pairs(keymap_table) do
-      local opts = vim.tbl_extend('force', { desc = keymap.description }, keymap.opts)
-      vim.keymap.set(keymap.modes, keymap.shortcut, keymap.cmd, opts)
-    end
+      for _, keymap in pairs(keymap_table) do
+          if keymap.enabled == nil or keymap.enabled then
+              local opts = vim.tbl_extend('force', { desc = keymap.description }, keymap.opts)
+              vim.keymap.set(keymap.modes, keymap.shortcut, keymap.cmd, opts)
+          end
+      end
   end,
 }

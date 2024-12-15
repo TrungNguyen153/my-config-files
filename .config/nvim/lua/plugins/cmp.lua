@@ -1,6 +1,6 @@
 return {
   'hrsh7th/nvim-cmp', -- auto completion
-  event = "UIEnter",
+  event = 'VeryLazy',
   enabled = not vim.g.vscode,
   config = require('setup.cmp').setup,
   dependencies = {

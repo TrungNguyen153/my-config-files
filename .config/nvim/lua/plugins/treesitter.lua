@@ -1,6 +1,7 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
+		event = 'VeryLazy',
 		build = ":TSUpdate",
 		config = require("setup.treesitter").setup,
 		dependencies = {

@@ -1,5 +1,5 @@
 return {
-	{ "SmiteshP/nvim-navic", event = { 'User NvimStartupDone' }, config = require("setup.nvim-navic").setup }, -- adds breadcrumbs
+	{ "SmiteshP/nvim-navic", event = 'VeryLazy', config = require("setup.nvim-navic").setup }, -- adds breadcrumbs
 	{ "folke/trouble.nvim", event = { 'User NvimStartupDone' }, config = require("setup.trouble").setup }, -- adds a bottom panel with lsp diagnostics, quickfixes, etc.
 	{ "GustavoKatel/sidebar.nvim", event = { 'User NvimStartupDone' }, config = require("setup.sidebar-nvim").setup }, -- ful sidebar with todos, git status, etc.
 	{
@@ -20,7 +20,7 @@ return {
 	{ 'NeogitOrg/neogit', cmd = 'LazyNeogit', config = require('setup.neogit').setup },
 	{
 		"mfussenegger/nvim-dap", -- debug adapter for debugging
-		event = { 'User NvimStartupDone' },
+		event = 'VeryLazy',
 		dependencies = {
 			{"rcarriga/nvim-dap-ui", dependencies = {"nvim-neotest/nvim-nio"} }, -- ui for nvim-dap
 			"theHamsta/nvim-dap-virtual-text", -- virtual text during debugging

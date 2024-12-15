@@ -5,7 +5,12 @@ return {
 	--     build = './install.sh build',
 	--     config = require('setup.silicon').setup,
 	-- }, -- Generates an image from selected text. Needs silicon installed (cargo install silicon)
-	{ "bennypowers/nvim-regexplainer", cmd = "LazyRegexplainer" }, -- shows popup explaining regex under cursor
+	{ 
+		"bennypowers/nvim-regexplainer", 
+		event = 'VeryLazy',
+		enabled = not vim.g.vscode,
+		cmd = { 'RegexplainerShowSplit', 'RegexplainerShowPopup', 'RegexplainerToggle', 'RegexplainerYank' }, 
+	}, -- shows popup explaining regex under cursor
 	{
 		"nvim-neo-tree/neo-tree.nvim",
 		branch = "v3.x",
@@ -16,9 +21,18 @@ return {
 		"stevearc/oil.nvim",
 		config = require("setup.oil").setup,
 	}, -- file browser. eventually should replace neo-tree
-	{ "akinsho/toggleterm.nvim", config = require("setup.toggleterm").setup }, -- better terminal
+	-- { "akinsho/toggleterm.nvim", config = require("setup.toggleterm").setup }, -- better terminal
+	{
+		"jaimecgomezz/here.term",
+		opts = {},
+		config = function()
+			vim.opt.hidden = true
+			require('here-term').setup()
+		end,
+	},
 	{
 		"nvim-telescope/telescope.nvim",
+		event = 'VeryLazy',
 		dependencies = { -- pickers
 			"gbrlsnchs/telescope-lsp-handlers.nvim",
 			"nvim-telescope/telescope-dap.nvim",

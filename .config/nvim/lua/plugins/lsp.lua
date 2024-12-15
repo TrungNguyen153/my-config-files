@@ -1,10 +1,12 @@
 return {
 	{
 		"williamboman/mason.nvim", -- lsp server installer
+		event = 'VeryLazy',
 		dependencies = { "williamboman/mason-lspconfig.nvim", "WhoIsSethDaniel/mason-tool-installer.nvim" },
 	},
 	{
 		"neovim/nvim-lspconfig",
+		event = 'VeryLazy',
 		config = function()
 			local lspconfig = require("setup.lsp")
 			local conf = lspconfig.setup()
@@ -18,6 +20,7 @@ return {
 	}, -- show symbol tree in the current buffer
 	{
 		"nvimtools/none-ls.nvim",
+		event = 'VeryLazy',
 		dependencies = "ThePrimeagen/refactoring.nvim", -- refactoring library used by null-ls
 		config = function()
 			local lspconfig = require("setup.lsp")
