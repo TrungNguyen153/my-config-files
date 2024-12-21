@@ -9,7 +9,7 @@ local powershell_options = {
   -- shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
   -- shellquote = "",
   -- shellxquote = "",
-  
+
   -- This for NuShell
   shell = 'nu',
   shellcmdflag = '-c',
@@ -79,9 +79,8 @@ vim.o.showmode = false
 vim.o.hidden = true
 vim.o.wrap = false
 vim.o.joinspaces = false
--- vim.o.printfont = ":h10"
--- vim.o.printencoding = "utf-8"
--- vim.o.printoptions = "paper:letter"
+vim.o.conceallevel = 3
+vim.o.concealcursor = 'n'
 -- current line will have a background
 vim.o.cursorline = true
 -- Always draw sign column. Prevent buffer moving when adding/deleting sign.
@@ -108,9 +107,9 @@ vim.o.wildignore =
 ".hg,.svn,*~,*.png,*.jpg,*.gif,*.settings,Thumbs.db,*.min.js,*.swp,publish/*,intermediate/*,*.o,*.hi,Zend,vendor,*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite"
 
 -- Use wide tabs
-vim.o.shiftwidth = 2
+vim.o.shiftwidth = 4
 vim.o.softtabstop = 4
-vim.o.tabstop = 2
+vim.o.tabstop = 4
 vim.o.expandtab = true
 
 -- Backspace over newline
@@ -125,6 +124,7 @@ vim.o.formatoptions = vim.o.formatoptions .. "b" -- auto-wrap in insert mode, an
 
 -- Proper search
 vim.o.incsearch = true
+vim.o.inccommand = 'split'
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.gdefault = true
@@ -142,15 +142,28 @@ vim.cmd("cnoreabbrev Q q")
 vim.cmd("cnoreabbrev Qall qall")
 
 -- No whitespace in vimdiff
-vim.o.diffopt = vim.o.diffopt .. ",iwhite"
+vim.o.diffopt = vim.o.diffopt .. ',iwhite'
 -- Make diffing better: https://vimways.org/2018/the-power-of-diff/
-vim.o.diffopt = vim.o.diffopt .. ",algorithm:patience"
-vim.o.diffopt = vim.o.diffopt .. ",indent-heuristic"
+vim.o.diffopt = vim.o.diffopt .. ',algorithm:patience'
+vim.o.diffopt = vim.o.diffopt .. ',indent-heuristic'
 -- https://github.com/neovim/neovim/pull/14537
--- vim.o.diffopt = vim.o.diffopt .. ',linematch:50'
+vim.o.diffopt = vim.o.diffopt .. ',linematch:50'
 
--- Avoid showing extra messages when using completion
-vim.o.shortmess = vim.o.shortmess .. "c"
+-- shortmess
+-- I -> don't show intro message
+-- O -> file-read message overwrites previous
+-- o -> file-read message
+-- c -> completion messages
+-- W -> don't show [w] or written when writing
+-- T -> truncate file messages at start
+-- t -> truncate file messages in middle
+-- F -> don't give file info when editing a file
+-- x -> do not show [+] or [-] when lines are added/deleted
+-- n -> no swap file
+-- l -> use internal grep
+-- C -> do not give |ins-completion-menu| messages
+-- i -> case insensitive search
+vim.o.shortmess = 'IOocWTtFxnflCi'
 
 -- automatic reload file on buffer changed outside of vim
 vim.o.autoread = true
