@@ -36,7 +36,7 @@ return {
 
         -- Telescope smart history
         history = {
-          path = vim.fn.stdpath("data") .. "/databases/telescope_history.sqlite3",
+          path = vim.fn.stdpath("data") .. "/telescope_history.sqlite3",
           limit = 100,
         },
 
@@ -52,9 +52,10 @@ return {
         },
       },
     })
-    require("telescope").load_extension("fzf")
     require("telescope").load_extension("lsp_handlers")
     require("telescope").load_extension("dap")
     require("telescope").load_extension("file_browser")
+    -- require('telescope').load_extension('session-lens')
+    -- require("telescope").load_extension("fzf") -- no use this
   end,
 }

@@ -9,6 +9,8 @@ local powershell_options = {
   -- shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
   -- shellquote = "",
   -- shellxquote = "",
+  
+  -- This for NuShell
   shell = 'nu',
   shellcmdflag = '-c',
   shellquote = "",

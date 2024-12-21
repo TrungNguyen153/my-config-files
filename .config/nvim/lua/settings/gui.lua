@@ -5,10 +5,6 @@ vim.o.guifont = 'RobotoMono Nerd Font Propo:h8.5'
 -- lua api seems to not be able to access this option
 vim.cmd('set guioptions-=T')
 vim.o.inccommand = 'nosplit'
-if not vim.version().api_prerelease then
-    vim.go.t_Co = '256'
-    vim.go.t_vb = ''
-end
 
 vim.o.background = 'dark'
 vim.g.base16colorspace = 256

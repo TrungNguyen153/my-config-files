@@ -174,7 +174,7 @@ M.setup = function()
 		ensure_installed = {
 			"codelldb",
 			-- "eslint_d", -- npm - but no longer use
-			"write-good", -- npm
+			-- "write-good", -- npm
 			-- "rust-analyzer",
 			"clangd",
 			"shfmt",

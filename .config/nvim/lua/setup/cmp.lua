@@ -1,12 +1,5 @@
 return {
 	setup = function()
-		-- Set completeopt to have a better completion experience
-		-- :help completeopt
-		-- menuone: popup even when there's only one match
-		-- noselect: Do not select, force user to select one from the menu
-		-- noinsert: Do not insert text until a selection is made
-		vim.o.completeopt = "menuone,noselect,noinsert"
-
 		local lspkind = require("lspkind")
 		local cmp = require("cmp")
 		local Rule = require("nvim-autopairs.rule")
@@ -29,59 +22,59 @@ return {
 				},
 			},
 			parser_nested_assembler = function(_, snippet)
-				local select = function(snip, no_move)
-					snip.parent:enter_node(snip.indx)
-					-- upon deletion, extmarks of inner nodes should shift to end of
-					-- placeholder-text.
-					for _, node in ipairs(snip.nodes) do
-						node:set_mark_rgrav(true, true)
-					end
+                local select = function(snip, no_move)
+                    snip.parent:enter_node(snip.indx)
+                    -- upon deletion, extmarks of inner nodes should shift to end of
+                    -- placeholder-text.
+                    for _, node in ipairs(snip.nodes) do
+                        node:set_mark_rgrav(true, true)
+                    end
 
-					-- SELECT all text inside the snippet.
-					if not no_move then
-						vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
-						local pos_begin, pos_end = snip.mark:pos_begin_end()
-						luasnip_util.normal_move_on(pos_begin)
-						vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("v", true, false, true), "n", true)
-						luasnip_util.normal_move_before(pos_end)
-						vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("o<C-G>", true, false, true), "n", true)
-					end
-				end
-				function snippet:jump_into(dir, no_move)
-					if self.active then
-						-- inside snippet, but not selected.
-						if dir == 1 then
-							self:input_leave()
-							return self.next:jump_into(dir, no_move)
-						else
-							select(self, no_move)
-							return self
-						end
-					else
-						-- jumping in from outside snippet.
-						self:input_enter()
-						if dir == 1 then
-							select(self, no_move)
-							return self
-						else
-							return self.inner_last:jump_into(dir, no_move)
-						end
-					end
-				end
+                    -- SELECT all text inside the snippet.
+                    if not no_move then
+                        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'n', true)
+                        local pos_begin, pos_end = snip.mark:pos_begin_end()
+                        luasnip_util.normal_move_on(pos_begin)
+                        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('v', true, false, true), 'n', true)
+                        luasnip_util.normal_move_before(pos_end)
+                        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('o<C-G>', true, false, true), 'n', true)
+                    end
+                end
+                function snippet:jump_into(dir, no_move)
+                    if self.active then
+                        -- inside snippet, but not selected.
+                        if dir == 1 then
+                            self:input_leave()
+                            return self.next:jump_into(dir, no_move)
+                        else
+                            select(self, no_move)
+                            return self
+                        end
+                    else
+                        -- jumping in from outside snippet.
+                        self:input_enter()
+                        if dir == 1 then
+                            select(self, no_move)
+                            return self
+                        else
+                            return self.inner_last:jump_into(dir, no_move)
+                        end
+                    end
+                end
 
-				-- this is called only if the snippet is currently selected.
-				function snippet:jump_from(dir, no_move)
-					if dir == 1 then
-						return self.inner_first:jump_into(dir, no_move)
-					else
-						self:input_leave()
-						return self.prev:jump_into(dir, no_move)
-					end
-				end
+                -- this is called only if the snippet is currently selected.
+                function snippet:jump_from(dir, no_move)
+                    if dir == 1 then
+                        return self.inner_first:jump_into(dir, no_move)
+                    else
+                        self:input_leave()
+                        return self.prev:jump_into(dir, no_move)
+                    end
+                end
 
-				return snippet
-			end,
-		})
+                return snippet
+            end,
+        })
 
 		-- set keymap for navigating through snippet choices
 		vim.keymap.set({ "i", "s" }, "<a-l>", function()
@@ -116,11 +109,6 @@ return {
             nvim_lsp_signature_help = '[Signature]',
 		}
 
-		-- local has_words_before = function()
-		--     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-		--     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
-		-- end
-
 		cmp.setup({
 			enabled = function()
                 return vim.api.nvim_get_option_value('buftype', { buf = 0 }) ~= 'prompt'
@@ -130,16 +118,22 @@ return {
                 ghost_text = true,
             },
 			completion = {
-				completeopt = vim.o.completeopt,
+				-- Set completeopt to have a better completion experience
+				-- :help completeopt
+				-- menuone: popup even when there's only one match
+				-- noselect: Do not select, force user to select one from the menu
+				-- noinsert: Do not insert text until a selection is made
+				-- vim.o.completeopt = "menu,menuone,noselect,noinsert"
+				completeopt = "menu,menuone,noselect,noinsert",
 			},
-			performance = {
-				debounce = 60,
-				throttle = 30,
-				fetching_timeout = 500,
-				confirm_resolve_timeout = 80,
-				async_budget = 100,
-				max_view_entries = 200,
-			  },
+			-- performance = {
+			-- 	debounce = 60,
+			-- 	throttle = 30,
+			-- 	fetching_timeout = 500,
+			-- 	confirm_resolve_timeout = 80,
+			-- 	async_budget = 100,
+			-- 	max_view_entries = 200,
+			-- },
 			view = {
 				entries = { name = "custom", selection_order = "near_cursor" },
 			},
@@ -214,19 +208,18 @@ return {
 				["<C-f>"] = cmp.mapping.scroll_docs(-4),
 				["<C-b>"] = cmp.mapping.scroll_docs(4),
 				["<C-Space>"] = cmp.mapping.complete(),
-				['<Esc>'] = cmp.mapping(function(fallback)
-                    if not require('cmp').close() then
-                        fallback()
-                    end
-                    vim.cmd('stopinsert')
-                end),
+				['<Esc>'] = cmp.mapping.close(),
+				-- ['<Esc>'] = cmp.mapping(function(fallback)
+                --     if not require('cmp').close() then
+                --         fallback()
+                --     end
+                --     vim.cmd('stopinsert')
+                -- end),
 				["<Tab>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
 						cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 					elseif luasnip.expand_or_locally_jumpable() then
 						luasnip.expand_or_jump()
-					-- elseif has_words_before() then
-					--     cmp.complete()
 					else
 						fallback()
 					end
