@@ -63,6 +63,7 @@ return {
     },
 	{
 		"luckasRanarison/tailwind-tools.nvim",
+		ft = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact' },
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		opts = {} -- your configuration
 	},

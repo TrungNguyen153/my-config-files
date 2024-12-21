@@ -64,4 +64,9 @@ return {
 		-- End configuration
 		config = true,
 	},
+	{
+		"p00f/clangd_extensions.nvim",
+		event = 'VeryLazy',
+		ft = { "c", "cpp", "objc", "objcpp", "cuda", "proto" }
+	},
 }

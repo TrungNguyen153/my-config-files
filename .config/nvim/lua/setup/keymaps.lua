@@ -320,6 +320,38 @@ local keymap_table = {
     description = 'Focus on window down',
   },
   {
+    shortcut = '<right>',
+    cmd = '<CMD>vertical resize +2<CR>',
+    opts = no_remap_opt,
+    modes = { 'n' },
+    description = 'Increase window width',
+    enabled = not vim.g.vscode,
+  },
+  {
+      shortcut = '<left>',
+      cmd = '<CMD>vertical resize -2<CR>',
+      opts = no_remap_opt,
+      modes = { 'n' },
+      description = 'Decrease window width',
+      enabled = not vim.g.vscode,
+  },
+  {
+      shortcut = '<up>',
+      cmd = '<CMD>resize +2<CR>',
+      opts = no_remap_opt,
+      modes = { 'n' },
+      description = 'Increase window height',
+      enabled = not vim.g.vscode,
+  },
+  {
+      shortcut = '<down>',
+      cmd = '<CMD>resize -2<CR>',
+      opts = no_remap_opt,
+      modes = { 'n' },
+      description = 'Decrease window height',
+      enabled = not vim.g.vscode,
+  },
+  {
     shortcut = '<C-d>',
     cmd = '<C-o>x',
     opts = no_remap_opt,
@@ -328,9 +360,6 @@ local keymap_table = {
   },
   {
     shortcut = '<F1>',
-    -- cmd = function()
-    --   sidebar:toggle('sidebar')
-    -- end,
     cmd = ':AerialToggle<CR>',
     opts = no_remap_opt,
     modes = { 'n' },
@@ -843,6 +872,35 @@ local keymap_table = {
     description = 'Select a task to run an action on',
     opts = no_remap_opt,
     modes = { 'n' }
+  },
+  -- RHS c
+  {
+    shortcut = '<leader>c',
+    cmd = 'rhs',
+    description = 'Code',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<leader>cs',
+    cmd = ':ClangdSwitchSourceHeader<CR>',
+    description = 'C/C++ switch source/header',
+    opts = no_remap_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<F4>',
+    cmd = ':ClangdSwitchSourceHeader<CR>',
+    description = 'C/C++ switch source/header',
+    opts = silent_opt,
+    modes = { 'n' }
+  },
+  {
+    shortcut = '<F4>',
+    cmd = ':TSCppDefineClassFunc<CR>',
+    description = 'C/C++ switch source/header',
+    opts = silent_opt,
+    modes = { 'v' }
   },
 }
 
