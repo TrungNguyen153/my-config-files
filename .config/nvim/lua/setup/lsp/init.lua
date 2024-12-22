@@ -151,6 +151,10 @@ M.config_defaults = function()
 	lspconfig.clangd.setup({
 		on_attach = M.on_attach,
 		capabilities = M.capabilities(),
+		cmd = {
+			'clangd',
+			"--fallback-style=webkit"
+		},
 	})
 	-- Qml
 	lspconfig.qmlls.setup({
