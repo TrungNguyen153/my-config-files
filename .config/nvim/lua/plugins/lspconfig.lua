@@ -152,10 +152,10 @@ return {
 			cmd = { "sql-language-server", "up", "--method", "stdio" },
 		})
 		-- harper (grammar checker)
-		lspconfig.harper_ls.setup({
-			on_attach = lsp_utils.on_attach,
-			capabilities = lsp_utils.capabilities(),
-		})
+		-- lspconfig.harper_ls.setup({
+		-- 	on_attach = lsp_utils.on_attach,
+		-- 	capabilities = lsp_utils.capabilities(),
+		-- })
 
 		-- lua
 		local lua_runtime = {
@@ -224,7 +224,7 @@ return {
 			"gw",
 			":vsplit | lua vim.lsp.buf.definition()<CR>",
 			mode = { "n" },
-			desc = "Go to definition",
+			desc = "Go to definition splited",
 			silent = true,
 		},
 		{
