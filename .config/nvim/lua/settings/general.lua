@@ -22,7 +22,7 @@ end
 
 vim.g.mapleader = " " -- <leader>
 vim.g.maplocalleader = ";" -- <localleader>
-vim.o.timeoutlen = 500
+
 -- clipboard
 vim.go.clipboard = "unnamedplus"
 
