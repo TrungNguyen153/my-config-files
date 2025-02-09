@@ -3,25 +3,24 @@ vim.loader.enable()
 
 -- default shell
 local powershell_options = {
-  -- shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
-  -- shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
-  -- shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
-  -- shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
-  -- shellquote = "",
-  -- shellxquote = "",
+	-- shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
+	-- shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
+	-- shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
+	-- shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
+	-- shellquote = "",
+	-- shellxquote = "",
 
-  -- This for NuShell
-  shell = 'nu',
-  shellcmdflag = '-c',
-  shellquote = "",
-  shellxquote = "",
+	-- This for NuShell
+	shell = "nu",
+	shellcmdflag = "-c",
+	shellquote = "",
+	shellxquote = "",
 }
 for option, value in pairs(powershell_options) do
-  vim.opt[option] = value
+	vim.opt[option] = value
 end
 
-
-vim.g.mapleader = " "      -- <leader>
+vim.g.mapleader = " " -- <leader>
 vim.g.maplocalleader = ";" -- <localleader>
 vim.o.timeoutlen = 500
 -- clipboard
@@ -29,31 +28,31 @@ vim.go.clipboard = "unnamedplus"
 
 -- secure modelines
 vim.g.secure_modelines_allowed_items = {
-  "textwidth",
-  "tw",
-  "softtabstop",
-  "sts",
-  "tabstop",
-  "ts",
-  "shiftwidth",
-  "sw",
-  "expandtab",
-  "et",
-  "noexpandtab",
-  "noet",
-  "filetype",
-  "ft",
-  "foldmethod",
-  "fdm",
-  "readonly",
-  "ro",
-  "noreadonly",
-  "noro",
-  "rightleft",
-  "rl",
-  "norightleft",
-  "norl",
-  "colorcolumn",
+	"textwidth",
+	"tw",
+	"softtabstop",
+	"sts",
+	"tabstop",
+	"ts",
+	"shiftwidth",
+	"sw",
+	"expandtab",
+	"et",
+	"noexpandtab",
+	"noet",
+	"filetype",
+	"ft",
+	"foldmethod",
+	"fdm",
+	"readonly",
+	"ro",
+	"noreadonly",
+	"noro",
+	"rightleft",
+	"rl",
+	"norightleft",
+	"norl",
+	"colorcolumn",
 }
 
 -- replace grep with rg
@@ -80,11 +79,19 @@ vim.o.hidden = true
 vim.o.wrap = false
 vim.o.joinspaces = false
 vim.o.conceallevel = 3
-vim.o.concealcursor = 'n'
+vim.o.concealcursor = "n"
 -- current line will have a background
 vim.o.cursorline = true
 -- Always draw sign column. Prevent buffer moving when adding/deleting sign.
 vim.o.signcolumn = "yes"
+vim.o.numberwidth = 1
+
+-- folding
+vim.o.foldcolumn = "1"
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 
 -- Settings needed for .lvimrc
 vim.o.exrc = true
@@ -104,7 +111,7 @@ vim.o.undofile = true
 vim.o.wildmenu = true
 vim.o.wildmode = "list:longest"
 vim.o.wildignore =
-".hg,.svn,*~,*.png,*.jpg,*.gif,*.settings,Thumbs.db,*.min.js,*.swp,publish/*,intermediate/*,*.o,*.hi,Zend,vendor,*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite"
+	".hg,.svn,*~,*.png,*.jpg,*.gif,*.settings,Thumbs.db,*.min.js,*.swp,publish/*,intermediate/*,*.o,*.hi,Zend,vendor,*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite"
 
 -- Use wide tabs
 vim.o.shiftwidth = 4
@@ -116,7 +123,7 @@ vim.o.expandtab = true
 vim.o.backspace = "indent,eol,start"
 
 -- Wrapping options
-vim.o.formatoptions = "tc"                       -- wrap text and comments using textwidth
+vim.o.formatoptions = "tc" -- wrap text and comments using textwidth
 vim.o.formatoptions = vim.o.formatoptions .. "r" -- continue comments when pressing ENTER in I mode
 vim.o.formatoptions = vim.o.formatoptions .. "q" -- enable formatting of comments with gq
 vim.o.formatoptions = vim.o.formatoptions .. "n" -- detect lists for formatting
@@ -124,7 +131,7 @@ vim.o.formatoptions = vim.o.formatoptions .. "b" -- auto-wrap in insert mode, an
 
 -- Proper search
 vim.o.incsearch = true
-vim.o.inccommand = 'split'
+vim.o.inccommand = "split"
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.gdefault = true
@@ -142,12 +149,12 @@ vim.cmd("cnoreabbrev Q q")
 vim.cmd("cnoreabbrev Qall qall")
 
 -- No whitespace in vimdiff
-vim.o.diffopt = vim.o.diffopt .. ',iwhite'
+vim.o.diffopt = vim.o.diffopt .. ",iwhite"
 -- Make diffing better: https://vimways.org/2018/the-power-of-diff/
-vim.o.diffopt = vim.o.diffopt .. ',algorithm:patience'
-vim.o.diffopt = vim.o.diffopt .. ',indent-heuristic'
+vim.o.diffopt = vim.o.diffopt .. ",algorithm:patience"
+vim.o.diffopt = vim.o.diffopt .. ",indent-heuristic"
 -- https://github.com/neovim/neovim/pull/14537
-vim.o.diffopt = vim.o.diffopt .. ',linematch:50'
+vim.o.diffopt = vim.o.diffopt .. ",linematch:50"
 
 -- shortmess
 -- I -> don't show intro message
@@ -163,7 +170,7 @@ vim.o.diffopt = vim.o.diffopt .. ',linematch:50'
 -- l -> use internal grep
 -- C -> do not give |ins-completion-menu| messages
 -- i -> case insensitive search
-vim.o.shortmess = 'IOocWTtFxnflCi'
+vim.o.shortmess = "IOocWTtFxnflCi"
 
 -- automatic reload file on buffer changed outside of vim
 vim.o.autoread = true
@@ -177,3 +184,6 @@ vim.o.list = true
 
 -- Stabilize the cursor position when creating/deleting horizontal splits
 vim.o.splitkeep = "topline"
+
+-- enable autoformat when saving. it is set for each buffer when lsp is attached
+vim.g.autoformat = true

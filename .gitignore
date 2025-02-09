@@ -3,3 +3,4 @@
 .config/nushell/history.txt
 .config/rust-desk-installer.ps1
 .config/wezterm/wezterm-session-manager/wezterm_state_default.json
+.config/nvim_old
