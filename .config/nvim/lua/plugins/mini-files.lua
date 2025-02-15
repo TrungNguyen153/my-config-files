@@ -3,7 +3,8 @@ return {
 	"echasnovski/mini.files",
 	version = false,
 	event = "VeryLazy",
-	enabled = not vim.g.vscode,
+	-- enabled = not vim.g.vscode,
+	enabled = false, -- not use yet
 	config = true,
 	keys = {
 		{
