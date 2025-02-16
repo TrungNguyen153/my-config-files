@@ -216,14 +216,14 @@ local keymap_table = {
 		opts = { noremap = true, silent = true },
 	},
 	{
-		shortcut = "[g",
+		shortcut = "[d",
 		cmd = vim.diagnostic.goto_prev,
 		mode = { "n" },
 		desc = "Go to previous diagnostic",
 		opts = { noremap = true },
 	},
 	{
-		shortcut = "]g",
+		shortcut = "]d",
 		cmd = vim.diagnostic.goto_next,
 		mode = { "n" },
 		desc = "Go to next diagnostic",

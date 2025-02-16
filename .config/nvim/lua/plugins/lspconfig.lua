@@ -288,6 +288,13 @@ return {
 			mode = { "n" },
 		},
 		{
+			"<leader>ca",
+			"<cmd>lua vim.lsp.buf.code_action()<CR>",
+			desc = "Code Actions",
+			noremap = true,
+			mode = { "n" },
+		},
+		{
 			"<leader>lb",
 			"<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>",
 			mode = { "n" },
