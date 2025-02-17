@@ -1,4 +1,4 @@
--- hop to different parts of the buffer with s + character
+-- hop to different parts of the buffer with <leader>s + character
 
 return {
 	"folke/flash.nvim",
@@ -19,7 +19,7 @@ return {
 	},
 	keys = {
 		{
-			"s",
+			"<leader>s",
 			function()
 				require("flash").jump()
 			end,
@@ -28,7 +28,7 @@ return {
 			noremap = true,
 		},
 		{
-			"S",
+			"<leader>S",
 			function()
 				require("flash").treesitter()
 			end,
@@ -37,7 +37,7 @@ return {
 			noremap = true,
 		},
 		{
-			"r",
+			"<leader>r",
 			function()
 				require("flash").remote()
 			end,
@@ -46,7 +46,7 @@ return {
 			noremap = true,
 		},
 		{
-			"R",
+			"<leader>R",
 			function()
 				require("flash").treesitter_search()
 			end,
