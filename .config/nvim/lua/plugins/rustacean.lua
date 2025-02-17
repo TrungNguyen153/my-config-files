@@ -60,13 +60,13 @@ return {
 									group = "crate",
 								},
 							},
-							cargo = {
-								loadOutDirsFromCheck = true,
-								autoreload = true,
-								runBuildScripts = true,
-								features = "all",
-								allTargets = true,
-							},
+							-- cargo = {
+							-- 	loadOutDirsFromCheck = true,
+							-- 	autoreload = true,
+							-- 	runBuildScripts = true,
+							-- 	features = "all",
+							-- 	allTargets = true,
+							-- },
 							procMacro = {
 								enable = true,
 								attributes = { enable = true },
@@ -119,9 +119,9 @@ return {
 							checkOnSave = true,
 							check = {
 								-- https://github.com/rust-analyzer/rust-analyzer/issues/9768
-								command = "clippy",
-								features = "all",
-								allTargets = true,
+								-- command = "clippy",
+								-- features = "all",
+								-- allTargets = true,
 							},
 						},
 					},

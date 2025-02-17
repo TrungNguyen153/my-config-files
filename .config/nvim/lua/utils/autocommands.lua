@@ -51,15 +51,15 @@ return {
 				group = group,
 			})
 		end
-		local group = augroup("LSPDianostics")
-		autocmd({ "CursorHold", "CursorHoldI" }, {
-			desc = "Show box with diagnostics for current line",
-			pattern = "*",
-			callback = function()
-				vim.diagnostic.open_float({ focusable = false })
-			end,
-			group = group,
-		})
+
+		-- autocmd({ "CursorHold", "CursorHoldI" }, {
+		-- 	desc = "Show box with diagnostics for current line",
+		-- 	pattern = "*",
+		-- 	callback = function()
+		-- 		vim.diagnostic.open_float({ focusable = false })
+		-- 	end,
+		-- 	group = augroup("LSPDianostics"),
+		-- })
 	end,
 	setup = function()
 		local autocmd = vim.api.nvim_create_autocmd
