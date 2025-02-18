@@ -12,11 +12,11 @@ vim.g.neovide_remember_window_size = false
 vim.g.neovide_remember_window_position = false
 vim.g.neovide_floating_shadow = false
 vim.g.neovide_floating_corner_radius = 0.5
--- if vim.g.neovide then
---     vim.keymap.set('v', '<C-S-c>', '"*y') -- Copy
---     vim.keymap.set('n', '<C-S-v>', '"*p') -- Paste normal mode
---     vim.keymap.set('v', '<C-S-v>', '"*p') -- Paste visual mode
---     vim.keymap.set('c', '<C-S-v>', '<C-r>*') -- Paste command mode
---     vim.keymap.set('t', '<C-S-v>', '<C-r>*') -- Paste in terminal mode
---     vim.keymap.set('i', '<C-S-v>', '<C-r>*') -- Paste insert mode
--- end
+if vim.g.neovide then
+    vim.keymap.set('v', '<C-S-c>', '"*y') -- Copy
+    vim.keymap.set('n', '<C-S-v>', '"*p') -- Paste normal mode
+    vim.keymap.set('v', '<C-S-v>', '"*p') -- Paste visual mode
+    vim.keymap.set('c', '<C-S-v>', '<C-r>*') -- Paste command mode
+    vim.keymap.set('t', '<C-S-v>', '<C-r>*') -- Paste in terminal mode
+    vim.keymap.set('i', '<C-S-v>', '<C-r>*') -- Paste insert mode
+end

@@ -143,6 +143,7 @@ return {
 			},
 			completion = {
 				ghost_text = { enabled = true },
+				accept = { dot_repeat = false },
 				list = {
 					selection = {
 						preselect = function(ctx)
@@ -164,9 +165,9 @@ return {
 					draw = {
 						treesitter = { "lsp" },
 						columns = {
-							{ "kind_icon", gap = 1 },
-							{ "label", gap = 3 },
-							{ "item_idx", gap = 1 },
+							{ "kind_icon", 	gap = 1 },
+							{ "label", 		gap = 3 },
+							{ "item_idx", 	gap = 1 },
 							{ "source_name" },
 						},
 						components = {
@@ -194,29 +195,33 @@ return {
 				},
 			},
 			fuzzy = {
-				sorts = { "score", "sort_text", "kind", "label" },
+				sorts = { 'exact', "score", "sort_text", "kind", "label" },
 			},
+
+			cmdline = {
+                keymap = { -- https://github.com/neovim/neovim/issues/21585
+                    ['<C-space>'] = { 'show' },
+                    ['<CR>'] = { 'accept', 'fallback' },
+                    ['<Tab>'] = { 'select_next', 'fallback' },
+                    ['<S-Tab>'] = { 'select_prev', 'fallback' },
+                    ['<Esc>'] = {
+                        'cancel',
+                        function()
+                            if vim.fn.getcmdtype() ~= '' then
+                                vim.api.nvim_feedkeys(
+                                    vim.api.nvim_replace_termcodes('<C-c>', true, true, true),
+                                    'n',
+                                    true
+                                )
+                                return
+                            end
+                        end,
+                    },
+                },
+            },
+
 			keymap = {
 				preset = "none",
-				cmdline = { -- https://github.com/neovim/neovim/issues/21585
-					["<C-space>"] = { "show" },
-					["<CR>"] = { "accept", "fallback" },
-					["<Tab>"] = { "select_next", "fallback" },
-					["<S-Tab>"] = { "select_prev", "fallback" },
-					["<Esc>"] = {
-						"cancel",
-						function()
-							if vim.fn.getcmdtype() ~= "" then
-								vim.api.nvim_feedkeys(
-									vim.api.nvim_replace_termcodes("<C-c>", true, true, true),
-									"n",
-									true
-								)
-								return
-							end
-						end,
-					},
-				},
 				["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
 				["<Esc>"] = { "cancel", "fallback" },
 				["<CR>"] = { "accept", "fallback" },

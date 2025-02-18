@@ -12,15 +12,21 @@ return {
 		notifier = { enabled = true, style = "fancy" },
 		rename = { enabled = true },
 		words = { enabled = true },
+		scroll = { enabled = true },
+		input = { enabled = true },
 		styles = {
 			blame_line = { border = "none" },
 			notification = { border = "none" },
 			notification_history = { border = "none" },
 			input = { relative = "cursor" },
 		},
-		input = {
+
+		statuscolumn = {
 			enabled = true,
+			left = { 'sign', 'mark' }, -- priority of signs on the left (high to low)
+            right = { 'git' },                 -- priority of signs on the right (high to low)
 		},
+		
 		picker = {
 			layout = {
 				preset = "telescope",
@@ -362,13 +368,6 @@ return {
 			"<cmd>lua Snacks.picker.keymaps()<CR>",
 			mode = { "n" },
 			desc = "Normal Mode Keymaps",
-			noremap = true,
-		},
-		{ -- TODO: implement for snacks and enable
-			"<leader>db",
-			'<cmd>lua require("telescope").extensions.dap.list_breakpoints()<CR>',
-			mode = { "n" },
-			desc = "Breakpoints",
 			noremap = true,
 		},
 		{
