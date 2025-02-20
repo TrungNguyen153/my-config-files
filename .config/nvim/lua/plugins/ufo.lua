@@ -33,7 +33,8 @@ end
 
 return {
 	"kevinhwang91/nvim-ufo",
-	enabled = not vim.g.vscode,
+	-- enabled = not vim.g.vscode,
+	enabled = false,
 	event = "VeryLazy",
 	dependencies = { "kevinhwang91/promise-async", "luukvbaal/statuscol.nvim" },
 	config = function()
