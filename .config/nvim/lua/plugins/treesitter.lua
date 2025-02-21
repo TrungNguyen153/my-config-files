@@ -49,7 +49,7 @@ return {
                     'query',
                     'rust',
                     'sql',
-                    -- 'swift',
+                    'regex',
                     'toml',
                     'typescript',
                     'vim',

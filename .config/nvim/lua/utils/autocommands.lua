@@ -103,5 +103,21 @@ return {
 				vim.highlight.on_yank({ higroup = "IncSearch", timeout = 1000 })
 			end,
 		})
+
+		autocmd({ 'BufReadPost' }, {
+            group = augroup('LastPlace'),
+            pattern = { '*' },
+            desc = 'When editing a file, always jump to the last known cursor position',
+            callback = function()
+                local exclude = { 'gitcommit', 'commit', 'gitrebase' }
+                if vim.tbl_contains(exclude, vim.bo.filetype) then
+                    return
+                end
+                local line = vim.fn.line('\'"')
+                if line >= 1 and line <= vim.fn.line('$') then
+                    vim.cmd('normal! g`"')
+                end
+            end,
+        })
 	end,
 }

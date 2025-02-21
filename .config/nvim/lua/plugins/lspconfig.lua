@@ -181,7 +181,7 @@ return {
 					},
 					diagnostics = {
 						-- Get the language server to recognize the `vim` global
-						globals = { "vim" },
+						globals = { "vim", 'Snacks' },
 						disable = { "inject-field" },
 					},
 					workspace = {
@@ -259,14 +259,7 @@ return {
 		},
 		{
 			"K",
-			function()
-				local _, winid = pcall(function()
-					require("ufo").peekFoldedLinesUnderCursor()
-				end)
-				if not winid then
-					vim.lsp.buf.hover()
-				end
-			end,
+			vim.lsp.buf.hover,
 			mode = { "n" },
 			desc = "Show hover popup or folded preview",
 			silent = true,
