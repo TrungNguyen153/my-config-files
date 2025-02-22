@@ -229,8 +229,16 @@ return {
 				["<C-b>"] = { "scroll_documentation_up", "fallback" },
 				["<C-f>"] = { "scroll_documentation_down", "fallback" },
 
-				["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
-				["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
+				["<Tab>"] = {
+					"select_next",
+					"snippet_forward",
+					"fallback",
+				},
+				["<S-Tab>"] = {
+					"select_prev",
+					"snippet_backward",
+					"fallback",
+				},
 				["<A-1>"] = {
 					function(cmp)
 						cmp.accept({ index = 1 })
