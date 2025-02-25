@@ -125,11 +125,11 @@ local keymap_table = {
 		opts = { noremap = true },
 	},
 	{
-		shortcut = "<M-g>",
-		cmd = ":nohlsearch<CR>",
-		mode = { "n", "v" },
-		desc = "Clear search",
-		opts = { noremap = true, silent = true },
+		shortcut = '<C-n>',
+		cmd = ':nohlsearch<CR>',
+		mode = { 'n', 'v' },
+		desc = 'Clear search',
+		opts = { noremap = true },
 	},
 	{
 		shortcut = "H",

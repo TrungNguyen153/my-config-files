@@ -19,20 +19,17 @@ return {
 				border = false,
 			},
 			mappings = {
-				delete_session = {},
-				alternate_session = {},
-				copy_session = {},
+				-- Mode can be a string or a table, e.g. {"i", "n"} for both insert and normal mode
+				delete_session = { "i", "<C-D>" },
+				alternate_session = { "i", "<C-S>" },
+				copy_session = { "i", "<C-Y>" },
 			},
 		},
 	},
 	keys = {
-		{
-			"<M-w>",
-			"<cmd>SessionSearch<CR>",
-			mode = { "n" },
-			desc = "Open saved session",
-			noremap = true,
-			silent = true,
-		},
+		-- Will use Telescope if installed or a vim.ui.select picker otherwise
+		{ '<leader>wr', '<cmd>SessionSearch<CR>', desc = 'Session search' },
+		{ '<leader>ws', '<cmd>SessionSave<CR>', desc = 'Save session' },
+		{ '<leader>wa', '<cmd>SessionToggleAutoSave<CR>', desc = 'Toggle autosave' },
 	},
 }

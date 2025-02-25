@@ -74,5 +74,12 @@ return {
 			desc = "Vim",
 			noremap = true,
 		},
+		{
+			"<leader>w",
+			"rhs",
+			mode = { "n" },
+			desc = "Session",
+			noremap = true,
+		},
 	},
 }

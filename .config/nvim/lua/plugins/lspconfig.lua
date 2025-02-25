@@ -156,6 +156,10 @@ return {
 		-- 	on_attach = lsp_utils.on_attach,
 		-- 	capabilities = lsp_utils.capabilities(),
 		-- })
+        lspconfig.wgsl_analyzer.setup({
+			on_attach = lsp_utils.on_attach,
+			capabilities = lsp_utils.capabilities(),
+        })
 
 		-- lua
 		local lua_runtime = {
