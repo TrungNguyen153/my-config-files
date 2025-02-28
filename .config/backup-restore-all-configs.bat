@@ -33,15 +33,19 @@ goto exit
 
 :LABEL-2 Restore
 echo Restore nvim settings...
+rd /s /q %LocalAppData%\nvim
 xcopy %cd%\nvim %LocalAppData%\nvim /I /E /Y
 
 echo Restore Wezterm settings...
+rd /s /q %UserProfile%\.config\wezterm
 xcopy %cd%\wezterm %UserProfile%\.config\wezterm /I /E /Y
 
 echo Restore Nushell setings...
+rd /s /q %AppData%\nushell
 xcopy %cd%\nushell %AppData%\nushell /I /E /Y
 
 echo Restore Neovide setings...
+rd /s /q %AppData%\neovide
 xcopy %cd%\neovide %AppData%\neovide /I /E /Y
 
 echo Done restore !!!

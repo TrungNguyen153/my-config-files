@@ -199,9 +199,14 @@ return {
 			},
 
 			cmdline = {
+				completion = {
+                    menu = {
+                        auto_show = true,
+                    },
+                },
                 keymap = { -- https://github.com/neovim/neovim/issues/21585
                     ['<C-space>'] = { 'show' },
-                    ['<CR>'] = { 'accept', 'fallback' },
+                    ['<CR>'] = { 'accept_and_enter', 'fallback' },
                     ['<Tab>'] = { 'select_next', 'fallback' },
                     ['<S-Tab>'] = { 'select_prev', 'fallback' },
                     ['<Esc>'] = {
