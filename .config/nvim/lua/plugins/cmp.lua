@@ -146,9 +146,7 @@ return {
 				accept = { dot_repeat = false },
 				list = {
 					selection = {
-						preselect = function(ctx)
-							return ctx.mode ~= "cmdline"
-						end,
+						preselect = true,
 						auto_insert = false,
 					},
 				},
@@ -200,6 +198,12 @@ return {
 
 			cmdline = {
 				completion = {
+					list = {
+                        selection = {
+                            preselect = false,
+                            auto_insert = false,
+                        },
+                    },
                     menu = {
                         auto_show = true,
                     },
@@ -207,7 +211,7 @@ return {
                 keymap = { -- https://github.com/neovim/neovim/issues/21585
                     ['<C-space>'] = { 'show' },
                     ['<CR>'] = { 'accept_and_enter', 'fallback' },
-                    ['<Tab>'] = { 'select_next', 'fallback' },
+                    ['<Tab>'] = { 'show', 'select_next', 'fallback' },
                     ['<S-Tab>'] = { 'select_prev', 'fallback' },
                     ['<Esc>'] = {
                         'cancel',
