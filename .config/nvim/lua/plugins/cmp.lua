@@ -143,7 +143,7 @@ return {
 			},
 			completion = {
 				ghost_text = { enabled = true },
-				accept = { dot_repeat = false },
+				accept = { dot_repeat = true },
 				list = {
 					selection = {
 						preselect = true,
@@ -193,6 +193,7 @@ return {
 				},
 			},
 			fuzzy = {
+				implementation = "rust",
 				sorts = { 'exact', "score", "sort_text", "kind", "label" },
 			},
 
