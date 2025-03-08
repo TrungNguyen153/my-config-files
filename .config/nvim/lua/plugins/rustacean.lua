@@ -110,7 +110,7 @@ return {
 									useParameterNames = true,
 								},
 								typeHints = { enable = true },
-								implicitDrops = { enable = true },
+								implicitDrops = { enable = false },
 							},
 							typing = {
 								autoClosingAngleBrackets = { enable = true },
