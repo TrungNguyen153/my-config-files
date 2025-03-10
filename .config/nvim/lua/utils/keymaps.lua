@@ -120,14 +120,14 @@ local keymap_table = {
 	{
 		shortcut = "H",
 		cmd = "^",
-		mode = { "n", "v" },
+		mode = { "n" },
 		desc = "Jump to start of the line",
 		opts = {},
 	},
 	{
 		shortcut = "L",
 		cmd = "$",
-		mode = { "n", "v" },
+		mode = { "n" },
 		desc = "Jump to end of the line",
 		opts = {},
 	},
