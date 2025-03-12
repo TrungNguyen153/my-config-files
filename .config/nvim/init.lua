@@ -28,3 +28,4 @@ require("lazy").setup("plugins", {
 -- require("utils.autocommands").setup()
 
 vim.cmd("colorscheme gruvbox")
+-- vim.cmd('colorscheme catppuccin')
