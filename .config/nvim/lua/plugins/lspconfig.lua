@@ -151,15 +151,6 @@ return {
 			capabilities = lsp_utils.capabilities(),
 			cmd = { "sql-language-server", "up", "--method", "stdio" },
 		})
-		-- harper (grammar checker)
-		-- lspconfig.harper_ls.setup({
-		-- 	on_attach = lsp_utils.on_attach,
-		-- 	capabilities = lsp_utils.capabilities(),
-		-- })
-        lspconfig.wgsl_analyzer.setup({
-			on_attach = lsp_utils.on_attach,
-			capabilities = lsp_utils.capabilities(),
-        })
 
 		-- lua
 		local lua_runtime = {
@@ -201,6 +192,24 @@ return {
 				},
 			},
 		})
+
+		lspconfig.wgsl_analyzer.setup({
+			on_attach = lsp_utils.on_attach,
+			capabilities = lsp_utils.capabilities(),
+			settings = {
+				["wgsl-analyzer.customImports"] = {
+					
+					["bevy_sprite::mesh2d_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/refs/tags/v0.15.2/crates/bevy_sprite/src/mesh2d/mesh2d_bindings.wgsl",
+					["bevy_sprite::mesh2d_functions"] = "https://raw.githubusercontent.com/bevyengine/bevy/refs/tags/v0.15.2/crates/bevy_sprite/src/mesh2d/mesh2d_functions.wgsl",
+					["bevy_sprite::mesh2d_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/refs/tags/v0.15.2/crates/bevy_sprite/src/mesh2d/mesh2d_types.wgsl",
+					["bevy_sprite::mesh2d_vertex_output"] = "https://raw.githubusercontent.com/bevyengine/bevy/refs/tags/v0.15.2/crates/bevy_sprite/src/mesh2d/mesh2d_vertex_output.wgsl",
+					["bevy_sprite::mesh2d_view_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/refs/tags/v0.15.2/crates/bevy_sprite/src/mesh2d/mesh2d_view_bindings.wgsl",
+					["bevy_sprite::mesh2d_view_types"] = "https://raw.githubusercontent.com/bevyengine/bevy/refs/tags/v0.15.2/crates/bevy_sprite/src/mesh2d/mesh2d_view_types.wgsl",
+					["bevy_sprite::sprite_view_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/refs/tags/v0.15.2/crates/bevy_sprite/src/render/sprite_view_bindings.wgsl",
+					["bevy_ui::ui_vertex_output"] = "https://raw.githubusercontent.com/bevyengine/bevy/refs/tags/v0.15.2/crates/bevy_ui/src/render/ui_vertex_output.wgsl"
+				},
+			},
+        })
 	end,
 	keys = {
 		{
