@@ -33,9 +33,15 @@ return {
 
 		-- Toggle/clear cursors
 		local exit_fn = function()
-			if not mc.cursorsEnabled() then
-				mc.enableCursors()
-			elseif mc.hasCursors() then
+			-- if not mc.cursorsEnabled() then
+			-- 	mc.enableCursors()
+			-- elseif mc.hasCursors() then
+			-- 	mc.clearCursors()
+			-- else
+			-- 	-- Default <esc> handler.
+			-- end
+
+			if mc.hasCursors() then
 				mc.clearCursors()
 			else
 				-- Default <esc> handler.
