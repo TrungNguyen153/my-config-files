@@ -76,19 +76,19 @@ return {
 		-- 	end,
 		-- })
 
-		autocmd({ "ModeChanged" }, {
-			desc = "Stop snippets when you leave to normal mode",
-			pattern = "*",
-			callback = function()
-				if
-					((vim.v.event.old_mode == "s" and vim.v.event.new_mode == "n") or vim.v.event.old_mode == "i")
-					and require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-					and not require("luasnip").session.jump_active
-				then
-					require("luasnip").unlink_current()
-				end
-			end,
-		})
+		-- autocmd({ "ModeChanged" }, {
+		-- 	desc = "Stop snippets when you leave to normal mode",
+		-- 	pattern = "*",
+		-- 	callback = function()
+		-- 		if
+		-- 			((vim.v.event.old_mode == "s" and vim.v.event.new_mode == "n") or vim.v.event.old_mode == "i")
+		-- 			and require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
+		-- 			and not require("luasnip").session.jump_active
+		-- 		then
+		-- 			require("luasnip").unlink_current()
+		-- 		end
+		-- 	end,
+		-- })
 
 		autocmd({ "BufRead" }, {
 			desc = "Prevent accidental writes to buffers that shouldn't be edited",
@@ -96,18 +96,11 @@ return {
 			command = "set readonly",
 		})
 
-        vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-            pattern = "*.wgsl",
-            callback = function()
-              vim.bo.filetype = "wgsl"
-            end,
-        })
-
 		autocmd({ "TextYankPost" }, {
 			desc = "Highlight yanked text",
 			pattern = "*",
 			callback = function()
-				vim.highlight.on_yank({ higroup = "IncSearch", timeout = 1000 })
+				vim.highlight.on_yank({ higroup = "IncSearch", timeout = 200 })
 			end,
 		})
 

@@ -115,7 +115,7 @@ local keymap_table = {
 		cmd = ':nohlsearch<CR>',
 		mode = { 'n', 'v' },
 		desc = 'Clear search',
-		opts = { noremap = true },
+		opts = { noremap = true, silent = true },
 	},
 	{
 		shortcut = "H",

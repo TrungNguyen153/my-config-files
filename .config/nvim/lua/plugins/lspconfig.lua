@@ -242,7 +242,10 @@ return {
 		},
 		{
 			"gi",
-			vim.lsp.buf.implementation,
+			function()
+				-- vim.lsp.buf.implementation,\
+				Snacks.picker.lsp_implementations()
+			end,
 			mode = { "n" },
 			desc = "Go to implementation",
 			silent = true,
@@ -250,7 +253,8 @@ return {
 		{
 			"gr",
 			function()
-				vim.lsp.buf.references({ includeDeclaration = false })
+				-- vim.lsp.buf.references({ includeDeclaration = false })
+				Snacks.picker.lsp_references({ include_declaration = false })
 			end,
 			mode = { "n" },
 			desc = "Find references",
