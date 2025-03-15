@@ -269,7 +269,7 @@ return {
 				if blink_window.win:is_open() then
 					blink.hide()
 				end
-				vim.lsp.buf.signature_help
+				vim.lsp.buf.signature_help()
 			end,
 			mode = { "i" },
 			desc = "Signature help",
