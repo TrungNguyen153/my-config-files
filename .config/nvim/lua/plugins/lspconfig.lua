@@ -261,14 +261,22 @@ return {
 			silent = true,
 		},
 		{
-			"<M-s>",
-			vim.lsp.buf.signature_help,
+			"<M-k>",
+			function()
+				local blink_window = require 'blink.cmp.completion.windows.menu'
+        		local blink = require 'blink.cmp'
+				-- Close the completion menu first (if open).
+				if blink_window.win:is_open() then
+					blink.hide()
+				end
+				vim.lsp.buf.signature_help
+			end,
 			mode = { "i" },
 			desc = "Signature help",
 			silent = true,
 		},
 		{
-			"<M-s>",
+			"<M-k>",
 			vim.lsp.buf.signature_help,
 			mode = { "n" },
 			desc = "Signature help",
