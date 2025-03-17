@@ -12,7 +12,7 @@ return {
 		"xzbdmw/colorful-menu.nvim", -- adds highlights to the auto-complete options
 	},
 	config = function()
-		require("colorful-menu").setup()
+		require("colorful-menu").setup({})
 		local luasnip = require("luasnip")
 		local luasnip_util = require("luasnip.util.util")
 		local luasnip_types = require("luasnip.util.types")
