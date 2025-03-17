@@ -261,7 +261,7 @@ return {
 			silent = true,
 		},
 		{
-			"<M-k>",
+			"<M-s>",
 			function()
 				local blink_window = require 'blink.cmp.completion.windows.menu'
         		local blink = require 'blink.cmp'
@@ -276,7 +276,7 @@ return {
 			silent = true,
 		},
 		{
-			"<M-k>",
+			"<M-s>",
 			vim.lsp.buf.signature_help,
 			mode = { "n" },
 			desc = "Signature help",
