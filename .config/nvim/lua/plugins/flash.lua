@@ -3,6 +3,7 @@
 return {
 	"folke/flash.nvim",
 	event = "VeryLazy",
+	enabled = false,
 	opts = {
 		search = {
 			-- search/jump in all windows
