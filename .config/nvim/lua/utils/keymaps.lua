@@ -254,14 +254,14 @@ local keymap_table = {
 	{
 		shortcut = "so",
 		cmd = "<cmd>only<CR>",
-		opts = { noremap = true },
+		opts = { noremap = true, silent = true },
 		mode = { "n" },
 		desc = "Close all windows but this",
 	},
 	{
 		shortcut = "sd",
-		cmd = "<cmd>bd<CR>",
-		opts = { noremap = true },
+		cmd = "<cmd>lua Snacks.bufdelete.delete()<CR>",
+		opts = { noremap = true, silent = true },
 		mode = { "n" },
 		desc = "Delete current buffer",
 	},
