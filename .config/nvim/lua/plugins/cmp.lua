@@ -211,7 +211,7 @@ return {
                 },
                 keymap = { -- https://github.com/neovim/neovim/issues/21585
                     ['<C-space>'] = { 'show' },
-                    ['<CR>'] = { 'accept_and_enter', 'fallback' },
+                    ['<CR>'] = { 'fallback' },
                     ['<Tab>'] = { 'show', 'select_next', 'fallback' },
                     ['<S-Tab>'] = { 'select_prev', 'fallback' },
                     ['<Esc>'] = {
