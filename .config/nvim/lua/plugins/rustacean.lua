@@ -41,25 +41,25 @@ return {
 					standalone = false,
 					settings = {
 						["rust-analyzer"] = {
-							diagnostics = {
-								enable = true,
-								enableExperimental = true,
-							},
-							completion = {
-								autoself = { enable = true },
-								autoimport = { enable = true },
-								postfix = { enable = true },
-							},
-							imports = {
-								group = { enable = true },
-								merge = { glob = false },
-								prefix = "self",
-								preferPrelude = true,
-								granularity = {
-									enforce = true,
-									group = "crate",
-								},
-							},
+							-- diagnostics = {
+							-- 	enable = true,
+							-- 	enableExperimental = true,
+							-- },
+							-- completion = {
+							-- 	autoself = { enable = true },
+							-- 	autoimport = { enable = true },
+							-- 	postfix = { enable = true },
+							-- },
+							-- imports = {
+							-- 	group = { enable = true },
+							-- 	merge = { glob = false },
+							-- 	prefix = "self",
+							-- 	preferPrelude = true,
+							-- 	granularity = {
+							-- 		enforce = true,
+							-- 		group = "crate",
+							-- 	},
+							-- },
 							-- cargo = {
 							-- 	loadOutDirsFromCheck = true,
 							-- 	autoreload = true,
@@ -67,55 +67,55 @@ return {
 							-- 	features = "all",
 							-- 	allTargets = true,
 							-- },
-							procMacro = {
-								enable = true,
-								attributes = { enable = true },
-							},
+							-- procMacro = {
+							-- 	enable = true,
+							-- 	attributes = { enable = true },
+							-- },
 							lens = {
-								enable = true,
-								run = { enable = true },
-								debug = { enable = true },
-								implementations = { enable = true },
-								references = {
-									adt = { enable = true },
-									enumVariant = { enable = true },
-									method = { enable = true },
-									trait = { enable = true },
-								},
+								-- enable = true,
+								-- run = { enable = true },
+								-- debug = { enable = true },
+								-- implementations = { enable = true },
+								-- references = {
+								-- 	adt = { enable = true },
+								-- 	enumVariant = { enable = true },
+								-- 	method = { enable = true },
+								-- 	trait = { enable = true },
+								-- },
 							},
-							hover = {
-								actions = {
-									enable = true,
-									run = { enable = true },
-									debug = { enable = true },
-									gotoTypeDef = { enable = true },
-									implementations = { enable = true },
-									references = { enable = true },
-								},
-								links = { enable = true },
-								documentation = { enable = true },
-							},
+							-- hover = {
+							-- 	actions = {
+							-- 		enable = true,
+							-- 		run = { enable = true },
+							-- 		debug = { enable = true },
+							-- 		gotoTypeDef = { enable = true },
+							-- 		implementations = { enable = true },
+							-- 		references = { enable = true },
+							-- 	},
+							-- 	links = { enable = true },
+							-- 	documentation = { enable = true },
+							-- },
 							inlayHints = {
 								enable = true,
-								bindingModeHints = { enable = true },
-								chainingHints = { enable = true },
-								closingBraceHints = {
-									enable = true,
-									minLines = 0,
-								},
-								closureCaptureHints = { enbale = true },
-								closureReturnTypeHints = { enable = "always" },
-								lifetimeElisionHints = {
-									enable = "skip_trivial",
-									useParameterNames = true,
-								},
-								typeHints = { enable = true },
+								-- bindingModeHints = { enable = true },
+								-- chainingHints = { enable = true },
+								-- closingBraceHints = {
+								-- 	enable = true,
+								-- 	minLines = 0,
+								-- },
+								-- closureCaptureHints = { enbale = true },
+								-- closureReturnTypeHints = { enable = "always" },
+								-- lifetimeElisionHints = {
+								-- 	enable = "skip_trivial",
+								-- 	useParameterNames = true,
+								-- },
+								-- typeHints = { enable = true },
 								implicitDrops = { enable = false },
 							},
 							typing = {
 								autoClosingAngleBrackets = { enable = true },
 							},
-							interpret = { tests = true },
+							-- interpret = { tests = true },
 							checkOnSave = true,
 							check = {
 								-- https://github.com/rust-analyzer/rust-analyzer/issues/9768
