@@ -96,3 +96,5 @@ Write-Start -msg "Install Scoop's package for dev"
     scoop install sysinternals/tcpview
     scoop install zoxide
 Write-Done
+
+Read-Host
