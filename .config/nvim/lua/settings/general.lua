@@ -69,7 +69,7 @@ vim.go.cmdheight = 2
 vim.go.updatetime = 666
 
 -- Editor settings
-vim.cmd("filetype plugin indent on")
+vim.g.editorconfig = true
 vim.o.autoindent = true
 vim.o.timeoutlen = 300 -- http://stackoverflow.com/questions/2158516/delay-before-o-opens-a-new-line
 vim.o.encoding = "utf-8"
