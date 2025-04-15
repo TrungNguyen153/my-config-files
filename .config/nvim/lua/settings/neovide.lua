@@ -21,9 +21,11 @@ if vim.g.neovide then
     -- vim.keymap.set('i', '<C-S-v>', '<C-r>*') -- Paste insert mode
 
     vim.keymap.set('v', '<C-S-c>', '"+y')       -- Copy
-	vim.keymap.set('n', '<C-S-v>', 'l"+P')      -- Paste normal mode
+	vim.keymap.set('n', '<C-S-v>', '"+p')      -- Paste normal mode
 	vim.keymap.set('v', '<C-S-v>', '"+P')       -- Paste visual mode
 	vim.keymap.set('c', '<C-S-v>', '<C-r>*')    -- Paste command mode
-	vim.keymap.set('i', '<C-S-v>', '<C-r>*')    -- Paste insert mode
+	vim.keymap.set('i', '<C-S-v>', function()
+        vim.api.nvim_paste(vim.fn.getreg('+'), true, -1)
+    end, { noremap = true, silent = true })    -- Paste insert mode
 	vim.keymap.set('t', '<C-S-v>', '<C-\\><C-n>"+Pi')   -- Paste in terminal mode
 end
