@@ -1,5 +1,6 @@
 -- session management
-vim.o.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,globals,localoptions"
+-- vim.o.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,globals,localoptions"
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 return {
 	"rmagatti/auto-session",
 	enabled = not vim.g.vscode,
@@ -9,6 +10,7 @@ return {
 		auto_restore = true,
 		cwd_change_handling = true,
 		enabled = true,
+		lsp_stop_on_restore = true,
 		post_cwd_changed_cmds = function()
 			require("lualine").refresh()
 		end,
