@@ -1,5 +1,5 @@
 return {
-	"ellisonleao/gruvbox.nvim",
+	"notfirefox/gruvbox.nvim",
 	-- enable = false,
     cond = not vim.g.vscode,
     lazy = false,
@@ -30,9 +30,5 @@ return {
 			transparent_mode = false,
 		})
 
-		-- temporary way help Snacks
-		vim.api.nvim_set_hl(0, "SnacksPickerDir", { link = "GruvboxBg4" })
-		vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { link = "GruvboxGray" })
-		vim.api.nvim_set_hl(0, "SnacksPickerGitStatusUntracked", { link = "GruvboxGray" })
 	end,
 }
