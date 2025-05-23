@@ -1,11 +1,11 @@
 return {
-    "nvim-neo-tree/neo-tree.nvim",
-    dependencies = {
-        "MunifTanjim/nui.nvim",
-    },
-    event = "VeryLazy",
-	enabled = not vim.g.vscode,
-    branch = "v3.x",
+  "nvim-neo-tree/neo-tree.nvim",
+  dependencies = {
+      "MunifTanjim/nui.nvim",
+  },
+  event = "VeryLazy",
+  enabled = not vim.g.vscode,
+  branch = "v3.x",
 	-- enabled = false, -- not use yet
 	config = true,
     opts = {
