@@ -235,5 +235,12 @@ return {
 			desc = "Move Item Up",
 			noremap = true,
 		},
+		{
+			"!",
+			":lua vim.cmd.RustLsp { 'runnables', bang = true }<CR>",
+			mode = { "n" },
+			desc = "Rerun runnables",
+			noremap = true,
+		},
 	},
 }
