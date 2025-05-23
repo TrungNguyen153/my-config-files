@@ -236,7 +236,7 @@ return {
 			noremap = true,
 		},
 		{
-			"<C-R>",
+			"!",
 			":lua vim.cmd.RustLsp { 'runnables', bang = true }<CR>",
 			ft = "rust",
 			mode = { "n" },
