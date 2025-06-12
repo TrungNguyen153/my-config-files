@@ -193,10 +193,8 @@ return {
 				},
 			},
 			fuzzy = {
-				implementation = "rust",
 				sorts = { 'exact', "score", "sort_text", "kind", "label" },
 			},
-
 			cmdline = {
 				completion = {
 					list = {

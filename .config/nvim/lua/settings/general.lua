@@ -202,3 +202,6 @@ vim.g.autoformat = true
 
 -- disable legacy perl provider
 vim.g.loaded_perl_provider = false
+
+-- don't create swap files because it is very annoying
+vim.o.swapfile = false

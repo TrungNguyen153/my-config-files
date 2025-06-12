@@ -5,9 +5,9 @@ return {
 	lazy = false,
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter",
-		"L3MON4D3/LuaSnip",
 	},
 	event = "InsertCharPre",
+	config = true,
 	opts = {
 		act_as_shift_tab = true,
 		act_as_tab = true,

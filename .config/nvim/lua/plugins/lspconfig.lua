@@ -3,10 +3,13 @@
 return {
 	"neovim/nvim-lspconfig",
 	priority = 100,
+	lazy = false,
+	dependencies = {
+        'b0o/schemastore.nvim', -- adds schemas for json lsp
+    },
 	enabled = not vim.g.vscode,
 	config = function()
 		local lsp_utils = require("utils.lsp")
-		local lspconfig = require("lspconfig")
 
 		-- general LSP config
 		vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -51,63 +54,88 @@ return {
 		})
 
 		-- bash
-		lspconfig.bashls.setup({
-			on_attach = lsp_utils.on_attach,
-			capabilities = lsp_utils.capabilities(),
-		})
+		vim.lsp.enable('bashls')
+        vim.lsp.config('bashls', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+        })
 		-- yaml
-		lspconfig.yamlls.setup({
-			on_attach = lsp_utils.on_attach,
-			capabilities = lsp_utils.capabilities(),
-			settings = {
-				yaml = {
-					schemaStore = {
-						enable = false,
-						url = "https://www.schemastore.org/api/json/catalog.json",
-					},
-					schemas = require("schemastore").yaml.schemas(),
-					format = {
-						enable = true,
-					},
-				},
-			},
-		})
+		vim.lsp.enable('yamlls')
+        vim.lsp.config('yamlls', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+            settings = {
+                yaml = {
+                    schemaStore = {
+                        enable = false,
+                        url = 'https://www.schemastore.org/api/json/catalog.json',
+                    },
+                    schemas = require('schemastore').yaml.schemas(),
+                    format = {
+                        enable = true,
+                    },
+                },
+            },
+        })
 		-- json
-		lspconfig.jsonls.setup({
-			on_attach = lsp_utils.on_attach,
-			capabilities = lsp_utils.capabilities(),
-			commands = {
-				Format = {
-					function()
-						vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line("$"), 0 })
-					end,
-				},
-			},
-			settings = {
-				json = {
-					schemas = require("schemastore").json.schemas(),
-					validate = { enable = true },
-				},
-			},
-		})
-		-- docker
-		lspconfig.dockerls.setup({
-			on_attach = lsp_utils.on_attach,
-			capabilities = lsp_utils.capabilities(),
-		})
+		vim.lsp.enable('jsonls')
+        vim.lsp.config('jsonls', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+            commands = {
+                Format = {
+                    function()
+                        vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line('$'), 0 })
+                    end,
+                },
+            },
+            settings = {
+                json = {
+                    schemas = require('schemastore').json.schemas(),
+                    validate = { enable = true },
+                },
+            },
+        })
+		-- eslint
+        vim.lsp.enable('eslint')
+        vim.lsp.config('eslint', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+        })
+        -- docker
+        vim.lsp.enable('dockerls')
+        vim.lsp.config('dockerls', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+        })
+        vim.lsp.enable('docker_compose_language_service')
+        vim.lsp.config('docker_compose_language_service', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+        })
+		-- toml
+        vim.lsp.enable('taplo')
+        vim.lsp.config('taplo', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+        })
 		-- kotlin
-		lspconfig.kotlin_language_server.setup({
-
-			capabilities = lsp_utils.capabilities(),
-		})
+		vim.lsp.enable('kotlin_language_server')
+        vim.lsp.config('kotlin_language_server', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+        })
 		-- svelte
-		lspconfig.svelte.setup({
-			on_attach = lsp_utils.on_attach,
-			capabilities = lsp_utils.capabilities(),
-		})
-		lspconfig.tailwindcss.setup({
-			on_attach = lsp_utils.on_attach,
-			capabilities = lsp_utils.capabilities(),
+		vim.lsp.enable('svelte')
+        vim.lsp.config('svelte', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+        })
+		-- Tailwindcss
+		vim.lsp.enable('tailwindcss')
+        vim.lsp.config('tailwindcss', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
 			-- There add every filetype you want tailwind to work on
 			filetypes = {
 				"css",
@@ -130,34 +158,31 @@ return {
 				},
 			},
 			-- Here If any of files from list will exist tailwind lsp will activate.
-			root_dir = lspconfig.util.root_pattern(
+			root_dir = require('lspconfig').util.root_pattern(
 				"tailwind.config.js",
 				"tailwind.config.ts",
 				"postcss.config.js",
 				"postcss.config.ts",
 				"windi.config.ts"
 			),
-		})
+        })
 		-- C/C++
-		lspconfig.clangd.setup({
-			on_attach = lsp_utils.on_attach,
-			capabilities = lsp_utils.capabilities(),
+		vim.lsp.enable('clangd')
+        vim.lsp.config('clangd', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
 			cmd = {
 				"clangd",
 				"--fallback-style=webkit",
 			},
-		})
-		-- toml
-		lspconfig.taplo.setup({
-			on_attach = lsp_utils.on_attach,
-			capabilities = lsp_utils.capabilities(),
-		})
+        })
 		-- sql
-		lspconfig.sqlls.setup({
-			on_attach = lsp_utils.on_attach,
-			capabilities = lsp_utils.capabilities(),
+		vim.lsp.enable('sqlls')
+        vim.lsp.config('sqlls', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
 			cmd = { "sql-language-server", "up", "--method", "stdio" },
-		})
+        })
 
 		-- lua
 		local lua_runtime = {
@@ -167,7 +192,8 @@ return {
 		for _, v in pairs(vim.api.nvim_get_runtime_file("", true)) do
 			lua_runtime[v] = true
 		end
-		lspconfig.lua_ls.setup({
+		vim.lsp.enable('lua_ls')
+		vim.lsp.config('lua_ls', {
 			on_attach = lsp_utils.on_attach,
 			capabilities = lsp_utils.capabilities(),
 			settings = {
@@ -200,7 +226,8 @@ return {
 			},
 		})
 
-		lspconfig.wgsl_analyzer.setup({
+		vim.lsp.enable('wgsl_analyzer')
+		vim.lsp.config('wgsl_analyzer', {
 			on_attach = lsp_utils.on_attach,
 			capabilities = lsp_utils.capabilities(),
 			settings = {
