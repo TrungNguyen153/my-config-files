@@ -18,6 +18,7 @@ return {
 
 			},
 			automatic_installation = true,
+			automatic_enable = false,
 		})
 		require("mason-tool-installer").setup({
 			ensure_installed = {

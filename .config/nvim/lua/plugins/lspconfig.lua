@@ -151,20 +151,25 @@ return {
 				"vue",
 				"rust",
 			},
-			init_options = {
-				-- There you can set languages to be considered as different ones by tailwind lsp I guess same as includeLanguages in VSCod
-				userLanguages = {
-					rust = "html",
-				},
-			},
+			settings = {
+				tailwindCSS = {
+					emmetCompletions = true,
+					experimental = {
+						classRegex = { "class\\s*:\\s*\"([^\"]*)" },
+					},
+					includeLanguages = {
+						rust = "html",
+					}
+				}
+			}
 			-- Here If any of files from list will exist tailwind lsp will activate.
-			root_dir = require('lspconfig').util.root_pattern(
-				"tailwind.config.js",
-				"tailwind.config.ts",
-				"postcss.config.js",
-				"postcss.config.ts",
-				"windi.config.ts"
-			),
+			-- root_dir = require('lspconfig').util.root_pattern(
+			-- 	"tailwind.config.js",
+			-- 	"tailwind.config.ts",
+			-- 	"postcss.config.js",
+			-- 	"postcss.config.ts",
+			-- 	"windi.config.ts"
+			-- ),
         })
 		-- C/C++
 		vim.lsp.enable('clangd')
