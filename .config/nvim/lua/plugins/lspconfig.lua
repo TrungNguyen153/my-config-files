@@ -176,9 +176,21 @@ return {
         vim.lsp.config('clangd', {
             on_attach = lsp_utils.on_attach,
             capabilities = lsp_utils.capabilities(),
+			single_file_support = true,
 			cmd = {
 				"clangd",
+				"--background-index",
+				"--clang-tidy",
+				"--header-insertion=iwyu",
+				"--completion-style=detailed",
+				"--function-arg-placeholders",
 				"--fallback-style=webkit",
+			},
+			init_options = {
+				usePlaceholders = true,
+				completeUnimported = true,
+				clangdFileStatus = true,
+				-- compilationDatabasePath= "./compile_commands",
 			},
         })
 		-- sql
@@ -401,6 +413,14 @@ return {
 			mode = { "v" },
 			desc = "Range Code Action",
 			noremap = true,
+		},
+		{
+			"si",
+			"<Cmd>ClangdSwitchSourceHeader<CR>",
+			mode = { 'n' },
+			desc = "Switch Source Header (C/C++)",
+			noremap = true,
+			silent = true
 		},
 	},
 }
