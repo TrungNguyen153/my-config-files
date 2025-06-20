@@ -10,6 +10,7 @@ return {
 	enabled = not vim.g.vscode,
 	config = function()
 		local lsp_utils = require("utils.lsp")
+		local util = require 'lspconfig.util'
 
 		-- general LSP config
 		vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -185,6 +186,7 @@ return {
 				"--completion-style=detailed",
 				"--function-arg-placeholders",
 				"--fallback-style=webkit",
+				"--query-driver=C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.40.33807/bin/Hostx64/x64/cl.exe"
 			},
 			init_options = {
 				usePlaceholders = true,
@@ -193,6 +195,15 @@ return {
 				-- compilationDatabasePath= "./compile_commands",
 			},
         })
+		vim.lsp.enable('neocmake')
+		vim.lsp.config('neocmake', {
+			on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+			
+			init_options = {
+				buildDirectory = "build",
+			},
+		})
 		-- sql
 		vim.lsp.enable('sqlls')
         vim.lsp.config('sqlls', {

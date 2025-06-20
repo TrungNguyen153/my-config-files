@@ -120,29 +120,6 @@ return {
 			return vim.api.nvim_create_augroup(name, { clear = true })
 		end
 
-		-- local packer_group = augroup("LazyDone")
-		-- autocmd("User", {
-		-- 	group = packer_group,
-		-- 	pattern = "LazyUpdate",
-		-- 	callback = function() -- Autocompile colorscheme
-		-- 		require("catppuccin").compile()
-		-- 	end,
-		-- })
-
-		-- autocmd({ "ModeChanged" }, {
-		-- 	desc = "Stop snippets when you leave to normal mode",
-		-- 	pattern = "*",
-		-- 	callback = function()
-		-- 		if
-		-- 			((vim.v.event.old_mode == "s" and vim.v.event.new_mode == "n") or vim.v.event.old_mode == "i")
-		-- 			and require("luasnip").session.current_nodes[vim.api.nvim_get_current_buf()]
-		-- 			and not require("luasnip").session.jump_active
-		-- 		then
-		-- 			require("luasnip").unlink_current()
-		-- 		end
-		-- 	end,
-		-- })
-
 		autocmd({ "BufRead" }, {
 			desc = "Prevent accidental writes to buffers that shouldn't be edited",
 			pattern = "*.orig",
@@ -172,5 +149,10 @@ return {
                 end
             end,
         })
+
+		autocmd({"BufRead", "BufNewFile"}, {
+			pattern = {"CMakeLists.txt", "*.cmake"},
+			command = "set filetype=cmake",
+		})
 	end,
 }
