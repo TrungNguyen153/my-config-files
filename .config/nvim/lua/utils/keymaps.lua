@@ -217,13 +217,6 @@ local keymap_table = {
 	},
 	-- call twice make the cursor go into the float window. good for navigating big docs
 	{
-		shortcut = "<leader>c",
-		cmd = '"*y',
-		mode = { "v" },
-		desc = "Copy selection to system clipboard",
-		opts = { noremap = true },
-	},
-	{
 		shortcut = "<C-h>",
 		cmd = "<C-w>h",
 		mode = { "n" },
