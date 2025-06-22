@@ -50,17 +50,21 @@ return {
                 long = { show = true, max_length = 40 }, -- whether to show long message
             },
             cmake_executor = {
-              name = "terminal",
+              name = "quickfix",
               opts = {
                 direction = "horizontal",
                 split_size = 30,
+                auto_close_when_success = false,
+                size = 15,
               },
             },
             cmake_runner = {
               name = "terminal",
               opts = {
                 direction = "horizontal",
-                split_size = 30,
+                split_size = 25,
+                auto_close_when_success = false,
+                size = 25,
               },
             },
             cmake_notifications = {
