@@ -11,10 +11,10 @@ local powershell_options = {
 	-- shellxquote = "",
 
 	-- This for NuShell
-	shell = "nu",
-	shellcmdflag = "-c",
-	shellquote = "",
-	shellxquote = "",
+	-- shell = "nu",
+	-- shellcmdflag = "-c",
+	-- shellquote = "",
+	-- shellxquote = "",
 }
 for option, value in pairs(powershell_options) do
 	vim.opt[option] = value

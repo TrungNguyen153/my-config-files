@@ -46,8 +46,18 @@ return {
                 long = { show = true, max_length = 40 }, -- whether to show long message
             },
             cmake_executor = {
-              name = "quickfix",
-              opts = {},
+              name = "toggleterm",
+              opts = {
+                direction = "horizontal",
+                split_size = 30,
+              },
+            },
+            cmake_runner = {
+              name = "toggleterm",
+              opts = {
+                direction = "horizontal",
+                split_size = 30,
+              },
             },
             cmake_notifications = {
                 runner = { enabled = true },
@@ -56,7 +66,7 @@ return {
                 refresh_rate_ms = 100, -- how often to iterate icons
               },
               cmake_virtual_text_support = true, -- Show the target related to current file using virtual text (at right corner)
-              cmake_use_scratch_buffer = true, -- A buffer that shows what cmake-tools has done
+              cmake_use_scratch_buffer = false, -- A buffer that shows what cmake-tools has done
         })
     end,
     keys = {
