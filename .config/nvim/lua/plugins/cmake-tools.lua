@@ -28,7 +28,11 @@ return {
         require("cmake-tools").setup({
             cmake_command = "cmake",
             cmake_regenerate_on_save = true,
-            cmake_generate_options = { "-G", "Ninja", "-DCMAKE_EXPORT_COMPILE_COMMANDS=1" }, -- Use Ninja for MSVC
+            cmake_generate_options = { 
+                "-G",
+                "Ninja",
+                "-DCMAKE_EXPORT_COMPILE_COMMANDS=1",
+            }, -- Use Ninja for MSVC
             cmake_build_options = {},
             cmake_compile_commands_options = {
                 action = "soft_link",
@@ -46,14 +50,14 @@ return {
                 long = { show = true, max_length = 40 }, -- whether to show long message
             },
             cmake_executor = {
-              name = "toggleterm",
+              name = "terminal",
               opts = {
                 direction = "horizontal",
                 split_size = 30,
               },
             },
             cmake_runner = {
-              name = "toggleterm",
+              name = "terminal",
               opts = {
                 direction = "horizontal",
                 split_size = 30,
