@@ -9,6 +9,7 @@ return {
 		"rafamadriz/friendly-snippets", -- snippets for many languages
 		"chrisgrieser/nvim-scissors", -- snippet editor
 		"xzbdmw/colorful-menu.nvim", -- adds highlights to the auto-complete options
+		'Kaiser-Yang/blink-cmp-avante', -- avante ai
 	},
 	config = function()
 		require("colorful-menu").setup({})
@@ -130,7 +131,7 @@ return {
 					local is_comment = success
 						and node
 						and vim.tbl_contains(
-							{ "comment", "line_comment", "block_comment", "doc", "doc_comment" },
+							{ 'avante', "comment", "line_comment", "block_comment", "doc", "doc_comment" },
 							node:type()
 						)
 					if is_comment then
@@ -139,6 +140,15 @@ return {
 						return { "lsp", "snippets", "path" }
 					end
 				end,
+				providers = {
+					avante = {
+						module = 'blink-cmp-avante',
+						name = 'Avante',
+						opts = {
+							-- options for blink-cmp-avante
+						}
+					}
+				},
 			},
 			completion = {
 				ghost_text = { enabled = true },
