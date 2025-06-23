@@ -1,4 +1,4 @@
--- makes better line moving
+-- makes better line/block moving
 
 return {
 	"echasnovski/mini.move",

@@ -1,11 +1,14 @@
 -- https://github.com/Shatur/neovim-tasks
 
 return {
-    "Shatur/neovim-tasks",
+    -- "Shatur/neovim-tasks",
+    "TrungNguyen153/neovim-tasks",
+    -- dir = "E:/c++/neovim-tasks",
+    -- enabled = false,
     event = "VeryLazy",
     config = function()
-        vim.keymap.set( "n", "<leader>cC", [[:Task start cmake configure<cr>]], { silent = true } )
-        vim.keymap.set( "n", "<leader>cD", [[:Task start cmake configureDebug<cr>]], { silent = true } )
+        vim.keymap.set( "n", "<leader>cg", [[:Task start cmake configure<cr>]], { silent = true } )
+        vim.keymap.set( "n", "<leader>cG", [[:Task start cmake configureDebug<cr>]], { silent = true } )
         vim.keymap.set( "n", "<leader>cP", [[:Task start cmake reconfigure<cr>]], { silent = true } )
         vim.keymap.set( "n", "<leader>cT", [[:Task start cmake ctest<cr>]], { silent = true } )
         vim.keymap.set( "n", "<leader>cK", [[:Task start cmake clean<cr>]], { silent = true } )

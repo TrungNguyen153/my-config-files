@@ -27,7 +27,6 @@ return {
 					filetypes = { "markdown", "tex", "asciidoc", "norg" },
 				}),
 				none_ls.builtins.diagnostics.hadolint,
-				none_ls.builtins.diagnostics.selene,
 				none_ls.builtins.diagnostics.write_good,
 				none_ls.builtins.diagnostics.markdownlint,
 				none_ls.builtins.diagnostics.yamllint,

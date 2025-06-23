@@ -195,49 +195,21 @@ return {
 
     end,
     keys = {
+        -- LSP
+        { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition", silent = true },
+        { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration", silent = true },
+        { "gr", function() Snacks.picker.lsp_references({include_declaration = false}) end, nowait = true, desc = "References", silent = true },
+        { "gi", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation", silent = true },
+        { "gt", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto Type Definition", silent = true },
+        { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols", silent = true },
+        { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols", silent = true },
         {
-            "gD",
-            vim.lsp.buf.declaration,
-            mode = {"n"},
-            desc = "Go to declaration",
-            silent = true
-        }, {
-            "gt",
-            vim.lsp.buf.type_definition,
-            mode = {"n"},
-            desc = "Go to type definition",
-            silent = true
-        }, {
-            "gd",
-            vim.lsp.buf.definition,
-            mode = {"n"},
-            desc = "Go to definition",
-            silent = true
-        }, {
             "gw",
             ":vsplit | lua vim.lsp.buf.definition()<CR>",
             mode = {"n"},
             desc = "Go to definition splited",
             silent = true
-        }, {
-            "gi",
-            function()
-                -- vim.lsp.buf.implementation,\
-                Snacks.picker.lsp_implementations()
-            end,
-            mode = {"n"},
-            desc = "Go to implementation",
-            silent = true
-        }, {
-            "gr",
-            function()
-                -- vim.lsp.buf.references({ includeDeclaration = false })
-                Snacks.picker.lsp_references({include_declaration = false})
-            end,
-            mode = {"n"},
-            desc = "Find references",
-            silent = true
-        }, {
+        },{
             "<M-s>",
             function()
                 local blink_window = require 'blink.cmp.completion.windows.menu'
