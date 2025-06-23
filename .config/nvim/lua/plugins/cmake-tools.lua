@@ -3,7 +3,7 @@
 return {
     "Civitasv/cmake-tools.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    enabled = not vim.g.vscode,
+    enabled = false, -- not vim.g.vscode
     lazy = true,
     init = function()
       local loaded = false

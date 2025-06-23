@@ -1,7 +1,7 @@
 -- debug adapters. I probably want to remove this
 return {
 	"mfussenegger/nvim-dap", -- debug adapter for debugging
-	enabled = false,
+	enabled = not vim.g.vscode,
 	event = "VeryLazy",
 	dependencies = {
 		"rcarriga/nvim-dap-ui", -- ui for nvim-dap

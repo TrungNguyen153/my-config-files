@@ -2,7 +2,7 @@ vim.g.neovide_no_idle = true
 vim.g.neovide_input_use_logo = true
 vim.g.neovide_cursor_antialiasing = true
 vim.g.neovide_input_macos_alt_is_meta = true
-vim.g.neovide_transparency = 1
+vim.g.neovide_opacity = 1
 vim.g.neovide_theme = "dark"
 vim.g.neovide_refresh_rate = 144
 vim.g.neovide_cursor_animation_length = 0.03
@@ -32,8 +32,8 @@ if vim.g.neovide then
     -- zoom setting
     vim.api.nvim_set_keymap("n", "<C-=>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>", { silent = true })
     vim.api.nvim_set_keymap("n", "<C-->", ":lua vim.g.neovide_scale_factor = math.max(vim.g.neovide_scale_factor - 0.1,  0.1)<CR>", { silent = true })
-    vim.api.nvim_set_keymap("n", "<C-+>", ":lua vim.g.neovide_transparency = math.min(vim.g.neovide_transparency + 0.05, 1.0)<CR>", { silent = true })
-    vim.api.nvim_set_keymap("n", "<C-_>", ":lua vim.g.neovide_transparency = math.max(vim.g.neovide_transparency - 0.05, 0.0)<CR>", { silent = true })
+    vim.api.nvim_set_keymap("n", "<C-+>", ":lua vim.g.neovide_opacity = math.min(vim.g.neovide_opacity + 0.05, 1.0)<CR>", { silent = true })
+    vim.api.nvim_set_keymap("n", "<C-_>", ":lua vim.g.neovide_opacity = math.max(vim.g.neovide_opacity - 0.05, 0.0)<CR>", { silent = true })
     vim.api.nvim_set_keymap("n", "<C-0>", ":lua vim.g.neovide_scale_factor = 1.0<CR>", { silent = true })
-    vim.api.nvim_set_keymap("n", "<C-)>", ":lua vim.g.neovide_transparency = 0.9<CR>", { silent = true })
+    vim.api.nvim_set_keymap("n", "<C-)>", ":lua vim.g.neovide_opacity = 0.9<CR>", { silent = true })
 end

@@ -10,11 +10,9 @@ return {
 	lazy = false, -- the plugin is already lazy
 	init = function()
 		vim.g.rustaceanvim = function()
-			local lsp_utils = require("utils.lsp")
 			require("crates").setup({
 				lsp = {
 					enabled = true,
-					on_attach = lsp_utils.on_attach,
 					actions = true,
 					completion = true,
 					hover = true,
@@ -36,8 +34,6 @@ return {
 					},
 				},
 				server = {
-					on_attach = lsp_utils.on_attach,
-					capabilities = lsp_utils.capabilities(),
 					standalone = false,
 					settings = {
 						["rust-analyzer"] = {

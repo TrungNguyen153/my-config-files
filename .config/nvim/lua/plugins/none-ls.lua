@@ -10,7 +10,6 @@ return {
 		"ThePrimeagen/refactoring.nvim", -- provide refactoring actions
 	},
 	config = function()
-		local on_attach = require("utils.lsp").on_attach
 		require("refactoring").setup({})
 		local none_ls = require("null-ls")
 		none_ls.setup({
@@ -49,7 +48,6 @@ return {
 				}),
 				none_ls.builtins.hover.dictionary,
 			},
-			on_attach = on_attach,
 		})
 	end,
 	keys = {
