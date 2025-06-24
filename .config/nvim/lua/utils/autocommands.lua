@@ -168,8 +168,9 @@ return {
             command = "set filetype=cmake"
         })
 
+		-- close those buffer when press 'q'
         vim.api.nvim_create_autocmd('FileType', {
-            pattern = { 'qf', 'help', 'checkhealth' },
+            pattern = { 'qf', 'help', 'checkhealth', 'dap-repl' },
             callback = function()
                 vim.keymap.set('n', 'q', '<cmd>bd<cr>', { silent = true, buffer = true })
             end,
