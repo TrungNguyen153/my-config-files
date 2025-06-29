@@ -37,15 +37,15 @@ return {
 					standalone = false,
 					settings = {
 						["rust-analyzer"] = {
-							-- diagnostics = {
-							-- 	enable = true,
-							-- 	enableExperimental = true,
-							-- },
-							-- completion = {
-							-- 	autoself = { enable = true },
-							-- 	autoimport = { enable = true },
-							-- 	postfix = { enable = true },
-							-- },
+							diagnostics = {
+								enable = true,
+								enableExperimental = true,
+							},
+							completion = {
+								autoself = { enable = true },
+								autoimport = { enable = true },
+								postfix = { enable = true },
+							},
 							-- imports = {
 							-- 	group = { enable = true },
 							-- 	merge = { glob = false },
@@ -67,45 +67,32 @@ return {
 							-- 	enable = true,
 							-- 	attributes = { enable = true },
 							-- },
-							lens = {
-								-- enable = true,
-								-- run = { enable = true },
-								-- debug = { enable = true },
-								-- implementations = { enable = true },
-								-- references = {
-								-- 	adt = { enable = true },
-								-- 	enumVariant = { enable = true },
-								-- 	method = { enable = true },
-								-- 	trait = { enable = true },
-								-- },
-							},
-							-- hover = {
-							-- 	actions = {
-							-- 		enable = true,
-							-- 		run = { enable = true },
-							-- 		debug = { enable = true },
-							-- 		gotoTypeDef = { enable = true },
-							-- 		implementations = { enable = true },
-							-- 		references = { enable = true },
+							-- lens = {
+							-- 	enable = true,
+							-- 	run = { enable = true },
+							-- 	debug = { enable = true },
+							-- 	implementations = { enable = true },
+							-- 	references = {
+							-- 		adt = { enable = true },
+							-- 		enumVariant = { enable = true },
+							-- 		method = { enable = true },
+							-- 		trait = { enable = true },
 							-- 	},
-							-- 	links = { enable = true },
-							-- 	documentation = { enable = true },
 							-- },
+							hover = {
+								actions = {
+									enable = true,
+									run = { enable = true },
+									debug = { enable = true },
+									gotoTypeDef = { enable = true },
+									implementations = { enable = true },
+									references = { enable = true },
+								},
+								links = { enable = true },
+								documentation = { enable = true },
+							},
 							inlayHints = {
 								enable = true,
-								-- bindingModeHints = { enable = true },
-								-- chainingHints = { enable = true },
-								-- closingBraceHints = {
-								-- 	enable = true,
-								-- 	minLines = 0,
-								-- },
-								-- closureCaptureHints = { enbale = true },
-								-- closureReturnTypeHints = { enable = "always" },
-								-- lifetimeElisionHints = {
-								-- 	enable = "skip_trivial",
-								-- 	useParameterNames = true,
-								-- },
-								-- typeHints = { enable = true },
 								implicitDrops = { enable = false },
 							},
 							typing = {
@@ -229,6 +216,20 @@ return {
 			":RustLsp moveItem up<CR>",
 			mode = { "n" },
 			desc = "Move Item Up",
+			noremap = true,
+		},
+		{
+			"<leader>rc",
+			":RustLsp flyCheck<CR>",
+			mode = { "n" },
+			desc = "Run fly check",
+			noremap = true,
+		},
+		{
+			"<leader>rC",
+			":RustLsp flyCheck cancel<CR>",
+			mode = { "n" },
+			desc = "Clear last run fly check",
 			noremap = true,
 		},
 		{
