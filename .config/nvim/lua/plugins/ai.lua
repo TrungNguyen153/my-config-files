@@ -25,20 +25,11 @@ return {
     opts = {
         ---@alias avante.ProviderName "claude" | "openai" | "azure" | "gemini" | "vertex" | "cohere" | "copilot" | "bedrock" | "ollama" | string
         ---@type avante.ProviderName
-        provider = "gemini",
+        provider = "copilot",
         -- https://github.com/yetone/avante.nvim/blob/main/lua/avante/config.lua
         providers = {
-            claude = {
-                endpoint = "https://api.anthropic.com",
-                model = "claude-sonnet-4-20250514",
-                timeout = 30000, -- Timeout in milliseconds
-                extra_request_body = {
-                    temperature = 0.75,
-                    max_tokens = 20480,
-                },
-            },
             ---@type AvanteSupportedProvider
-            gemini = {
+            gemini_2_5 = {
                 endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
                 model = "gemini-2.5-flash",
                 timeout = 30000, -- Timeout in milliseconds
@@ -57,5 +48,21 @@ return {
         "MunifTanjim/nui.nvim",
         "folke/snacks.nvim", -- for input provider snacks
         "nvim-tree/nvim-web-devicons",
+        {
+            'zbirenbaum/copilot.lua',
+            opts = {
+              panel = {
+                enabled = false,
+              },
+              suggestion = {
+                auto_trigger = true,
+                hide_during_completion = false,
+                keymap = {
+                  accept = '<Tab>',
+                },
+              },
+            },
+            config = true
+        }
     },
 }
