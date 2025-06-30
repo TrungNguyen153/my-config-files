@@ -27,19 +27,7 @@ return {
         ---@type avante.ProviderName
         provider = "copilot",
         -- https://github.com/yetone/avante.nvim/blob/main/lua/avante/config.lua
-        providers = {
-            ---@type AvanteSupportedProvider
-            gemini_2_5 = {
-                endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
-                model = "gemini-2.5-flash",
-                timeout = 30000, -- Timeout in milliseconds
-                extra_request_body = {
-                    generationConfig = {
-                        temperature = 0.75,
-                    },
-                },
-            },
-        },
+        providers = { },
     },
 
     dependencies = {
