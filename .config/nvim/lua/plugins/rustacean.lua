@@ -9,6 +9,7 @@ return {
 	},
 	lazy = false, -- the plugin is already lazy
 	init = function()
+		
 		vim.g.rustaceanvim = function()
 			require("crates").setup({
 				lsp = {
@@ -23,8 +24,13 @@ return {
 					},
 				},
 			})
+			local executors = require('rustaceanvim.executors')
 			return {
 				tools = {
+					--- options right now: termopen / quickfix / toggleterm / vimux
+					executor = executors.toggleterm,
+					test_executor = executors.toggleterm,
+					crate_test_executor = executors.toggleterm,
 					reload_workspace_from_cargo_toml = true,
 					hover_actions = {
 						replace_builtin_hover = false,

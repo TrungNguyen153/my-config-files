@@ -170,9 +170,9 @@ return {
 
 		-- close those buffer when press 'q'
         vim.api.nvim_create_autocmd('FileType', {
-            pattern = { 'qf', 'help', 'checkhealth', 'dap-repl' },
+            pattern = { 'qf', 'help', 'checkhealth', 'dap-repl', 'toggleterm' },
             callback = function()
-                vim.keymap.set('n', 'q', '<cmd>bd<cr>', { silent = true, buffer = true })
+                vim.keymap.set('n', 'q', '<cmd>bd!<cr>', { silent = true, buffer = true })
             end,
         })
 
