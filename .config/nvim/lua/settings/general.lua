@@ -63,7 +63,7 @@ vim.go.grepformat = "%f:%l:%c:%m"
 vim.g.localvimrc_ask = 0
 
 -- size of cmd bar
-vim.go.cmdheight = 2
+vim.go.cmdheight = 0
 -- You will have bad experience for diagnostic messages when it's default 4000.
 -- this is time trigger CursorHold[i] -> Laggy if large text file
 vim.go.updatetime = 666
