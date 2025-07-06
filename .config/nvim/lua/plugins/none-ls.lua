@@ -41,7 +41,7 @@ return {
 						end
 					end,
 				}),
-				none_ls.builtins.code_actions.gitsigns,
+				-- none_ls.builtins.code_actions.gitsigns,
 				none_ls.builtins.code_actions.refactoring.with({
 					filetypes = { "go", "javascript", "lua", "python", "typescript", "ruby", "java", "php" },
 				}),
