@@ -113,23 +113,24 @@ return {
         -- svelte
         vim.lsp.enable('svelte')
 
-        -- Tailwindcss
-        vim.lsp.config('tailwindcss', {
-            -- There add every filetype you want tailwind to work on
-            filetypes = {
-                "css", "scss", "sass", "postcss", "html", "javascript",
-                "javascriptreact", "typescript", "typescriptreact", "svelte",
-                "vue", "rust"
-            },
-            settings = {
-                tailwindCSS = {
-                    emmetCompletions = true,
-                    experimental = {classRegex = {"class\\s*:\\s*\"([^\"]*)"}},
-                    includeLanguages = {rust = "html"}
-                }
-            }
-        })
-        vim.lsp.enable('tailwindcss')
+        -- Using tailwind-tools
+        -- -- Tailwindcss
+        -- vim.lsp.config('tailwindcss', {
+        --     -- There add every filetype you want tailwind to work on
+        --     filetypes = {
+        --         "css", "scss", "sass", "postcss", "html", "javascript",
+        --         "javascriptreact", "typescript", "typescriptreact", "svelte",
+        --         "vue", "rust"
+        --     },
+        --     settings = {
+        --         tailwindCSS = {
+        --             emmetCompletions = true,
+        --             experimental = {classRegex = {"class\\s*:\\s*\"([^\"]*)"}},
+        --             includeLanguages = {rust = "html"}
+        --         }
+        --     }
+        -- })
+        -- vim.lsp.enable('tailwindcss')
 
         -- CMake
         vim.lsp.config('neocmake', {init_options = {buildDirectory = "build"}})
