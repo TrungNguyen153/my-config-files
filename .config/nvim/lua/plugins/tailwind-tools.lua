@@ -1,6 +1,7 @@
 return {
     "TrungNguyen153/tailwind-tools.nvim",
     -- dir = "E:/rust-workspace/tailwind-tools.nvim",
+    -- dir = "C:/Users/OS/Desktop/Workspace/tailwind-tools.nvim",
     name = "tailwind-tools",
     build = ":UpdateRemotePlugins", 
     dependencies = {
@@ -13,7 +14,8 @@ return {
                 emmetCompletions = true,
                 experimental = {
                     classRegex = {
-                        "class\\s*:\\s*\"([^\"]*)" -- dioxus
+                        -- "class\\s*:\\s*\"([^\"]*)", -- dioxus,
+                        "class\\s*:\\s*\"(.*)\"", "\"([^\"]*)",
                     }
                 },
                 includeLanguages = {
@@ -23,11 +25,7 @@ return {
         },
         extension = {
             queries = {
-                "rust",
-            }, -- a list of filetypes having custom `class` queries
-            patterns = { -- a map of filetypes to Lua pattern lists
-            --   rust = { "class=[\"']([^\"']+)[\"']" },
-              -- javascript = { "clsx%(([^)]+)%)" },
+                -- "rust",
             },
         },
     }
