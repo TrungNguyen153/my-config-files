@@ -15,7 +15,7 @@ return {
                 experimental = {
                     classRegex = {
                         -- "class\\s*:\\s*\"([^\"]*)", -- dioxus,
-                        "class\\s*:\\s*\"(.*)\"", "\"([^\"]*)",
+                        "\"([^\"]*)\"",
                     }
                 },
                 includeLanguages = {
