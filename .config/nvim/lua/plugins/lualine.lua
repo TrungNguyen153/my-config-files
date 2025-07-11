@@ -56,6 +56,11 @@ return {
 							return ""
 						end
 					end,
+					{
+						require("noice").api.status.command.get,
+						cond = require("noice").api.status.command.has,
+						color = { fg = "#ff9e64" },
+					},
 					search_result,
 					"encoding",
 					"filetype",
