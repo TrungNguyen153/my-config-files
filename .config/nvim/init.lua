@@ -14,6 +14,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   end
 vim.opt.rtp:prepend(lazypath)
 
+require('utils.custom_fold')
 require("settings.general")
 require("settings.gui")
 require("settings.neovide")

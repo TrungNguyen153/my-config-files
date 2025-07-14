@@ -4,11 +4,9 @@ vim.o.guifont = "RobotoMono Nerd Font Propo:h8.5"
 -- Remove toolbar
 -- lua api seems to not be able to access this option
 vim.cmd("set guioptions-=T")
-vim.o.inccommand = "nosplit"
 
 vim.o.background = "dark"
 vim.g.base16colorspace = 256
-vim.o.foldenable = false
 -- https://github.com/vim/vim/issues/1735#issuecomment-383353563
 -- vim.o.lazyredraw = true
 -- No more beeps

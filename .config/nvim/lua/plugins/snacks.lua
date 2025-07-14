@@ -23,7 +23,7 @@ return {
 
 		statuscolumn = {
 			enabled = true,
-			left = { 'sign', 'mark' }, -- priority of signs on the left (high to low)
+			left = { 'sign', 'fold', 'mark' }, -- priority of signs on the left (high to low)
             right = { 'git' },                 -- priority of signs on the right (high to low)
 		},
 		
