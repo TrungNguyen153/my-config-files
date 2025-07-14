@@ -49,13 +49,6 @@ local keymap_table = {
 		opts = { noremap = true, silent = true },
 	},
 	{
-		shortcut = "p",
-		cmd = '<Cmd>silent! normal! "_dP<CR>',
-		mode = { "x" },
-		desc = "Smarter Paste in Visual (won't yank deleted content)",
-		opts = { noremap = true },
-	},
-	{
 		shortcut = "dd",
 		cmd = function()
 			if vim.api.nvim_get_current_line():match("^%s*$") then
