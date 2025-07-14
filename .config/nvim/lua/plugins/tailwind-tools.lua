@@ -14,13 +14,15 @@ return {
                 emmetCompletions = true,
                 experimental = {
                     classRegex = {
-                        -- "class\\s*:\\s*\"([^\"]*)", -- dioxus,
-                        "\"([^\"]*)\"",
+                        {
+                            "class\\s*[:=][^\"|,;]*([^,;]*)[,;]", -- (1) open match
+                            "\"([^\"]*)\"", -- filter inner open match (1)
+                        }
                     }
                 },
-                includeLanguages = {
-                    rust = "html"
-                }
+                -- includeLanguages = {
+                --     rust = "html"
+                -- }
             }
         },
         extension = {
