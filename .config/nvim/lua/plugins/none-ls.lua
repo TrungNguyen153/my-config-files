@@ -7,10 +7,8 @@ return {
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-treesitter/nvim-treesitter",
-		"ThePrimeagen/refactoring.nvim", -- provide refactoring actions
 	},
 	config = function()
-		require("refactoring").setup({})
 		local none_ls = require("null-ls")
 		none_ls.setup({
 			sources = {
@@ -41,112 +39,11 @@ return {
 						end
 					end,
 				}),
-				-- none_ls.builtins.code_actions.gitsigns,
-				none_ls.builtins.code_actions.refactoring.with({
-					filetypes = { "go", "javascript", "lua", "python", "typescript", "ruby", "java", "php" },
-				}),
 				none_ls.builtins.hover.dictionary,
 			},
 		})
 	end,
 	keys = {
-		{
-			"<leader>nI",
-			":Refactor inline_func",
-			mode = { "n" },
-			desc = "Inline Function",
-			noremap = true,
-		},
-		{
-			"<leader>nb",
-			":Refactor extract_block",
-			mode = { "n" },
-			desc = "Extract Block",
-			noremap = true,
-		},
-		{
-			"<leader>nc",
-			'<cmd>lua require("refactoring").debug.cleanup({})<CR>',
-			mode = { "n" },
-			desc = "Cleanup",
-			noremap = true,
-		},
-		{
-			"<leader>nf",
-			":Refactor extract_block_to_file",
-			mode = { "n" },
-			desc = "Extract Block to File",
-			noremap = true,
-		},
-		{
-			"<leader>ni",
-			":Refactor inline_var",
-			mode = { "n" },
-			desc = "Inline Variable",
-			noremap = true,
-		},
-		{
-			"<leader>np",
-			'<cmd>lua require("refactoring").debug.printf()<CR>',
-			mode = { "n" },
-			desc = "Printf",
-			noremap = true,
-		},
-		{
-			"<leader>nr",
-			'<cmd>lua require("refactoring").select_refactor()<CR>',
-			mode = { "n" },
-			desc = "Refactors",
-			noremap = true,
-		},
-		{
-			"<leader>nv",
-			'<cmd>lua require("refactoring").debug.print_var()<CR>',
-			mode = { "n" },
-			desc = "Print Variable",
-			noremap = true,
-		},
-		{
-			"<leader>ne",
-			":Refactor extract",
-			mode = { "v" },
-			desc = "Extract",
-			noremap = true,
-		},
-		{
-			"<leader>nf",
-			":Refactor extract_to_file ",
-			mode = { "v" },
-			desc = "Extract to file",
-			noremap = true,
-		},
-		{
-			"<leader>ni",
-			":Refactor inline_var",
-			mode = { "v" },
-			desc = "Inline Variable",
-			noremap = true,
-		},
-		{
-			"<leader>np",
-			'<cmd>lua require("refactoring").debug.print_var()<CR>',
-			mode = { "v" },
-			desc = "Print Variable",
-			noremap = true,
-		},
-		{
-			"<leader>nr",
-			'<cmd>lua require("refactoring").select_refactor()<CR>',
-			mode = { "v" },
-			desc = "Refactors",
-			noremap = true,
-		},
-		{
-			"<leader>nv",
-			":Refactor extract_var ",
-			mode = { "v" },
-			desc = "Extract Variable",
-			noremap = true,
-		},
+		
 	},
 }
