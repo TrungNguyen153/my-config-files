@@ -118,10 +118,11 @@ vim.o.wildignore =
 	".hg,.svn,*~,*.png,*.jpg,*.gif,*.settings,Thumbs.db,*.min.js,*.swp,publish/*,intermediate/*,*.o,*.hi,Zend,vendor,*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite"
 
 -- Use wide tabs
-vim.o.shiftwidth = 2
-vim.o.softtabstop = 2
-vim.o.tabstop = 2
-vim.o.expandtab = true
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.tabstop = 2
+-- expandtab will make neovim overwrite those tab above when enter buffer
+vim.opt.expandtab = false
 
 -- Backspace over newline
 vim.o.backspace = "indent,eol,start"
