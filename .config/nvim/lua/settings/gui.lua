@@ -1,16 +1,10 @@
 vim.o.termguicolors = true
-vim.o.guicursor = "n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor"
--- vim.o.guifont = "RobotoMono Nerd Font Propo:h8.5"
-vim.o.guifont = "JetBrainsMono Nerd Font:h12:#e-subpixelantialias"
 
 -- Remove toolbar
 -- lua api seems to not be able to access this option
 vim.cmd("set guioptions-=T")
 
 vim.o.background = "dark"
-vim.g.base16colorspace = 256
--- https://github.com/vim/vim/issues/1735#issuecomment-383353563
--- vim.o.lazyredraw = true
 -- No more beeps
 vim.o.vb = true
 vim.o.synmaxcol = 500

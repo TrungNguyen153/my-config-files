@@ -1,7 +1,16 @@
-no-multigrid = true
-vsync = true
-maximized = true
-srgb = true
+fork = false
+frame = "none" # "buttonless" # 
 idle = true
-frame = "none"
+maximized = false
+no-multigrid = false
+theme = "auto"
+srgb = false
+tabs = false
 title-hidden = true
+vsync = true
+wsl = false
+
+[font]
+size = 14
+hinting = "full"
+normal = ["JetBrainsMono Nerd Font"]
