@@ -24,7 +24,7 @@ return {
 		lualine.setup({
 			options = {
 				icons_enabled = true,
-				theme = "auto",
+				theme = require("jb.lualine.themes.jb"), -- old is "auto"
 				section_separators = { left = "", right = "" },
 				-- section_separators = { left = ' ', right = ' ' },
 				-- section_separators = { left = '', right = '' },

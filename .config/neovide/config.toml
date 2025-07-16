@@ -1,7 +1,7 @@
 fork = false
-frame = "none" # "buttonless" # 
+frame = "none" # buttonless none full
 idle = true
-maximized = false
+maximized = true
 no-multigrid = false
 theme = "auto"
 srgb = false

@@ -12,19 +12,21 @@ if vim.g.neovide then
     vim.g.neovide_floating_shadow = false
     vim.g.neovide_scroll_animation_length = 0.15
     vim.g.neovide_refresh_rate = 120
-    vim.g.neovide_confirm_quit = false
+    vim.g.neovide_confirm_quit = true
     vim.g.neovide_cursor_animation_length = 0.05
     vim.g.neovide_cursor_animate_in_insert_mode = true
     vim.opt.linespace = 7
 
-    vim.g.neovide_opacity = 0.95
+    -- Combo for macos
+    vim.g.neovide_opacity = 1.0
     vim.g.neovide_transparency_point = 0.75
-    vim.g.neovide_normal_opacity = 0.85
-
+    vim.g.neovide_normal_opacity = 1.0
     vim.g.transparency = 0
-
     vim.g.neovide_window_blurred = true
+    
     vim.g.neovide_floating_corner_radius = 0.2
+
+    
 
 
 
