@@ -24,7 +24,62 @@ return {
 		lualine.setup({
 			options = {
 				icons_enabled = true,
-				theme = require("jb.lualine.themes.jb"), -- old is "auto"
+				theme =  {
+					normal = {
+						---Auto generated ProjectColor based on cwd, 1st and 2nd parent dirs
+						---to quickly distinguish between projects
+						a = "IdeaVim_Modes_Normal",
+						b = "StatusLineTinted",
+						c = "CustomStatusLine",
+						y = "StatusLineTintedNormal",
+						---Mode dependend colors
+						z = "ProjectColor",
+					},
+					insert = {
+						a = "IdeaVim_Modes_Insert",
+						b = "StatusLineTinted",
+						c = "CustomStatusLine",
+						y = "StatusLineTintedInsert",
+						z = "ProjectColor",
+					},
+					visual = {
+						a = "IdeaVim_Modes_Visual",
+						b = "StatusLineTinted",
+						c = "CustomStatusLine",
+						y = "StatusLineTintedVisual",
+						z = "ProjectColor",
+					},
+					replace = {
+						a = "IdeaVim_Modes_Replace",
+						b = "StatusLineTinted",
+						c = "CustomStatusLine",
+						y = "StatusLineTintedReplace",
+						z = "ProjectColor",
+					},
+					command = {
+						a = "IdeaVim_Modes_Normal",
+						b = "StatusLineTinted",
+						c = "CustomStatusLine",
+						y = "StatusLineTintedNormal",
+						z = "ProjectColor",
+					},
+					terminal = {
+						a = "IdeaVim_Modes_Insert",
+						b = "StatusLineTinted",
+						c = "CustomStatusLine",
+						x = "CustomStatusLine",
+						y = "StatusLineTintedInsert",
+						z = "ProjectColor",
+					},
+					inactive = {
+						a = "IdeaVim_Modes_Normal",
+						b = "StatusLineTinted",
+						c = "CustomStatusLine",
+						x = "CustomStatusLine",
+						y = "StatusLineTintedNormal",
+						z = "ProjectColor",
+					},
+				}, -- old is "auto"
 				section_separators = { left = "", right = "" },
 				-- section_separators = { left = ' ', right = ' ' },
 				-- section_separators = { left = '', right = '' },
@@ -40,14 +95,12 @@ return {
 			},
 			sections = {
 				lualine_a = { { "mode" } },
-				lualine_b = { "diff", "branch" },
-				lualine_c = {
-					{
-						"filename",
-						file_status = true, -- displays file status (readonly status, modified status)
-						path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
-					},
-				},
+				lualine_b = { "diff", "branch", {
+					"filename",
+					file_status = true, -- displays file status (readonly status, modified status)
+					path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
+				}, },
+				lualine_c = { },
 				lualine_x = {
 					function()
 						if vim.fn.reg_recording() ~= "" then
@@ -79,14 +132,14 @@ return {
 			},
 			inactive_sections = {
 				lualine_a = {},
-				lualine_b = {},
-				lualine_c = {
+				lualine_b = {
 					{
 						"filename",
 						file_status = true, -- displays file status (readonly status, modified status)
 						path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
 					},
 				},
+				lualine_c = { },
 				lualine_x = { "location" },
 				lualine_y = {},
 				lualine_z = {},
