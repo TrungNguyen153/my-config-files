@@ -42,6 +42,14 @@ return {
 			notification_history = { border = "none" },
 			input = { relative = "cursor" },
 		},
+		explorer = {
+			replace_netrw = true,
+		},
+		zen = {
+			toggles = {
+				dim = false,
+			},
+		},
 
 		statuscolumn = {
 			enabled = true,
@@ -50,6 +58,12 @@ return {
 		},
 		
 		picker = {
+			sources = {
+				explorer = {
+				  -- your explorer picker configuration comes here
+				  -- or leave it empty to use the default settings
+				}
+			},
 			layout = {
 				preset = "telescope",
 				reverse = false,
@@ -419,5 +433,23 @@ return {
 			mode = { "n" },
 			desc = "Go to previous reference",
 		},
+		{
+			"gz",
+			function()
+				Snacks.zen()
+			end,
+			silent = true,
+			mode = { "n" },
+			desc = "Go to ZenMode",
+		},
+		{
+			"<localleader>e",
+			function()
+				Snacks.explorer()
+			end,
+			silent = true,
+			mode = { "n" },
+			desc = "Explorer toggle",
+		}
 	},
 }
