@@ -42,9 +42,6 @@ return {
 			notification_history = { border = "none" },
 			input = { relative = "cursor" },
 		},
-		explorer = {
-			replace_netrw = true,
-		},
 		zen = {
 			toggles = {
 				dim = false,
@@ -60,8 +57,17 @@ return {
 		picker = {
 			sources = {
 				explorer = {
-				  -- your explorer picker configuration comes here
-				  -- or leave it empty to use the default settings
+					-- https://github.com/shubham-cpp/dotfiles/blob/main/.config/nvim-astro/lua/plugins/snacks.lua
+					layout = { cycle = false, layout = { position = "left" } },
+					actions = {
+						-- more option go here
+					},
+					win = {
+						list = {
+							keys = {
+							},
+						},
+					},
 				}
 			},
 			layout = {
