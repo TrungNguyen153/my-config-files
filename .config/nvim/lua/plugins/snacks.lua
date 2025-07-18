@@ -57,6 +57,7 @@ return {
 		picker = {
 			sources = {
 				explorer = {
+					enabled = false,
 					-- https://github.com/shubham-cpp/dotfiles/blob/main/.config/nvim-astro/lua/plugins/snacks.lua
 					layout = { cycle = false, layout = { position = "left" } },
 					actions = {
@@ -448,14 +449,14 @@ return {
 			mode = { "n" },
 			desc = "Go to ZenMode",
 		},
-		{
-			"<localleader>e",
-			function()
-				Snacks.explorer()
-			end,
-			silent = true,
-			mode = { "n" },
-			desc = "Explorer toggle",
-		}
+		-- {
+		-- 	"<localleader>e",
+		-- 	function()
+		-- 		Snacks.explorer()
+		-- 	end,
+		-- 	silent = true,
+		-- 	mode = { "n" },
+		-- 	desc = "Explorer toggle",
+		-- }
 	},
 }
