@@ -116,18 +116,18 @@ return {
 							-- 	enable = true,
 							-- 	attributes = { enable = true },
 							-- },
-							-- lens = {
-							-- 	enable = true,
-							-- 	run = { enable = true },
-							-- 	debug = { enable = true },
-							-- 	implementations = { enable = true },
-							-- 	references = {
-							-- 		adt = { enable = true },
-							-- 		enumVariant = { enable = true },
-							-- 		method = { enable = true },
-							-- 		trait = { enable = true },
-							-- 	},
-							-- },
+							lens = {
+								enable = true,
+								run = { enable = true },
+								debug = { enable = true },
+								implementations = { enable = true },
+								references = {
+									adt = { enable = false },
+									enumVariant = { enable = false },
+									method = { enable = false },
+									trait = { enable = false },
+								},
+							},
 							hover = {
 								actions = {
 									enable = true,
