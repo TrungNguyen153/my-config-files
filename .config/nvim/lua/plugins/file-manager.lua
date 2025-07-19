@@ -1,3 +1,7 @@
+local function open_dir(dir)
+  vim.fn.jobstart('start ' .. dir)
+end
+
 return {
   "nvim-neo-tree/neo-tree.nvim",
   dependencies = {
@@ -118,3 +122,61 @@ return {
         },
     },
 }
+
+
+
+
+-- return {
+--   "stevearc/oil.nvim",
+--   dependencies = { "nvim-tree/nvim-web-devicons" },
+--   lazy = false,
+--   enabled = not vim.g.vscode,
+--   -- enabled = false,
+--   config = true,
+--   cmd = { "Oil" },
+--   keys = {
+--     { "<localleader>e", "<CMD>Oil<CR>", mode = {"n"}, silent = true, desc = "Open parent directory" },
+--     { "_", function() require("oil").open(vim.fn.getcwd()) end, mode = {"n"}, silent = true, desc = "Open cwd" },
+
+--   },
+--   opts = {
+--     -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
+--     -- Set to false if you want some other plugin (e.g. netrw) to open when you edit directories.
+--     default_file_explorer = true,
+--     use_default_keymaps = false,
+--     view_options = {
+--       -- This function defines what is considered a "hidden" file
+--       is_hidden_file = function(name, bufnr)
+--         -- local m = name:match("^%.")
+--         -- return m ~= nil
+--         return m == 'node_modules' or m == ".git"
+--       end,
+--       is_always_hidden = function(name, bufnr) return name == ".." end,
+--     },
+--     win_options = {
+--       winbar = "%{v:lua.require('oil').get_current_dir()}",
+--       concealcursor = "n",
+--     },
+--     keymaps = {
+--       ["<localleader>e"] = "actions.close",
+--       ["?"] = { "actions.show_help", mode = "n" },
+--       ["<CR>"] = "actions.select",
+--       ["<S-s>"] = { "actions.select", opts = { vertical = true } },
+--       ["<S-h>"] = { "actions.select", opts = { horizontal = true } },
+--       ["<S-t>"] = { "actions.select", opts = { tab = true } },
+--       ["<C-p>"] = "actions.preview",
+--       ["-"] = { "actions.parent", mode = "n" },
+--       ["_"] = { "actions.open_cwd", mode = "n" },
+--       ["."] = { "actions.cd", mode = "n" },
+--       ["X"] = {
+--         function()
+--           open_dir(require('oil').get_current_dir())
+--         end,
+--         silent = true,
+--         desc = "Open Current Dir in explorer"
+--       },
+--       ["H"] = { "actions.toggle_hidden", mode = "n" },
+--       ["T"] = { "actions.toggle_trash", mode = "n" },
+--     },
+--   },
+-- }
