@@ -27,30 +27,35 @@ return {
         ---@type avante.ProviderName
         provider = "copilot",
         -- https://github.com/yetone/avante.nvim/blob/main/lua/avante/config.lua
-        providers = { },
+        providers = {
+          -- use default here
+        },
+        auto_suggestions_provider = nil,
+        web_search_engine = {
+          provider = 'google',
+        },
     },
 
     dependencies = {
         "nvim-treesitter/nvim-treesitter",
         "nvim-lua/plenary.nvim",
         "MunifTanjim/nui.nvim",
-        "folke/snacks.nvim", -- for input provider snacks
         "nvim-tree/nvim-web-devicons",
-        {
-            'zbirenbaum/copilot.lua',
-            opts = {
-              panel = {
-                enabled = false,
-              },
-              suggestion = {
-                auto_trigger = false,
-                hide_during_completion = false,
-                keymap = {
-                  accept = '<Tab>',
-                },
-              },
-            },
-            config = true
-        }
+        -- {
+        --     'zbirenbaum/copilot.lua', -- disable after setup
+        --     opts = {
+        --       panel = {
+        --         enabled = false,
+        --       },
+        --       suggestion = {
+        --         auto_trigger = false,
+        --         hide_during_completion = false,
+        --         keymap = {
+        --           accept = '<Tab>',
+        --         },
+        --       },
+        --     },
+        --     config = true
+        -- }
     },
 }

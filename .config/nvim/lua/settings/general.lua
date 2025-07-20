@@ -164,6 +164,8 @@ cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qa qa
 cnoreabbrev Qall qall
+cnoreabbrev vr Vr
+cnoreabbrev hr Hr
 ]])
 
 -- No whitespace in vimdiff
