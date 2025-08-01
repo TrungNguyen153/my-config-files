@@ -89,6 +89,9 @@ return {
 							diagnostics = {
 								enable = true,
 								enableExperimental = true,
+								experimental = {
+									enable = true,
+								},
 							},
 							completion = {
 								autoself = { enable = true },
