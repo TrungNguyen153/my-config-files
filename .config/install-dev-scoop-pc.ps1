@@ -64,8 +64,8 @@ Write-Done
 
 Write-Start -msg "Installing Scoop's packages"
     scoop install 7zip
-    scoop install extras/googlechrome
-    scoop install extras/notepadplusplus
+    # scoop install extras/googlechrome
+    # scoop install extras/notepadplusplus
     # runtime
     Start-Process -Wait powershell -Verb runas -ArgumentList "scoop install vcredist-aio"
 Write-Done
@@ -77,7 +77,7 @@ Write-Start -msg "Install Scoop's package for dev"
     scoop install main/nvm
     scoop install main/clangd
     scoop install java/corretto19-jdk
-    scoop install extras/fork
+    # scoop install extras/fork
     scoop install main/gcc
     scoop install main/llvm
     scoop install main/make
@@ -92,6 +92,8 @@ Write-Start -msg "Install Scoop's package for dev"
     scoop install versions/python311
     scoop install extras/skype
     scoop install nerd-fonts/RobotoMono-NF-Propo
+	scoop install nerd-fonts/JetBrains-Mono
+	scoop install nerd-fonts/JetBrainsMono-NF
     scoop install cmake
     scoop install sysinternals/tcpview
     # scoop install zoxide
