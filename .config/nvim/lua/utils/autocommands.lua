@@ -117,12 +117,12 @@ function lsp_autocmds(client, bufnr)
     -- })
 
     vim.api.nvim_buf_create_user_command(0, 'ClangdSwitchSourceHeader',
-                                         function() switch_source_header(0) end,
-                                         {desc = 'Switch between source/header'})
+        function() switch_source_header(0) end,
+        {desc = 'Switch between source/header'})
 
     vim.api.nvim_buf_create_user_command(0, 'ClangdShowSymbolInfo',
-                                         function() symbol_info() end,
-                                         {desc = 'Show symbol info'})
+        function() symbol_info() end,
+        {desc = 'Show symbol info'})
 end
 
 return {
@@ -192,8 +192,7 @@ return {
         autocmd({"LspAttach"}, {
             group = augroup('LspAttachClient'),
             callback = function(args)
-                local client = assert(vim.lsp.get_client_by_id(args.data
-                                                                   .client_id))
+                local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
                 local buf = args.buf
                 if client.server_capabilities.inlayHintProvider then
                     vim.lsp.inlay_hint.enable(true, {bufnr = buf})

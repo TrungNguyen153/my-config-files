@@ -276,6 +276,16 @@ return {
 			noremap = true,
 		},
 		{
+			"<leader>lh",
+			function() 
+				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}), {})
+			end,
+			mode = { "n" },
+			desc = "Toggle InlayHint",
+			noremap = true,
+			silent = true,
+		},
+		{
 			"<leader>pw",
 			"<cmd>lua Snacks.picker.grep_word()<CR>",
 			mode = { "n" },

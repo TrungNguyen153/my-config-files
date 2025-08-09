@@ -90,7 +90,6 @@ Write-Start -msg "Install Scoop's package for dev"
     scoop install extras/dnspyex
     scoop install extras/debugviewpp
     scoop install versions/python311
-    scoop install extras/skype
     scoop install nerd-fonts/RobotoMono-NF-Propo
 	scoop install nerd-fonts/JetBrains-Mono
 	scoop install nerd-fonts/JetBrainsMono-NF

@@ -88,26 +88,24 @@ return {
 						["rust-analyzer"] = {
 							diagnostics = {
 								enable = true,
-								enableExperimental = true,
-								experimental = {
-									enable = true,
-								},
+								enableExperimental = false,
+								disabled = {"unresolved-proc-macro"},
 							},
 							completion = {
 								autoself = { enable = true },
 								autoimport = { enable = true },
 								postfix = { enable = true },
 							},
-							-- imports = {
-							-- 	group = { enable = true },
-							-- 	merge = { glob = false },
-							-- 	prefix = "self",
-							-- 	preferPrelude = true,
-							-- 	granularity = {
-							-- 		enforce = true,
-							-- 		group = "crate",
-							-- 	},
-							-- },
+							imports = {
+								group = { enable = true },
+								merge = { glob = false },
+								prefix = "self",
+								preferPrelude = true,
+								granularity = {
+									enforce = true,
+									group = "crate",
+								},
+							},
 							-- cargo = {
 							-- 	loadOutDirsFromCheck = true,
 							-- 	autoreload = true,
@@ -115,10 +113,10 @@ return {
 							-- 	features = "all",
 							-- 	allTargets = true,
 							-- },
-							-- procMacro = {
-							-- 	enable = true,
-							-- 	attributes = { enable = true },
-							-- },
+							procMacro = {
+								enable = true,
+								attributes = { enable = true },
+							},
 							lens = {
 								enable = true,
 								run = { enable = true },
@@ -154,9 +152,9 @@ return {
 							checkOnSave = true,
 							check = {
 								-- https://github.com/rust-analyzer/rust-analyzer/issues/9768
-								-- command = "clippy",
-								-- features = "all",
-								-- allTargets = true,
+								command = "clippy",
+								features = "all",
+								allTargets = true,
 							},
 						},
 					},
