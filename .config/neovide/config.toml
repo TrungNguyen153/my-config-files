@@ -11,6 +11,6 @@ vsync = true
 wsl = false
 
 [font]
-size = 14
+size = 11
 hinting = "full"
 normal = ["JetBrainsMono Nerd Font"]
