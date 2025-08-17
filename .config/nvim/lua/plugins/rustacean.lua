@@ -86,6 +86,9 @@ return {
 					standalone = false,
 					settings = {
 						["rust-analyzer"] = {
+							rustfmt = {
+								extraArgs = {"+nightly"},
+							},
 							diagnostics = {
 								enable = true,
 								enableExperimental = false,
