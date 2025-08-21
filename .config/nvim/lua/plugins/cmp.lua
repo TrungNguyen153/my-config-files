@@ -6,17 +6,11 @@ return {
 	event = "VeryLazy",
 	dependencies = {
 		"rafamadriz/friendly-snippets", -- snippets for many languages
-		"chrisgrieser/nvim-scissors", -- snippet editor
 		"xzbdmw/colorful-menu.nvim", -- adds highlights to the auto-complete options
 		'Kaiser-Yang/blink-cmp-avante', -- avante ai
 	},
 	config = function()
 		require("colorful-menu").setup({})
-		local custom_snippets_folder = vim.fn.stdpath("config") .. "/snippets"
-		require("scissors").setup({
-			snippetDir = custom_snippets_folder,
-		})
-		
 
 		local disabled_filetypes = { "minifiles" }
 
@@ -44,6 +38,10 @@ return {
 						return { "lsp", "snippets", "path" }
 					end
 				end,
+				per_filetype = {
+                    sql = { 'snippets', 'dadbod', 'buffer' },
+                    lua = { 'lazydev', 'lsp', 'snippets' },
+                },
 				providers = {
 					avante = {
 						module = 'blink-cmp-avante',
@@ -51,7 +49,13 @@ return {
 						opts = {
 							-- options for blink-cmp-avante
 						}
-					}
+					},
+					dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
+                    lazydev = {
+                        name = 'LazyDev',
+                        module = 'lazydev.integrations.blink',
+                        score_offset = 100,
+                    },
 				},
 			},
 			completion = {
@@ -255,12 +259,5 @@ return {
 			},
 		})
 
-		-- create commands to manage snippets
-		vim.api.nvim_create_user_command("SnippetAdd", function()
-			require("scissors").addNewSnippet()
-		end, {})
-		vim.api.nvim_create_user_command("SnippetEdit", function()
-			require("scissors").editSnippet()
-		end, {})
 	end,
 }

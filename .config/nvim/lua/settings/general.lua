@@ -213,3 +213,6 @@ vim.g.loaded_perl_provider = false
 
 -- don't create swap files because it is very annoying
 vim.o.swapfile = false
+
+-- Disable <C-c> effect on sql file
+vim.g.ftplugin_sql_omni_key = '<C-p>'
