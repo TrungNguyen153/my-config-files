@@ -13,7 +13,7 @@ return {
 		none_ls.setup({
 			sources = {
 				none_ls.builtins.formatting.black,
-				none_ls.builtins.formatting.prettier,
+				-- none_ls.builtins.formatting.prettier,
 				none_ls.builtins.formatting.fish_indent,
 				none_ls.builtins.formatting.markdownlint,
 				none_ls.builtins.formatting.shfmt,
