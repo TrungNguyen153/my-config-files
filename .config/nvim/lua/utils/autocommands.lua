@@ -194,7 +194,7 @@ return {
             callback = function(args)
                 local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
                 local buf = args.buf
-                if client.server_capabilities.inlayHintProvider then
+                if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint.is_enabled({}) then
                     vim.lsp.inlay_hint.enable(true, {bufnr = buf})
                 end
                 lsp_autocmds(client, buf)
