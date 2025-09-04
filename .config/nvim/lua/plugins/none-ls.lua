@@ -5,6 +5,7 @@ return {
 	event = "VeryLazy",
 	enabled = not vim.g.vscode,
 	dependencies = {
+		"nvimtools/none-ls-extras.nvim",
 		"nvim-lua/plenary.nvim",
 		"nvim-treesitter/nvim-treesitter",
 	},
@@ -12,7 +13,10 @@ return {
 		local none_ls = require("null-ls")
 		none_ls.setup({
 			sources = {
-				none_ls.builtins.formatting.black,
+				-- Python stuff
+				require("none-ls.diagnostics.ruff"),
+				require("none-ls.formatting.ruff"),
+				-- End python stuff
 				-- none_ls.builtins.formatting.prettier,
 				none_ls.builtins.formatting.fish_indent,
 				none_ls.builtins.formatting.markdownlint,

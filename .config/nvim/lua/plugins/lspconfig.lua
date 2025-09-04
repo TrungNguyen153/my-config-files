@@ -194,6 +194,7 @@ return {
         })
         vim.lsp.enable('wgsl_analyzer')
 
+        vim.lsp.enable('pyright')
     end,
     keys = {
         -- LSP
