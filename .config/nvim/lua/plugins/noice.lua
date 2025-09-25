@@ -3,6 +3,7 @@ return {
 	"folke/noice.nvim",
 	event = "VeryLazy",
 	enabled = not vim.g.vscode,
+	-- enabled = false,
 	dependencies = { "MunifTanjim/nui.nvim" },
 	opts = {
 		presets = {

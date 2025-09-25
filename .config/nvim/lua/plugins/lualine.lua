@@ -6,6 +6,7 @@ return {
 	"nvim-lualine/lualine.nvim",
 	event = "UIEnter",
 	enabled = not vim.g.vscode,
+	-- enabled = false,
 	config = function()
 		local lualine = require( 'lualine' )
 

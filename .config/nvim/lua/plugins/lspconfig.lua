@@ -9,6 +9,7 @@ return {
     enabled = not vim.g.vscode,
     config = function()
         local util = require 'lspconfig.util'
+        
 
         -- general LSP config
         vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -56,6 +57,9 @@ return {
                 }
             }
         })
+
+        -- nightly
+        -- vim.lsp.on_type_formatting.enable()
 
         -- C/C++
         vim.lsp.enable('clangd')
