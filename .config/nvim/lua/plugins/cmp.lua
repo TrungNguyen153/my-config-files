@@ -7,7 +7,6 @@ return {
 	dependencies = {
 		"rafamadriz/friendly-snippets", -- snippets for many languages
 		"xzbdmw/colorful-menu.nvim", -- adds highlights to the auto-complete options
-		'Kaiser-Yang/blink-cmp-avante', -- avante ai
 	},
 	config = function()
 		require("colorful-menu").setup({})
@@ -43,13 +42,6 @@ return {
                     lua = { 'lazydev', 'lsp', 'snippets' },
                 },
 				providers = {
-					avante = {
-						module = 'blink-cmp-avante',
-						name = 'Avante',
-						opts = {
-							-- options for blink-cmp-avante
-						}
-					},
 					dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
                     lazydev = {
                         name = 'LazyDev',

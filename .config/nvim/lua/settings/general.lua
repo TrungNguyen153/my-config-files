@@ -79,7 +79,7 @@ vim.o.showmode = false
 vim.o.hidden = true
 vim.o.wrap = false
 vim.o.joinspaces = false
-vim.o.conceallevel = 3
+vim.o.conceallevel = 0
 vim.o.concealcursor = "n"
 -- current line will have a background
 vim.o.cursorline = true
