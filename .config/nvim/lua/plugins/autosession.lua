@@ -16,16 +16,15 @@ return {
 		end,
 		session_lens = {
 			load_on_setup = false,
-			previewer = true,
-			theme_conf = {
-				border = false,
-			},
 			mappings = {
-				-- Mode can be a string or a table, e.g. {"i", "n"} for both insert and normal mode
-				delete_session = { "i", "<C-D>" },
 				alternate_session = { "i", "<C-S>" },
 				copy_session = { "i", "<C-Y>" },
+				delete_session = { "i", "<C-D>" }
 			},
+			picker_opts = {
+				border = false
+			},
+			previewer = true
 		},
 	},
 	keys = {
