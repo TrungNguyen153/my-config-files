@@ -126,12 +126,7 @@ function lsp_autocmds(client, bufnr)
 end
 
 return {
-
     setup = function()
-
-
-
-
         local autocmd = vim.api.nvim_create_autocmd
         local augroup = function(name)
             return vim.api.nvim_create_augroup(name, {clear = true})

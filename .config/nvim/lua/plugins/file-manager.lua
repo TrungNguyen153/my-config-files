@@ -16,8 +16,8 @@ return {
     opts = {
         close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
         -- popup_border_style = 'none',
-        enable_git_status = true,
-        enable_diagnostics = true,
+        enable_git_status = false,
+        enable_diagnostics = false,
         sort_case_insensitive = true, -- used when sorting files and directories in the tree
         sources = {
           'filesystem',
@@ -46,6 +46,8 @@ return {
             nowait = true,
           },
           mappings = {
+            -- Disable built-in search
+					  ["f"] = "noop",
             ["l"] = "open",
             ["h"] = "close_node",
           }
@@ -88,15 +90,7 @@ return {
             {
                 event = "file_opened",
                 handler = function()
-                    vim.api.nvim_cmd({
-                        cmd = 'Neotree',
-                        args = {
-                            'source=filesystem',
-                            'position=left',
-                            'action=close',
-                            'toggle=false',
-                        },
-                    }, {})
+                    require("neo-tree.command").execute({ action = "close" })
                 end,
             }
         },
