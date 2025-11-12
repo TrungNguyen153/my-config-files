@@ -8,8 +8,8 @@ return {
       "MunifTanjim/nui.nvim",
   },
   event = "VeryLazy",
-  enabled = not vim.g.vscode,
-  -- enabled = false,
+  -- enabled = not vim.g.vscode,
+  enabled = false,
   branch = "v3.x",
 	-- enabled = false, -- not use yet
 	config = true,

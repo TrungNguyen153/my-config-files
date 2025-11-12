@@ -1,4 +1,13 @@
 -- various utilities
+local function open_dir_in_explorer(picker)
+	local selected = picker:selected({ fallback = true })[1]
+	if not selected or selected == nil then return end
+	vim.schedule(function()
+		local full_path = vim.fn.fnamemodify(selected.file, ":p")
+		vim.fn.jobstart('start ' .. full_path)
+	end)
+  	
+end
 
 return {
 	"folke/snacks.nvim",
@@ -57,15 +66,38 @@ return {
 		picker = {
 			sources = {
 				explorer = {
-					enabled = false,
+					enabled = true,
 					-- https://github.com/shubham-cpp/dotfiles/blob/main/.config/nvim-astro/lua/plugins/snacks.lua
-					layout = { cycle = false, layout = { position = "left" } },
+					layout = {
+						preview = "main",
+						layout = {
+							backdrop = false,
+							width = 40,
+							min_width = 40,
+							height = 0,
+							position = "left",
+							border = "none",
+							box = "vertical",
+							-- {
+							-- 	win = "input",
+							-- 	height = 1,
+							-- 	border = true,
+							-- 	title = "{title} {live} {flags}",
+							-- 	title_pos = "center",
+							-- },
+							{ win = "list", border = "none" },
+							{ win = "preview", title = "{preview}", height = 0.4, border = "top" },
+						},
+					},
 					actions = {
 						-- more option go here
+						open_dir_in_explorer = open_dir_in_explorer
 					},
 					win = {
 						list = {
 							keys = {
+								["/"] = false,
+								["X"] = { "open_dir_in_explorer" }
 							},
 						},
 					},
@@ -459,14 +491,14 @@ return {
 			mode = { "n" },
 			desc = "Go to ZenMode",
 		},
-		-- {
-		-- 	"<localleader>e",
-		-- 	function()
-		-- 		Snacks.explorer()
-		-- 	end,
-		-- 	silent = true,
-		-- 	mode = { "n" },
-		-- 	desc = "Explorer toggle",
-		-- }
+		{
+			"<localleader>e",
+			function()
+				Snacks.explorer()
+			end,
+			silent = true,
+			mode = { "n" },
+			desc = "Explorer toggle",
+		}
 	},
 }
