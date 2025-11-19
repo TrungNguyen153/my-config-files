@@ -69,7 +69,7 @@ return {
 					enabled = true,
 					-- https://github.com/shubham-cpp/dotfiles/blob/main/.config/nvim-astro/lua/plugins/snacks.lua
 					layout = {
-						preview = "main",
+						-- preview = "main",
 						layout = {
 							backdrop = false,
 							width = 40,

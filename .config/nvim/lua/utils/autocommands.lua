@@ -143,23 +143,25 @@ return {
             pattern = "*",
             callback = function()
                 vim.hl.on_yank { higroup = "IncSearch", timeout = 200 }
-                local v = vim.v.event
-                local regcontents = v.regcontents
-                vim.defer_fn(function()
-                    vim.fn.setreg("+", regcontents)
-                end, 100)
+                -- local v = vim.v.event
+                -- local regcontents = v.regcontents
+                -- vim.defer_fn(function()
+                --     vim.fn.setreg("+", regcontents)
+                --     vim.notify(vim.inspect(regcontents))
+                -- end, 100)
             end
         })
 
         -- sync system clipboard to vim clipboard
-        vim.api.nvim_create_autocmd("FocusGained", {
-            callback = function()
-                local loaded_content = vim.fn.getreg("+")
-                if loaded_content ~= "" then
-                    vim.fn.setreg('"', loaded_content)
-                end
-            end,
-        })
+        -- vim.api.nvim_create_autocmd("FocusGained", {
+        --     callback = function()
+        --         local loaded_content = vim.fn.getreg("+")
+        --         if loaded_content ~= "" then
+        --             vim.fn.setreg('"', loaded_content)
+        --             vim.notify(vim.inspect(loaded_content))
+        --         end
+        --     end,
+        -- })
 
 
         autocmd({'BufReadPost'}, {
