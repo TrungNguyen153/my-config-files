@@ -2,11 +2,10 @@
 local function open_dir_in_explorer(picker)
 	local selected = picker:selected({ fallback = true })[1]
 	if not selected or selected == nil then return end
-	vim.schedule(function()
+	vim.schedule(function ()
 		local full_path = vim.fn.fnamemodify(selected.file, ":p")
 		vim.fn.jobstart('start ' .. full_path)
 	end)
-  	
 end
 
 return {
@@ -26,8 +25,8 @@ return {
 				style = "out",
 				easing = "linear",
 				duration = {
-				  step = 20, -- ms per step
-				  total = 250, -- maximum duration
+					step = 20, -- ms per step
+					total = 250, -- maximum duration
 				},
 			},
 			chunk = {
@@ -39,7 +38,7 @@ return {
 				arrow = '─',
 			},
 		},
-		
+
 		notifier = { enabled = true, style = "fancy" },
 		rename = { enabled = true },
 		words = { enabled = true },
@@ -60,9 +59,9 @@ return {
 		statuscolumn = {
 			enabled = true,
 			left = { 'sign', 'fold', 'mark' }, -- priority of signs on the left (high to low)
-            right = { 'git' },                 -- priority of signs on the right (high to low)
+			right = { 'git' },              -- priority of signs on the right (high to low)
 		},
-		
+
 		picker = {
 			sources = {
 				explorer = {
@@ -85,7 +84,7 @@ return {
 							-- 	title = "{title} {live} {flags}",
 							-- 	title_pos = "center",
 							-- },
-							{ win = "list", border = "none" },
+							{ win = "list",    border = "none" },
 							{ win = "preview", title = "{preview}", height = 0.4, border = "top" },
 						},
 					},
@@ -309,7 +308,7 @@ return {
 		},
 		{
 			"<leader>lh",
-			function() 
+			function ()
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}), {})
 			end,
 			mode = { "n" },
@@ -466,7 +465,7 @@ return {
 		},
 		{
 			"grn",
-			function()
+			function ()
 				Snacks.words.jump(1, true)
 			end,
 			silent = true,
@@ -475,7 +474,7 @@ return {
 		},
 		{
 			"grp",
-			function()
+			function ()
 				Snacks.words.jump(-1, true)
 			end,
 			silent = true,
@@ -484,7 +483,7 @@ return {
 		},
 		{
 			"gz",
-			function()
+			function ()
 				Snacks.zen()
 			end,
 			silent = true,
@@ -493,7 +492,7 @@ return {
 		},
 		{
 			"<localleader>e",
-			function()
+			function ()
 				Snacks.explorer()
 			end,
 			silent = true,

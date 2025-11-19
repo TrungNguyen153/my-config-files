@@ -21,7 +21,7 @@ for option, value in pairs(powershell_options) do
 	vim.opt[option] = value
 end
 
-vim.g.mapleader = " " -- <leader>
+vim.g.mapleader = " "      -- <leader>
 vim.g.maplocalleader = ";" -- <localleader>
 
 -- clipboard
@@ -88,14 +88,14 @@ vim.o.signcolumn = "yes"
 vim.o.numberwidth = 1
 
 -- folding
-vim.o.foldenable = true -- Enable folding.
-vim.o.foldcolumn = '1' -- Show folding signs.
+vim.o.foldenable = true                            -- Enable folding.
+vim.o.foldcolumn = '1'                             -- Show folding signs.
 vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()' -- Use treesitter for folding.
-vim.o.foldlevel = 999 -- Open all folds.
-vim.o.foldlevelstart = 99 -- Start with all folds closed.
-vim.o.foldmethod = 'expr' -- Use expr to determine fold level.
-vim.o.foldopen = 'insert,mark,search,tag' -- Which commands open folds if the cursor moves into a closed fold.
-vim.o.foldtext = 'v:lua.custom_fold_text()' -- What to display on fold
+vim.o.foldlevel = 999                              -- Open all folds.
+vim.o.foldlevelstart = 99                          -- Start with all folds closed.
+vim.o.foldmethod = 'expr'                          -- Use expr to determine fold level.
+vim.o.foldopen = 'insert,mark,search,tag'          -- Which commands open folds if the cursor moves into a closed fold.
+vim.o.foldtext = 'v:lua.custom_fold_text()'        -- What to display on fold
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 
 -- Settings needed for .lvimrc
@@ -116,7 +116,7 @@ vim.o.undofile = true
 vim.o.wildmenu = true
 vim.o.wildmode = "list:longest"
 vim.o.wildignore =
-	".hg,.svn,*~,*.png,*.jpg,*.gif,*.settings,Thumbs.db,*.min.js,*.swp,publish/*,intermediate/*,*.o,*.hi,Zend,vendor,*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite"
+".hg,.svn,*~,*.png,*.jpg,*.gif,*.settings,Thumbs.db,*.min.js,*.swp,publish/*,intermediate/*,*.o,*.hi,Zend,vendor,*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite"
 
 -- Use wide tabs
 vim.o.shiftwidth = 2
@@ -129,7 +129,7 @@ vim.o.expandtab = false
 vim.o.backspace = "indent,eol,start"
 
 -- Wrapping options
-vim.o.formatoptions = "tc" -- wrap text and comments using textwidth
+vim.o.formatoptions = "tc"                       -- wrap text and comments using textwidth
 vim.o.formatoptions = vim.o.formatoptions .. "r" -- continue comments when pressing ENTER in I mode
 vim.o.formatoptions = vim.o.formatoptions .. "q" -- enable formatting of comments with gq
 vim.o.formatoptions = vim.o.formatoptions .. "n" -- detect lists for formatting
@@ -216,3 +216,4 @@ vim.o.swapfile = false
 
 -- Disable <C-c> effect on sql file
 vim.g.ftplugin_sql_omni_key = '<C-p>'
+
