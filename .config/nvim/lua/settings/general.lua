@@ -24,9 +24,6 @@ end
 vim.g.mapleader = " "      -- <leader>
 vim.g.maplocalleader = ";" -- <localleader>
 
--- clipboard
-vim.go.clipboard = "unnamedplus"
-
 -- secure modelines
 vim.g.secure_modelines_allowed_items = {
 	"textwidth",
