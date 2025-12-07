@@ -29,5 +29,6 @@ require('lazy').setup('plugins', {
         enabled = false,
     },
 })
+require('utils.clipboard')
 
 require('utils.autocommands').setup()
