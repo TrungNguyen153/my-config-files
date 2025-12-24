@@ -92,11 +92,12 @@ return {
 						-- more option go here
 						open_dir_in_explorer = open_dir_in_explorer
 					},
+					auto_close = true,
 					win = {
 						list = {
 							keys = {
 								["/"] = false,
-								["X"] = { "open_dir_in_explorer" }
+								["X"] = { "open_dir_in_explorer" },
 							},
 						},
 					},
