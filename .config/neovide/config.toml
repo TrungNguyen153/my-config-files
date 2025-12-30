@@ -1,13 +1,13 @@
 fork = false
-frame = "none" # buttonless none full
-idle = true
+frame = "buttonless" # buttonless none full
+idle = false
 maximized = true
 no-multigrid = false
 theme = "auto"
 srgb = false
 tabs = false
 title-hidden = true
-vsync = true
+vsync = false
 wsl = false
 
 [font]
