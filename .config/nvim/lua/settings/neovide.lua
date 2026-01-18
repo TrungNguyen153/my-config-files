@@ -9,7 +9,7 @@ if vim.g.neovide then
     vim.g.neovide_no_idle = true
     vim.g.neovide_scroll_animation_far_lines = 9999
   
-    vim.g.neovide_scale_factor = 1.0
+
     vim.g.neovide_hide_mouse_when_typing = false
   
     vim.g.neovide_floating_shadow = false
@@ -43,6 +43,7 @@ if vim.g.neovide then
 	vim.keymap.set('t', '<C-S-v>', '<C-\\><C-n>"+Pi')   -- Paste in terminal mode
 
     -- zoom setting
+    vim.g.neovide_scale_factor = 0.8
     vim.api.nvim_set_keymap("n", "<C-=>", ":lua vim.g.neovide_scale_factor = vim.g.neovide_scale_factor + 0.1<CR>", { silent = true })
     vim.api.nvim_set_keymap("n", "<C-->", ":lua vim.g.neovide_scale_factor = math.max(vim.g.neovide_scale_factor - 0.1,  0.1)<CR>", { silent = true })
     vim.api.nvim_set_keymap("n", "<C-+>", ":lua vim.g.neovide_opacity = math.min(vim.g.neovide_opacity + 0.05, 1.0)<CR>", { silent = true })
