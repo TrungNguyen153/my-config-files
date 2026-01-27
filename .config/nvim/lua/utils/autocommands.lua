@@ -267,6 +267,13 @@ return {
             end,
         })
 
+        local set_file_type_group = augroup('SetCTFileType')
+        autocmd('BufEnter', {
+            group = set_file_type_group,
+            pattern = "*.slint",
+            command = "setlocal filetype=slint"
+        })
+
         -- Resizes
         vim.api.nvim_create_user_command("Vr", function(opts)
             local usage = "Usage: [VirticalResize] :Vr {number (%)}"

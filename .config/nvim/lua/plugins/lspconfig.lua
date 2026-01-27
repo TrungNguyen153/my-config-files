@@ -112,6 +112,9 @@ return {
         -- svelte
         vim.lsp.enable('svelte')
 
+        -- slint
+        vim.lsp.enable('slint_lsp')
+
         -- Using tailwind-tools
         -- -- Tailwindcss
         -- vim.lsp.config('tailwindcss', {
