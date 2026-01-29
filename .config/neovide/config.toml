@@ -1,5 +1,5 @@
 fork = false
-frame = "buttonless" # buttonless none full
+frame = "full" # buttonless none full
 idle = false
 maximized = true
 no-multigrid = false
@@ -13,4 +13,4 @@ wsl = false
 [font]
 size = 11
 hinting = "full"
-normal = ["JetBrainsMono NF"] # "JetBrainsMono Nerd Font"
+normal = ["JetBrainsMono Nerd Font"] # "JetBrainsMono Nerd Font" "JetBrainsMono NF"
