@@ -100,7 +100,7 @@ function lsp_autocmds(client, bufnr)
             buffer = bufnr,
             callback = function()
                 if vim.b.autoformat then
-                    vim.lsp.buf.format({async = false})
+                    vim.lsp.buf.format({async = false, timeout_ms = 4000})
                 end
             end,
             group = group
