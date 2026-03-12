@@ -51,6 +51,7 @@ local config = {
   enable_scroll_bar = false,
   leader = { key = "t", mods = "CTRL" },
   disable_default_key_bindings = true,
+  max_fps = 120,
   keys = {
     -- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
     { key = "a", mods = "LEADER|CTRL",  action = wezterm.action({ SendString = "\x01" }) },
