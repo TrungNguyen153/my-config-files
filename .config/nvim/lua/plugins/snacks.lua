@@ -52,7 +52,7 @@ return {
 		},
 		zen = {
 			toggles = {
-				dim = false,
+				dim = true,
 			},
 		},
 
@@ -92,7 +92,7 @@ return {
 						-- more option go here
 						open_dir_in_explorer = open_dir_in_explorer
 					},
-					auto_close = true,
+					auto_close = false,
 					win = {
 						list = {
 							keys = {
@@ -494,7 +494,14 @@ return {
 		{
 			"<localleader>e",
 			function ()
-				Snacks.explorer()
+				local explorer = Snacks.picker.get({ source = "explorer" })[1]
+				if explorer then
+					Snacks.explorer()
+				else
+					Snacks.picker.resume("explorer")
+				end
+				-- 
+				
 			end,
 			silent = true,
 			mode = { "n" },
