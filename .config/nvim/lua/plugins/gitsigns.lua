@@ -1,7 +1,7 @@
 -- show git indicators next to the line numbers (lines changed, added, etc.)
 return {
     'lewis6991/gitsigns.nvim',
-    enabled = not vim.g.vscode,
+    enabled = false,
     event = 'VeryLazy',
     opts = {
         signcolumn = true,
