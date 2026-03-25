@@ -70,24 +70,24 @@ function lsp_autocmds(client, bufnr)
             group = group
         })
     end
-    if client.server_capabilities.document_highlight or
-        client.server_capabilities.documentHighlightProvider then
-        local group = augroup("LSPHighlightSymbols")
+    -- if client.server_capabilities.document_highlight or
+    --     client.server_capabilities.documentHighlightProvider then
+    --     local group = augroup("LSPHighlightSymbols")
 
-        -- Highlight text at cursor position
-        autocmd({"CursorHold", "CursorHoldI"}, {
-            desc = "Highlight references to current symbol under cursor",
-            buffer = bufnr,
-            callback = vim.lsp.buf.document_highlight,
-            group = group
-        })
-        autocmd({"CursorMoved"}, {
-            desc = "Clear highlights when cursor is moved",
-            buffer = bufnr,
-            callback = vim.lsp.buf.clear_references,
-            group = group
-        })
-    end
+    --     -- Highlight text at cursor position
+    --     autocmd({"CursorHold", "CursorHoldI"}, {
+    --         desc = "Highlight references to current symbol under cursor",
+    --         buffer = bufnr,
+    --         callback = vim.lsp.buf.document_highlight,
+    --         group = group
+    --     })
+    --     autocmd({"CursorMoved"}, {
+    --         desc = "Clear highlights when cursor is moved",
+    --         buffer = bufnr,
+    --         callback = vim.lsp.buf.clear_references,
+    --         group = group
+    --     })
+    -- end
     if client.server_capabilities.document_formatting or
         client.server_capabilities.documentFormattingProvider then
         local group = augroup("LSPAutoFormat")
