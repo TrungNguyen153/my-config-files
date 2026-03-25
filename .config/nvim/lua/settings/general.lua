@@ -64,7 +64,7 @@ vim.g.localvimrc_ask = 0
 vim.go.cmdheight = 0
 -- You will have bad experience for diagnostic messages when it's default 4000.
 -- this is time trigger CursorHold[i] -> Laggy if large text file
-vim.go.updatetime = 666
+vim.go.updatetime = 100
 
 -- Editor settings
 vim.g.editorconfig = true
@@ -126,11 +126,13 @@ vim.o.expandtab = false
 vim.o.backspace = "indent,eol,start"
 
 -- Wrapping options
-vim.o.formatoptions = "tc"                       -- wrap text and comments using textwidth
-vim.o.formatoptions = vim.o.formatoptions .. "r" -- continue comments when pressing ENTER in I mode
-vim.o.formatoptions = vim.o.formatoptions .. "q" -- enable formatting of comments with gq
-vim.o.formatoptions = vim.o.formatoptions .. "n" -- detect lists for formatting
-vim.o.formatoptions = vim.o.formatoptions .. "b" -- auto-wrap in insert mode, and do not wrap old long lines
+-- t -> wrap text using textwidth
+-- c -> wrap comments using textwidth
+-- r -> continue comments when pressing ENTER in I mode
+-- q -> enable formatting of comments with gq
+-- n -> detect lists for formatting
+-- b -> auto-wrap in insert mode, and do not wrap old long lines
+vim.o.formatoptions = 'tcrqnb'
 
 -- Proper search
 vim.o.incsearch = true
