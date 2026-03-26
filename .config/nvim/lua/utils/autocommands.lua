@@ -185,7 +185,15 @@ return {
             command = "set filetype=cmake"
         })
 
-		-- close those buffer when press 'q'
+		-- Do not conceal JSON files
+        vim.api.nvim_create_autocmd('FileType', {
+            pattern = { "json", "jsonc", "json5" },
+            callback = function()
+                vim.opt_local.conceallevel = 0
+            end,
+        })
+
+        -- close those buffer when press 'q'
         vim.api.nvim_create_autocmd('FileType', {
             pattern = { 'qf', 'help', 'checkhealth', 'dap-repl', 'toggleterm', 'dbout' },
             callback = function()
