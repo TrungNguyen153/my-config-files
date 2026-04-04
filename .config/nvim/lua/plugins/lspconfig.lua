@@ -8,62 +8,50 @@ return {
     },
     enabled = not vim.g.vscode,
     config = function()
+
+        local lsp_utils = require('utils.lsp')
+
         -- general LSP config
-        vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-            underline = true,
-            update_in_insert = true,
-            virtual_text = false,
-            signs = true,
-        })
-
-        -- skip rust error spam
-        for _, method in ipairs({
-            'textDocument/diagnostic',
-            'workspace/diagnostic',
-        }) do
-            local default_diagnostic_handler = vim.lsp.handlers[method]
-            vim.lsp.handlers[method] = function(err, result, context, config)
-                if err ~= nil and err.code == -32802 then
-                    return
-                end
-                return default_diagnostic_handler(err, result, context, config)
-            end
-        end
-
-        vim.fn.sign_define('LightBulbSign', {
-            text = '󰛩',
-            texthl = 'LspDiagnosticsDefaultInformation',
-            numhl = 'LspDiagnosticsDefaultInformation',
-        })
-
         vim.diagnostic.config({
-            severity_sort = true,
-            signs = {
-                text = {
-                    [vim.diagnostic.severity.ERROR] = '',
-                    [vim.diagnostic.severity.WARN] = '',
-                    [vim.diagnostic.severity.INFO] = '',
-                    [vim.diagnostic.severity.HINT] = '',
+                underline = true,
+                virtual_text = false,
+                severity_sort = true,
+                update_in_insert = true,
+                signs = {
+                    text = {
+                        [vim.diagnostic.severity.ERROR] = '',
+                        [vim.diagnostic.severity.WARN] = '',
+                        [vim.diagnostic.severity.INFO] = '',
+                        [vim.diagnostic.severity.HINT] = '',
+                    },
+                    numhl = {
+                        [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
+                        [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
+                        [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
+                        [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
+                    },
                 },
-                numhl = {
-                    [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
-                    [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
-                    [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
-                    [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
-                },
-            },
-        })
+            })
 
-        -- nightly
-        -- vim.lsp.on_type_formatting.enable()
+        vim.lsp.on_type_formatting.enable()
 
         -- C/C++
         vim.lsp.enable('clangd')
+        vim.lsp.config('clangd', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+        })
 
         -- bash
         vim.lsp.enable('bashls')
+        vim.lsp.config('bashls', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+        })
         -- yaml
         vim.lsp.config('yamlls', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
             settings = {
                 yaml = {
                     schemaStore = {
@@ -79,6 +67,8 @@ return {
 
         -- json
         vim.lsp.config('jsonls', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
             commands = {
                 Format = {
                     function()
@@ -94,59 +84,87 @@ return {
             },
         })
         vim.lsp.enable('jsonls')
+        vim.lsp.config('jsonls', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+        })
 
         -- eslint
         vim.lsp.enable('eslint')
+        vim.lsp.config('eslint', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+        })
 
         -- docker
         vim.lsp.enable('dockerls')
+        vim.lsp.config('dockerls', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+        })
 
         vim.lsp.enable('docker_compose_language_service')
+        vim.lsp.config('docker_compose_language_service', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+        })
 
         -- toml
         vim.lsp.enable('taplo')
+        vim.lsp.config('taplo', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+        })
 
         -- kotlin
         vim.lsp.enable('kotlin_language_server')
+        vim.lsp.config('kotlin_language_server', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+        })
 
         -- svelte
         vim.lsp.enable('svelte')
+        vim.lsp.config('svelte', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+        })
 
         -- slint
         vim.lsp.enable('slint_lsp')
+        vim.lsp.config('slint_lsp', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+        })
 
-        -- Using tailwind-tools
-        -- -- Tailwindcss
-        -- vim.lsp.config('tailwindcss', {
-        --     -- There add every filetype you want tailwind to work on
-        --     filetypes = {
-        --         "css", "scss", "sass", "postcss", "html", "javascript",
-        --         "javascriptreact", "typescript", "typescriptreact", "svelte",
-        --         "vue", "rust"
-        --     },
-        --     settings = {
-        --         tailwindCSS = {
-        --             emmetCompletions = true,
-        --             experimental = {classRegex = {"class\\s*:\\s*\"([^\"]*)"}},
-        --             includeLanguages = {rust = "html"}
-        --         }
-        --     }
-        -- })
-        -- vim.lsp.enable('tailwindcss')
 
         -- CMake
-        vim.lsp.config('neocmake', { init_options = { buildDirectory = 'build' } })
+        vim.lsp.config('neocmake', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+            init_options = { buildDirectory = 'build' }
+        })
         vim.lsp.enable('neocmake')
 
+        
         -- sql
         vim.lsp.config('sqlls', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
             cmd = { 'sql-language-server', 'up', '--method', 'stdio' },
         })
         vim.lsp.enable('sqlls')
 
         vim.lsp.enable('emmylua_ls')
+        vim.lsp.config('emmylua_ls', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+        })
+
 
         vim.lsp.config('wgsl_analyzer', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
             settings = {
                 ['wgsl-analyzer.customImports'] = {
 
@@ -164,6 +182,10 @@ return {
         vim.lsp.enable('wgsl_analyzer')
 
         vim.lsp.enable('pyright')
+        vim.lsp.config('pyright', {
+            on_attach = lsp_utils.on_attach,
+            capabilities = lsp_utils.capabilities(),
+        })
     end,
     keys = {
         -- LSP

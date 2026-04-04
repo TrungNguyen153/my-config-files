@@ -70,24 +70,7 @@ function lsp_autocmds(client, bufnr)
             group = group
         })
     end
-    -- if client.server_capabilities.document_highlight or
-    --     client.server_capabilities.documentHighlightProvider then
-    --     local group = augroup("LSPHighlightSymbols")
 
-    --     -- Highlight text at cursor position
-    --     autocmd({"CursorHold", "CursorHoldI"}, {
-    --         desc = "Highlight references to current symbol under cursor",
-    --         buffer = bufnr,
-    --         callback = vim.lsp.buf.document_highlight,
-    --         group = group
-    --     })
-    --     autocmd({"CursorMoved"}, {
-    --         desc = "Clear highlights when cursor is moved",
-    --         buffer = bufnr,
-    --         callback = vim.lsp.buf.clear_references,
-    --         group = group
-    --     })
-    -- end
     if client.server_capabilities.document_formatting or
         client.server_capabilities.documentFormattingProvider then
         local group = augroup("LSPAutoFormat")
@@ -107,14 +90,6 @@ function lsp_autocmds(client, bufnr)
         })
     end
 
-    -- autocmd({ "CursorHold", "CursorHoldI" }, {
-    -- 	desc = "Show box with diagnostics for current line",
-    -- 	pattern = "*",
-    -- 	callback = function()
-    -- 		vim.diagnostic.open_float({ focusable = false })
-    -- 	end,
-    -- 	group = augroup("LSPDianostics"),
-    -- })
 
     vim.api.nvim_buf_create_user_command(0, 'ClangdSwitchSourceHeader',
         function() switch_source_header(0) end,
@@ -143,26 +118,8 @@ return {
             pattern = "*",
             callback = function()
                 vim.hl.on_yank { higroup = "IncSearch", timeout = 200 }
-                -- local v = vim.v.event
-                -- local regcontents = v.regcontents
-                -- vim.defer_fn(function()
-                --     vim.fn.setreg("+", regcontents)
-                --     vim.notify(vim.inspect(regcontents))
-                -- end, 100)
             end
         })
-
-        -- sync system clipboard to vim clipboard
-        -- vim.api.nvim_create_autocmd("FocusGained", {
-        --     callback = function()
-        --         local loaded_content = vim.fn.getreg("+")
-        --         if loaded_content ~= "" then
-        --             vim.fn.setreg('"', loaded_content)
-        --             vim.notify(vim.inspect(loaded_content))
-        --         end
-        --     end,
-        -- })
-
 
         autocmd({'BufReadPost'}, {
             group = augroup('LastPlace'),
@@ -213,18 +170,6 @@ return {
 				vim.b.copilot_suggestion_hidden = false
 			end,
 		})
-
-        autocmd({"LspAttach"}, {
-            group = augroup('LspAttachClient'),
-            callback = function(args)
-                local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-                local buf = args.buf
-                if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint.is_enabled({}) then
-                    vim.lsp.inlay_hint.enable(true, {bufnr = buf})
-                end
-                lsp_autocmds(client, buf)
-            end
-        })
 
         local fold_group = augroup('Folds')
         local IGNORE_FILETYPES = {
