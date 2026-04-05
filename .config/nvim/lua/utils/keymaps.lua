@@ -196,14 +196,18 @@ local keymap_table = {
 	},
 	{
 		shortcut = "[d",
-		cmd = vim.diagnostic.goto_prev,
+		cmd = function()
+			vim.diagnostic.jump({ count = -1, float = true })
+		end,
 		mode = { "n" },
 		desc = "Go to previous diagnostic",
 		opts = { noremap = true },
 	},
 	{
 		shortcut = "]d",
-		cmd = vim.diagnostic.goto_next,
+		cmd = function()
+			vim.diagnostic.jump({ count = 1, float = true })
+		end,
 		mode = { "n" },
 		desc = "Go to next diagnostic",
 		opts = { noremap = true },

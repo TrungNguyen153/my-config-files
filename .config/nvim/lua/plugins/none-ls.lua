@@ -7,7 +7,6 @@ return {
     dependencies = {
         'nvimtools/none-ls-extras.nvim',
         'nvim-lua/plenary.nvim',
-        'nvim-treesitter/nvim-treesitter',
     },
     config = function()
         local none_ls = require('null-ls')

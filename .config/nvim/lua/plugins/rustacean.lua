@@ -54,6 +54,10 @@ return {
 	init = function()
 		
 		vim.g.rustaceanvim = function()
+
+			local lsp_utils = require('utils.lsp')
+
+
 			require("crates").setup({
 				lsp = {
 					enabled = true,
@@ -83,6 +87,8 @@ return {
 					},
 				},
 				server = {
+					on_attach = lsp_utils.on_attach,
+            		capabilities = lsp_utils.capabilities(),
 					standalone = false,
 					settings = {
 						["rust-analyzer"] = {
