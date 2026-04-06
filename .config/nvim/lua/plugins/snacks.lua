@@ -63,7 +63,17 @@ return {
 		},
 
 		picker = {
+			hidden = true,
+			ignored = false,
 			sources = {
+				files = {
+					hidden = true,
+					ignored = false,
+				},
+				grep = {
+					hidden = true,
+					ignored = false,
+				},
 				explorer = {
 					enabled = true,
 					-- https://github.com/shubham-cpp/dotfiles/blob/main/.config/nvim-astro/lua/plugins/snacks.lua

@@ -91,10 +91,11 @@ Write-Start -msg "Install Scoop's package for dev"
     scoop install extras/debugviewpp
     scoop install versions/python311
     scoop install nerd-fonts/RobotoMono-NF-Propo
-	scoop install nerd-fonts/JetBrains-Mono
-	scoop install nerd-fonts/JetBrainsMono-NF
+		scoop install nerd-fonts/JetBrains-Mono
+		scoop install nerd-fonts/JetBrainsMono-NF
     scoop install cmake
     scoop install sysinternals/tcpview
+		scoop install main/nu
     # scoop install zoxide
 Write-Done
 

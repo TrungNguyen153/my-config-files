@@ -37,10 +37,10 @@ return {
 						return { "lsp", "snippets", "path" }
 					end
 				end,
-				per_filetype = {
-                    sql = { 'snippets', 'dadbod', 'buffer' },
-                    lua = { 'lazydev', 'lsp', 'snippets' },
-                },
+				-- per_filetype = {
+    --                 sql = { 'snippets', 'dadbod', 'buffer' },
+    --                 lua = { 'lazydev', 'lsp', 'snippets' },
+    --             },
 				providers = {
 					dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
                     -- lazydev = {
@@ -54,7 +54,6 @@ return {
 				ghost_text = { enabled = true },
 				accept = {
 					dot_repeat = true,
-					
 				},
 				list = {
 					selection = {

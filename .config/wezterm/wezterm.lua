@@ -1,7 +1,10 @@
 local wezterm = require("wezterm")
+
+local is_linux = wezterm.target_triple:find("linux") ~= nil
+local is_windows = wezterm.target_triple:find("windows") ~= nil
+
 local mux = wezterm.mux
 local workspace_switcher = wezterm.plugin.require("https://github.com/MLFlexer/smart_workspace_switcher.wezterm")
-
 local session_manager = require("wezterm-session-manager/session-manager")
 wezterm.on("save_session", function(window) session_manager.save_state(window) end)
 wezterm.on("load_session", function(window) session_manager.load_state(window) end)
@@ -33,111 +36,198 @@ wezterm.on('gui-attached', function(domain)
   end
 end)
 
-local config = {
-  check_for_updates = false,
-  color_scheme = "GruvboxDarkHard",
-  inactive_pane_hsb = {
-    hue = 1.0,
-    saturation = 1.0,
-    brightness = 1.0,
-  },
-  default_prog = { "/bin/bash", "-l" },
-  font = wezterm.font("JetBrains Mono", { weight = "Regular" }),
-  font_size = 10.0,
-  launch_menu = {},
-  window_decorations = "INTEGRATED_BUTTONS|RESIZE",
-  hide_tab_bar_if_only_one_tab = true,
-  scrollback_lines = 3000,
-  enable_scroll_bar = false,
-  leader = { key = "t", mods = "CTRL" },
-  disable_default_key_bindings = true,
-  max_fps = 120,
-  keys = {
-    -- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
-    { key = "a", mods = "LEADER|CTRL",  action = wezterm.action({ SendString = "\x01" }) },
-    -- split
-    {
-      key = "-",
-      mods = "LEADER",
-      action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }),
-    },
-    {
-      key = "\\",
-      mods = "LEADER",
-      action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }),
-    },
-    -- zoom focus pane
-    { key = "z", mods = "LEADER",       	action = "TogglePaneZoomState" },
-    -- switch pane
-    { key = "h", mods = "LEADER",       	action = wezterm.action({ ActivatePaneDirection = "Left" }) },
-    { key = "j", mods = "LEADER",       	action = wezterm.action({ ActivatePaneDirection = "Down" }) },
-    { key = "k", mods = "LEADER",       	action = wezterm.action({ ActivatePaneDirection = "Up" }) },
-    { key = "l", mods = "LEADER",       	action = wezterm.action({ ActivatePaneDirection = "Right" }) },
-    -- Adjust pane size
-    { key = "h", mods = "LEADER|CTRL",  	action = wezterm.action({ AdjustPaneSize = { "Left", 5 } }) },
-    { key = "j", mods = "LEADER|CTRL",  	action = wezterm.action({ AdjustPaneSize = { "Down", 5 } }) },
-    { key = "k", mods = "LEADER|CTRL",  	action = wezterm.action({ AdjustPaneSize = { "Up", 5 } }) },
-    { key = "l", mods = "LEADER|CTRL",  	action = wezterm.action({ AdjustPaneSize = { "Right", 5 } }) },
-    -- tab switching
-    { key = "1", mods = "LEADER",       	action = wezterm.action({ ActivateTab = 0 }) },
-    { key = "2", mods = "LEADER",       	action = wezterm.action({ ActivateTab = 1 }) },
-    { key = "3", mods = "LEADER",       	action = wezterm.action({ ActivateTab = 2 }) },
-    { key = "4", mods = "LEADER",       	action = wezterm.action({ ActivateTab = 3 }) },
-    { key = "5", mods = "LEADER",       	action = wezterm.action({ ActivateTab = 4 }) },
-    { key = "6", mods = "LEADER",       	action = wezterm.action({ ActivateTab = 5 }) },
-    { key = "7", mods = "LEADER",       	action = wezterm.action({ ActivateTab = 6 }) },
-    { key = "8", mods = "LEADER",       	action = wezterm.action({ ActivateTab = 7 }) },
-    { key = "9", mods = "LEADER",       	action = wezterm.action({ ActivateTab = 8 }) },
-    -- Open new tab
-    { key = "n", mods = "LEADER",       	action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }) },
-    -- close Tab
-    { key = "&", mods = "LEADER|SHIFT", 	action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
-    -- close pane
-    { key = "x", mods = "LEADER",       	action = wezterm.action({ CloseCurrentPane = { confirm = true } }) },
-    -- Toggle full
-    { key = "n", mods = "SHIFT|CTRL",   	action = "ToggleFullScreen" },
-    -- Copy paste
-    { key = "v", mods = "SHIFT|CTRL",   	action = wezterm.action.PasteFrom("Clipboard") },
-    { key = "c", mods = "SHIFT|CTRL",   	action = wezterm.action.CopyTo("Clipboard") },
-    { key = "w", mods = "LEADER", 		action = workspace_switcher.switch_workspace(), },
-    -- Session Manager
-    {key  = "S",  mods = "LEADER|SHIFT", 	action = wezterm.action{EmitEvent = "save_session"}},
-    {key  = "L",  mods = "LEADER|SHIFT", 	action = wezterm.action{EmitEvent = "load_session"}},
-    {key  = "R",  mods = "LEADER|SHIFT", 	action = wezterm.action{EmitEvent = "restore_session"}},
-  },
-  set_environment_variables = {},
-  window_padding = {
-    left = '0cell',
-    right = '0cell',
-    top = '0.1cell',
-    bottom = '0cell',
-  },
-}
+local config = wezterm.config_builder()
 
-if wezterm.target_triple == "x86_64-pc-windows-msvc" then
-  config.front_end = "OpenGL" -- OpenGL doesn't work quite well with RDP.
-  config.term = ""           -- Set to empty so FZF works on windows
-  config.default_prog = { "nu" }
-  config.window_background_image = ""
-  table.insert(config.launch_menu, { label = "PowerShell", args = { "powershell.exe", "-NoLogo" } })
-  table.insert(config.launch_menu, { label = "CMD", args = { "cmd.exe" } })
+-- commons
+config.max_fps = 120
 
-  -- Find installed visual studio version(s) and add their compilation
-  -- environment command prompts to the menu
-  for _, vsvers in ipairs(wezterm.glob("Microsoft Visual Studio/20*", "C:/Program Files (x86)")) do
-    local year = vsvers:gsub("Microsoft Visual Studio/", "")
-    table.insert(config.launch_menu, {
-      label = "x64 Native Tools VS " .. year,
-      args = {
-        "cmd.exe",
-        "/k",
-        "C:/Program Files (x86)/" .. vsvers .. "/BuildTools/VC/Auxiliary/Build/vcvars64.bat",
-      },
-    })
-  end
-else
-  table.insert(config.launch_menu, { label = "bash", args = { "bash", "-l" } })
-  table.insert(config.launch_menu, { label = "fish", args = { "fish", "-l" } })
+-- theme stuff
+config.color_scheme = "GruvboxDarkHard"
+config.font = wezterm.font("JetBrains Mono")
+config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
+
+-- sanity wezterm settings
+config.warn_about_missing_glyphs = false
+config.window_close_confirmation = "NeverPrompt"
+config.audible_bell = "Disabled"
+
+-- default window size
+config.initial_cols = 150
+config.initial_rows = 40
+
+if is_linux then
+    -- hyprland :)
+    config.font_size = 16
+    config.window_decorations = "NONE"
+    config.enable_tab_bar = false
+    config.window_background_opacity = 0.8
+    config.window_padding = {
+        left = "0.5cell",
+        right = "0.5cell",
+        top = "0.1cell",
+        bottom = "0.1cell",
+    }
 end
 
+if is_windows then
+    -- no tiling window manager :(
+    config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+    config.window_padding = {
+        left = "0cell",
+        right = "0cell",
+        top = "0.1cell",
+        bottom = "0cell",
+    }
+
+    -- shell stuff
+    config.default_prog = { "nu" }
+    config.launch_menu = {
+        {
+            label = "WSL",
+            args = { "wsl", "-d", "fedora", "--cd", "~" }
+        },
+        {
+            label = "PowerShell",
+            args = { "powershell", "-NoLogo" },
+        },
+        {
+            label = "Command Prompt",
+            args = { "cmd" },
+        },
+    }
+
+		-- Find installed visual studio version(s) and add their compilation
+		-- environment command prompts to the menu
+		for _, vsvers in ipairs(wezterm.glob("Microsoft Visual Studio/20*", "C:/Program Files (x86)")) do
+				local year = vsvers:gsub("Microsoft Visual Studio/", "")
+				table.insert(config.launch_menu, {
+					label = "x64 Native Tools VS " .. year,
+					args = {
+						"cmd.exe",
+						"/k",
+						"C:/Program Files (x86)/" .. vsvers .. "/BuildTools/VC/Auxiliary/Build/vcvars64.bat",
+					},
+				})
+		end
+		
+end -- ill add mac stuff if i ever become rich
+
+
+-- key binding
+-- config.disable_default_key_bindings = true
+config.leader = { key = "t", mods = "CTRL" }
+
+
+
 return config
+
+
+
+-- local config = {
+--   check_for_updates = false,
+--   color_scheme = "GruvboxDarkHard",
+--   inactive_pane_hsb = {
+--     hue = 1.0,
+--     saturation = 1.0,
+--     brightness = 1.0,
+--   },
+--   default_prog = { "/bin/bash", "-l" },
+--   font = wezterm.font("JetBrains Mono", { weight = "Regular" }),
+--   font_size = 10.0,
+--   launch_menu = {},
+--   window_decorations = "INTEGRATED_BUTTONS|RESIZE",
+--   hide_tab_bar_if_only_one_tab = true,
+--   scrollback_lines = 3000,
+--   enable_scroll_bar = false,
+--   leader = { key = "t", mods = "CTRL" },
+--   disable_default_key_bindings = true,
+--   max_fps = 120,
+--   keys = {
+--     -- Send "CTRL-A" to the terminal when pressing CTRL-A, CTRL-A
+--     { key = "a", mods = "LEADER|CTRL",  action = wezterm.action({ SendString = "\x01" }) },
+--     -- split
+--     {
+--       key = "-",
+--       mods = "LEADER",
+--       action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }),
+--     },
+--     {
+--       key = "\\",
+--       mods = "LEADER",
+--       action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }),
+--     },
+--     -- zoom focus pane
+--     { key = "z", mods = "LEADER",       	action = "TogglePaneZoomState" },
+--     -- switch pane
+--     { key = "h", mods = "LEADER",       	action = wezterm.action({ ActivatePaneDirection = "Left" }) },
+--     { key = "j", mods = "LEADER",       	action = wezterm.action({ ActivatePaneDirection = "Down" }) },
+--     { key = "k", mods = "LEADER",       	action = wezterm.action({ ActivatePaneDirection = "Up" }) },
+--     { key = "l", mods = "LEADER",       	action = wezterm.action({ ActivatePaneDirection = "Right" }) },
+--     -- Adjust pane size
+--     { key = "h", mods = "LEADER|CTRL",  	action = wezterm.action({ AdjustPaneSize = { "Left", 5 } }) },
+--     { key = "j", mods = "LEADER|CTRL",  	action = wezterm.action({ AdjustPaneSize = { "Down", 5 } }) },
+--     { key = "k", mods = "LEADER|CTRL",  	action = wezterm.action({ AdjustPaneSize = { "Up", 5 } }) },
+--     { key = "l", mods = "LEADER|CTRL",  	action = wezterm.action({ AdjustPaneSize = { "Right", 5 } }) },
+--     -- tab switching
+--     { key = "1", mods = "LEADER",       	action = wezterm.action({ ActivateTab = 0 }) },
+--     { key = "2", mods = "LEADER",       	action = wezterm.action({ ActivateTab = 1 }) },
+--     { key = "3", mods = "LEADER",       	action = wezterm.action({ ActivateTab = 2 }) },
+--     { key = "4", mods = "LEADER",       	action = wezterm.action({ ActivateTab = 3 }) },
+--     { key = "5", mods = "LEADER",       	action = wezterm.action({ ActivateTab = 4 }) },
+--     { key = "6", mods = "LEADER",       	action = wezterm.action({ ActivateTab = 5 }) },
+--     { key = "7", mods = "LEADER",       	action = wezterm.action({ ActivateTab = 6 }) },
+--     { key = "8", mods = "LEADER",       	action = wezterm.action({ ActivateTab = 7 }) },
+--     { key = "9", mods = "LEADER",       	action = wezterm.action({ ActivateTab = 8 }) },
+--     -- Open new tab
+--     { key = "n", mods = "LEADER",       	action = wezterm.action({ SpawnTab = "CurrentPaneDomain" }) },
+--     -- close Tab
+--     { key = "&", mods = "LEADER|SHIFT", 	action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
+--     -- close pane
+--     { key = "x", mods = "LEADER",       	action = wezterm.action({ CloseCurrentPane = { confirm = true } }) },
+--     -- Toggle full
+--     { key = "n", mods = "SHIFT|CTRL",   	action = "ToggleFullScreen" },
+--     -- Copy paste
+--     { key = "v", mods = "SHIFT|CTRL",   	action = wezterm.action.PasteFrom("Clipboard") },
+--     { key = "c", mods = "SHIFT|CTRL",   	action = wezterm.action.CopyTo("Clipboard") },
+--     { key = "w", mods = "LEADER", 		action = workspace_switcher.switch_workspace(), },
+--     -- Session Manager
+--     {key  = "S",  mods = "LEADER|SHIFT", 	action = wezterm.action{EmitEvent = "save_session"}},
+--     {key  = "L",  mods = "LEADER|SHIFT", 	action = wezterm.action{EmitEvent = "load_session"}},
+--     {key  = "R",  mods = "LEADER|SHIFT", 	action = wezterm.action{EmitEvent = "restore_session"}},
+--   },
+--   set_environment_variables = {},
+--   window_padding = {
+--     left = '0cell',
+--     right = '0cell',
+--     top = '0.1cell',
+--     bottom = '0cell',
+--   },
+-- }
+
+-- if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+--   config.front_end = "OpenGL" -- OpenGL doesn't work quite well with RDP.
+--   config.term = ""           -- Set to empty so FZF works on windows
+--   config.default_prog = { "nu" }
+--   config.window_background_image = ""
+--   table.insert(config.launch_menu, { label = "PowerShell", args = { "powershell.exe", "-NoLogo" } })
+--   table.insert(config.launch_menu, { label = "CMD", args = { "cmd.exe" } })
+
+--   -- Find installed visual studio version(s) and add their compilation
+--   -- environment command prompts to the menu
+--   for _, vsvers in ipairs(wezterm.glob("Microsoft Visual Studio/20*", "C:/Program Files (x86)")) do
+--     local year = vsvers:gsub("Microsoft Visual Studio/", "")
+--     table.insert(config.launch_menu, {
+--       label = "x64 Native Tools VS " .. year,
+--       args = {
+--         "cmd.exe",
+--         "/k",
+--         "C:/Program Files (x86)/" .. vsvers .. "/BuildTools/VC/Auxiliary/Build/vcvars64.bat",
+--       },
+--     })
+--   end
+-- else
+--   table.insert(config.launch_menu, { label = "bash", args = { "bash", "-l" } })
+--   table.insert(config.launch_menu, { label = "fish", args = { "fish", "-l" } })
+-- end
+
+-- return config
