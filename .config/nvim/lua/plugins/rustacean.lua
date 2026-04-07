@@ -162,8 +162,8 @@ return {
 							check = {
 								-- https://github.com/rust-analyzer/rust-analyzer/issues/9768
 								command = "clippy",
-								features = "all",
-								allTargets = true,
+								-- features = "all",
+								-- allTargets = true,
 							},
 						},
 					},
