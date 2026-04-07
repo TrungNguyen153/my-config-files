@@ -4,7 +4,6 @@ vim.o.termguicolors = true
 -- lua api seems to not be able to access this option
 vim.cmd("set guioptions-=T")
 
-vim.o.background = "dark"
 -- No more beeps
 vim.o.vb = true
 vim.o.synmaxcol = 500

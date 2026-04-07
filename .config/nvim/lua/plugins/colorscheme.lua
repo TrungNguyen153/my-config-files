@@ -2,14 +2,19 @@ local alpha = function()
     return string.format("%x", math.floor(255 * vim.g.neovide_transparency_point))
   end
 
--- return {
--- 	"ellisonleao/gruvbox.nvim",
--- 	-- enable = false,
---     cond = not vim.g.vscode,
---     lazy = false,
---     priority = 1000,
--- 	config = true,
--- }
+vim.o.background = "dark"
+
+return {
+	"ellisonleao/gruvbox.nvim",
+	-- enable = false,
+    cond = not vim.g.vscode,
+    lazy = false,
+    priority = 1000,
+	  config = function()
+      require("gruvbox").setup({})
+      vim.cmd.colorscheme "gruvbox"
+    end,
+}
 
 -- return {
 --     "rose-pine/neovim",
@@ -98,13 +103,45 @@ local alpha = function()
 --     end
 -- }
 
-return {
-  "nickkadutskyi/jb.nvim",
-  lazy = false,
-  priority = 1000,
-  opts = {},
-  config = function()
-      -- require("jb").setup({transparent = true})
-      vim.cmd("colorscheme jb")
-  end,
-}
+-- return {
+--   "nickkadutskyi/jb.nvim",
+--   lazy = false,
+--   priority = 1000,
+--   opts = {},
+--   config = function()
+--       -- require("jb").setup({transparent = true})
+--       vim.cmd("colorscheme jb")
+--   end,
+-- }
+
+-- return {
+--   {
+--     "folke/tokyonight.nvim",
+--     priority = 1000,
+--     config = function()
+--         require("tokyonight").setup({
+--             style = "night",
+--             styles = {
+--                 keywords = { italic = false },
+--             },
+--             on_colors = function(colors)
+--                 colors.git = {
+--                     -- add = "#82c13e",
+--                     -- change = "#d4902b",
+--                     -- delete = "#f10e38",
+--                     add = colors.green,
+--                     change = colors.yellow,
+--                     delete = colors.red,
+--                 }
+--             end,
+--             on_highlights = function(highlights, colors)
+--                 highlights.MatchParen = {
+--                     bg = colors.blue0,
+--                     bold = true,
+--                 }
+--             end,
+--         })
+--         vim.cmd.colorscheme "tokyonight"
+--     end
+-- },
+-- }

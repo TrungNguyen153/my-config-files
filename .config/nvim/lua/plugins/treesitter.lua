@@ -105,6 +105,42 @@ return {
 				silent = true,
 				nowait = true
 			},
+			{
+				']m',
+				function()
+					require("nvim-treesitter-textobjects.move").goto_next_start("@function.outer", "textobjects")
+				end,
+				mode = { "n", "x", "o" },
+				silent = true,
+				nowait = true
+			},
+			{
+				']]',
+				function()
+					require("nvim-treesitter-textobjects.move").goto_next_start("@class.outer", "textobjects")
+				end,
+				mode = { "n", "x", "o" },
+				silent = true,
+				nowait = true
+			},
+			{
+				'[m',
+				function()
+					require("nvim-treesitter-textobjects.move").goto_previous_start("@function.outer", "textobjects")
+				end,
+				mode = { "n", "x", "o" },
+				silent = true,
+				nowait = true
+			},
+			{
+				'[[',
+				function()
+					require("nvim-treesitter-textobjects.move").goto_previous_start("@class.outer", "textobjects")
+				end,
+				mode = { "n", "x", "o" },
+				silent = true,
+				nowait = true
+			},
 		}
 	},
 	{
