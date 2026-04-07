@@ -323,7 +323,7 @@ return {
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}), {})
 			end,
 			mode = { "n" },
-			desc = "Toggle InlayHint",
+			desc = "Toggle Inlay Hint",
 			noremap = true,
 			silent = true,
 		},
