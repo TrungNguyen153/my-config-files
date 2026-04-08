@@ -34,6 +34,9 @@ return {
                         opts = {
                             system_prompt = require('ai.prompt').system_prompt(),
                         },
+                        keymaps = {
+                            close = false,
+                        },
                         adapter = 'opencode',
                         tools = {
                             -- builtin auto-approve
@@ -105,7 +108,8 @@ return {
                         description = 'LLM Skills',
                         enabled = function()
                             local Path = require('plenary.path')
-                            return Path:new(vim.fn.getcwd() .. '/.claude/skills'):exists() or Path:new(vim.fn.getcwd() .. '/.agent/skills'):exists()
+                            return Path:new(vim.fn.getcwd() .. '/.claude/skills'):exists()
+                                or Path:new(vim.fn.getcwd() .. '/.agent/skills'):exists()
                         end,
                         files = {
                             {
