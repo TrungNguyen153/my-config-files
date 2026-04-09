@@ -5,15 +5,17 @@ end
 
 local function switch_source_header(bufnr)
     local method_name = 'textDocument/switchSourceHeader'
-    local client = vim.lsp.get_clients({bufnr = bufnr, name = 'clangd'})[1]
+    local client = vim.lsp.get_clients({ bufnr = bufnr, name = 'clangd' })[1]
     if not client then
         return vim.notify(
-                   ('method %s is not supported by any servers active on the current buffer'):format(
-                       method_name))
+            ('method %s is not supported by any servers active on the current buffer'):format(method_name)
+        )
     end
     local params = vim.lsp.util.make_text_document_params(bufnr)
     client.request(method_name, params, function(err, result)
-        if err then error(tostring(err)) end
+        if err then
+            error(tostring(err))
+        end
         if not result then
             vim.notify('corresponding file cannot be determined')
             return
@@ -24,15 +26,12 @@ end
 
 local function symbol_info()
     local bufnr = vim.api.nvim_get_current_buf()
-    local clangd_client =
-        vim.lsp.get_clients({bufnr = bufnr, name = 'clangd'})[1]
-    if not clangd_client or
-        not clangd_client.supports_method 'textDocument/symbolInfo' then
+    local clangd_client = vim.lsp.get_clients({ bufnr = bufnr, name = 'clangd' })[1]
+    if not clangd_client or not clangd_client.supports_method('textDocument/symbolInfo') then
         return vim.notify('Clangd client not found', vim.log.levels.ERROR)
     end
     local win = vim.api.nvim_get_current_win()
-    local params = vim.lsp.util.make_position_params(win,
-                                                     clangd_client.offset_encoding)
+    local params = vim.lsp.util.make_position_params(win, clangd_client.offset_encoding)
     clangd_client.request('textDocument/symbolInfo', params, function(err, res)
         if err or #res == 0 then
             -- Clangd always returns an error, there is not reason to parse it
@@ -40,13 +39,13 @@ local function symbol_info()
         end
         local container = string.format('container: %s', res[1].containerName) ---@type string
         local name = string.format('name: %s', res[1].name) ---@type string
-        vim.lsp.util.open_floating_preview({name, container}, '', {
+        vim.lsp.util.open_floating_preview({ name, container }, '', {
             height = 2,
             width = math.max(string.len(name), string.len(container)),
             focusable = false,
             focus = false,
             border = 'single',
-            title = 'Symbol Info'
+            title = 'Symbol Info',
         })
     end, bufnr)
 end
@@ -55,68 +54,49 @@ return {
     lsp_autocmds = function(client, bufnr)
         local autocmd = vim.api.nvim_create_autocmd
         local augroup = function(name)
-            return vim.api.nvim_create_augroup(name, {clear = false})
+            return vim.api.nvim_create_augroup(name, { clear = false })
         end
 
+        vim.api.nvim_buf_create_user_command(0, 'ClangdSwitchSourceHeader', function()
+            switch_source_header(0)
+        end, { desc = 'Switch between source/header' })
 
-        if client.server_capabilities.document_formatting or
-            client.server_capabilities.documentFormattingProvider then
-            local group = augroup("LSPAutoFormat")
-            -- set the autoformat flag
-            vim.b.autoformat = vim.g.autoformat
-
-            -- auto format file on save
-            autocmd({"BufWritePre"}, {
-                desc = "Auto format file before saving",
-                buffer = bufnr,
-                callback = function()
-                    if vim.b.autoformat then
-                        vim.lsp.buf.format({async = false, timeout_ms = 4000})
-                    end
-                end,
-                group = group
-            })
-        end
-
-
-        vim.api.nvim_buf_create_user_command(0, 'ClangdSwitchSourceHeader',
-            function() switch_source_header(0) end,
-            {desc = 'Switch between source/header'})
-
-        vim.api.nvim_buf_create_user_command(0, 'ClangdShowSymbolInfo',
-            function() symbol_info() end,
-            {desc = 'Show symbol info'})
+        vim.api.nvim_buf_create_user_command(0, 'ClangdShowSymbolInfo', function()
+            symbol_info()
+        end, { desc = 'Show symbol info' })
     end,
     setup = function()
         local autocmd = vim.api.nvim_create_autocmd
         local augroup = function(name)
-            return vim.api.nvim_create_augroup(name, {clear = true})
+            return vim.api.nvim_create_augroup(name, { clear = true })
         end
 
         autocmd('FileType', {
-            callback = function() pcall(vim.treesitter.start) end,
-        })
-
-        autocmd({"BufRead"}, {
-            desc = "Prevent accidental writes to buffers that shouldn't be edited",
-            pattern = "*.orig",
-            command = "set readonly"
-        })
-
-        autocmd({"TextYankPost"}, {
-            desc = "Highlight yanked text",
-            pattern = "*",
             callback = function()
-                vim.hl.on_yank { higroup = "IncSearch", timeout = 200 }
-            end
+                pcall(vim.treesitter.start)
+            end,
         })
 
-        autocmd({'BufReadPost'}, {
+        autocmd({ 'BufRead' }, {
+            desc = "Prevent accidental writes to buffers that shouldn't be edited",
+            pattern = '*.orig',
+            command = 'set readonly',
+        })
+
+        autocmd({ 'TextYankPost' }, {
+            desc = 'Highlight yanked text',
+            pattern = '*',
+            callback = function()
+                vim.hl.on_yank({ higroup = 'IncSearch', timeout = 200 })
+            end,
+        })
+
+        autocmd({ 'BufReadPost' }, {
             group = augroup('LastPlace'),
-            pattern = {'*'},
+            pattern = { '*' },
             desc = 'When editing a file, always jump to the last known cursor position',
             callback = function()
-                local exclude = {'gitcommit', 'commit', 'gitrebase'}
+                local exclude = { 'gitcommit', 'commit', 'gitrebase' }
                 if vim.tbl_contains(exclude, vim.bo.filetype) then
                     return
                 end
@@ -124,17 +104,17 @@ return {
                 if line >= 1 and line <= vim.fn.line('$') then
                     vim.cmd('normal! g`"')
                 end
-            end
+            end,
         })
 
-        autocmd({"BufRead", "BufNewFile"}, {
-            pattern = {"CMakeLists.txt", "*.cmake"},
-            command = "set filetype=cmake"
+        autocmd({ 'BufRead', 'BufNewFile' }, {
+            pattern = { 'CMakeLists.txt', '*.cmake' },
+            command = 'set filetype=cmake',
         })
 
-		-- Do not conceal JSON files
+        -- Do not conceal JSON files
         vim.api.nvim_create_autocmd('FileType', {
-            pattern = { "json", "jsonc", "json5" },
+            pattern = { 'json', 'jsonc', 'json5' },
             callback = function()
                 vim.opt_local.conceallevel = 0
             end,
@@ -148,18 +128,18 @@ return {
             end,
         })
 
-		vim.api.nvim_create_autocmd("User", {
-			pattern = "BlinkCmpMenuOpen",
-			callback = function()
-				vim.b.copilot_suggestion_hidden = true
-			end,
-		})
-		vim.api.nvim_create_autocmd("User", {
-			pattern = "BlinkCmpMenuClose",
-			callback = function()
-				vim.b.copilot_suggestion_hidden = false
-			end,
-		})
+        vim.api.nvim_create_autocmd('User', {
+            pattern = 'BlinkCmpMenuOpen',
+            callback = function()
+                vim.b.copilot_suggestion_hidden = true
+            end,
+        })
+        vim.api.nvim_create_autocmd('User', {
+            pattern = 'BlinkCmpMenuClose',
+            callback = function()
+                vim.b.copilot_suggestion_hidden = false
+            end,
+        })
 
         local fold_group = augroup('Folds')
         local IGNORE_FILETYPES = {
@@ -213,34 +193,27 @@ return {
         local set_file_type_group = augroup('SetCTFileType')
         autocmd('BufEnter', {
             group = set_file_type_group,
-            pattern = "*.slint",
-            command = "setlocal filetype=slint"
+            pattern = '*.slint',
+            command = 'setlocal filetype=slint',
         })
 
         -- Resizes
-        vim.api.nvim_create_user_command("Vr", function(opts)
-            local usage = "Usage: [VirticalResize] :Vr {number (%)}"
+        vim.api.nvim_create_user_command('Vr', function(opts)
+            local usage = 'Usage: [VirticalResize] :Vr {number (%)}'
             if not opts.args or not string.len(opts.args) == 2 then
                 print(usage)
                 return
             end
-            vim.cmd(":vertical resize " .. vim.opt.columns:get() * (opts.args / 100.0))
-        end, { nargs = "*" })
+            vim.cmd(':vertical resize ' .. vim.opt.columns:get() * (opts.args / 100.0))
+        end, { nargs = '*' })
 
-        vim.api.nvim_create_user_command("Hr", function(opts)
-            local usage = "Usage: [HorizontalResize] :Hr {number (%)}"
+        vim.api.nvim_create_user_command('Hr', function(opts)
+            local usage = 'Usage: [HorizontalResize] :Hr {number (%)}'
             if not opts.args or not string.len(opts.args) == 2 then
                 print(usage)
                 return
             end
-            vim.cmd(
-                ":resize "
-                    .. (
-                        (vim.opt.lines:get() - vim.opt.cmdheight:get())
-                        * (opts.args / 100.0)
-                    )
-            )
-        end, { nargs = "*" })
-
-    end
+            vim.cmd(':resize ' .. ((vim.opt.lines:get() - vim.opt.cmdheight:get()) * (opts.args / 100.0)))
+        end, { nargs = '*' })
+    end,
 }

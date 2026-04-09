@@ -504,12 +504,12 @@ return {
 		{
 			"<localleader>e",
 			function ()
-				local explorer = Snacks.picker.get({ source = "explorer" })[1]
-				if explorer then
-					Snacks.explorer()
-				else
-					Snacks.picker.resume("explorer")
-				end
+				Snacks.picker.explorer()
+				-- local explorer = Snacks.picker.get({ source = "explorer" })[1]
+				-- if explorer then
+				-- else
+				-- 	Snacks.picker.resume("explorer")
+				-- end
 				-- 
 				
 			end,

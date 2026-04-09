@@ -1,8 +1,8 @@
 -- session management
 -- vim.o.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,globals,localoptions"
-vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions"
+vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,localoptions'
 return {
-	"rmagatti/auto-session",
+	'rmagatti/auto-session',
 	enabled = not vim.g.vscode,
 	lazy = false,
 	opts = {
@@ -12,31 +12,31 @@ return {
 		enabled = true,
 		lsp_stop_on_restore = true,
 		post_cwd_changed_cmds = function()
-			require("lualine").refresh()
+			require('lualine').refresh()
 		end,
 		session_lens = {
 			load_on_setup = false,
 			mappings = {
-				alternate_session = { "i", "<C-S>" },
-				copy_session = { "i", "<C-Y>" },
-				delete_session = { "i", "<C-D>" }
+				alternate_session = { 'i', '<C-S>' },
+				copy_session = { 'i', '<C-Y>' },
+				delete_session = { 'i', '<C-D>' },
 			},
 			picker_opts = {
-				border = false
+				border = false,
 			},
-			previewer = true
+			previewer = true,
 		},
 	},
 	keys = {
 		-- Will use Telescope if installed or a vim.ui.select picker otherwise
 		{ '<leader>wr', '<cmd>AutoSession search<CR>', desc = 'Session search' },
-		{ '<leader>ws', '<cmd>AutoSession save<CR>', desc = 'Save session' },
+		{ '<leader>ws', '<cmd>AutoSession save<CR>',   desc = 'Save session' },
 		{ '<leader>wa', '<cmd>AutoSession toggle<CR>', desc = 'Toggle autosave' },
 		{
-			"<M-w>",
-			"<cmd>AutoSession search<CR>",
-			mode = { "n" },
-			desc = "Session search",
+			'<M-w>',
+			'<cmd>AutoSession search<CR>',
+			mode = { 'n' },
+			desc = 'Session search',
 			noremap = true,
 			silent = true,
 		},

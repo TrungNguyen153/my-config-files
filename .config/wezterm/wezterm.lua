@@ -49,7 +49,9 @@ config.max_fps = 144
 
 -- theme stuff
 config.color_scheme = 'GruvboxDarkHard'
-config.font = wezterm.font('JetBrains Mono')
+
+config.font = wezterm.font('JetBrainsMono Nerd Font')
+-- config.font = wezterm.font('JetBrains Mono')
 config.font_size = 11
 config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
 
@@ -153,6 +155,9 @@ config.keys = {
     { key = 'S', mods = 'LEADER', action = wezterm.action({ EmitEvent = 'save_session' }) },
     { key = 'L', mods = 'LEADER', action = wezterm.action({ EmitEvent = 'load_session' }) },
     { key = 'R', mods = 'LEADER', action = wezterm.action({ EmitEvent = 'restore_session' }) },
+    -- Copy paste
+    { key = 'V', mods = 'CTRL', action = wezterm.action.PasteFrom('Clipboard') },
+    { key = 'C', mods = 'CTRL', action = wezterm.action.CopyTo('Clipboard') },
 }
 
 return config

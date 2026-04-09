@@ -8,30 +8,29 @@ return {
     },
     enabled = not vim.g.vscode,
     config = function()
-
         local lsp_utils = require('utils.lsp')
 
         -- general LSP config
         vim.diagnostic.config({
-                underline = true,
-                virtual_text = false,
-                severity_sort = true,
-                update_in_insert = true,
-                signs = {
-                    text = {
-                        [vim.diagnostic.severity.ERROR] = '',
-                        [vim.diagnostic.severity.WARN] = '',
-                        [vim.diagnostic.severity.INFO] = '',
-                        [vim.diagnostic.severity.HINT] = '',
-                    },
-                    numhl = {
-                        [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
-                        [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
-                        [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
-                        [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
-                    },
+            underline = true,
+            virtual_text = false,
+            severity_sort = true,
+            update_in_insert = true,
+            signs = {
+                text = {
+                    [vim.diagnostic.severity.ERROR] = '',
+                    [vim.diagnostic.severity.WARN] = '',
+                    [vim.diagnostic.severity.INFO] = '',
+                    [vim.diagnostic.severity.HINT] = '',
                 },
-            })
+                numhl = {
+                    [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
+                    [vim.diagnostic.severity.WARN] = 'DiagnosticSignWarn',
+                    [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
+                    [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
+                },
+            },
+        })
 
         vim.lsp.on_type_formatting.enable()
 
@@ -137,16 +136,14 @@ return {
             capabilities = lsp_utils.capabilities(),
         })
 
-
         -- CMake
         vim.lsp.config('neocmake', {
             on_attach = lsp_utils.on_attach,
             capabilities = lsp_utils.capabilities(),
-            init_options = { buildDirectory = 'build' }
+            init_options = { buildDirectory = 'build' },
         })
         vim.lsp.enable('neocmake')
 
-        
         -- sql
         vim.lsp.config('sqlls', {
             on_attach = lsp_utils.on_attach,
@@ -160,7 +157,6 @@ return {
             on_attach = lsp_utils.on_attach,
             capabilities = lsp_utils.capabilities(),
         })
-
 
         vim.lsp.config('wgsl_analyzer', {
             on_attach = lsp_utils.on_attach,
@@ -310,22 +306,6 @@ return {
             '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
             mode = { 'n' },
             desc = 'Show line diagnostics',
-            noremap = true,
-        },
-        {
-            '<leader>lc',
-            function()
-                vim.b.autoformat = not vim.b.autoformat
-            end,
-            mode = { 'n' },
-            desc = 'Toggle autoformat',
-            noremap = true,
-        },
-        {
-            '<leader>lf',
-            '<cmd>lua vim.lsp.buf.format({ async = false })<CR>',
-            mode = { 'n' },
-            desc = 'Format',
             noremap = true,
         },
         {
