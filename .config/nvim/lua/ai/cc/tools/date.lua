@@ -1,11 +1,36 @@
 local handlers = require('ai.cc.utils')
+
+--- Parse an operation string like "+1d", "-3m", "+2w" into {sign, number, metric}
+local function parse_operation(op)
+    local sign_str, num_str, metric = op:match('^([+-])(%d+)([ymwdHMS])$')
+    if not sign_str then
+        return nil, 'Invalid operation format: ' .. op
+    end
+    local value = tonumber(num_str)
+    if sign_str == '-' then
+        value = -value
+    end
+    return { value = value, metric = metric }
+end
+
+--- Map metric character to os.date table field and multiplier
+local metric_map = {
+    y = 'year',
+    m = 'month',
+    w = 'day', -- weeks are converted to days (* 7)
+    d = 'day',
+    H = 'hour',
+    M = 'min',
+    S = 'sec',
+}
+
 return handlers.create_tool({
     name = 'date',
     description = 'Provide date calculations based on today',
     properties = {
         format = {
             type = 'string',
-            description = 'Date format to get. Check the docs for unix `date` utility. Example: %A, %d. %B %Y at %H:%M:%S to get for example Tuesday, 26. August 2025 at 20:36:19',
+            description = 'Date format using Lua os.date specifiers (strftime). Example: %A, %d. %B %Y at %H:%M:%S to get for example Tuesday, 26. August 2025 at 20:36:19',
         },
         operations = {
             type = 'array',
@@ -30,36 +55,37 @@ S: second]],
     func = function(_, schema_params, opts)
         local output_handler = opts.output_cb
         local operations = schema_params.operations or {}
-        local format = schema_params.format
+        local format = schema_params.format or '%Y-%m-%d %H:%M:%S'
 
-        local cmd = { 'date' }
-        for _, v in ipairs(operations) do
-            table.insert(cmd, '-v' .. v)
-        end
-        if format then
-            table.insert(cmd, '+' .. format)
+        -- Start with current time as a table
+        local t = os.date('*t')
+
+        -- Apply each operation
+        for _, op_str in ipairs(operations) do
+            local parsed, err = parse_operation(op_str)
+            if not parsed then
+                output_handler({ status = 'error', data = err })
+                return
+            end
+
+            local field = metric_map[parsed.metric]
+            local value = parsed.value
+            if parsed.metric == 'w' then
+                value = value * 7
+            end
+
+            t[field] = t[field] + value
         end
 
-        vim.system(cmd, function(result)
-            vim.schedule(function()
-                if result.code ~= 0 then
-                    output_handler({
-                        status = 'error',
-                        data = 'Date command failed with exit code '
-                            .. result.code
-                            .. ': '
-                            .. (result.stderr or 'unknown error'),
-                    })
-                else
-                    local stdout = result.stdout:gsub('\n$', '')
-                    output_handler({ status = 'success', data = stdout or '' })
-                end
-            end)
-        end)
+        -- os.time normalizes overflows (e.g., month 13 → Jan next year)
+        local timestamp = os.time(t)
+        local result = os.date(format, timestamp)
+
+        output_handler({ status = 'success', data = result or '' })
     end,
-    system_prompt = [[Perform date calculations and formatting using the Unix `date` utility. This tool allows you to get the current date/time with custom formatting and perform relative date calculations.
+    system_prompt = [[Perform date calculations and formatting. This tool allows you to get the current date/time with custom formatting and perform relative date calculations. Works on all platforms (Windows, macOS, Linux).
 
-**Formatting**: Use the `format` parameter with standard Unix date format specifiers (e.g., "%Y-%m-%d" for 2025-01-15, "%A, %d. %B %Y at %H:%M:%S" for "Tuesday, 26. August 2025 at 20:36:19").
+**Formatting**: Use the `format` parameter with standard strftime specifiers (e.g., "%Y-%m-%d" for 2025-01-15, "%A, %d. %B %Y at %H:%M:%S" for "Tuesday, 26. August 2025 at 20:36:19").
 
 **Operations**: Use the `operations` array to add or subtract time from the current date. Each operation follows the format `[+|-][NUMBER][METRIC]`:
 - `+` to add, `-` to subtract

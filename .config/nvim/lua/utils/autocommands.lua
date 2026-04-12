@@ -12,6 +12,7 @@ local function switch_source_header(bufnr)
         )
     end
     local params = vim.lsp.util.make_text_document_params(bufnr)
+    ---@diagnostic disable-next-line: param-type-mismatch
     client.request(method_name, params, function(err, result)
         if err then
             error(tostring(err))
@@ -27,11 +28,13 @@ end
 local function symbol_info()
     local bufnr = vim.api.nvim_get_current_buf()
     local clangd_client = vim.lsp.get_clients({ bufnr = bufnr, name = 'clangd' })[1]
+    ---@diagnostic disable-next-line: param-type-mismatch
     if not clangd_client or not clangd_client.supports_method('textDocument/symbolInfo') then
         return vim.notify('Clangd client not found', vim.log.levels.ERROR)
     end
     local win = vim.api.nvim_get_current_win()
     local params = vim.lsp.util.make_position_params(win, clangd_client.offset_encoding)
+    ---@diagnostic disable-next-line: param-type-mismatch
     clangd_client.request('textDocument/symbolInfo', params, function(err, res)
         if err or #res == 0 then
             -- Clangd always returns an error, there is not reason to parse it
@@ -215,5 +218,75 @@ return {
             end
             vim.cmd(':resize ' .. ((vim.opt.lines:get() - vim.opt.cmdheight:get()) * (opts.args / 100.0)))
         end, { nargs = '*' })
+
+        -- CodeCompanion event hooks
+        local cc_group = augroup('CodeCompanionHooks')
+
+        -- Register per-chat callbacks on creation
+        autocmd('User', {
+            group = cc_group,
+            pattern = 'CodeCompanionChatCreated',
+            callback = function(ev)
+                local ok, cc = pcall(require, 'codecompanion')
+                if not ok then
+                    return
+                end
+
+                local chat = cc.buf_get_chat(ev.buf)
+                if not chat then
+                    return
+                end
+
+                -- Token usage warning at 80%
+                chat:add_callback('on_checkpoint', function(c, data)
+                    if not data or not data.estimated_tokens or not data.adapter then
+                        return
+                    end
+                    local ctx_window = data.adapter.meta and data.adapter.meta.context_window or 200000
+                    local pct = (data.estimated_tokens / ctx_window) * 100
+                    if pct >= 80 then
+                        vim.schedule(function()
+                            vim.notify(
+                                string.format(
+                                    'Token usage: %.0f%% (%d/%d) — consider /compact or new chat',
+                                    pct,
+                                    data.estimated_tokens,
+                                    ctx_window
+                                ),
+                                pct >= 95 and vim.log.levels.ERROR or vim.log.levels.WARN
+                            )
+                        end)
+                    end
+                end)
+
+                -- Truncate oversized tool outputs
+                chat:add_callback('on_tool_output', function(c, data)
+                    if not data or not data.for_llm then
+                        return
+                    end
+                    local max_len = 50000
+                    if #data.for_llm > max_len then
+                        data.for_llm = data.for_llm:sub(1, max_len)
+                            .. '\n\n[TRUNCATED — '
+                            .. (#data.for_llm - max_len)
+                            .. ' chars removed to preserve context]'
+                        vim.schedule(function()
+                            vim.notify('Tool output truncated to preserve context window', vim.log.levels.INFO)
+                        end)
+                    end
+                end)
+            end,
+        })
+
+        -- Notification when all tools finish
+        autocmd('User', {
+            group = cc_group,
+            pattern = 'CodeCompanionToolsFinished',
+            callback = function()
+                vim.schedule(function()
+                    vim.notify('Tools finished', vim.log.levels.INFO)
+                end)
+            end,
+        })
     end,
 }
