@@ -275,6 +275,8 @@ Format reviews with:
                     is_default = false,
                 },
             },
+            -- Prompt Library create CodeCompanisonAction
+            -- like: Fix Code, etcs
             prompt_library = {
                 markdown = {
                     dirs = {
