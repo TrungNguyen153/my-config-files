@@ -37,7 +37,6 @@ return {
         'olimorris/codecompanion.nvim',
         dependencies = {
             'ravitemer/codecompanion-history.nvim',
-            'lalitmee/codecompanion-spinners.nvim',
             'mrjones2014/codecompanion-ui.nvim',
         },
         enabled = true,
@@ -389,7 +388,6 @@ Describe the change you want below. I will:
                         },
                     },
                 },
-                spinner = {},
                 ui = {},
             },
             display = {
