@@ -179,6 +179,7 @@ return {
                                 require_approval_before = false,
                             },
                         },
+                        -- custom tools
                         ['calendar_scheduler'] = {
                             path = 'ai.cc.tools.calendar_scheduler',
                             description = 'Manage meeting URL scheduling via Hammerspoon',
@@ -347,6 +348,78 @@ Describe the change you want below. I will:
                 http = {},
             },
             extensions = {
+                acp_yolo = {
+                    enabled = true,
+                    callback = 'ai.cc.extensions.acp_yolo',
+                    opts = {
+                        notify = true,
+                        ignore_case = true,
+                        record = true,
+                        claude_code = {
+                            ['edit'] = {},
+                            ['write'] = {},
+                            ['switch_mode'] = {},
+                            ['bash'] = { allow = false },
+                            ['execute'] = {
+                                allow = true,
+                                title_pattern = {
+                                    -- Rust (build/lint/test only)
+                                    'cargo test', 'cargo check', 'cargo build',
+                                    'cargo clippy', 'cargo fmt', 'cargo doc',
+                                    -- JavaScript / TypeScript (lint/test/typecheck only)
+                                    'npm test', 'yarn test', 'pnpm test', 'bun test',
+                                    'vitest', 'jest', 'mocha', 'eslint', 'prettier',
+                                    'tsc ',  'tsc$',
+                                    -- Python (lint/test only)
+                                    'pytest', 'ruff ', 'mypy ', 'black ', 'isort ',
+                                    -- Go (build/lint/test only)
+                                    'go test', 'go build', 'go vet',
+                                    'go fmt', 'golangci%-lint',
+                                    -- Read-only shell
+                                    'git status', 'git diff', 'git log', 'git branch',
+                                    'git show', 'git blame',
+                                    'cat ', 'head ', 'tail ', 'wc ', 'sort ',
+                                    'ls ', 'ls$', 'pwd',
+                                    'grep ', 'rg ',
+                                    -- Read-only Windows / PowerShell
+                                    'Get%-ChildItem', 'Get%-Content', 'Select%-String',
+                                    'Test%-Path',
+                                    'dir ', 'dir$', 'type ', 'where ', 'findstr ',
+                                },
+                                title_deny_pattern = {
+                                    -- Unix destructive
+                                    'rm ', 'sudo ', 'chmod ', 'chown ',
+                                    'mkfs', 'dd if=', '> /dev/',
+                                    'mv ', 'cp %-r',
+                                    'kill ', 'killall ', 'pkill ',
+                                    -- Shell eval / arbitrary execution
+                                    'eval ', 'exec ', 'source ', '%. ',
+                                    'sh %-c', 'bash %-c', 'zsh %-c',
+                                    -- Windows destructive
+                                    'del ', 'rmdir ', 'rd ',
+                                    'format ', 'move ',
+                                    'Remove%-Item', 'Move%-Item',
+                                    'Set%-Content', 'Out%-File',
+                                    'Invoke%-Expression', 'Invoke%-WebRequest',
+                                    'Start%-Process',
+                                    -- Network / download
+                                    'curl ', 'wget ', 'Invoke%-RestMethod',
+                                    'iex ', 'iwr ',
+                                    -- Package install / global changes
+                                    'pip install', 'npm install', 'cargo install',
+                                    'yarn add', 'pnpm add', 'bun add',
+                                    'npx ', 'bunx ',
+                                    -- File redirection (overwrite)
+                                    '> ', '>> ',
+                                    -- Git write operations
+                                    'git push', 'git reset', 'git checkout ',
+                                    'git clean', 'git rebase', 'git merge',
+                                    'git commit', 'git stash',
+                                },
+                            },
+                        },
+                    },
+                },
                 history = {
                     enabled = true,
                     opts = {
