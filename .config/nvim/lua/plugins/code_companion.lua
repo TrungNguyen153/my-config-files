@@ -339,7 +339,7 @@ Describe the change you want below. I will:
                             return _claude_code
                         end
                         _claude_code = require('codecompanion.adapters').extend('claude_code', {
-                            -- 'opus[1m]' or
+                            -- 'opus[1m]' or 'opus'
                             defaults = { mode = 'plan', model = 'opus' },
                         })
                         return _claude_code
