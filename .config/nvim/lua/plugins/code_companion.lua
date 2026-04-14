@@ -357,6 +357,8 @@ Describe the change you want below. I will:
                         record = true,
                         claude_code = {
                             ['edit'] = {},
+                            ['read'] = true,
+                            ['search'] = true,
                             ['write'] = {},
                             ['switch_mode'] = {},
                             ['bash'] = { allow = false },
