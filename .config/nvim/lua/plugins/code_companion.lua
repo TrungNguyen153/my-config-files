@@ -32,12 +32,46 @@ local function is_floating_window(win_id)
     return win_cfg and (win_cfg.relative ~= '' or not win_cfg.relative)
 end
 local _claude_code
+
 return {
     {
         'olimorris/codecompanion.nvim',
         dependencies = {
             'ravitemer/codecompanion-history.nvim',
             'mrjones2014/codecompanion-ui.nvim',
+            {
+                'ravitemer/mcphub.nvim',
+                branch = 'main',
+                dependencies = {
+                    'nvim-lua/plenary.nvim',
+                },
+                build = 'npm install -g mcp-hub@latest', -- Installs `mcp-hub` node binary globally
+                config = function()
+                    require('mcphub').setup()
+                end,
+            },
+            -- {
+            --     'Davidyz/VectorCode',
+            --     version = '*',
+            --     build = 'uv tool upgrade vectorcode',
+            --     dependencies = { 'nvim-lua/plenary.nvim' },
+            --     config = function()
+            --         require('vectorcode').setup({
+            --             n_query = 5,
+            --             exclude_this = true,
+            --             notify = true,
+            --             async_backend = 'lsp',
+            --             on_setup = { lsp = true },
+            --             async_opts = {
+            --                 events = { 'BufWritePost', 'InsertEnter', 'BufReadPost' },
+            --                 debounce = 10,
+            --                 n_query = 3,
+            --                 notify = false,
+            --                 run_on_register = true,
+            --             },
+            --         })
+            --     end,
+            -- },
         },
         enabled = true,
         cmd = {
@@ -126,7 +160,7 @@ return {
                         return message
                     end,
                     tools = {
-                        -- builtin auto-approve
+                        -- builtin auto-approve, if use ACP adapter, those tools have no effect
                         ['file_search'] = {
                             opts = {
                                 require_cmd_approval = false,
@@ -332,15 +366,45 @@ Describe the change you want below. I will:
                     },
                 },
             },
+            -- mcp = {
+            --     server = {
+
+            --     },
+            -- },
             adapters = {
                 acp = {
                     claude_code = function()
                         if _claude_code ~= nil then
                             return _claude_code
                         end
+
+                        local instance
+                        local ok = vim.wait(5000, function()
+                            instance = require('mcphub').get_hub_instance()
+                            return instance ~= nil and instance:is_ready()
+                        end, 100)
+
+                        local mcpServers = {}
+                        if ok and instance then
+                            mcpServers = {
+                                {
+                                    type = 'sse',
+                                    name = 'mcphub',
+                                    url = ('http://localhost:%d/mcp'):format(instance.port),
+                                    headers = {},
+                                },
+                            }
+                        end
+
                         _claude_code = require('codecompanion.adapters').extend('claude_code', {
-                            -- 'opus[1m]' or 'opus'
-                            defaults = { mode = 'plan', model = 'opus' },
+                            env = {
+                                ANTHROPIC_DEFAULT_OPUS_MODEL = 'claude-opus-4-6[1m]',
+                            },
+                            defaults = {
+                                mode = 'plan',
+                                model = 'opus',
+                                mcpServers = mcpServers,
+                            },
                         })
                         return _claude_code
                     end,
@@ -356,70 +420,157 @@ Describe the change you want below. I will:
                         ignore_case = true,
                         record = true,
                         claude_code = {
-                            ['edit'] = {},
+                            ['edit'] = true,
                             ['read'] = true,
                             ['search'] = true,
-                            ['write'] = {},
-                            ['switch_mode'] = {},
+                            ['write'] = true,
+                            ['switch_mode'] = true,
+                            ['fetch'] = true,
                             ['bash'] = { allow = false },
                             ['execute'] = {
                                 allow = true,
                                 title_pattern = {
                                     -- Rust (build/lint/test only)
-                                    'cargo test', 'cargo check', 'cargo build',
-                                    'cargo clippy', 'cargo fmt', 'cargo doc',
+                                    'cargo test',
+                                    'cargo check',
+                                    'cargo build',
+                                    'cargo clippy',
+                                    'cargo fmt',
+                                    'cargo doc',
                                     -- JavaScript / TypeScript (lint/test/typecheck only)
-                                    'npm test', 'yarn test', 'pnpm test', 'bun test',
-                                    'vitest', 'jest', 'mocha', 'eslint', 'prettier',
-                                    'tsc ',  'tsc$',
+                                    'npm test',
+                                    'yarn test',
+                                    'pnpm test',
+                                    'bun test',
+                                    'vitest',
+                                    'jest',
+                                    'mocha',
+                                    'eslint',
+                                    'prettier',
+                                    'tsc ',
+                                    'tsc$',
                                     -- Python (lint/test only)
-                                    'pytest', 'ruff ', 'mypy ', 'black ', 'isort ',
+                                    'pytest',
+                                    'ruff ',
+                                    'mypy ',
+                                    'black ',
+                                    'isort ',
                                     -- Go (build/lint/test only)
-                                    'go test', 'go build', 'go vet',
-                                    'go fmt', 'golangci%-lint',
+                                    'go test',
+                                    'go build',
+                                    'go vet',
+                                    'go fmt',
+                                    'golangci%-lint',
                                     -- Read-only shell
-                                    'git status', 'git diff', 'git log', 'git branch',
-                                    'git show', 'git blame',
-                                    'cat ', 'head ', 'tail ', 'wc ', 'sort ',
-                                    'ls ', 'ls$', 'pwd',
-                                    'grep ', 'rg ',
+                                    'git status',
+                                    'git diff',
+                                    'git log',
+                                    'git branch',
+                                    'git show',
+                                    'git blame',
+                                    'cat ',
+                                    'head ',
+                                    'tail ',
+                                    'wc ',
+                                    'sort ',
+                                    'ls ',
+                                    'ls$',
+                                    'pwd',
+                                    'grep ',
+                                    'rg ',
                                     -- Read-only Windows / PowerShell
-                                    'Get%-ChildItem', 'Get%-Content', 'Select%-String',
+                                    'Get%-ChildItem',
+                                    'Get%-Content',
+                                    'Select%-String',
                                     'Test%-Path',
-                                    'dir ', 'dir$', 'type ', 'where ', 'findstr ',
+                                    'dir ',
+                                    'dir$',
+                                    'type ',
+                                    'where ',
+                                    'findstr ',
                                 },
                                 title_deny_pattern = {
                                     -- Unix destructive
-                                    'rm ', 'sudo ', 'chmod ', 'chown ',
-                                    'mkfs', 'dd if=', '> /dev/',
-                                    'mv ', 'cp %-r',
-                                    'kill ', 'killall ', 'pkill ',
+                                    'rm ',
+                                    'sudo ',
+                                    'chmod ',
+                                    'chown ',
+                                    'mkfs',
+                                    'dd if=',
+                                    '> /dev/',
+                                    'mv ',
+                                    'cp %-r',
+                                    'kill ',
+                                    'killall ',
+                                    'pkill ',
                                     -- Shell eval / arbitrary execution
-                                    'eval ', 'exec ', 'source ', '%. ',
-                                    'sh %-c', 'bash %-c', 'zsh %-c',
+                                    'eval ',
+                                    'exec ',
+                                    'source ',
+                                    '%. ',
+                                    'sh %-c',
+                                    'bash %-c',
+                                    'zsh %-c',
                                     -- Windows destructive
-                                    'del ', 'rmdir ', 'rd ',
-                                    'format ', 'move ',
-                                    'Remove%-Item', 'Move%-Item',
-                                    'Set%-Content', 'Out%-File',
-                                    'Invoke%-Expression', 'Invoke%-WebRequest',
+                                    'del ',
+                                    'rmdir ',
+                                    'rd ',
+                                    'format ',
+                                    'move ',
+                                    'Remove%-Item',
+                                    'Move%-Item',
+                                    'Set%-Content',
+                                    'Out%-File',
+                                    'Invoke%-Expression',
+                                    'Invoke%-WebRequest',
                                     'Start%-Process',
                                     -- Network / download
-                                    'curl ', 'wget ', 'Invoke%-RestMethod',
-                                    'iex ', 'iwr ',
+                                    'curl ',
+                                    'wget ',
+                                    'Invoke%-RestMethod',
+                                    'iex ',
+                                    'iwr ',
                                     -- Package install / global changes
-                                    'pip install', 'npm install', 'cargo install',
-                                    'yarn add', 'pnpm add', 'bun add',
-                                    'npx ', 'bunx ',
+                                    'pip install',
+                                    'npm install',
+                                    'cargo install',
+                                    'yarn add',
+                                    'pnpm add',
+                                    'bun add',
+                                    'npx ',
+                                    'bunx ',
                                     -- File redirection (overwrite)
-                                    '> ', '>> ',
+                                    '> ',
+                                    '>> ',
                                     -- Git write operations
-                                    'git push', 'git reset', 'git checkout ',
-                                    'git clean', 'git rebase', 'git merge',
-                                    'git commit', 'git stash',
+                                    'git push',
+                                    'git reset',
+                                    -- allow checkout
+                                    'git checkout ',
+                                    'git clean',
+                                    'git rebase',
+                                    'git merge',
+                                    -- allow commit
+                                    'git commit',
+                                    'git stash',
                                 },
                             },
                         },
+                    },
+                },
+                mcphub = {
+                    callback = 'mcphub.extensions.codecompanion',
+                    opts = {
+                        -- MCP Tools
+                        make_tools = true, -- Make individual tools (@server__tool) and server groups (@server) from MCP servers
+                        show_server_tools_in_chat = true, -- Show individual tools in chat completion (when make_tools=true)
+                        add_mcp_prefix_to_tool_names = true, -- Add mcp__ prefix (e.g `@mcp__github`, `@mcp__neovim__list_issues`)
+                        show_result_in_chat = true, -- Show tool results directly in chat buffer
+                        -- format_tool = nil, -- function(tool_name:string, tool: CodeCompanion.Agent.Tool) : string Function to format tool names to show in the chat buffer
+                        -- MCP Resources
+                        make_vars = false, -- Convert MCP resources to #variables for prompts
+                        -- MCP Prompts
+                        make_slash_commands = true, -- Add MCP prompts as /slash commands
                     },
                 },
                 history = {

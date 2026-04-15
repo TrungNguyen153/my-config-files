@@ -1,0 +1,24 @@
+{
+  "nativeMCPServers": {
+    "mcphub": {
+      "disabled": false
+    }
+  },
+  "mcpServers": {
+    "context7": {
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "env": {
+        "DEFAULT_MINIMUM_TOKENS": "6000"
+      },
+      "command": "npx"
+    },
+    "vectorcode": {
+      "disabled": true,
+      "command": "vectorcode-mcp-server",
+      "args": ["--number", "10"]
+    }
+  }
+}
