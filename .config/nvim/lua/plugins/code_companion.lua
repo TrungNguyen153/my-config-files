@@ -551,7 +551,7 @@ Describe the change you want below. I will:
                                     'git rebase',
                                     'git merge',
                                     -- allow commit
-                                    'git commit',
+                                    -- 'git commit',
                                     'git stash',
                                 },
                             },
