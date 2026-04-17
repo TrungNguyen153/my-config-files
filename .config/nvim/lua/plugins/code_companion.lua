@@ -398,7 +398,8 @@ Describe the change you want below. I will:
 
                         _claude_code = require('codecompanion.adapters').extend('claude_code', {
                             env = {
-                                ANTHROPIC_DEFAULT_OPUS_MODEL = 'claude-opus-4-6[1m]',
+                                ANTHROPIC_DEFAULT_OPUS_MODEL = 'claude-opus-4-7[1m]',
+                                CLAUDE_CODE_OAUTH_TOKEN = 'NVIM_CLAUDE_CODE_OAUTH_TOKEN',
                             },
                             defaults = {
                                 mode = 'plan',
@@ -468,6 +469,9 @@ Describe the change you want below. I will:
                                     'git branch',
                                     'git show',
                                     'git blame',
+                                    'git commit',
+                                    'git rev-parse',
+                                    'git add',
                                     'cat ',
                                     'head ',
                                     'tail ',
@@ -546,7 +550,7 @@ Describe the change you want below. I will:
                                     'git push',
                                     'git reset',
                                     -- allow checkout
-                                    'git checkout ',
+                                    -- 'git checkout ',
                                     'git clean',
                                     'git rebase',
                                     'git merge',
@@ -564,7 +568,7 @@ Describe the change you want below. I will:
                         -- MCP Tools
                         make_tools = true, -- Make individual tools (@server__tool) and server groups (@server) from MCP servers
                         show_server_tools_in_chat = true, -- Show individual tools in chat completion (when make_tools=true)
-                        add_mcp_prefix_to_tool_names = true, -- Add mcp__ prefix (e.g `@mcp__github`, `@mcp__neovim__list_issues`)
+                        add_mcp_prefix_to_tool_names = false, -- Add mcp__ prefix (e.g `@mcp__github`, `@mcp__neovim__list_issues`)
                         show_result_in_chat = true, -- Show tool results directly in chat buffer
                         -- format_tool = nil, -- function(tool_name:string, tool: CodeCompanion.Agent.Tool) : string Function to format tool names to show in the chat buffer
                         -- MCP Resources
