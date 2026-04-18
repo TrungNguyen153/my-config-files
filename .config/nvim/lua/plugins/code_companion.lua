@@ -406,6 +406,11 @@ Describe the change you want below. I will:
                                 model = 'opus',
                                 mcpServers = mcpServers,
                             },
+                            -- commands = {
+                                -- default = { "bunx", "-y", "@agentclientprotocol/claude-agent-acp@latest" },
+                                -- default = { "bunx", "-y", "claude-agent-acp", },
+                                -- yolo = { "bunx", "-y", "@agentclientprotocol/claude-agent-acp@latest", "--yolo", },
+                            -- },
                         })
                         return _claude_code
                     end,
