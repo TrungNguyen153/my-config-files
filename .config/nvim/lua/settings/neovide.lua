@@ -6,13 +6,16 @@ if vim.g.neovide then
     vim.g.neovide_text_gamma = 0.01
     vim.g.neovide_text_contrast = 0.01
 
-    vim.g.neovide_no_idle = true
     vim.g.neovide_scroll_animation_far_lines = 9999
 
     vim.g.neovide_hide_mouse_when_typing = false
 
     vim.g.neovide_floating_shadow = true
     vim.g.neovide_refresh_rate = 120
+    -- Match idle rate to refresh rate — Neovide defaults to 5 fps when idle,
+    -- which causes a 1–2s stall on the next UI event (e.g. <C-h/j/k/l>)
+    -- while the GPU/compositor wakes up.
+    vim.g.neovide_refresh_rate_idle = 120
     vim.g.neovide_confirm_quit = true
     vim.g.neovide_cursor_animation_length = 0.13
     vim.g.neovide_scroll_animation_length = 0.3

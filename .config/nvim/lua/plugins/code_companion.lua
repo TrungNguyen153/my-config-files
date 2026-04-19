@@ -441,6 +441,8 @@ Describe the change you want below. I will:
                             ['execute'] = {
                                 allow = true,
                                 title_pattern = {
+                                    -- lean-ctx
+                                    "ctx_",
                                     -- Rust (build/lint/test only)
                                     'cargo test',
                                     'cargo check',
