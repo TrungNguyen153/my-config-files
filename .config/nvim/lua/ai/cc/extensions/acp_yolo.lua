@@ -125,28 +125,144 @@ local function resolve_opt(tool_cfg, key, global_default)
     return global_default
 end
 
+---Pick the one-line status icon for an entry
+---@param entry table
+---@return string icon
+---@return string label (left-padded fixed width for table alignment)
+local function status_of(entry)
+    if entry.auto_approved then
+        return '✓', '✓ approve'
+    end
+    if entry.reason == 'denied_by_config' or entry.reason == 'denied_by_title_pattern' then
+        return '✗', '✗ deny   '
+    end
+    return '·', '· prompt '
+end
+
+---Short form for the DETAIL column, keyed off entry.reason
+---@param entry table
+---@param max_width integer
+---@return string
+local function short_detail(entry, max_width)
+    local r = entry.reason
+    local tool_kind = entry.tool_call and entry.tool_call.kind or '?'
+    local pat = entry.matched_title_pattern
+    local d
+    if r == 'yolo_auto_approved' then
+        d = pat and ("matched '" .. pat .. "'") or 'yolo auto-approved'
+    elseif r == 'denied_by_title_pattern' then
+        d = "matched deny '" .. (pat or '?') .. "'"
+    elseif r == 'denied_by_config' then
+        d = 'allow=false'
+    elseif r == 'title_pattern_not_matched' then
+        d = 'title_pattern miss'
+    elseif r == 'yolo_mode_off' then
+        d = 'yolo mode is off'
+    elseif r == 'no_tool_kind' then
+        d = 'no tool kind'
+    elseif r == 'adapter_not_configured' then
+        d = "adapter '" .. (entry.adapter or '?') .. "' not configured"
+    elseif r == 'tool_not_configured' then
+        d = "tool '" .. tool_kind .. "' not configured"
+    elseif r == 'no_allow_once_option' then
+        d = 'no allow_once option'
+    else
+        d = entry.detail_reason or ''
+    end
+    if vim.fn.strdisplaywidth(d) > max_width then
+        d = d:sub(1, max_width - 1) .. '…'
+    end
+    return d
+end
+
+---Render inspector buffer lines
+---@param detail_width integer width budget for the DETAIL column
+---@param expanded table<integer,boolean>
+---@return string[] lines
+---@return table<integer,integer|nil> line_to_entry  (1-based)
+local function render_lines(detail_width, expanded)
+    local lines = {}
+    local line_to_entry = {}
+    -- store `false` (not nil) for decorative rows so ipairs doesn't stop short
+    local function push(line, entry_idx)
+        table.insert(lines, line)
+        line_to_entry[#lines] = entry_idx or false
+    end
+
+    push(string.format('ACP Yolo Inspector — %d entries', #history))
+    push(string.format('%-4s %-9s %-9s %-9s %s', '#', 'TIME', 'STATUS', 'TOOL', 'DETAIL'))
+
+    if #history == 0 then
+        push('')
+        push('(no permission requests recorded yet)')
+    else
+        for i, entry in ipairs(history) do
+            local _, status_label = status_of(entry)
+            local tool_kind = (entry.tool_call and entry.tool_call.kind) or '<none>'
+            push(
+                string.format(
+                    '%-4d %-9s %-9s %-9s %s',
+                    i,
+                    entry.timestamp or '--:--:--',
+                    status_label,
+                    tool_kind:sub(1, 9),
+                    short_detail(entry, detail_width)
+                ),
+                i
+            )
+            if expanded[i] then
+                local tc = entry.tool_call or {}
+                -- nvim_buf_set_lines rejects strings that contain newlines, so
+                -- any embedded \r\n in values (e.g. multi-line shell titles) is
+                -- flattened to a visible ⏎ marker.
+                local function det(label, value)
+                    local text = tostring(value == nil and '<nil>' or value)
+                    text = text:gsub('[\r\n]+', ' ⏎ ')
+                    push(string.format('       %-16s %s', label, text), i)
+                end
+                det('adapter:', entry.adapter)
+                det('tool kind:', tc.kind)
+                det('title:', tc.title)
+                det('matched key:', entry.matched_config_key)
+                det('matched pattern:', entry.matched_title_pattern)
+                det('ignore_case:', tostring(entry.ignore_case))
+                det('yolo_mode:', tostring(entry.yolo_mode))
+                det('reason:', entry.reason)
+                det('detail_reason:', entry.detail_reason)
+                det('responded_with:', entry.responded_with)
+                if tc.locations and #tc.locations > 0 then
+                    for li, loc in ipairs(tc.locations) do
+                        det(
+                            li == 1 and 'locations:' or '',
+                            vim.inspect(loc, { newline = ' ', indent = '' })
+                        )
+                    end
+                else
+                    det('locations:', '<none>')
+                end
+                if entry.options and #entry.options > 0 then
+                    for oi, opt in ipairs(entry.options) do
+                        det(
+                            oi == 1 and 'options:' or '',
+                            string.format('%s  (%s)', opt.optionId or '<nil>', opt.kind or '<nil>')
+                        )
+                    end
+                end
+                push('', i)
+            end
+        end
+    end
+
+    push('')
+    push('[j/k] move  [<CR>] expand  [c] clear  [q] close')
+    return lines, line_to_entry
+end
+
 ---Open the inspector buffer as a floating window
 local function open_inspector()
     local buf = vim.api.nvim_create_buf(false, true)
     vim.bo[buf].filetype = 'codecompanion_acp_yolo_inspector'
     vim.bo[buf].bufhidden = 'wipe'
-
-    local lines = { '-- ACP Yolo Inspector', '-- Total requests: ' .. #history, '' }
-
-    if #history == 0 then
-        table.insert(lines, '-- No permission requests recorded yet.')
-    else
-        for i, entry in ipairs(history) do
-            table.insert(lines, string.format('-- [%d] %s', i, entry.timestamp))
-            for _, line in ipairs(vim.split(vim.inspect(entry), '\n', { plain = true })) do
-                table.insert(lines, line)
-            end
-            table.insert(lines, '')
-        end
-    end
-
-    vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
-    vim.bo[buf].modifiable = false
 
     -- Floating window sized to 80% of editor
     local width = math.floor(vim.o.columns * 0.8)
@@ -165,12 +281,52 @@ local function open_inspector()
         title = ' ACP Yolo Inspector ',
         title_pos = 'center',
     })
-
-    -- Lua syntax highlighting for vim.inspect output
     vim.wo[win].winhl = 'Normal:NormalFloat,FloatBorder:FloatBorder'
-    vim.treesitter.start(buf, 'lua')
 
-    -- q or <Esc> to close
+    local expanded = {}
+    -- Column budget: width - ("#=4 " + "TIME=9 " + "STATUS=9 " + "TOOL=9 ")  = 32 chars of fixed columns
+    local detail_width = math.max(20, width - 34)
+    local line_to_entry = {}
+
+    local function rerender(preserve_entry_idx)
+        local lines
+        lines, line_to_entry = render_lines(detail_width, expanded)
+        vim.bo[buf].modifiable = true
+        vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+        vim.bo[buf].modifiable = false
+        if preserve_entry_idx then
+            for lnum, idx in ipairs(line_to_entry) do
+                if idx == preserve_entry_idx then
+                    pcall(vim.api.nvim_win_set_cursor, win, { lnum, 0 })
+                    return
+                end
+            end
+        end
+    end
+
+    local function entry_under_cursor()
+        local lnum = vim.api.nvim_win_get_cursor(win)[1]
+        local idx = line_to_entry[lnum]
+        return idx and idx ~= false and idx or nil
+    end
+
+    rerender()
+
+    vim.keymap.set('n', '<CR>', function()
+        local idx = entry_under_cursor()
+        if not idx then
+            return
+        end
+        expanded[idx] = not expanded[idx] or nil
+        rerender(idx)
+    end, { buffer = buf, silent = true, desc = 'Toggle expand' })
+
+    vim.keymap.set('n', 'c', function()
+        M.exports.clear_history()
+        expanded = {}
+        rerender()
+    end, { buffer = buf, silent = true, desc = 'Clear history' })
+
     vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = buf, silent = true })
     vim.keymap.set('n', '<Esc>', '<cmd>close<cr>', { buffer = buf, silent = true })
 end
@@ -277,6 +433,7 @@ function M.setup(opts)
         -- Not in yolo mode → normal prompt
         if not yolo_on then
             entry.reason = 'yolo_mode_off'
+            entry.detail_reason = 'yolo mode is off — using normal prompt'
             if global_record then
                 record(entry)
             end
@@ -286,6 +443,7 @@ function M.setup(opts)
         -- No tool kind → normal prompt
         if not kind then
             entry.reason = 'no_tool_kind'
+            entry.detail_reason = 'request has no tool kind — using normal prompt'
             if global_record then
                 record(entry)
             end
@@ -296,6 +454,10 @@ function M.setup(opts)
         local adapter_tools = get_adapter_tools(opts, adapter_name)
         if not adapter_tools then
             entry.reason = 'adapter_not_configured'
+            entry.detail_reason = string.format(
+                "adapter '%s' has no acp_yolo config",
+                adapter_name or '<unknown>'
+            )
             if global_record then
                 record(entry)
             end
@@ -312,6 +474,10 @@ function M.setup(opts)
         -- Tool not configured → normal prompt (user adds later)
         if not tool_cfg then
             entry.reason = 'tool_not_configured'
+            entry.detail_reason = string.format(
+                "tool '%s' not listed under adapter config",
+                kind
+            )
             if should_record then
                 record(entry)
             end
@@ -326,6 +492,10 @@ function M.setup(opts)
         local allow = resolve_opt(tool_cfg, 'allow', true)
         if not allow then
             entry.reason = 'denied_by_config'
+            entry.detail_reason = string.format(
+                "tool '%s' has allow=false in config",
+                kind
+            )
             if should_record then
                 record(entry)
             end
@@ -338,6 +508,10 @@ function M.setup(opts)
             if denied then
                 entry.reason = 'denied_by_title_pattern'
                 entry.matched_title_pattern = deny_pat
+                entry.detail_reason = string.format(
+                    "title matched title_deny_pattern '%s'",
+                    deny_pat
+                )
                 if should_record then
                     record(entry)
                 end
@@ -350,6 +524,7 @@ function M.setup(opts)
             local matched, match_pat = matches_any(title or '', tool_cfg.title_pattern)
             if not matched then
                 entry.reason = 'title_pattern_not_matched'
+                entry.detail_reason = 'title did not match any title_pattern'
                 if should_record then
                     record(entry)
                 end
@@ -369,6 +544,7 @@ function M.setup(opts)
 
         if not allow_id then
             entry.reason = 'no_allow_once_option'
+            entry.detail_reason = 'ACP request had no allow_once option'
             if should_record then
                 record(entry)
             end
@@ -379,6 +555,14 @@ function M.setup(opts)
         entry.auto_approved = true
         entry.reason = 'yolo_auto_approved'
         entry.responded_with = allow_id
+        if entry.matched_title_pattern then
+            entry.detail_reason = string.format(
+                "yolo auto-approved — title matched title_pattern '%s'",
+                entry.matched_title_pattern
+            )
+        else
+            entry.detail_reason = 'yolo auto-approved (no title_pattern configured)'
+        end
         if should_record then
             record(entry)
         end

@@ -418,6 +418,11 @@ Describe the change you want below. I will:
                 http = {},
             },
             extensions = {
+                cc_status = {
+                    enabled = true,
+                    callback = 'ai.cc.extensions.cc_status',
+                    opts = {},
+                },
                 acp_yolo = {
                     enabled = true,
                     callback = 'ai.cc.extensions.acp_yolo',
@@ -473,6 +478,7 @@ Describe the change you want below. I will:
                                     'git log',
                                     'git branch',
                                     'git show',
+                                    'git %-C .- show',
                                     'git blame',
                                     'git commit',
                                     'git rev-parse',
