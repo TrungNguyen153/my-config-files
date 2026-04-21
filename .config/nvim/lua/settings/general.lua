@@ -58,7 +58,7 @@ vim.o.numberwidth = 1
 -- folding
 vim.o.foldenable = true -- Enable folding.
 vim.o.foldcolumn = '1' -- Show folding signs.
-vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()' -- Use treesitter for folding.
+-- vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()' -- Use treesitter for folding.
 vim.o.foldlevel = 999 -- Open all folds.
 vim.o.foldlevelstart = 99 -- Start with all folds closed.
 vim.o.foldmethod = 'expr' -- Use expr to determine fold level.

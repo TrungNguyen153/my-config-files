@@ -74,9 +74,16 @@ return {
             return vim.api.nvim_create_augroup(name, { clear = true })
         end
 
-        autocmd('FileType', {
-            callback = function()
-                pcall(vim.treesitter.start)
+        vim.api.nvim_create_autocmd("FileType", {
+            group = vim.api.nvim_create_augroup("treesitter_start", { clear = true }),
+            callback = function(args)
+                local ok, parser = pcall(vim.treesitter.get_parser, args.buf)
+                if ok and parser then
+                vim.treesitter.start(args.buf)
+                -- optional: treesitter-based folds and indent
+                vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+                vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                end
             end,
         })
 
