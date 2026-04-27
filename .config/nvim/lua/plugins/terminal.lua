@@ -5,6 +5,9 @@ return {
     enabled = not vim.g.vscode,
     config = function()
         require("toggleterm").setup({
+            on_open = function(term)
+                vim.cmd("startinsert!")
+            end,
             size = function(term)
                 if term.direction == 'horizontal' then
                   return 15
@@ -21,7 +24,7 @@ return {
             },
         })
 
-        function _G.set_terminal_keymaps()
+        local function set_terminal_keymaps()
             local opts = {buffer = 0}
             vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
             vim.keymap.set('t', 'jj', [[<C-\><C-n>]], opts)
@@ -32,9 +35,21 @@ return {
             vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
             vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
         end
-          
+        
+        vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
+            pattern = "term://*toggleterm#*",
+            callback = function()
+                vim.cmd("startinsert!")
+            end,
+        })
         -- if you only want these mappings for toggle term use term://*toggleterm#* instead
-        vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+        vim.api.nvim_create_autocmd({ "TermOpen" }, {
+            pattern = "term://*",
+            callback = function()
+                set_terminal_keymaps()
+            end,
+        })
+        
 
 
 
