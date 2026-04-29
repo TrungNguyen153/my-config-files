@@ -112,13 +112,10 @@ return {
                                     group = 'crate',
                                 },
                             },
-                            -- cargo = {
-                            -- 	loadOutDirsFromCheck = true,
-                            -- 	autoreload = true,
-                            -- 	runBuildScripts = true,
-                            -- 	features = "all",
-                            -- 	allTargets = true,
-                            -- },
+                            cargo = {
+                                targetDir = true, -- writes to target/rust-analyzer
+                                allTargets = false, -- skip tests/benches/examples in metadata
+                            },
                             procMacro = {
                                 enable = true,
                                 attributes = { enable = true },
@@ -159,6 +156,8 @@ return {
                             inlayHints = {
                                 enable = true,
                                 implicitDrops = { enable = false },
+                                closingBraceHints = { enable = false },
+                                parameterHints = { enable = false },
                             },
                             typing = {
                                 autoClosingAngleBrackets = { enable = true },
@@ -169,7 +168,7 @@ return {
                                 -- https://github.com/rust-analyzer/rust-analyzer/issues/9768
                                 command = 'clippy',
                                 -- features = "all",
-                                -- allTargets = true,
+                                allTargets = false,
                             },
                         },
                     },
