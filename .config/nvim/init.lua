@@ -20,7 +20,11 @@ require('settings.gui')
 require('settings.neovide')
 require('settings.unception')
 require('utils.keymaps').map_keys()
+local is_wsl = vim.fn.has('wsl') == 1
+local lockfile_name = is_wsl and 'lazy-lock.wsl.json' or 'lazy-lock.windows.json'
+
 require('lazy').setup('plugins', {
+    lockfile = vim.fn.stdpath('config') .. '/' .. lockfile_name,
     checker = {
         enabled = true,
         frequency = 7200,
