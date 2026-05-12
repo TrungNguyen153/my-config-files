@@ -1,24 +1,22 @@
 -- enables experimental lua loader
 vim.loader.enable()
 
--- default shell
-local powershell_options = {
-    -- shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell",
-    -- shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
-    -- shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",
-    -- shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode",
-    -- shellquote = "",
-    -- shellxquote = "",
+-- default shell, branched per OS
+-- Windows host -> Nushell. WSL/Linux -> bash. nu is not on PATH inside WSL Ubuntu
+-- by default; using it there breaks every shell-out plugin (toggleterm, conform,
+-- rustaceanvim executor, mason installers, gitsigns, snacks find-in-files, etc.).
+local is_wsl = vim.fn.has('wsl') == 1
+local is_win = vim.fn.has('win32') == 1
 
-    -- This for NuShell
-    shell = 'nu',
-    shellcmdflag = '-c',
-    shellquote = '',
-    shellxquote = '',
-    shellslash = true,
-}
-for option, value in pairs(powershell_options) do
-    vim.opt[option] = value
+if is_win and not is_wsl then
+    vim.opt.shell = 'nu'
+    vim.opt.shellcmdflag = '-c'
+    vim.opt.shellquote = ''
+    vim.opt.shellxquote = ''
+    vim.opt.shellslash = true
+else
+    vim.opt.shell = 'bash'
+    vim.opt.shellcmdflag = '-c'
 end
 
 vim.g.mapleader = ' ' -- <leader>
