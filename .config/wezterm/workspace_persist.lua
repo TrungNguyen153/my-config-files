@@ -232,4 +232,55 @@ M.actions.load = wezterm.action_callback(function(window, pane)
   )
 end)
 
+M.actions.delete = wezterm.action_callback(function(window, pane)
+  local resurrect = M._resurrect
+  local names = M.list_saved()
+  if #names == 0 then
+    window:toast_notification('wezterm', 'No saved workspaces to delete', nil, 2000)
+    return
+  end
+
+  local choices = {}
+  for _, name in ipairs(names) do
+    table.insert(choices, { id = name, label = name })
+  end
+
+  window:perform_action(
+    wezterm.action.InputSelector({
+      title = 'Delete workspace',
+      choices = choices,
+      fuzzy = true,
+      action = wezterm.action_callback(function(w, p, id, _)
+        if not id then return end
+
+        -- Confirmation prompt
+        w:perform_action(
+          wezterm.action.PromptInputLine({
+            description = 'Delete `' .. id .. '`? Type y to confirm:',
+            initial_value = '',
+            action = wezterm.action_callback(function(w2, p2, line)
+              if line ~= 'y' and line ~= 'Y' then
+                w2:toast_notification('wezterm', 'Delete cancelled', nil, 1500)
+                return
+              end
+
+              local path = M.state_dir() .. '/workspace/' .. id .. '.json'
+              local ok, err = pcall(resurrect.state_manager.delete_state, path)
+              if not ok then
+                w2:toast_notification('wezterm', 'Delete failed: ' .. tostring(err), nil, 4000)
+                wezterm.log_error('workspace_persist delete_state failed: ' .. tostring(err))
+                return
+              end
+
+              w2:toast_notification('wezterm', 'Deleted: ' .. id, nil, 2000)
+            end),
+          }),
+          p
+        )
+      end),
+    }),
+    pane
+  )
+end)
+
 return M

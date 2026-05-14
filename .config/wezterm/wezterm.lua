@@ -184,6 +184,8 @@ config.keys = {
     { key = 'S', mods = 'LEADER|SHIFT', action = workspace_persist.actions.save_current },
     -- Workspace persist: load
     { key = 'L', mods = 'LEADER|SHIFT', action = workspace_persist.actions.load },
+    -- Workspace persist: delete
+    { key = 'D', mods = 'LEADER|SHIFT', action = workspace_persist.actions.delete },
     -- Copy paste
     { key = 'V', mods = 'CTRL', action = wezterm.action.PasteFrom('Clipboard') },
     { key = 'C', mods = 'CTRL', action = wezterm.action.CopyTo('Clipboard') },
