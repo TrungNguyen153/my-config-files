@@ -122,10 +122,42 @@ M.actions.save_current = wezterm.action_callback(function(window, pane)
 
         if target == current_name then
           w:toast_notification('wezterm', 'Saved workspace: ' .. target, nil, 2000)
-        else
-          -- Rename path is implemented in Task 6. For now, surface the limitation.
-          w:toast_notification('wezterm', 'Saved as ' .. target .. ' (rename not yet implemented)', nil, 3000)
+          return
         end
+
+        -- Rename path: switch to a workspace named `target`, restore the
+        -- captured state into it. The old workspace persists in the mux until
+        -- the user closes it.
+        w:perform_action(
+          wezterm.action.SwitchToWorkspace({ name = target }),
+          p
+        )
+
+        -- Reload the state from disk (the saved file already encodes `target`
+        -- as the workspace name in fresh tab spawns).
+        local restored = resurrect.state_manager.load_state(target, 'workspace')
+        if not restored then
+          w:toast_notification('wezterm', 'Saved, but restore into new workspace failed', nil, 4000)
+          return
+        end
+
+        local restore_ok, restore_err = pcall(function()
+          resurrect.workspace_state.restore_workspace(restored, {
+            window = w:mux_window(),
+            relative = true,
+            restore_text = false,
+            close_open_tabs = true,
+            close_open_panes = true,
+            on_pane_restore = resurrect.tab_state.default_on_pane_restore,
+          })
+        end)
+        if not restore_ok then
+          w:toast_notification('wezterm', 'Saved as ' .. target .. ', but layout restore failed: ' .. tostring(restore_err), nil, 5000)
+          wezterm.log_error('workspace_persist restore failed: ' .. tostring(restore_err))
+          return
+        end
+
+        w:toast_notification('wezterm', 'Saved as ' .. target .. ' and switched', nil, 2500)
       end),
     }),
     pane
