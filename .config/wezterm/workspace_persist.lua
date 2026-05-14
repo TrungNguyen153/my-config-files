@@ -164,4 +164,72 @@ M.actions.save_current = wezterm.action_callback(function(window, pane)
   )
 end)
 
+-- Helper: is workspace name currently live in the mux?
+local function workspace_is_live(name)
+  for _, live_name in ipairs(wezterm.mux.get_workspace_names()) do
+    if live_name == name then return true end
+  end
+  return false
+end
+
+M.actions.load = wezterm.action_callback(function(window, pane)
+  local resurrect = M._resurrect
+  local names = M.list_saved()
+  if #names == 0 then
+    window:toast_notification('wezterm', 'No saved workspaces yet', nil, 2000)
+    return
+  end
+
+  local choices = {}
+  for _, name in ipairs(names) do
+    table.insert(choices, { id = name, label = name })
+  end
+
+  window:perform_action(
+    wezterm.action.InputSelector({
+      title = 'Load workspace',
+      choices = choices,
+      fuzzy = true,
+      action = wezterm.action_callback(function(w, p, id, _)
+        if not id then return end
+
+        if workspace_is_live(id) then
+          w:perform_action(wezterm.action.SwitchToWorkspace({ name = id }), p)
+          w:toast_notification('wezterm', 'Workspace already active, switched to it', nil, 2000)
+          return
+        end
+
+        -- Switch first (creates the workspace), then restore into it.
+        w:perform_action(wezterm.action.SwitchToWorkspace({ name = id }), p)
+
+        local state = resurrect.state_manager.load_state(id, 'workspace')
+        if not state then
+          w:toast_notification('wezterm', 'Load failed: could not read state for ' .. id, nil, 4000)
+          wezterm.log_error('workspace_persist load_state returned nil for ' .. id)
+          return
+        end
+
+        local ok, err = pcall(function()
+          resurrect.workspace_state.restore_workspace(state, {
+            window = w:mux_window(),
+            relative = true,
+            restore_text = false,
+            close_open_tabs = true,
+            close_open_panes = true,
+            on_pane_restore = resurrect.tab_state.default_on_pane_restore,
+          })
+        end)
+        if not ok then
+          w:toast_notification('wezterm', 'Load failed: ' .. tostring(err), nil, 5000)
+          wezterm.log_error('workspace_persist restore failed: ' .. tostring(err))
+          return
+        end
+
+        w:toast_notification('wezterm', 'Loaded workspace: ' .. id, nil, 2000)
+      end),
+    }),
+    pane
+  )
+end)
+
 return M
