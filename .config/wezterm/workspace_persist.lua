@@ -115,8 +115,22 @@ function M.setup(resurrect)
   local dir = M.state_dir()
   mkdir_p(dir)
   mkdir_p(dir .. '/workspace')
-  resurrect.state_manager.change_state_save_dir(dir)
+  -- NOTE: resurrect.state_manager.change_state_save_dir expects a directory
+  -- string WITH a trailing separator. Its internal path math is
+  -- `save_state_dir .. type .. sep .. name.json` with no separator inserted
+  -- between save_state_dir and type. Pass the trailing slash so files land
+  -- in `<dir>/workspace/<name>.json` instead of `<dir>workspace<sep><name>.json`.
+  resurrect.state_manager.change_state_save_dir(dir .. '/')
   M._resurrect = resurrect
+
+  -- Surface plugin write errors (the plugin logs them but swallows them
+  -- from save_state's return value, so our own pcall can't see them).
+  wezterm.on('resurrect.error', function(msg)
+    wezterm.log_error('resurrect plugin error: ' .. tostring(msg))
+    for _, gui_win in ipairs(wezterm.gui.gui_windows()) do
+      gui_win:toast_notification('wezterm', 'resurrect: ' .. tostring(msg), nil, 5000)
+    end
+  end)
 
   -- Auto-save: detect change via fingerprint and trigger debounced save.
   wezterm.on('update-status', function(window, _pane)
@@ -204,27 +218,40 @@ end
 
 M.actions = {}
 
--- Save the current workspace under a user-chosen name.
+-- Opens the "Save workspace as" prompt for the current workspace.
 -- Same-name input overwrites in place; a different name switches to a new
 -- workspace and restores the captured layout there.
-M.actions.save_current = wezterm.action_callback(function(window, pane)
+local function open_save_prompt(window, pane)
   local resurrect = M._resurrect
   local current_name = window:active_workspace()
+  wezterm.log_info('workspace_persist: open_save_prompt for current=' .. tostring(current_name))
   window:perform_action(
     wezterm.action.PromptInputLine({
       description = 'Save workspace as:',
-      initial_value = current_name,
       action = wezterm.action_callback(function(w, p, line)
-        if not line or line == '' then return end
+        wezterm.log_info('workspace_persist: prompt callback fired, line=' .. tostring(line))
+        if not line or line == '' then
+          w:toast_notification('wezterm', 'Save cancelled (empty name)', nil, 1500)
+          return
+        end
         local target = line
 
-        local state = resurrect.workspace_state.get_workspace_state()
-        local ok, err = pcall(resurrect.state_manager.save_state, state, target)
+        wezterm.log_info('workspace_persist: capturing workspace state')
+        local state_ok, state_or_err = pcall(resurrect.workspace_state.get_workspace_state)
+        if not state_ok then
+          w:toast_notification('wezterm', 'Capture failed: ' .. tostring(state_or_err), nil, 4000)
+          wezterm.log_error('workspace_persist get_workspace_state failed: ' .. tostring(state_or_err))
+          return
+        end
+
+        wezterm.log_info('workspace_persist: calling save_state(state, "' .. target .. '")')
+        local ok, err = pcall(resurrect.state_manager.save_state, state_or_err, target)
         if not ok then
           w:toast_notification('wezterm', 'Save failed: ' .. tostring(err), nil, 4000)
           wezterm.log_error('workspace_persist save_state failed: ' .. tostring(err))
           return
         end
+        wezterm.log_info('workspace_persist: save_state returned ok')
 
         if target == current_name then
           w:toast_notification('wezterm', 'Saved workspace: ' .. target, nil, 2000)
@@ -239,8 +266,6 @@ M.actions.save_current = wezterm.action_callback(function(window, pane)
           p
         )
 
-        -- Reload the state from disk (the saved file already encodes `target`
-        -- as the workspace name in fresh tab spawns).
         local restored = resurrect.state_manager.load_state(target, 'workspace')
         if not restored then
           w:toast_notification('wezterm', 'Saved, but restore into new workspace failed', nil, 4000)
@@ -268,6 +293,10 @@ M.actions.save_current = wezterm.action_callback(function(window, pane)
     }),
     pane
   )
+end
+
+M.actions.save_current = wezterm.action_callback(function(window, pane)
+  open_save_prompt(window, pane)
 end)
 
 -- Helper: is workspace name currently live in the mux?
@@ -320,7 +349,7 @@ local function switch_or_load(window, pane, name)
   window:toast_notification('wezterm', 'Loaded workspace: ' .. name, nil, 2000)
 end
 
-M.actions.delete = wezterm.action_callback(function(window, pane)
+local function open_delete_picker(window, pane)
   local resurrect = M._resurrect
   local names = M.list_saved()
   if #names == 0 then
@@ -341,19 +370,19 @@ M.actions.delete = wezterm.action_callback(function(window, pane)
       action = wezterm.action_callback(function(w, p, id, _)
         if not id then return end
 
-        -- Confirmation prompt
         w:perform_action(
           wezterm.action.PromptInputLine({
             description = 'Delete `' .. id .. '`? Type y to confirm:',
-            initial_value = '',
             action = wezterm.action_callback(function(w2, p2, line)
               if line ~= 'y' and line ~= 'Y' then
                 w2:toast_notification('wezterm', 'Delete cancelled', nil, 1500)
                 return
               end
 
-              local path = M.state_dir() .. '/workspace/' .. id .. '.json'
-              local ok, err = pcall(resurrect.state_manager.delete_state, path)
+              -- delete_state prepends save_state_dir, so pass a path RELATIVE
+              -- to that directory (the plugin's expected shape).
+              local rel_path = 'workspace/' .. id .. '.json'
+              local ok, err = pcall(resurrect.state_manager.delete_state, rel_path)
               if not ok then
                 w2:toast_notification('wezterm', 'Delete failed: ' .. tostring(err), nil, 4000)
                 wezterm.log_error('workspace_persist delete_state failed: ' .. tostring(err))
@@ -369,6 +398,10 @@ M.actions.delete = wezterm.action_callback(function(window, pane)
     }),
     pane
   )
+end
+
+M.actions.delete = wezterm.action_callback(function(window, pane)
+  open_delete_picker(window, pane)
 end)
 
 -- Unified workspace manager: single picker that lists live + saved workspaces,
@@ -420,11 +453,12 @@ M.actions.manager = wezterm.action_callback(function(window, pane)
       choices = choices,
       fuzzy = true,
       action = wezterm.action_callback(function(w, p, id, _)
+        wezterm.log_info('workspace_persist: manager selected id=' .. tostring(id))
         if not id then return end
         if id == '__save_new__' then
-          w:perform_action(M.actions.save_current, p)
+          open_save_prompt(w, p)
         elseif id == '__delete__' then
-          w:perform_action(M.actions.delete, p)
+          open_delete_picker(w, p)
         else
           switch_or_load(w, p, id)
         end
