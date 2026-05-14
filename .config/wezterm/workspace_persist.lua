@@ -205,8 +205,8 @@ end
 M.actions = {}
 
 -- Save the current workspace under a user-chosen name.
--- If the chosen name matches the current workspace name: overwrite in place.
--- (Rename-to-new-name is implemented in Task 6.)
+-- Same-name input overwrites in place; a different name switches to a new
+-- workspace and restores the captured layout there.
 M.actions.save_current = wezterm.action_callback(function(window, pane)
   local resurrect = M._resurrect
   local current_name = window:active_workspace()
