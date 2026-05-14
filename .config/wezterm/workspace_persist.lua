@@ -52,4 +52,48 @@ function M.setup(resurrect)
   wezterm.log_info('workspace_persist: state dir = ' .. dir)
 end
 
+-- Read a file's contents. Returns string or nil.
+local function read_file(path)
+  local f = io.open(path, 'r')
+  if not f then return nil end
+  local content = f:read('*a')
+  f:close()
+  return content
+end
+
+-- Returns sorted list of saved workspace names (file basename without .json).
+-- Files whose JSON fails to parse are omitted (logged as warnings).
+function M.list_saved()
+  local dir = M.state_dir() .. '/workspace'
+  local files = wezterm.glob('*.json', dir) or {}
+  local names = {}
+  for _, filename in ipairs(files) do
+    -- wezterm.glob returns just basenames; construct full path
+    local path = dir .. '/' .. filename
+    local content = read_file(path)
+    if content then
+      local parse_ok, _ = pcall(wezterm.json_parse, content)
+      if parse_ok then
+        local name = filename:match('([^/\\]+)%.json$')
+        if name then
+          table.insert(names, name)
+        end
+      else
+        wezterm.log_warn('workspace_persist: skipping corrupt file: ' .. path)
+      end
+    end
+  end
+  table.sort(names)
+  return names
+end
+
+-- True if a saved workspace file exists with this name.
+function M.is_tracked(name)
+  if not name or name == '' then return false end
+  local path = M.state_dir() .. '/workspace/' .. name .. '.json'
+  local f = io.open(path, 'r')
+  if f then f:close() return true end
+  return false
+end
+
 return M
