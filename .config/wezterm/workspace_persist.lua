@@ -258,27 +258,21 @@ local function open_save_prompt(window, pane)
           return
         end
 
-        -- Rename path: switch to a workspace named `target`, restore the
-        -- captured state into it. The old workspace persists in the mux until
-        -- the user closes it.
-        w:perform_action(
-          wezterm.action.SwitchToWorkspace({ name = target }),
-          p
-        )
-
+        -- Save-as path: spawn a new mux window in the target workspace and
+        -- restore the just-saved layout into it. See switch_or_load for why
+        -- we don't use perform_action(SwitchToWorkspace) here (it's async
+        -- and races with restore_workspace).
         local restored = resurrect.state_manager.load_state(target, 'workspace')
         if not restored then
-          w:toast_notification('wezterm', 'Saved, but restore into new workspace failed', nil, 4000)
+          w:toast_notification('wezterm', 'Saved, but failed to reload state for new workspace', nil, 4000)
           return
         end
 
         local restore_ok, restore_err = pcall(function()
           resurrect.workspace_state.restore_workspace(restored, {
-            window = w:mux_window(),
+            spawn_in_workspace = true,
             relative = true,
             restore_text = false,
-            close_open_tabs = true,
-            close_open_panes = true,
             on_pane_restore = resurrect.tab_state.default_on_pane_restore,
           })
         end)
@@ -288,6 +282,7 @@ local function open_save_prompt(window, pane)
           return
         end
 
+        wezterm.mux.set_active_workspace(target)
         w:toast_notification('wezterm', 'Saved as ' .. target .. ' and switched', nil, 2500)
       end),
     }),
@@ -308,19 +303,27 @@ local function workspace_is_live(name)
 end
 
 -- Switch to `name`. If the workspace isn't live yet but has saved state on
--- disk, switch creates it and the saved layout is restored.
+-- disk, spawn a new mux window in that workspace and restore the layout
+-- before focusing it.
+--
+-- Important: we use `spawn_in_workspace=true` + `mux.set_active_workspace`
+-- (synchronous) rather than `perform_action(SwitchToWorkspace)` followed by
+-- restore_workspace. SwitchToWorkspace is async and queued for the next
+-- event-loop tick, so restore_workspace would otherwise run against the
+-- still-current (old) mux window. The plugin's own resurrect_on_gui_startup
+-- uses this same pattern.
 local function switch_or_load(window, pane, name)
   local resurrect = M._resurrect
+
   if workspace_is_live(name) then
-    window:perform_action(wezterm.action.SwitchToWorkspace({ name = name }), pane)
+    wezterm.mux.set_active_workspace(name)
     return
   end
 
-  -- Not live: switch (creates the workspace), then restore layout if a save file exists.
-  window:perform_action(wezterm.action.SwitchToWorkspace({ name = name }), pane)
-
   if not M.is_tracked(name) then
-    return  -- nothing to restore
+    -- Not live and not saved: create an empty workspace and switch.
+    wezterm.mux.set_active_workspace(name)
+    return
   end
 
   local state = resurrect.state_manager.load_state(name, 'workspace')
@@ -332,11 +335,9 @@ local function switch_or_load(window, pane, name)
 
   local ok, err = pcall(function()
     resurrect.workspace_state.restore_workspace(state, {
-      window = window:mux_window(),
+      spawn_in_workspace = true,
       relative = true,
       restore_text = false,
-      close_open_tabs = true,
-      close_open_panes = true,
       on_pane_restore = resurrect.tab_state.default_on_pane_restore,
     })
   end)
@@ -346,6 +347,7 @@ local function switch_or_load(window, pane, name)
     return
   end
 
+  wezterm.mux.set_active_workspace(name)
   window:toast_notification('wezterm', 'Loaded workspace: ' .. name, nil, 2000)
 end
 
