@@ -96,4 +96,40 @@ function M.is_tracked(name)
   return false
 end
 
+M.actions = {}
+
+-- Save the current workspace under a user-chosen name.
+-- If the chosen name matches the current workspace name: overwrite in place.
+-- (Rename-to-new-name is implemented in Task 6.)
+M.actions.save_current = wezterm.action_callback(function(window, pane)
+  local resurrect = M._resurrect
+  local current_name = window:active_workspace()
+  window:perform_action(
+    wezterm.action.PromptInputLine({
+      description = 'Save workspace as:',
+      initial_value = current_name,
+      action = wezterm.action_callback(function(w, p, line)
+        if not line or line == '' then return end
+        local target = line
+
+        local state = resurrect.workspace_state.get_workspace_state()
+        local ok, err = pcall(resurrect.state_manager.save_state, state, target)
+        if not ok then
+          w:toast_notification('wezterm', 'Save failed: ' .. tostring(err), nil, 4000)
+          wezterm.log_error('workspace_persist save_state failed: ' .. tostring(err))
+          return
+        end
+
+        if target == current_name then
+          w:toast_notification('wezterm', 'Saved workspace: ' .. target, nil, 2000)
+        else
+          -- Rename path is implemented in Task 6. For now, surface the limitation.
+          w:toast_notification('wezterm', 'Saved as ' .. target .. ' (rename not yet implemented)', nil, 3000)
+        end
+      end),
+    }),
+    pane
+  )
+end)
+
 return M

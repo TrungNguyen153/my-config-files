@@ -180,6 +180,8 @@ config.keys = {
     { key = 'n', mods = 'SHIFT|CTRL', action = 'ToggleFullScreen' },
     -- Workspace switcher
     { key = 'w', mods = 'LEADER', action = wezterm.action_callback(switch_workspace) },
+    -- Workspace persist: save
+    { key = 'S', mods = 'LEADER|SHIFT', action = workspace_persist.actions.save_current },
     -- Copy paste
     { key = 'V', mods = 'CTRL', action = wezterm.action.PasteFrom('Clipboard') },
     { key = 'C', mods = 'CTRL', action = wezterm.action.CopyTo('Clipboard') },
