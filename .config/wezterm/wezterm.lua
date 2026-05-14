@@ -2,6 +2,7 @@ local wezterm = require('wezterm')
 local resurrect = wezterm.plugin.require('https://github.com/MLFlexer/resurrect.wezterm')
 
 local workspace_persist = require('workspace_persist')
+workspace_persist.setup(resurrect)
 
 local is_linux = wezterm.target_triple:find('linux') ~= nil
 local is_windows = wezterm.target_triple:find('windows') ~= nil

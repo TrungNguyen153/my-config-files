@@ -28,4 +28,28 @@ function M.state_dir()
   end
 end
 
+-- Recursive mkdir. No-op if directory exists.
+local function mkdir_p(path)
+  if wezterm.target_triple:find('windows') then
+    -- cmd's mkdir creates intermediate dirs by default. Backslash paths required.
+    local win_path = path:gsub('/', '\\')
+    os.execute('cmd /c if not exist "' .. win_path .. '" mkdir "' .. win_path .. '" 2>nul')
+  else
+    os.execute('mkdir -p "' .. path .. '" 2>/dev/null')
+  end
+end
+
+M._mkdir_p = mkdir_p  -- exposed for testing
+
+-- Initialize plugin and ensure data directories exist.
+-- Must be called from wezterm.lua exactly once.
+function M.setup(resurrect)
+  local dir = M.state_dir()
+  mkdir_p(dir)
+  mkdir_p(dir .. '/workspace')
+  resurrect.state_manager.change_state_save_dir(dir)
+  M._resurrect = resurrect
+  wezterm.log_info('workspace_persist: state dir = ' .. dir)
+end
+
 return M
