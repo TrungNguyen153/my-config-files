@@ -41,6 +41,74 @@ end
 
 M._mkdir_p = mkdir_p  -- exposed for testing
 
+-- Cheap fingerprint of a workspace: concatenation of tab/pane structure
+-- and cwds. Captures everything we care about for change detection without
+-- serializing the whole state on every tick.
+local function fingerprint_workspace(ws_name)
+  local parts = { ws_name }
+  for _, win in ipairs(wezterm.mux.all_windows()) do
+    if win:get_workspace() == ws_name then
+      for tab_idx, tab in ipairs(win:tabs()) do
+        table.insert(parts, 't' .. tab_idx .. ':' .. (tab:get_title() or ''))
+        for _, pane_info in ipairs(tab:panes_with_info()) do
+          local pane = pane_info.pane
+          local cwd_url = pane:get_current_working_dir()
+          local cwd = cwd_url and cwd_url.file_path or ''
+          table.insert(parts, string.format(
+            'p%d,%dx%d,%s',
+            pane:pane_id(),
+            pane_info.width or 0,
+            pane_info.height or 0,
+            cwd
+          ))
+        end
+      end
+    end
+  end
+  return table.concat(parts, '|')
+end
+
+-- Last-seen fingerprint per workspace name. Tracks "what was on disk".
+local last_fingerprint = {}
+-- "Save is enqueued and pending" flag per workspace, to coalesce bursts.
+local pending = {}
+-- "Save is currently in flight" flag per workspace, to prevent concurrent writes.
+local in_flight = {}
+
+local function do_save(ws_name)
+  pending[ws_name] = nil
+  if in_flight[ws_name] then return end
+  if not M.is_tracked(ws_name) then return end
+  in_flight[ws_name] = true
+  local resurrect = M._resurrect
+  local ok, err = pcall(function()
+    -- Note: get_workspace_state captures whatever is currently active in the
+    -- mux, so this only auto-saves the active workspace. (Auto-saving an
+    -- inactive tracked workspace would require iterating its tabs/panes
+    -- manually; out of scope for this design.)
+    local state = resurrect.workspace_state.get_workspace_state()
+    resurrect.state_manager.save_state(state, ws_name)
+  end)
+  in_flight[ws_name] = nil
+  if not ok then
+    wezterm.log_error('workspace_persist auto-save failed for ' .. ws_name .. ': ' .. tostring(err))
+  else
+    last_fingerprint[ws_name] = fingerprint_workspace(ws_name)
+  end
+end
+
+-- Schedule a save 1s in the future. Repeated calls within 1s coalesce.
+local function debounced_save(ws_name)
+  if pending[ws_name] then return end
+  pending[ws_name] = true
+  wezterm.time.call_after(1.0, function()
+    do_save(ws_name)
+  end)
+end
+
+M._debounced_save = debounced_save  -- exposed for testing
+M._fingerprint_workspace = fingerprint_workspace
+
 -- Initialize plugin and ensure data directories exist.
 -- Must be called from wezterm.lua exactly once.
 function M.setup(resurrect)
@@ -49,6 +117,44 @@ function M.setup(resurrect)
   mkdir_p(dir .. '/workspace')
   resurrect.state_manager.change_state_save_dir(dir)
   M._resurrect = resurrect
+
+  -- Auto-save: detect change via fingerprint and trigger debounced save.
+  wezterm.on('update-status', function(window, _pane)
+    local ws = window:active_workspace()
+    if not M.is_tracked(ws) then return end
+    local fp = fingerprint_workspace(ws)
+    if fp ~= last_fingerprint[ws] then
+      last_fingerprint[ws] = fp
+      debounced_save(ws)
+    end
+  end)
+
+  wezterm.on('window-resized', function(window, _pane)
+    local ws = window:active_workspace()
+    if M.is_tracked(ws) then
+      debounced_save(ws)
+    end
+  end)
+
+  -- Safety tick: every 60s, re-check the active workspace's fingerprint.
+  -- Catches changes during long unfocused periods.
+  local function tick()
+    wezterm.time.call_after(60.0, function()
+      for _, win in ipairs(wezterm.mux.all_windows()) do
+        local ws = win:get_workspace()
+        if M.is_tracked(ws) then
+          local fp = fingerprint_workspace(ws)
+          if fp ~= last_fingerprint[ws] then
+            last_fingerprint[ws] = fp
+            debounced_save(ws)
+          end
+        end
+      end
+      tick()
+    end)
+  end
+  tick()
+
   wezterm.log_info('workspace_persist: state dir = ' .. dir)
 end
 
