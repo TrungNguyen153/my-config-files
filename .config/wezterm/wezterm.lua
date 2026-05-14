@@ -13,41 +13,6 @@ local function base_path_name(str)
     return string.gsub(str, '(.*[/\\])(.*)', '%2')
 end
 
-local function switch_workspace(window, pane)
-    local choices = { { id = '__new__', label = '+ New workspace...' } }
-    for _, name in ipairs(mux.get_workspace_names()) do
-        table.insert(choices, { id = name, label = name })
-    end
-    window:perform_action(
-        wezterm.action.InputSelector({
-            title = 'Switch workspace',
-            choices = choices,
-            fuzzy = true,
-            action = wezterm.action_callback(function(w, p, id, _)
-                if not id then
-                    return
-                end
-                if id == '__new__' then
-                    w:perform_action(
-                        wezterm.action.PromptInputLine({
-                            description = 'New workspace name:',
-                            action = wezterm.action_callback(function(w2, p2, line)
-                                if line and line ~= '' then
-                                    w2:perform_action(wezterm.action.SwitchToWorkspace({ name = line }), p2)
-                                end
-                            end),
-                        }),
-                        p
-                    )
-                else
-                    w:perform_action(wezterm.action.SwitchToWorkspace({ name = id }), p)
-                end
-            end),
-        }),
-        pane
-    )
-end
-
 local function update_right_status(window)
     local title = base_path_name(window:active_workspace())
     window:set_right_status(wezterm.format({
@@ -178,14 +143,9 @@ config.keys = {
     { key = 'x', mods = 'LEADER', action = wezterm.action({ CloseCurrentPane = { confirm = true } }) },
     -- Toggle full
     { key = 'n', mods = 'SHIFT|CTRL', action = 'ToggleFullScreen' },
-    -- Workspace switcher
-    { key = 'w', mods = 'LEADER', action = wezterm.action_callback(switch_workspace) },
-    -- Workspace persist: save
-    { key = 'S', mods = 'LEADER|SHIFT', action = workspace_persist.actions.save_current },
-    -- Workspace persist: load
-    { key = 'L', mods = 'LEADER|SHIFT', action = workspace_persist.actions.load },
-    -- Workspace persist: delete
-    { key = 'D', mods = 'LEADER|SHIFT', action = workspace_persist.actions.delete },
+    -- Workspace manager: unified picker for live + saved workspaces,
+    -- with [+ Save current as new] and [× Delete a saved workspace...] entries.
+    { key = 'w', mods = 'LEADER', action = workspace_persist.actions.manager },
     -- Copy paste
     { key = 'V', mods = 'CTRL', action = wezterm.action.PasteFrom('Clipboard') },
     { key = 'C', mods = 'CTRL', action = wezterm.action.CopyTo('Clipboard') },

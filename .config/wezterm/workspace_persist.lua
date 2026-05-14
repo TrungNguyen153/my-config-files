@@ -278,65 +278,47 @@ local function workspace_is_live(name)
   return false
 end
 
-M.actions.load = wezterm.action_callback(function(window, pane)
+-- Switch to `name`. If the workspace isn't live yet but has saved state on
+-- disk, switch creates it and the saved layout is restored.
+local function switch_or_load(window, pane, name)
   local resurrect = M._resurrect
-  local names = M.list_saved()
-  if #names == 0 then
-    window:toast_notification('wezterm', 'No saved workspaces yet', nil, 2000)
+  if workspace_is_live(name) then
+    window:perform_action(wezterm.action.SwitchToWorkspace({ name = name }), pane)
     return
   end
 
-  local choices = {}
-  for _, name in ipairs(names) do
-    table.insert(choices, { id = name, label = name })
+  -- Not live: switch (creates the workspace), then restore layout if a save file exists.
+  window:perform_action(wezterm.action.SwitchToWorkspace({ name = name }), pane)
+
+  if not M.is_tracked(name) then
+    return  -- nothing to restore
   end
 
-  window:perform_action(
-    wezterm.action.InputSelector({
-      title = 'Load workspace',
-      choices = choices,
-      fuzzy = true,
-      action = wezterm.action_callback(function(w, p, id, _)
-        if not id then return end
+  local state = resurrect.state_manager.load_state(name, 'workspace')
+  if not state then
+    window:toast_notification('wezterm', 'Load failed: could not read state for ' .. name, nil, 4000)
+    wezterm.log_error('workspace_persist load_state returned nil for ' .. name)
+    return
+  end
 
-        if workspace_is_live(id) then
-          w:perform_action(wezterm.action.SwitchToWorkspace({ name = id }), p)
-          w:toast_notification('wezterm', 'Workspace already active, switched to it', nil, 2000)
-          return
-        end
+  local ok, err = pcall(function()
+    resurrect.workspace_state.restore_workspace(state, {
+      window = window:mux_window(),
+      relative = true,
+      restore_text = false,
+      close_open_tabs = true,
+      close_open_panes = true,
+      on_pane_restore = resurrect.tab_state.default_on_pane_restore,
+    })
+  end)
+  if not ok then
+    window:toast_notification('wezterm', 'Load failed: ' .. tostring(err), nil, 5000)
+    wezterm.log_error('workspace_persist restore failed: ' .. tostring(err))
+    return
+  end
 
-        -- Switch first (creates the workspace), then restore into it.
-        w:perform_action(wezterm.action.SwitchToWorkspace({ name = id }), p)
-
-        local state = resurrect.state_manager.load_state(id, 'workspace')
-        if not state then
-          w:toast_notification('wezterm', 'Load failed: could not read state for ' .. id, nil, 4000)
-          wezterm.log_error('workspace_persist load_state returned nil for ' .. id)
-          return
-        end
-
-        local ok, err = pcall(function()
-          resurrect.workspace_state.restore_workspace(state, {
-            window = w:mux_window(),
-            relative = true,
-            restore_text = false,
-            close_open_tabs = true,
-            close_open_panes = true,
-            on_pane_restore = resurrect.tab_state.default_on_pane_restore,
-          })
-        end)
-        if not ok then
-          w:toast_notification('wezterm', 'Load failed: ' .. tostring(err), nil, 5000)
-          wezterm.log_error('workspace_persist restore failed: ' .. tostring(err))
-          return
-        end
-
-        w:toast_notification('wezterm', 'Loaded workspace: ' .. id, nil, 2000)
-      end),
-    }),
-    pane
-  )
-end)
+  window:toast_notification('wezterm', 'Loaded workspace: ' .. name, nil, 2000)
+end
 
 M.actions.delete = wezterm.action_callback(function(window, pane)
   local resurrect = M._resurrect
@@ -383,6 +365,69 @@ M.actions.delete = wezterm.action_callback(function(window, pane)
           }),
           p
         )
+      end),
+    }),
+    pane
+  )
+end)
+
+-- Unified workspace manager: single picker that lists live + saved workspaces,
+-- plus entries to save the current workspace under a new name and to delete a
+-- saved workspace. The currently active workspace is marked with `★`.
+M.actions.manager = wezterm.action_callback(function(window, pane)
+  local current = window:active_workspace()
+
+  local live_set = {}
+  for _, n in ipairs(wezterm.mux.get_workspace_names() or {}) do
+    live_set[n] = true
+  end
+
+  local saved_set = {}
+  for _, n in ipairs(M.list_saved()) do
+    saved_set[n] = true
+  end
+
+  -- Union of live + saved
+  local seen = {}
+  local names = {}
+  for n in pairs(live_set) do
+    if not seen[n] then seen[n] = true; table.insert(names, n) end
+  end
+  for n in pairs(saved_set) do
+    if not seen[n] then seen[n] = true; table.insert(names, n) end
+  end
+  table.sort(names)
+
+  local choices = {}
+  table.insert(choices, { id = '__save_new__', label = '[ + Save current workspace as new ]' })
+  for _, n in ipairs(names) do
+    local marker = (n == current) and '★' or ' '
+    local status
+    if live_set[n] and saved_set[n] then
+      status = 'active · saved'
+    elseif live_set[n] then
+      status = 'active · unsaved'
+    else
+      status = 'saved'
+    end
+    table.insert(choices, { id = n, label = marker .. ' ' .. n .. '   (' .. status .. ')' })
+  end
+  table.insert(choices, { id = '__delete__', label = '[ × Delete a saved workspace... ]' })
+
+  window:perform_action(
+    wezterm.action.InputSelector({
+      title = 'Workspaces',
+      choices = choices,
+      fuzzy = true,
+      action = wezterm.action_callback(function(w, p, id, _)
+        if not id then return end
+        if id == '__save_new__' then
+          w:perform_action(M.actions.save_current, p)
+        elseif id == '__delete__' then
+          w:perform_action(M.actions.delete, p)
+        else
+          switch_or_load(w, p, id)
+        end
       end),
     }),
     pane
