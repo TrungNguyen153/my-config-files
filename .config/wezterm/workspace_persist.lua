@@ -258,32 +258,36 @@ local function open_save_prompt(window, pane)
           return
         end
 
-        -- Save-as path: spawn a new mux window in the target workspace and
-        -- restore the just-saved layout into it. See switch_or_load for why
-        -- we don't use perform_action(SwitchToWorkspace) here (it's async
-        -- and races with restore_workspace).
-        local restored = resurrect.state_manager.load_state(target, 'workspace')
-        if not restored then
-          w:toast_notification('wezterm', 'Saved, but failed to reload state for new workspace', nil, 4000)
-          return
-        end
+        -- Save-as: switch the CURRENT GUI window to the target workspace (creates
+        -- it as empty), then defer the restore so it lands in the new workspace's
+        -- mux window. See switch_or_load for the rationale on the deferred restore.
+        w:perform_action(wezterm.action.SwitchToWorkspace({ name = target }), p)
 
-        local restore_ok, restore_err = pcall(function()
-          resurrect.workspace_state.restore_workspace(restored, {
-            spawn_in_workspace = true,
-            relative = true,
-            restore_text = false,
-            on_pane_restore = resurrect.tab_state.default_on_pane_restore,
-          })
+        wezterm.time.call_after(0.15, function()
+          local restored = resurrect.state_manager.load_state(target, 'workspace')
+          if not restored then
+            w:toast_notification('wezterm', 'Saved, but reload failed for ' .. target, nil, 4000)
+            return
+          end
+
+          local restore_ok, restore_err = pcall(function()
+            resurrect.workspace_state.restore_workspace(restored, {
+              window = w:mux_window(),
+              relative = true,
+              restore_text = false,
+              close_open_tabs = true,
+              close_open_panes = true,
+              on_pane_restore = resurrect.tab_state.default_on_pane_restore,
+            })
+          end)
+          if not restore_ok then
+            w:toast_notification('wezterm', 'Saved as ' .. target .. ', but layout restore failed: ' .. tostring(restore_err), nil, 5000)
+            wezterm.log_error('workspace_persist restore failed: ' .. tostring(restore_err))
+            return
+          end
+
+          w:toast_notification('wezterm', 'Saved as ' .. target .. ' and switched', nil, 2500)
         end)
-        if not restore_ok then
-          w:toast_notification('wezterm', 'Saved as ' .. target .. ', but layout restore failed: ' .. tostring(restore_err), nil, 5000)
-          wezterm.log_error('workspace_persist restore failed: ' .. tostring(restore_err))
-          return
-        end
-
-        wezterm.mux.set_active_workspace(target)
-        w:toast_notification('wezterm', 'Saved as ' .. target .. ' and switched', nil, 2500)
       end),
     }),
     pane
@@ -303,52 +307,54 @@ local function workspace_is_live(name)
 end
 
 -- Switch to `name`. If the workspace isn't live yet but has saved state on
--- disk, spawn a new mux window in that workspace and restore the layout
--- before focusing it.
+-- disk, switch the current GUI window to it and restore the saved layout.
 --
--- Important: we use `spawn_in_workspace=true` + `mux.set_active_workspace`
--- (synchronous) rather than `perform_action(SwitchToWorkspace)` followed by
--- restore_workspace. SwitchToWorkspace is async and queued for the next
--- event-loop tick, so restore_workspace would otherwise run against the
--- still-current (old) mux window. The plugin's own resurrect_on_gui_startup
--- uses this same pattern.
+-- Design note on the deferred restore: `perform_action(SwitchToWorkspace)` is
+-- async (queued for the next event-loop tick), and we want to reuse the
+-- current GUI window rather than spawning a new one. So we kick off the
+-- switch, then defer the restore via `wezterm.time.call_after`. By the time
+-- the timer fires, the switch has completed, `window:mux_window()` points at
+-- the target workspace's (newly created, empty) mux window, and we restore
+-- into it using `opts.window` + `close_open_tabs/panes` to replace the
+-- default tab/pane wezterm created when it materialized the workspace.
 local function switch_or_load(window, pane, name)
   local resurrect = M._resurrect
 
-  if workspace_is_live(name) then
-    wezterm.mux.set_active_workspace(name)
+  if workspace_is_live(name) or not M.is_tracked(name) then
+    -- Either already live, or saved-file-missing: just switch (no restore).
+    window:perform_action(wezterm.action.SwitchToWorkspace({ name = name }), pane)
     return
   end
 
-  if not M.is_tracked(name) then
-    -- Not live and not saved: create an empty workspace and switch.
-    wezterm.mux.set_active_workspace(name)
-    return
-  end
+  -- Not live but saved: switch first, then restore after the switch settles.
+  window:perform_action(wezterm.action.SwitchToWorkspace({ name = name }), pane)
 
-  local state = resurrect.state_manager.load_state(name, 'workspace')
-  if not state then
-    window:toast_notification('wezterm', 'Load failed: could not read state for ' .. name, nil, 4000)
-    wezterm.log_error('workspace_persist load_state returned nil for ' .. name)
-    return
-  end
+  wezterm.time.call_after(0.15, function()
+    local state = resurrect.state_manager.load_state(name, 'workspace')
+    if not state then
+      window:toast_notification('wezterm', 'Load failed: could not read state for ' .. name, nil, 4000)
+      wezterm.log_error('workspace_persist load_state returned nil for ' .. name)
+      return
+    end
 
-  local ok, err = pcall(function()
-    resurrect.workspace_state.restore_workspace(state, {
-      spawn_in_workspace = true,
-      relative = true,
-      restore_text = false,
-      on_pane_restore = resurrect.tab_state.default_on_pane_restore,
-    })
+    local ok, err = pcall(function()
+      resurrect.workspace_state.restore_workspace(state, {
+        window = window:mux_window(),
+        relative = true,
+        restore_text = false,
+        close_open_tabs = true,
+        close_open_panes = true,
+        on_pane_restore = resurrect.tab_state.default_on_pane_restore,
+      })
+    end)
+    if not ok then
+      window:toast_notification('wezterm', 'Load failed: ' .. tostring(err), nil, 5000)
+      wezterm.log_error('workspace_persist restore failed: ' .. tostring(err))
+      return
+    end
+
+    window:toast_notification('wezterm', 'Loaded workspace: ' .. name, nil, 2000)
   end)
-  if not ok then
-    window:toast_notification('wezterm', 'Load failed: ' .. tostring(err), nil, 5000)
-    wezterm.log_error('workspace_persist restore failed: ' .. tostring(err))
-    return
-  end
-
-  wezterm.mux.set_active_workspace(name)
-  window:toast_notification('wezterm', 'Loaded workspace: ' .. name, nil, 2000)
 end
 
 local function open_delete_picker(window, pane)
