@@ -70,4 +70,37 @@ if vim.g.neovide then
     )
     vim.api.nvim_set_keymap('n', '<C-0>', ':lua vim.g.neovide_scale_factor = 1.0<CR>', { silent = true })
     vim.api.nvim_set_keymap('n', '<C-)>', ':lua vim.g.neovide_opacity = 0.9<CR>', { silent = true })
+
+    -- Toggle neovide window frame (full <-> none). Neovide hot-reloads config.toml,
+    -- but `frame` is applied at startup, so the chrome change shows on next launch.
+    local function neovide_config_path()
+        if vim.fn.has('win32') == 1 then
+            return vim.fn.expand('$APPDATA') .. '/neovide/config.toml'
+        end
+        local xdg = os.getenv('XDG_CONFIG_HOME') or vim.fn.expand('~/.config')
+        return xdg .. '/neovide/config.toml'
+    end
+
+    local function toggle_neovide_frame()
+        local path = neovide_config_path()
+        local lines = vim.fn.readfile(path)
+        local new_value
+        for i, line in ipairs(lines) do
+            local pre, val, post = line:match('^(%s*frame%s*=%s*")([^"]+)(".*)$')
+            if pre then
+                new_value = (val == 'full') and 'none' or 'full'
+                lines[i] = pre .. new_value .. post
+                break
+            end
+        end
+        if not new_value then
+            vim.notify('No frame = "..." line in ' .. path, vim.log.levels.WARN)
+            return
+        end
+        vim.fn.writefile(lines, path)
+        vim.notify('Neovide frame -> ' .. new_value .. ' (restart to apply)', vim.log.levels.INFO)
+    end
+
+    vim.api.nvim_create_user_command('NeovideToggleFrame', toggle_neovide_frame, {})
+    vim.keymap.set('n', '<leader>vf', toggle_neovide_frame, { silent = true, desc = 'Neovide: toggle frame' })
 end
