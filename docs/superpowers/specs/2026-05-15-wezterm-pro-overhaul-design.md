@@ -140,8 +140,8 @@ Replaces `workspace_persist.lua`. Behavior model:
 | State directory | Custom Windows-aware logic preserved (~15 LoC). `%LOCALAPPDATA%\wezterm` on Windows, `$XDG_DATA_HOME/wezterm` on Linux. Passed to `resurrect.state_manager.change_state_save_dir(dir .. '/')`. |
 | Auto-save | `resurrect.state_manager.periodic_save({ interval_seconds = 60, save_workspaces = true, save_windows = false, save_tabs = false })`. Replaces the custom debounced fingerprint detector. Trades change-driven precision for plugin-maintained simplicity. |
 | Error surfacing | `resurrect.error` event handler that calls `wezterm.log_error` + a toast on every GUI window. Same approach as current config. |
-| Switch to new workspace | `smart_workspace_switcher.workspace_switcher.chosen` event fires when the user picks an entry. Handler saves the current workspace before the switch settles. |
-| Restore on enter | `smart_workspace_switcher.workspace_switcher.created` event fires after the new workspace materializes. Handler calls `resurrect.state_manager.load_state(label, 'workspace')`; if a saved state exists, restore into `window:mux_window()` with `close_open_tabs = true, close_open_panes = true`. |
+| Save the workspace being left | Not directly hooked. The `chosen` event fires *after* the switch (its `MuxWindow:get_workspace()` returns the target), so there's no clean post-event hook for the source. `periodic_save` (60s) + the manual `LEADER+S` keybinding cover this. In practice the previous workspace is already on disk from the most recent periodic tick. |
+| Restore on enter | `smart_workspace_switcher.workspace_switcher.created` event fires after the new workspace materializes. Handler calls `resurrect.state_manager.load_state(label, 'workspace')`; if a saved state exists, restore into the provided `MuxWindow` with `close_open_tabs = true, close_open_panes = true`. |
 | Delete saved state | Keybinding (in `keys.lua`) calls `resurrect.fuzzy_loader.fuzzy_load` to pick a state, then `resurrect.state_manager.delete_state(rel_path)`. |
 
 ### Module shape
@@ -172,22 +172,14 @@ function M.apply(config, wezterm)
     end
   end)
 
-  wezterm.on('smart_workspace_switcher.workspace_switcher.chosen', function(window, _path, _label)
-    local current = window:active_workspace()
-    if current and current ~= '' then
-      resurrect.state_manager.save_state(
-        resurrect.workspace_state.get_workspace_state(),
-        current
-      )
-    end
-  end)
-
-  wezterm.on('smart_workspace_switcher.workspace_switcher.created', function(window, _path, label)
+  wezterm.on('smart_workspace_switcher.workspace_switcher.created', function(mux_window, _path)
+    local label = mux_window:get_workspace()
+    if not label or label == '' then return end
     local state = resurrect.state_manager.load_state(label, 'workspace')
     if not state then return end
     local ok, err = pcall(function()
       resurrect.workspace_state.restore_workspace(state, {
-        window = window:mux_window(),
+        window = mux_window,
         relative = true,
         restore_text = false,
         close_open_tabs = true,
@@ -196,7 +188,9 @@ function M.apply(config, wezterm)
       })
     end)
     if not ok then
-      window:toast_notification('wezterm', 'Restore failed: ' .. tostring(err), nil, 5000)
+      for _, gw in ipairs(wezterm.gui.gui_windows()) do
+        gw:toast_notification('wezterm', 'Restore failed: ' .. tostring(err), nil, 5000)
+      end
     end
   end)
 end
