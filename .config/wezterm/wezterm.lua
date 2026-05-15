@@ -9,22 +9,6 @@ local platform = {
   is_linux   = wezterm.target_triple:find('linux')   ~= nil,
 }
 
-local function base_path_name(str)
-    return string.gsub(str, '(.*[/\\])(.*)', '%2')
-end
-
-local function update_right_status(window)
-    local title = base_path_name(window:active_workspace())
-    window:set_right_status(wezterm.format({
-        { Foreground = { Color = 'green' } },
-        { Text = title .. '  ' },
-    }))
-end
-
-wezterm.on('update-right-status', function(window, _)
-    update_right_status(window)
-end)
-
 local config = wezterm.config_builder()
 
 -- Module hooks (currently stubs; populated in later tasks)
