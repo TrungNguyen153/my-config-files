@@ -1,8 +1,4 @@
 local wezterm = require('wezterm')
-local resurrect = wezterm.plugin.require('https://github.com/MLFlexer/resurrect.wezterm')
-
-local workspace_persist = require('workspace_persist')
-workspace_persist.setup(resurrect)
 
 local platform = {
   is_windows = wezterm.target_triple:find('windows') ~= nil,
@@ -31,7 +27,6 @@ config.keys = {
     { key = '&', mods = 'LEADER', action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
     { key = 'x', mods = 'LEADER', action = wezterm.action({ CloseCurrentPane = { confirm = true } }) },
     { key = 'n', mods = 'SHIFT|CTRL', action = 'ToggleFullScreen' },
-    { key = 'w', mods = 'LEADER', action = workspace_persist.actions.manager },
     { key = 'V', mods = 'CTRL', action = wezterm.action.PasteFrom('Clipboard') },
     { key = 'C', mods = 'CTRL', action = wezterm.action.CopyTo('Clipboard') },
 }
