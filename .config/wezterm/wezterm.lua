@@ -4,8 +4,10 @@ local resurrect = wezterm.plugin.require('https://github.com/MLFlexer/resurrect.
 local workspace_persist = require('workspace_persist')
 workspace_persist.setup(resurrect)
 
-local is_linux = wezterm.target_triple:find('linux') ~= nil
-local is_windows = wezterm.target_triple:find('windows') ~= nil
+local platform = {
+  is_windows = wezterm.target_triple:find('windows') ~= nil,
+  is_linux   = wezterm.target_triple:find('linux')   ~= nil,
+}
 
 local mux = wezterm.mux
 
@@ -26,7 +28,6 @@ wezterm.on('update-right-status', function(window, _)
 end)
 
 wezterm.on('gui-attached', function()
-    -- maximize all displayed windows on startup
     local workspace = mux.get_active_workspace()
     for _, window in ipairs(mux.all_windows()) do
         if window:get_workspace() == workspace then
@@ -37,6 +38,16 @@ end)
 
 local config = wezterm.config_builder()
 
+-- Module hooks (currently stubs; populated in later tasks)
+require('lua.appearance').apply(config, wezterm, platform)
+require('lua.tabline').apply(config, wezterm)
+require('lua.workspace').apply(config, wezterm)
+require('lua.keys').apply(config, wezterm)
+
+-- ============================================================
+-- BELOW: all existing config inlined. Migrated into modules in Tasks 2-5.
+-- ============================================================
+
 -- commons
 config.max_fps = 144
 
@@ -44,7 +55,6 @@ config.max_fps = 144
 config.color_scheme = 'GruvboxDarkHard'
 
 config.font = wezterm.font('JetBrainsMono Nerd Font')
--- config.font = wezterm.font('JetBrains Mono')
 config.font_size = 11
 config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
 
@@ -57,8 +67,7 @@ config.audible_bell = 'Disabled'
 config.initial_cols = 150
 config.initial_rows = 40
 
-if is_linux then
-    -- hyprland :)
+if platform.is_linux then
     config.window_decorations = 'NONE'
     config.enable_tab_bar = false
     config.window_background_opacity = 0.8
@@ -70,8 +79,7 @@ if is_linux then
     }
 end
 
-if is_windows then
-    -- no tiling window manager :(
+if platform.is_windows then
     config.window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
     config.window_padding = {
         left = '0cell',
@@ -80,7 +88,6 @@ if is_windows then
         bottom = '0cell',
     }
 
-    -- shell stuff
     config.default_prog = { 'nu' }
     config.launch_menu = {
         {
@@ -97,8 +104,6 @@ if is_windows then
         },
     }
 
-    -- Find installed visual studio version(s) and add their compilation
-    -- environment command prompts to the menu
     for _, vsvers in ipairs(wezterm.glob('Microsoft Visual Studio/20*', 'C:/Program Files (x86)')) do
         local year = vsvers:gsub('Microsoft Visual Studio/', '')
         table.insert(config.launch_menu, {
@@ -110,43 +115,23 @@ if is_windows then
             },
         })
     end
-end -- ill add mac stuff if i ever become rich
+end
 
 -- key binding
--- config.disable_default_key_bindings = true
 config.leader = { key = 't', mods = 'CTRL' }
 config.keys = {
-
-    -- split
-    {
-        key = '-',
-        mods = 'LEADER',
-        action = wezterm.action({ SplitVertical = { domain = 'CurrentPaneDomain' } }),
-    },
-    {
-        key = '\\',
-        mods = 'LEADER',
-        action = wezterm.action({ SplitHorizontal = { domain = 'CurrentPaneDomain' } }),
-    },
-    -- zoom focus pane
+    { key = '-', mods = 'LEADER', action = wezterm.action({ SplitVertical = { domain = 'CurrentPaneDomain' } }) },
+    { key = '\\', mods = 'LEADER', action = wezterm.action({ SplitHorizontal = { domain = 'CurrentPaneDomain' } }) },
     { key = 'z', mods = 'LEADER', action = 'TogglePaneZoomState' },
-    -- switch pane
     { key = 'h', mods = 'LEADER', action = wezterm.action({ ActivatePaneDirection = 'Left' }) },
     { key = 'j', mods = 'LEADER', action = wezterm.action({ ActivatePaneDirection = 'Down' }) },
     { key = 'k', mods = 'LEADER', action = wezterm.action({ ActivatePaneDirection = 'Up' }) },
     { key = 'l', mods = 'LEADER', action = wezterm.action({ ActivatePaneDirection = 'Right' }) },
-    -- Open new tab
     { key = 'n', mods = 'LEADER', action = wezterm.action({ SpawnTab = 'CurrentPaneDomain' }) },
-    -- close Tab
     { key = '&', mods = 'LEADER', action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
-    -- close pane
     { key = 'x', mods = 'LEADER', action = wezterm.action({ CloseCurrentPane = { confirm = true } }) },
-    -- Toggle full
     { key = 'n', mods = 'SHIFT|CTRL', action = 'ToggleFullScreen' },
-    -- Workspace manager: unified picker for live + saved workspaces,
-    -- with [+ Save current as new] and [× Delete a saved workspace...] entries.
     { key = 'w', mods = 'LEADER', action = workspace_persist.actions.manager },
-    -- Copy paste
     { key = 'V', mods = 'CTRL', action = wezterm.action.PasteFrom('Clipboard') },
     { key = 'C', mods = 'CTRL', action = wezterm.action.CopyTo('Clipboard') },
 }
