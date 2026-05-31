@@ -5,9 +5,6 @@ return {
     enabled = not vim.g.vscode,
     config = function()
         require("toggleterm").setup({
-            on_open = function(term)
-                vim.cmd("startinsert!")
-            end,
             size = function(term)
                 if term.direction == 'horizontal' then
                   return 15
@@ -18,6 +15,7 @@ return {
             open_mapping = [[<c-;>]],
             hide_numbers = true,
             start_in_insert = true,
+            persist_mode = false,
             auto_scroll = true,
             winbar = {
                 enabled = true,
@@ -36,12 +34,6 @@ return {
             vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
         end
         
-        vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
-            pattern = "term://*toggleterm#*",
-            callback = function()
-                vim.cmd("startinsert!")
-            end,
-        })
         -- if you only want these mappings for toggle term use term://*toggleterm#* instead
         vim.api.nvim_create_autocmd({ "TermOpen" }, {
             pattern = "term://*",
