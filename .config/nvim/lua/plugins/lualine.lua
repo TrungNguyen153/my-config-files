@@ -18,5 +18,10 @@ return {
                 'filetype',
             },
         },
+        inactive_sections = {
+            lualine_c = {
+                { 'filename', path = 1 },
+            },
+        },
     },
 }
