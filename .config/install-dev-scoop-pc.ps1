@@ -83,7 +83,7 @@ Write-Start -msg "Install Scoop's package for dev"
     scoop install main/make
     scoop install main/neovim
     scoop install sysinternals/process-explorer
-    scoop install extras/wezterm
+    scoop install versions/wezterm-nightly
     scoop install extras/vscode
     scoop install extras/putty
     scoop install extras/winscp
@@ -91,12 +91,13 @@ Write-Start -msg "Install Scoop's package for dev"
     scoop install extras/debugviewpp
     scoop install versions/python311
     scoop install nerd-fonts/RobotoMono-NF-Propo
-		scoop install nerd-fonts/JetBrains-Mono
-		scoop install nerd-fonts/JetBrainsMono-NF
+    scoop install nerd-fonts/JetBrains-Mono
+    scoop install nerd-fonts/JetBrainsMono-NF
     scoop install cmake
+    scoop install extras/sqlitestudio
     scoop install sysinternals/tcpview
-		scoop install main/nu
-    # scoop install zoxide
+    scoop install main/nu
+    scoop install main/zoxide
 Write-Done
 
 Write-Start -msg "Install Nushell"
