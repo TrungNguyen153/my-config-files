@@ -11,9 +11,16 @@ return {
 		cwd_change_handling = true,
 		enabled = true,
 		lsp_stop_on_restore = true,
-		post_cwd_changed_cmds = function()
-			require('lualine').refresh()
-		end,
+		post_cwd_changed_cmds = {
+			function()
+				local ok, lualine = pcall(require, 'lualine')
+				if ok then
+					lualine.refresh()
+				else
+					vim.notify('auto-session: lualine not found, skipping statusline refresh', vim.log.levels.WARN)
+				end
+			end,
+		},
 		session_lens = {
 			load_on_setup = false,
 			mappings = {
