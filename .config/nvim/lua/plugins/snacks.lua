@@ -78,6 +78,7 @@ return {
                 },
                 explorer = {
                     enabled = true,
+                    follow_file = false, -- built-in follow is unreliable; handled by the SnacksExplorerFollow autocmd
                     -- https://github.com/shubham-cpp/dotfiles/blob/main/.config/nvim-astro/lua/plugins/snacks.lua
                     layout = {
                         -- preview = "main",
@@ -110,6 +111,7 @@ return {
                             keys = {
                                 ['/'] = false,
                                 ['X'] = { 'open_dir_in_explorer' },
+                                ['S'] = 'edit_vsplit', -- open file under cursor in a side-by-side split
                             },
                         },
                     },

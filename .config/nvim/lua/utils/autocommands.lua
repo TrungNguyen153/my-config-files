@@ -207,6 +207,31 @@ return {
             command = 'setlocal filetype=slint',
         })
 
+        -- Keep the snacks explorer synced to the focused buffer.
+        -- (The built-in `follow_file` only acts while the tree is unfocused and
+        -- is unreliable, so we reveal explicitly on every real file buffer.)
+        autocmd('BufEnter', {
+            group = augroup('SnacksExplorerFollow'),
+            desc = 'Reveal the current file in the snacks explorer',
+            callback = function(ev)
+                if vim.bo[ev.buf].buftype ~= '' or vim.api.nvim_buf_get_name(ev.buf) == '' then
+                    return
+                end
+                if not _G.Snacks or not Snacks.picker then
+                    return
+                end
+                local explorer = Snacks.picker.get({ source = 'explorer' })[1]
+                if not explorer or explorer.closed then
+                    return
+                end
+                vim.schedule(function()
+                    pcall(function()
+                        require('snacks.explorer').reveal({ buf = ev.buf })
+                    end)
+                end)
+            end,
+        })
+
         -- Resizes
         vim.api.nvim_create_user_command('Vr', function(opts)
             local usage = 'Usage: [VirticalResize] :Vr {number (%)}'
