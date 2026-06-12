@@ -508,17 +508,18 @@ return {
         {
             '<localleader>e',
             function()
-                Snacks.picker.explorer()
-                -- local explorer = Snacks.picker.get({ source = "explorer" })[1]
-                -- if explorer then
-                -- else
-                -- 	Snacks.picker.resume("explorer")
-                -- end
-                --
+                local explorer = Snacks.picker.get({ source = 'explorer' })[1]
+                if explorer then
+                    explorer:close()
+                elseif vim.bo.buftype == '' and vim.api.nvim_buf_get_name(0) ~= '' then
+                    Snacks.explorer.reveal() -- opens the explorer, then reveals the current file
+                else
+                    Snacks.picker.explorer()
+                end
             end,
             silent = true,
             mode = { 'n' },
-            desc = 'Explorer toggle',
+            desc = 'Toggle explorer (reveal current file)',
         },
     },
 }
