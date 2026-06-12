@@ -11,7 +11,7 @@ if vim.g.neovide then
     vim.g.neovide_hide_mouse_when_typing = false
 
     vim.g.neovide_floating_shadow = true
-    vim.g.neovide_refresh_rate = 120
+    vim.g.neovide_refresh_rate = 240
     -- Match idle rate to refresh rate — Neovide defaults to 5 fps when idle,
     -- which causes a 1–2s stall on the next UI event (e.g. <C-h/j/k/l>)
     -- while the GPU/compositor wakes up.
