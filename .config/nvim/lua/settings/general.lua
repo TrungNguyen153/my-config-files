@@ -49,6 +49,10 @@ vim.o.conceallevel = 3
 vim.o.concealcursor = 'n'
 -- current line will have a background
 vim.o.cursorline = true
+-- Use a beam cursor in terminal mode (toggleterm "insert"). Neovim's default
+-- guicursor maps terminal mode to `t:block`; override to a vertical bar.
+-- If it still shows a block, nushell/reedline is forcing the shape -> fix in config.nu.
+vim.opt.guicursor:append('t:ver25-blinkon500-blinkoff500-TermCursor')
 -- Always draw sign column. Prevent buffer moving when adding/deleting sign.
 vim.o.signcolumn = 'yes'
 vim.o.numberwidth = 1
