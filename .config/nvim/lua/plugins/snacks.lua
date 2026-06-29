@@ -54,7 +54,10 @@ return {
         },
         zen = {
             toggles = {
-                dim = true,
+                dim = false,
+            },
+            styles = {
+                width = 240,
             },
         },
 
