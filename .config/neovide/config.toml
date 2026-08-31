@@ -1,5 +1,5 @@
 fork = false
-frame = "none" # full | none
+frame = "full" # full | none
 idle = false
 maximized = true
 no-multigrid = false
