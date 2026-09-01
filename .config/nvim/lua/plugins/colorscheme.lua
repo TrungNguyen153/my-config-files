@@ -59,7 +59,7 @@ return {
         },
     },
     config = function(_, opts)
-        vim.g.catppuccin_flavour = 'mocha' -- mocha, frappe, latte, macchiato
+        vim.g.catppuccin_flavour = 'frappe' -- mocha, frappe, latte, macchiato
         require('catppuccin').setup(opts)
 
         vim.cmd.colorscheme('catppuccin')
