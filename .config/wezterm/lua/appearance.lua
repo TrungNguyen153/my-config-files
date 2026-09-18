@@ -13,8 +13,13 @@ function M.apply(config, wezterm, platform)
   -- is a different scheme with different colors.
   config.color_scheme = 'Catppuccin Frappe'
 
+  -- 'Noto Sans Symbols 2' covers Miscellaneous Technical, which JetBrainsMono
+  -- Nerd Font does not. Claude Code's status line draws its auto-mode indicator
+  -- with U+23F5 (as two chars), and nothing shipped with Windows -- Segoe UI
+  -- Symbol included -- has a glyph for it, so it rendered as tofu boxes.
   config.font = wezterm.font_with_fallback({
     'JetBrainsMono Nerd Font',
+    'Noto Sans Symbols 2',
     'Segoe UI Emoji',
     'Noto Sans Mono CJK SC',
   })
