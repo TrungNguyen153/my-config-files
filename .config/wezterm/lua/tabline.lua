@@ -1,9 +1,8 @@
 local M = {}
 
--- Custom segment: shows LEADER when the leader key prefix is active.
--- Wezterm's leader is not a keytable, so tabline.wez's built-in 'mode'
--- component would always read 'normal'. We reach in and check leader state
--- directly via the Window method.
+-- Custom segment: shows LEADER while the leader prefix is armed.
+-- wezterm's leader is not a key table, so tabline.wez's built-in 'mode'
+-- component would always read 'normal'. Ask the window directly instead.
 local function leader_status(window)
   if window:leader_is_active() then
     return ' LEADER '
@@ -11,12 +10,17 @@ local function leader_status(window)
   return ' NORMAL '
 end
 
-function M.apply(config, wezterm)
+function M.apply(config, wezterm, platform)
+  if platform.is_linux then
+    -- Linux runs without a tab bar (see appearance.lua).
+    return
+  end
+
   local tabline = wezterm.plugin.require('https://github.com/michaelbrusegard/tabline.wez')
 
   tabline.setup({
     options = {
-      theme = 'GruvboxDarkHard',
+      theme = 'Catppuccin Frappe',
       section_separators = '',
       component_separators = '',
     },
@@ -36,7 +40,7 @@ function M.apply(config, wezterm)
       },
       tabline_x = {},
       tabline_y = {},
-      tabline_z = {},
+      tabline_z = { 'datetime' },
     },
   })
 
