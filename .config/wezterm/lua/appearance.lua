@@ -37,8 +37,35 @@ function M.apply(config, wezterm, platform)
   config.default_cursor_style = 'BlinkingBar'
   config.cursor_blink_rate = 500
 
+  -- Frame rate for easing effects: cursor blink and the visual bell. This
+  -- defaults to 10, which makes the blinking bar visibly steppy next to
+  -- max_fps = 144. Easing the fade in both directions turns the blink into a
+  -- pulse rather than a hard on/off toggle.
+  config.animation_fps = 60
+  config.cursor_blink_ease_in = 'EaseOut'
+  config.cursor_blink_ease_out = 'EaseOut'
+
+  -- audible_bell is Disabled above, which left no bell feedback at all. Flash
+  -- the cursor instead -- enough to catch a finished build or agent turn
+  -- without strobing the whole pane.
+  config.visual_bell = {
+    fade_in_function = 'EaseIn',
+    fade_in_duration_ms = 150,
+    fade_out_function = 'EaseOut',
+    fade_out_duration_ms = 150,
+    target = 'CursorColor',
+  }
+  -- Since 20220903 `colors` layers on top of `color_scheme` rather than
+  -- replacing it, so naming one key here leaves Catppuccin Frappe intact.
+  config.colors = { visual_bell = '#ef9f76' } -- frappe peach
+
   -- Pane dimming
   config.inactive_pane_hsb = { saturation = 0.85, brightness = 0.75 }
+
+  -- Every window gets maximized on gui-attached, so don't let a font-size
+  -- change resize the window out from under that.
+  config.adjust_window_size_when_changing_font_size = false
+  config.switch_to_last_active_tab_when_closing_tab = true
 
   -- Initial size
   config.initial_cols = 150

@@ -1,9 +1,16 @@
 local M = {}
 
--- Custom segment: shows LEADER while the leader prefix is armed.
--- wezterm's leader is not a key table, so tabline.wez's built-in 'mode'
--- component would always read 'normal'. Ask the window directly instead.
-local function leader_status(window)
+-- Custom segment: which input mode is active.
+--
+-- tabline.wez's built-in 'mode' component reads key tables only, so it would
+-- print 'normal' the whole time the leader is armed. Asking the window covers
+-- both: an active key table (resize mode) wins, then the leader prefix, then
+-- plain normal.
+local function mode_status(window)
+  local key_table = window:active_key_table()
+  if key_table then
+    return ' ' .. (key_table:upper():gsub('_', ' ')) .. ' '
+  end
   if window:leader_is_active() then
     return ' LEADER '
   end
@@ -25,7 +32,7 @@ function M.apply(config, wezterm, platform)
       component_separators = '',
     },
     sections = {
-      tabline_a = { leader_status },
+      tabline_a = { mode_status },
       tabline_b = { 'workspace' },
       tabline_c = {},
       tab_active = {

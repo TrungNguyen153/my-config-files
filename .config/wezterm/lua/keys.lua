@@ -39,6 +39,21 @@ function M.apply(config, wezterm, platform)
     { key = 'n', mods = 'LEADER', action = act.SpawnTab('CurrentPaneDomain') },
     { key = '&', mods = 'LEADER', action = act.CloseCurrentTab({ confirm = true }) },
     { key = 'n', mods = 'SHIFT|CTRL', action = act.ToggleFullScreen },
+    -- wezterm already binds CTRL+SHIFT+1..9 and CTRL+SHIFT+Tab for this; these
+    -- are leader-consistent aliases, not new capability.
+    { key = 'Tab', mods = 'LEADER', action = act.ActivateLastTab },
+    {
+      key = ',',
+      mods = 'LEADER',
+      action = act.PromptInputLine({
+        description = 'Rename tab',
+        action = wezterm.action_callback(function(window, _pane, line)
+          if line and line ~= '' then
+            window:active_tab():set_title(line)
+          end
+        end),
+      }),
+    },
 
     -- ---------- Clipboard ----------
     { key = 'V', mods = 'CTRL', action = act.PasteFrom('Clipboard') },
@@ -55,12 +70,42 @@ function M.apply(config, wezterm, platform)
     { key = '[', mods = 'LEADER', action = act.ActivateCopyMode },
     { key = 'u', mods = 'LEADER', action = act.CharSelect },
     { key = '?', mods = 'LEADER', action = act.ActivateCommandPalette },
+    { key = '/', mods = 'LEADER', action = act.Search({ CaseInSensitiveString = '' }) },
+    -- Label every pane and jump to one by typing its letter. Shift swaps the
+    -- chosen pane with the active one instead of focusing it.
+    { key = 'p', mods = 'LEADER', action = act.PaneSelect({ mode = 'Activate' }) },
+    { key = 'P', mods = 'LEADER', action = act.PaneSelect({ mode = 'SwapWithActive' }) },
+    -- Sustained resizing: hjkl repeat until Escape, rather than re-arming the
+    -- leader for every nudge. The one-shot LEADER+HJKL bindings above stay for
+    -- single adjustments.
     {
-      key = 'Z',
+      key = 'R',
       mods = 'LEADER',
-      action = wezterm.action_callback(function(window, _pane)
-        toggle_zen(window)
-      end),
+      action = act.ActivateKeyTable({ name = 'resize_pane', one_shot = false }),
+    },
+  }
+
+  -- ActivateTab is 0-indexed; LEADER+1 should select the first tab.
+  for i = 1, 9 do
+    table.insert(config.keys, {
+      key = tostring(i),
+      mods = 'LEADER',
+      action = act.ActivateTab(i - 1),
+    })
+  end
+
+  config.key_tables = {
+    resize_pane = {
+      { key = 'h', action = act.AdjustPaneSize({ 'Left', 2 }) },
+      { key = 'j', action = act.AdjustPaneSize({ 'Down', 2 }) },
+      { key = 'k', action = act.AdjustPaneSize({ 'Up', 2 }) },
+      { key = 'l', action = act.AdjustPaneSize({ 'Right', 2 }) },
+      { key = 'LeftArrow', action = act.AdjustPaneSize({ 'Left', 2 }) },
+      { key = 'DownArrow', action = act.AdjustPaneSize({ 'Down', 2 }) },
+      { key = 'UpArrow', action = act.AdjustPaneSize({ 'Up', 2 }) },
+      { key = 'RightArrow', action = act.AdjustPaneSize({ 'Right', 2 }) },
+      { key = 'Escape', action = 'PopKeyTable' },
+      { key = 'q', action = 'PopKeyTable' },
     },
   }
 end
