@@ -97,6 +97,7 @@ Write-Start -msg "Install Scoop's package for dev"
     scoop install extras/sqlitestudio
     scoop install sysinternals/tcpview
     scoop install main/nu
+    scoop install extras/carapace-bin
     scoop install main/zoxide
 Write-Done
 

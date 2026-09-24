@@ -1,5 +1,7 @@
 
-.config/nushell/history.txt
+.config/nushell/history.*
+.config/nushell/plugin.msgpackz
+.config/nushell/vendor/
 .config/rust-desk-installer.ps1
 .config/wezterm/wezterm-session-manager/wezterm_state_default.json
 .config/nvim_old
