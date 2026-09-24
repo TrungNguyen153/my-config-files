@@ -5,8 +5,7 @@
 		"requirePattern": [
 			"lua/?.lua",
 			"lua/?/init.lua",
-			"?/lua/?.lua",
-			"?/lua/?/init.lua"
+			"?/init.lua"
 		]
 	},
 	"workspace": {
@@ -14,6 +13,12 @@
 			"$VIMRUNTIME",
 			"$LOCALAPPDATA/nvim-data/lazy",
 			"~/.local/share/nvim/lazy"
+		],
+		"moduleMap": [
+			{
+				"pattern": "^.*?\\.lua\\.(lua\\.)?",
+				"replace": ""
+			}
 		],
 		"ignoreGlobs": [
 			"**/*_spec.lua"
