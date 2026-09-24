@@ -11,7 +11,10 @@ return {
                     any = {
                         function(item)
                             -- normalize: on Windows cwd() has backslashes, filenames have /
-                            local cwd = vim.fs.normalize(vim.uv.cwd()) .. '/'
+                            local cwd = vim.fs.normalize(vim.uv.cwd())
+                            if cwd:sub(-1) ~= '/' then
+                                cwd = cwd .. '/' -- a drive root is already C:/
+                            end
                             return item.filename:sub(1, #cwd) == cwd
                         end,
                     },

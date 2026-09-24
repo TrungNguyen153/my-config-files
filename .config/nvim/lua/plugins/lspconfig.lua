@@ -53,6 +53,8 @@ return {
         })
 
         vim.lsp.config('*', { capabilities = lsp_utils.capabilities() })
+        -- nvim-lspconfig's clangd config lists utf-8 first and outranks '*'
+        vim.lsp.config('clangd', { capabilities = { offsetEncoding = { 'utf-16' } } })
 
         -- yaml
         vim.lsp.config('yamlls', {

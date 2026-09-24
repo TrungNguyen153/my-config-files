@@ -117,8 +117,9 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.gdefault = true
 
--- Abbreviations for typos. They expand only when the whole : command line is the
--- abbreviation, so a W inside a :s pattern or a :grep argument stays a W.
+-- Abbreviations for typos. They expand only when the : command line is the
+-- abbreviation (after an optional range, as in :'<,'>W), so a W inside a :s
+-- pattern or a :grep argument stays a W.
 local cmd_abbrevs = {
     ['W!'] = 'w!',
     W1 = 'w!',
@@ -145,7 +146,8 @@ local cmd_abbrevs = {
 }
 for lhs, rhs in pairs(cmd_abbrevs) do
     vim.keymap.set('ca', lhs, function()
-        return (vim.fn.getcmdtype() == ':' and vim.fn.getcmdline() == lhs) and rhs or lhs
+        local cmd = vim.fn.getcmdline():gsub("^[%s%d%.%$%%,;'<>+%-]*", '') -- drop a leading range
+        return (vim.fn.getcmdtype() == ':' and cmd == lhs) and rhs or lhs
     end, { expr = true })
 end
 

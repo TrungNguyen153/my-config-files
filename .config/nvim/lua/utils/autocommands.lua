@@ -60,9 +60,17 @@ return {
         vim.api.nvim_create_autocmd('FileType', {
             pattern = { 'qf', 'help', 'checkhealth', 'dap-repl', 'toggleterm', 'dbout' },
             callback = function(ev)
-                -- hide a terminal instead of killing its shell
-                local cmd = vim.bo[ev.buf].filetype == 'toggleterm' and '<cmd>close<cr>' or '<cmd>bd!<cr>'
-                vim.keymap.set('n', 'q', cmd, { silent = true, buffer = ev.buf })
+                if vim.bo[ev.buf].filetype ~= 'toggleterm' then
+                    vim.keymap.set('n', 'q', '<cmd>bd!<cr>', { silent = true, buffer = ev.buf })
+                    return
+                end
+                -- hide a terminal instead of killing its shell; the last window can't
+                -- close, so it shows the alternate buffer (or a new one) instead
+                vim.keymap.set('n', 'q', function()
+                    if not pcall(vim.cmd.close) and not pcall(vim.cmd, 'buffer #') then
+                        vim.cmd.enew()
+                    end
+                end, { silent = true, buffer = ev.buf })
             end,
         })
 

@@ -10,6 +10,8 @@ return {
                 AARRGGBB = true,
             },
         }, -- Filetype options.  Accepts table like `user_default_options`
+        -- colour words like "red" would light up in every filetype (Rust keeps them via css = true)
+        user_default_options = { names = false },
         buftypes = {}, -- Buftype options.  Accepts table like `user_default_options`
         -- Boolean | List of usercommands to enable.  See User commands section.
         user_commands = true, -- Enable all or some usercommands
