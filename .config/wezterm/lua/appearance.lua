@@ -1,11 +1,7 @@
 local M = {}
 
 function M.apply(config, wezterm, platform)
-  -- Renderer. WebGpu reaches DirectX 12 on Windows and Vulkan on Linux; the
-  -- default OpenGL path struggles at high refresh rates.
-  config.front_end = 'WebGpu'
-  config.webgpu_power_preference = 'HighPerformance'
-  config.max_fps = 144
+  -- Renderer settings are per platform, at the bottom.
 
   -- Theme. Kept in lockstep with nvim's catppuccin flavour, set in
   -- .config/nvim/lua/plugins/colorscheme.lua. Note the spelling: the built-in
@@ -33,17 +29,16 @@ function M.apply(config, wezterm, platform)
   config.audible_bell = 'Disabled'
   config.scrollback_lines = 10000
 
-  -- Beam cursor, matching the terminal-mode cursor used in nvim.
-  config.default_cursor_style = 'BlinkingBar'
-  config.cursor_blink_rate = 500
+  -- Beam cursor, matching the terminal-mode cursor used in nvim. Steady: every
+  -- blink is a redraw (every frame of it, when eased), which this laptop feels.
+  -- A zero rate also ignores programs that ask for a blinking cursor.
+  config.default_cursor_style = 'SteadyBar'
+  config.cursor_blink_rate = 0
 
-  -- Frame rate for easing effects: cursor blink and the visual bell. This
-  -- defaults to 10, which makes the blinking bar visibly steppy next to
-  -- max_fps = 144. Easing the fade in both directions turns the blink into a
-  -- pulse rather than a hard on/off toggle.
+  -- Frame rate for easing effects. With the cursor steady, only the visual bell
+  -- below animates, and only while it rings; the default of 10 would turn its
+  -- 150 ms fades into a couple of steps.
   config.animation_fps = 60
-  config.cursor_blink_ease_in = 'EaseOut'
-  config.cursor_blink_ease_out = 'EaseOut'
 
   -- audible_bell is Disabled above, which left no bell feedback at all. Flash
   -- the cursor instead -- enough to catch a finished build or agent turn
@@ -72,6 +67,12 @@ function M.apply(config, wezterm, platform)
   config.initial_rows = 40
 
   if platform.is_linux then
+    -- WebGpu reaches Vulkan here; the default OpenGL path struggles at high
+    -- refresh rates.
+    config.front_end = 'WebGpu'
+    config.webgpu_power_preference = 'HighPerformance'
+    config.max_fps = 144
+
     config.window_decorations = 'NONE'
     config.enable_tab_bar = false
     config.window_background_opacity = 0.8
@@ -84,9 +85,22 @@ function M.apply(config, wezterm, platform)
   end
 
   if platform.is_windows then
-    config.window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
-    config.win32_system_backdrop = 'Acrylic'
-    config.window_background_opacity = 0.85
+    -- OpenGL rather than WebGpu. This laptop's screen hangs off an Intel HD
+    -- 4600 (Haswell): no Vulkan, and wgpu skips its DX12, so WebGpu gained
+    -- nothing -- and 'HighPerformance' rendered on the GTX 950M, copying every
+    -- frame across to the Intel GPU. EGL here is ANGLE, i.e. Direct3D 11 on the
+    -- Intel GPU (checked: libEGL/libGLESv2 + Intel's D3D11 driver load, and the
+    -- process no longer shows in nvidia-smi). OpenGL has no vsync, so max_fps
+    -- is the only cap; the panel is 60 Hz.
+    config.front_end = 'OpenGL'
+    config.prefer_egl = true
+    config.max_fps = 60
+
+    -- Solid, unblurred background: Acrylic lags window drags on Windows 10, and
+    -- blur and transparency cost GPU time on every frame. No title bar buttons.
+    config.window_decorations = 'RESIZE'
+    config.win32_system_backdrop = 'Disable'
+    config.window_background_opacity = 1.0
     config.window_padding = {
       left = '0cell',
       right = '0cell',

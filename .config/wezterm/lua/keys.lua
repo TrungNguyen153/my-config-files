@@ -77,11 +77,12 @@ function M.apply(config, wezterm, platform)
     { key = 'P', mods = 'LEADER', action = act.PaneSelect({ mode = 'SwapWithActive' }) },
     -- Sustained resizing: hjkl repeat until Escape, rather than re-arming the
     -- leader for every nudge. The one-shot LEADER+HJKL bindings above stay for
-    -- single adjustments.
+    -- single adjustments. The table name ends in _mode so the tab bar shows
+    -- RESIZE in its own colour (see tabline.lua).
     {
       key = 'R',
       mods = 'LEADER',
-      action = act.ActivateKeyTable({ name = 'resize_pane', one_shot = false }),
+      action = act.ActivateKeyTable({ name = 'resize_mode', one_shot = false }),
     },
   }
 
@@ -95,7 +96,7 @@ function M.apply(config, wezterm, platform)
   end
 
   config.key_tables = {
-    resize_pane = {
+    resize_mode = {
       { key = 'h', action = act.AdjustPaneSize({ 'Left', 2 }) },
       { key = 'j', action = act.AdjustPaneSize({ 'Down', 2 }) },
       { key = 'k', action = act.AdjustPaneSize({ 'Up', 2 }) },
