@@ -85,15 +85,16 @@ function M.apply(config, wezterm, platform)
   end
 
   if platform.is_windows then
-    -- OpenGL rather than WebGpu. This laptop's screen hangs off an Intel HD
-    -- 4600 (Haswell): no Vulkan, and wgpu skips its DX12, so WebGpu gained
-    -- nothing -- and 'HighPerformance' rendered on the GTX 950M, copying every
-    -- frame across to the Intel GPU. EGL here is ANGLE, i.e. Direct3D 11 on the
-    -- Intel GPU (checked: libEGL/libGLESv2 + Intel's D3D11 driver load, and the
-    -- process no longer shows in nvidia-smi). OpenGL has no vsync, so max_fps
-    -- is the only cap; the panel is 60 Hz.
-    config.front_end = 'OpenGL'
-    config.prefer_egl = true
+    -- Render on the GTX 950M, not the Intel HD 4600 that drives the screen.
+    -- Everything that renders on the Intel GPU fails on this laptop:
+    -- - OpenGL (ANGLE/EGL) hangs the old Intel driver. Windows logged "Display
+    --   driver igfx stopped responding" (event 4101) often while WezTerm used
+    --   OpenGL until April 2026, never in the months on WebGpu, and twice
+    --   within half an hour of switching back.
+    -- - After such a reset WezTerm falls back to WGL, and WGL (like WebGpu with
+    --   'LowPower') leaves a see-through strip where the title bar would be.
+    config.front_end = 'WebGpu'
+    config.webgpu_power_preference = 'HighPerformance'
     config.max_fps = 60
 
     -- Solid, unblurred background: Acrylic lags window drags on Windows 10, and
