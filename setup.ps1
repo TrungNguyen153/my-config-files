@@ -141,11 +141,18 @@ function Assert-Allowed([string]$What, [string[]]$Value, [string[]]$Allowed) {
     }
 }
 
+# ~ and relative paths resolved against PowerShell's location, the way
+# Test-Path sees them. .NET and git would use the process directory instead,
+# which 5.1 does not move on Set-Location.
+function Resolve-UserPath([string]$Path) {
+    $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($Path)
+}
+
 # '\\?\C:\x\' -> 'C:\x', so link targets compare equal however Windows
 # chose to spell them.
 function Get-NormalizedPath([string]$Path) {
     $p = $Path -replace '^\\(\\\?|\?\?)\\', ''
-    [IO.Path]::GetFullPath($p).TrimEnd('\')
+    [IO.Path]::GetFullPath((Resolve-UserPath $p)).TrimEnd('\')
 }
 
 # ---------------------------------------------------------------- system
@@ -251,7 +258,7 @@ function Initialize-Scoop {
         return New-Result 'scoop' 'would' 'install from get.scoop.sh'
     }
     try {
-        $installer = [scriptblock]::Create((Invoke-RestMethod -UseBasicParsing 'https://get.scoop.sh'))
+        $installer = [scriptblock]::Create((Invoke-RestMethod -UseBasicParsing 'https://get.scoop.sh' -ErrorAction Stop))
         # The installer refuses to run elevated unless told to.
         if (Test-Admin) { & $installer -RunAsAdmin } else { & $installer }
         if (-not (Test-Command 'scoop')) { throw 'scoop is still not on PATH after installing it' }
@@ -332,13 +339,13 @@ function Install-SymbolsFont {
         $dir = Join-Path $env:LOCALAPPDATA 'Microsoft\Windows\Fonts'
         [void][IO.Directory]::CreateDirectory($dir)
         $file = Join-Path $dir $SymbolsFont.File
-        Invoke-WebRequest -UseBasicParsing -Uri $SymbolsFont.Url -OutFile $file
+        Invoke-WebRequest -UseBasicParsing -Uri $SymbolsFont.Url -OutFile $file -ErrorAction Stop
         $key = 'HKCU:\Software\Microsoft\Windows NT\CurrentVersion\Fonts'
         # Test first: New-Item -Force on an existing key would wipe its values.
         if (-not (Test-Path -LiteralPath $key)) {
-            New-Item -Path $key | Out-Null
+            New-Item -Path $key -ErrorAction Stop | Out-Null
         }
-        New-ItemProperty -LiteralPath $key -Name $SymbolsFont.Name -Value $file -PropertyType String -Force | Out-Null
+        New-ItemProperty -LiteralPath $key -Name $SymbolsFont.Name -Value $file -PropertyType String -Force -ErrorAction Stop | Out-Null
         New-Result $item 'changed' 'installed for this user; restart apps to see it'
     }
     catch {
@@ -361,7 +368,7 @@ function Install-Rustup {
     }
     try {
         $init = Join-Path $env:TEMP 'rustup-init.exe'
-        Invoke-WebRequest -UseBasicParsing -Uri $RustupInit -OutFile $init
+        Invoke-WebRequest -UseBasicParsing -Uri $RustupInit -OutFile $init -ErrorAction Stop
         & $init -y --default-toolchain stable --profile default | Out-Host
         if ($LASTEXITCODE -ne 0) { throw "rustup-init exited with $LASTEXITCODE" }
         $cargoHome = if ($env:CARGO_HOME) { $env:CARGO_HOME } else { Join-Path $env:USERPROFILE '.cargo' }
@@ -469,7 +476,7 @@ function Invoke-AdminTask([string[]]$Tasks) {
             try {
                 # Admins elevate without a prompt (the old install script's
                 # behaviour, kept on purpose).
-                Set-ItemProperty -LiteralPath $UacKey -Name ConsentPromptBehaviorAdmin -Value 0 -Type DWord
+                Set-ItemProperty -LiteralPath $UacKey -Name ConsentPromptBehaviorAdmin -Value 0 -Type DWord -ErrorAction Stop
                 New-Result 'uac prompts off' 'changed' 'ConsentPromptBehaviorAdmin = 0'
             }
             catch {
@@ -504,11 +511,13 @@ function Invoke-AdminStep {
     if (-not $Tasks) {
         return
     }
-    if (Test-Admin) {
-        return Invoke-AdminTask $Tasks
-    }
+    # Checked before the elevated shortcut: a dry run from an admin shell
+    # must not run the tasks either.
     if (-not $PSCmdlet.ShouldProcess(($Tasks -join ', '), 'run elevated')) {
         return $Tasks | ForEach-Object { New-Result "admin $_" 'would' 'needs one elevated run' }
+    }
+    if (Test-Admin) {
+        return Invoke-AdminTask $Tasks
     }
     Remove-Item -LiteralPath $AdminResultFile -ErrorAction SilentlyContinue
     try {
@@ -595,7 +604,11 @@ function Invoke-Bootstrap {
         $Results.Add((New-Result 'clone' 'would' "git clone $Source $Path"))
         return $null
     }
-    Get-RepoRoot $Path
+    $root = Get-RepoRoot $Path
+    if (-not $root) {
+        $Results.Add((New-Result 'clone' 'failed' "$Path has no .config folder; is it a clone of this repo?"))
+    }
+    $root
 }
 
 # ----------------------------------------------------------------- links
@@ -604,7 +617,23 @@ function Invoke-Bootstrap {
 # target folder with [ ] in its name is "not found" unless escaped. -Path is
 # taken literally and must not be escaped.
 function New-Junction([string]$Path, [string]$To) {
-    New-Item -ItemType Junction -Path $Path -Value ([WildcardPattern]::Escape($To)) | Out-Null
+    New-Item -ItemType Junction -Path $Path -Value ([WildcardPattern]::Escape($To)) -ErrorAction Stop | Out-Null
+    # Read it back: a result says "changed" only for a link that is there.
+    $made = Get-Item -LiteralPath $Path -Force -ErrorAction Stop
+    if ($made.LinkType -ne 'Junction' -or (Get-NormalizedPath @($made.Target)[0]) -ne (Get-NormalizedPath $To)) {
+        throw "created $Path, but it does not point at $To"
+    }
+}
+
+# Deletes a link, never what it points at. Remove-Item -Recurse on a
+# junction can delete the target's contents in 5.1; these calls never recurse.
+function Remove-Link($Item) {
+    if ($Item.PSIsContainer) {
+        [IO.Directory]::Delete($Item.FullName, $false)
+    }
+    else {
+        [IO.File]::Delete($Item.FullName)
+    }
 }
 
 # Point $Target at $Source with a junction (no admin needed), without ever
@@ -624,6 +653,7 @@ function Set-ConfigLink {
             throw "source folder missing: $Source"
         }
         $src = Get-NormalizedPath $Source
+        $Target = Resolve-UserPath $Target
         $existing = Get-Item -LiteralPath $Target -Force -ErrorAction SilentlyContinue
 
         if ($existing -and $existing.LinkType) {
@@ -634,15 +664,20 @@ function Set-ConfigLink {
             if (-not $PSCmdlet.ShouldProcess($Target, "re-point link from '$current' to '$src'")) {
                 return New-Result $item 'would' "re-point $Target -> $src"
             }
-            # Remove the link itself. Remove-Item -Recurse on a junction can
-            # delete what it points at in 5.1; these calls never recurse.
-            if ($existing.PSIsContainer) {
-                [IO.Directory]::Delete($existing.FullName, $false)
+            Remove-Link $existing
+            try {
+                New-Junction $Target $src
             }
-            else {
-                [IO.File]::Delete($existing.FullName)
+            catch {
+                # Never leave the config unlinked: put the old link back.
+                $why = $_.Exception.Message
+                $restored = $false
+                try { New-Junction $Target $current; $restored = $true } catch { }
+                if ($restored) {
+                    throw "could not link $Target -> $src ($why); the old link is back"
+                }
+                throw "could not link $Target -> $src ($why), and could not restore the old link to $current"
             }
-            New-Junction $Target $src
             return New-Result $item 'changed' "re-pointed $Target -> $src (was $current)"
         }
 
@@ -660,16 +695,34 @@ function Set-ConfigLink {
             if (-not $PSCmdlet.ShouldProcess($Target, "move to $backup and link to $src")) {
                 return New-Result $item 'would' "back up $Target, then link -> $src"
             }
-            # Rename first: if the folder is in use this fails with nothing
-            # changed yet.
-            Rename-Item -LiteralPath $existing.FullName -NewName (Split-Path $backup -Leaf)
-            foreach ($file in $Carry) {
-                $from = Join-Path $backup $file
-                if (Test-Path -LiteralPath $from) {
-                    Move-Item -LiteralPath $from -Destination (Join-Path $src $file)
+            # Rename first: if the folder is in use (Nushell holds its history
+            # open) this fails with nothing changed yet.
+            Rename-Item -LiteralPath $existing.FullName -NewName (Split-Path $backup -Leaf) -ErrorAction Stop
+            $moved = @()
+            try {
+                foreach ($file in $Carry) {
+                    $from = Join-Path $backup $file
+                    if (Test-Path -LiteralPath $from) {
+                        Move-Item -LiteralPath $from -Destination (Join-Path $src $file) -ErrorAction Stop
+                        $moved += $file
+                    }
                 }
+                New-Junction $Target $src
             }
-            New-Junction $Target $src
+            catch {
+                # Undo, so a failure leaves the folder exactly as it was.
+                $why = $_.Exception.Message
+                $made = Get-Item -LiteralPath $Target -Force -ErrorAction SilentlyContinue
+                if ($made -and $made.LinkType) { Remove-Link $made }
+                foreach ($file in $moved) {
+                    Move-Item -LiteralPath (Join-Path $src $file) -Destination (Join-Path $backup $file) -ErrorAction SilentlyContinue
+                }
+                Rename-Item -LiteralPath $backup -NewName (Split-Path $Target -Leaf) -ErrorAction SilentlyContinue
+                if (Test-Path -LiteralPath $Target) {
+                    throw "could not link $Target -> $src ($why); the folder was put back"
+                }
+                throw "could not link $Target -> $src ($why); the old folder is still at $backup"
+            }
             return New-Result $item 'changed' "linked $Target -> $src; old contents in $backup"
         }
 
@@ -678,7 +731,7 @@ function Set-ConfigLink {
         }
         $parent = Split-Path $Target -Parent
         if (-not (Test-Path -LiteralPath $parent)) {
-            New-Item -ItemType Directory -Path $parent | Out-Null
+            New-Item -ItemType Directory -Path $parent -ErrorAction Stop | Out-Null
         }
         New-Junction $Target $src
         New-Result $item 'changed' "linked $Target -> $src"
@@ -736,7 +789,9 @@ function Invoke-Setup {
     # Bootstrap already reported the execution policy and scoop.
     $bootstrapped = -not $repoRoot
     if (-not $repoRoot) {
-        $path = $Dir.TrimEnd('\')
+        # Resolved here, so ~ and relative paths mean the same thing to
+        # Test-Path, git and .NET.
+        $path = (Resolve-UserPath $Dir).TrimEnd('\')
         Write-Step "bootstrap: not running from a clone, using $path"
         $repoRoot = Invoke-Bootstrap -Path $path -Source $Repo -Results $results
         if (-not $repoRoot) {
