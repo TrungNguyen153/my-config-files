@@ -1,7 +1,6 @@
 -- show git indicators next to the line numbers (lines changed, added, etc.)
 return {
     'lewis6991/gitsigns.nvim',
-    enabled = false,
     event = 'VeryLazy',
     opts = {
         signcolumn = true,
@@ -20,14 +19,11 @@ return {
             ']c',
             function()
                 if vim.wo.diff then
-                    return ']c'
+                    vim.cmd.normal({ ']c', bang = true })
+                else
+                    require('gitsigns').nav_hunk('next')
                 end
-                vim.schedule(function()
-                    require('gitsigns').next_hunk()
-                end)
-                return '<Ignore>'
             end,
-            expr = true,
             mode = { 'n' },
             desc = 'Next git hunk',
         },
@@ -35,14 +31,11 @@ return {
             '[c',
             function()
                 if vim.wo.diff then
-                    return '[c'
+                    vim.cmd.normal({ '[c', bang = true })
+                else
+                    require('gitsigns').nav_hunk('prev')
                 end
-                vim.schedule(function()
-                    require('gitsigns').prev_hunk()
-                end)
-                return '<Ignore>'
             end,
-            expr = true,
             mode = { 'n' },
             desc = 'Previous git hunk',
         },
@@ -99,21 +92,14 @@ return {
             '<leader>hs',
             ':Gitsigns stage_hunk<CR>',
             mode = { 'n' },
-            desc = 'Stage hunk',
+            desc = 'Stage / unstage hunk',
             noremap = true,
         },
         {
             '<leader>ht',
-            ':Gitsigns toggle_deleted<CR>',
+            ':Gitsigns preview_hunk_inline<CR>',
             mode = { 'n' },
-            desc = 'Toggle deleted hunks',
-            noremap = true,
-        },
-        {
-            '<leader>hu',
-            ':Gitsigns undo_stage_hunk<CR>',
-            mode = { 'n' },
-            desc = 'Undo stage hunk',
+            desc = 'Preview hunk inline',
             noremap = true,
         },
         {

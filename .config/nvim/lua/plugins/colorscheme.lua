@@ -1,16 +1,3 @@
--- return {
--- 	"ellisonleao/gruvbox.nvim",
--- 	-- enable = false,
---     cond = not vim.g.vscode,
---     lazy = false,
---     priority = 1000,
--- 	  config = function()
---       vim.o.background = 'dark'
---       require("gruvbox").setup({})
---       vim.cmd.colorscheme "gruvbox"
---     end,
--- }
-
 -- colorscheme
 return {
     'catppuccin/nvim',

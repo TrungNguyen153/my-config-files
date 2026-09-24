@@ -1,9 +1,5 @@
 vim.o.termguicolors = true
 
--- Remove toolbar
--- lua api seems to not be able to access this option
-vim.cmd("set guioptions-=T")
-
 -- No more beeps
 vim.o.vb = true
 vim.o.synmaxcol = 500
@@ -19,6 +15,3 @@ vim.o.mouse = "a"
 
 -- Create a new highlight group for unwanted whitespaces or tabs
 -- vim.cmd('highlight ExtraWhitespace ctermbg=lightyellow guibg=lightyellow')
-
-vim.cmd("syntax on")
-vim.cmd("hi Normal ctermbg=NONE")

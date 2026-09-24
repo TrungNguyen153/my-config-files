@@ -8,18 +8,13 @@ return {
 			"nvim-treesitter/nvim-treesitter"
 		},
 		config = true,
-		opt = {
+		opts = {
 			select = {
 				lookahead = true,
+				-- 'v' charwise (the default), 'V' linewise, '<c-v>' blockwise
 				selection_modes = {
-					["@comment.outer"] = "au",
-					["@comment.inner"] = "iu",
-					["@function.outer"] = "af",
-					["@function.inner"] = "if",
-					["@class.outer"] = "ac",
-					["@class.inner"] = "ic",
-					["@block.outer"] = "ab",
-					["@block.inner"] = "ib",
+					["@function.outer"] = "V",
+					["@class.outer"] = "V",
 				},
 				include_surrounding_whitespace = true,
 			},
@@ -131,5 +126,15 @@ return {
 		branch = "main",
 		build = ":TSUpdate",
 		lazy = false,
+		config = function()
+			-- main has no ensure_installed; install() skips parsers already present
+			require("nvim-treesitter").install({
+				"bash", "c", "cmake", "cpp", "css", "diff", "dockerfile", "html",
+				"javascript", "json", "kotlin", "lua", "luadoc", "markdown",
+				"markdown_inline", "python", "query", "regex", "rust", "slint",
+				"sql", "svelte", "toml", "tsx", "typescript", "vim", "vimdoc",
+				"wgsl", "yaml",
+			})
+		end,
 	},
 }

@@ -116,6 +116,7 @@ vim.g.neovide_cursor_animate_in_insert_mode = true
 vim.g.neovide_cursor_animate_command_line = true
 vim.g.neovide_cursor_unfocused_outline_width = 0.125
 vim.o.guicursor = 'n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait300-blinkoff200-blinkon1000'
+vim.opt.guicursor:append('t:ver25-blinkon500-blinkoff500-TermCursor') -- keep general.lua's terminal-mode beam
 
 -- Pasting
 vim.keymap.set('v', '<C-S-c>', '"+y') -- Copy

@@ -4,18 +4,18 @@ return {
     event = 'BufWritePre',
     cmd = 'ConformInfo',
     config = function()
+        -- Filetypes whose formatter timed out on save; they format after the save instead.
+        local slow_format_filetypes = {}
         require('conform').setup({
             formatters_by_ft = {
                 css = { 'prettier' },
-                fish = { 'fish_indent' },
                 html = { 'prettier' },
                 javascript = { 'prettier' },
                 javascriptreact = { 'prettier' },
                 json = { 'prettier' },
                 lua = { 'stylua' },
                 markdown = { 'markdownlint' },
-                nix = { 'alejandra' },
-                python = { 'black' },
+                python = { 'ruff_format' },
                 sh = { 'shfmt' },
                 sql = { 'sqlfluff' },
                 typescript = { 'prettier' },
@@ -29,13 +29,25 @@ return {
                 if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
                     return
                 end
-                return { timeout_ms = 500, lsp_format = 'fallback' }
+                if slow_format_filetypes[vim.bo[bufnr].filetype] then
+                    return
+                end
+                local function on_format(err)
+                    if err and err:match('timeout$') then
+                        slow_format_filetypes[vim.bo[bufnr].filetype] = true
+                    end
+                end
+                return { timeout_ms = 500, lsp_format = 'fallback' }, on_format
             end,
-            formatters = {
-                stylua = {
-                    prepend_args = { '--config-path', vim.fn.stdpath('config') .. '/stylua.toml' },
-                },
-            },
+            format_after_save = function(bufnr)
+                if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+                    return
+                end
+                if not slow_format_filetypes[vim.bo[bufnr].filetype] then
+                    return
+                end
+                return { lsp_format = 'fallback' }
+            end,
         })
     end,
     keys = {

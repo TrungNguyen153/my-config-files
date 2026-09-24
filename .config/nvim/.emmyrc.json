@@ -12,7 +12,8 @@
 	"workspace": {
 		"library": [
 			"$VIMRUNTIME",
-			"../nvim-data/lazy"
+			"$LOCALAPPDATA/nvim-data/lazy",
+			"~/.local/share/nvim/lazy"
 		],
 		"ignoreGlobs": [
 			"**/*_spec.lua"

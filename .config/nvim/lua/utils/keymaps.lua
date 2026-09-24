@@ -1,19 +1,5 @@
 local keymap_table = {
 	{
-		shortcut = "k",
-		cmd = "v:count == 0 ? 'gk' : 'k'",
-		mode = { "n" },
-		desc = "gk if no v:count",
-		opts = { noremap = true, silent = true, expr = true },
-	},
-	{
-		shortcut = "j",
-		cmd = "v:count == 0 ? 'gj' : 'j'",
-		mode = { "n" },
-		desc = "gj if no v:count",
-		opts = { noremap = true, silent = true, expr = true },
-	},
-	{
 		shortcut = "+",
 		cmd = "<C-a>",
 		mode = { "n" },
@@ -105,7 +91,7 @@ local keymap_table = {
 	},
 	{
 		shortcut = '<C-n>',
-		cmd = ':nohlsearch<CR>',
+		cmd = '<Cmd>nohlsearch<CR>',
 		mode = { 'n', 'v' },
 		desc = 'Clear search',
 		opts = { noremap = true, silent = true },
@@ -282,34 +268,6 @@ local keymap_table = {
 		opts = { noremap = true },
 		mode = { "n" },
 		desc = "Split vertical on window",
-	},
-	{
-		shortcut = "<C-h>",
-		cmd = "<C-w><left>",
-		opts = { noremap = true },
-		mode = { "n" },
-		desc = "Focus on window to the left",
-	},
-	{
-		shortcut = "<C-l>",
-		cmd = "<C-w><right>",
-		opts = { noremap = true },
-		mode = { "n" },
-		desc = "Focus on window to the right",
-	},
-	{
-		shortcut = "<C-k>",
-		cmd = "<C-w><up>",
-		opts = { noremap = true },
-		mode = { "n" },
-		desc = "Focus on window up",
-	},
-	{
-		shortcut = "<C-j>",
-		cmd = "<C-w><down>",
-		opts = { noremap = true },
-		mode = { "n" },
-		desc = "Focus on window down",
 	},
 }
 

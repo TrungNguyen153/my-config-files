@@ -3,10 +3,9 @@
 return {
     'MeanderingProgrammer/render-markdown.nvim',
     enabled = not vim.g.vscode,
-    event = 'VeryLazy',
     dependencies = {
         'nvim-tree/nvim-web-devicons', -- Used by the code bloxks
     },
-    ft = { 'markdown', 'Avante', 'codecompanion', 'codecompanion-ui' },
+    ft = { 'markdown' },
     config = true,
 }

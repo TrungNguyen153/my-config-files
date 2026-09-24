@@ -10,8 +10,8 @@ return {
 
 		mc.setup()
 
-		-- Add next matching cursor
-		vim.keymap.set({ "n", "v" }, "m", function()
+		-- Add next matching cursor (m/M stay marks and window-middle)
+		vim.keymap.set({ "n", "v" }, "<leader>n", function()
 			mc.matchAddCursor(1)
 		end)
 
@@ -21,7 +21,7 @@ return {
 		end)
 
 		-- Add previous matching cursor
-		vim.keymap.set({ "n", "v" }, "M", function()
+		vim.keymap.set({ "n", "v" }, "<leader>N", function()
 			mc.matchAddCursor(-1)
 		end)
 
@@ -32,10 +32,11 @@ return {
 
 		vim.keymap.set("n", "<esc>", function()
 			if not mc.cursorsEnabled() then
-			  mc.addCursor()
-			  mc.enableCursors()
+				mc.enableCursors()
+			elseif mc.hasCursors() then
+				mc.clearCursors()
 			else
-			  -- Default <esc> handler.
+				-- Default <esc> handler.
 			end
 		end)
 	  

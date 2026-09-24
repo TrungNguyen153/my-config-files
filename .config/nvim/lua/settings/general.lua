@@ -14,6 +14,9 @@ if is_win and not is_wsl then
     vim.opt.shellquote = ''
     vim.opt.shellxquote = ''
     vim.opt.shellslash = true
+    -- nushell redirection syntax: the Windows defaults (`2>&1| tee`) break :grep and :make
+    vim.opt.shellredir = 'out+err> %s'
+    vim.opt.shellpipe = 'out+err>| tee { save --force --raw %s }'
 else
     vim.opt.shell = 'bash'
     vim.opt.shellcmdflag = '-c'
@@ -25,9 +28,6 @@ vim.g.maplocalleader = ';' -- <localleader>
 -- replace grep with rg
 vim.go.grepprg = 'rg --no-heading --vimgrep'
 vim.go.grepformat = '%f:%l:%c:%m'
-
--- Don't confirm .lvimrc
-vim.g.localvimrc_ask = 0
 
 -- size of cmd bar
 vim.go.cmdheight = 0
@@ -66,6 +66,9 @@ vim.o.foldlevelstart = 99 -- Start with all folds closed.
 vim.o.foldmethod = 'expr' -- Use expr to determine fold level.
 vim.o.foldopen = 'insert,mark,search,tag' -- Which commands open folds if the cursor moves into a closed fold.
 vim.o.foldtext = 'v:lua.custom_fold_text()' -- What to display on fold
+-- views (mkview/loadview autocmds) keep folds and the cursor/scroll position, but not
+-- the window's directory; the LastPlace autocmd covers files that have no view yet
+vim.o.viewoptions = 'folds,cursor'
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 
 -- Settings needed for .lvimrc
@@ -114,31 +117,37 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.gdefault = true
 
--- Abbreviations
-vim.cmd([[
-cnoreabbrev W! w!
-cnoreabbrev W1 w!
-cnoreabbrev w1 w!
-cnoreabbrev Q! q!
-cnoreabbrev Q1 q!
-cnoreabbrev q1 q!
-cnoreabbrev Qa! qa!
-cnoreabbrev Qall! qall!
-cnoreabbrev Wa wa
-cnoreabbrev Wq wq
-cnoreabbrev wQ wq
-cnoreabbrev WQ wq
-cnoreabbrev wq1 wq!
-cnoreabbrev Wq1 wq!
-cnoreabbrev wQ1 wq!
-cnoreabbrev WQ1 wq!
-cnoreabbrev W w
-cnoreabbrev Q q
-cnoreabbrev Qa qa
-cnoreabbrev Qall qall
-cnoreabbrev vr Vr
-cnoreabbrev hr Hr
-]])
+-- Abbreviations for typos. They expand only when the whole : command line is the
+-- abbreviation, so a W inside a :s pattern or a :grep argument stays a W.
+local cmd_abbrevs = {
+    ['W!'] = 'w!',
+    W1 = 'w!',
+    w1 = 'w!',
+    ['Q!'] = 'q!',
+    Q1 = 'q!',
+    q1 = 'q!',
+    ['Qa!'] = 'qa!',
+    ['Qall!'] = 'qall!',
+    Wa = 'wa',
+    Wq = 'wq',
+    wQ = 'wq',
+    WQ = 'wq',
+    wq1 = 'wq!',
+    Wq1 = 'wq!',
+    wQ1 = 'wq!',
+    WQ1 = 'wq!',
+    W = 'w',
+    Q = 'q',
+    Qa = 'qa',
+    Qall = 'qall',
+    vr = 'Vr',
+    hr = 'Hr',
+}
+for lhs, rhs in pairs(cmd_abbrevs) do
+    vim.keymap.set('ca', lhs, function()
+        return (vim.fn.getcmdtype() == ':' and vim.fn.getcmdline() == lhs) and rhs or lhs
+    end, { expr = true })
+end
 
 -- No whitespace in vimdiff
 vim.o.diffopt = vim.o.diffopt .. ',iwhite'
@@ -176,9 +185,6 @@ vim.o.list = true
 
 -- Stabilize the cursor position when creating/deleting horizontal splits
 vim.o.splitkeep = 'topline'
-
--- enable autoformat when saving. it is set for each buffer when lsp is attached
-vim.g.autoformat = true
 
 -- disable legacy perl provider
 vim.g.loaded_perl_provider = false

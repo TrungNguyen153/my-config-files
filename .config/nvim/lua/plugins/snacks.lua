@@ -5,8 +5,7 @@ local function open_dir_in_explorer(picker)
         return
     end
     vim.schedule(function()
-        local full_path = vim.fn.fnamemodify(selected.file, ':p')
-        vim.fn.jobstart('start ' .. full_path)
+        vim.ui.open(vim.fn.fnamemodify(selected.file, ':p'))
     end)
 end
 
@@ -44,20 +43,18 @@ return {
         notifier = { enabled = true, style = 'fancy' },
         rename = { enabled = true },
         words = { enabled = true },
-        scroll = { enabled = true },
+        scroll = { enabled = not vim.g.neovide }, -- Neovide animates scrolling itself
         input = { enabled = true },
         styles = {
             blame_line = { border = 'none' },
             notification = { border = 'none' },
             notification_history = { border = 'none' },
             input = { relative = 'cursor' },
+            zen = { width = 240 },
         },
         zen = {
             toggles = {
                 dim = false,
-            },
-            styles = {
-                width = 240,
             },
         },
 
@@ -327,7 +324,8 @@ return {
         {
             '<leader>lh',
             function()
-                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}), {})
+                local filter = { bufnr = 0 }
+                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(filter), filter)
             end,
             mode = { 'n' },
             desc = 'Toggle Inlay Hint',
@@ -482,7 +480,7 @@ return {
             desc = 'Open file in remeote repo',
         },
         {
-            'grn',
+            ']r',
             function()
                 Snacks.words.jump(1, true)
             end,
@@ -491,7 +489,7 @@ return {
             desc = 'Go to next reference',
         },
         {
-            'grp',
+            '[r',
             function()
                 Snacks.words.jump(-1, true)
             end,

@@ -34,23 +34,28 @@ return {
 
         vim.lsp.on_type_formatting.enable()
 
-        -- C/C++
-        vim.lsp.enable('clangd')
-        vim.lsp.config('clangd', {
-            on_attach = lsp_utils.on_attach,
-            capabilities = lsp_utils.capabilities(),
+        -- Shared setup for every client (rustaceanvim and typescript-tools too),
+        -- without replacing the per-server on_attach that nvim-lspconfig ships.
+        vim.api.nvim_create_autocmd('LspAttach', {
+            group = vim.api.nvim_create_augroup('user_lsp_attach', { clear = true }),
+            callback = function(ev)
+                local client = vim.lsp.get_client_by_id(ev.data.client_id)
+                if not client then
+                    return
+                end
+                if client:supports_method('textDocument/inlayHint', ev.buf) then
+                    vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+                end
+                if client:supports_method('textDocument/codeLens', ev.buf) then
+                    vim.lsp.codelens.enable(true, { bufnr = ev.buf })
+                end
+            end,
         })
 
-        -- bash
-        vim.lsp.enable('bashls')
-        vim.lsp.config('bashls', {
-            on_attach = lsp_utils.on_attach,
-            capabilities = lsp_utils.capabilities(),
-        })
+        vim.lsp.config('*', { capabilities = lsp_utils.capabilities() })
+
         -- yaml
         vim.lsp.config('yamlls', {
-            on_attach = lsp_utils.on_attach,
-            capabilities = lsp_utils.capabilities(),
             settings = {
                 yaml = {
                     schemaStore = {
@@ -62,19 +67,9 @@ return {
                 },
             },
         })
-        vim.lsp.enable('yamlls')
 
         -- json
         vim.lsp.config('jsonls', {
-            on_attach = lsp_utils.on_attach,
-            capabilities = lsp_utils.capabilities(),
-            commands = {
-                Format = {
-                    function()
-                        vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line('$'), 0 })
-                    end,
-                },
-            },
             settings = {
                 json = {
                     schemas = require('schemastore').json.schemas(),
@@ -82,85 +77,18 @@ return {
                 },
             },
         })
-        vim.lsp.enable('jsonls')
-        vim.lsp.config('jsonls', {
-            on_attach = lsp_utils.on_attach,
-            capabilities = lsp_utils.capabilities(),
-        })
-
-        -- eslint
-        vim.lsp.enable('eslint')
-        vim.lsp.config('eslint', {
-            on_attach = lsp_utils.on_attach,
-            capabilities = lsp_utils.capabilities(),
-        })
-
-        -- docker
-        vim.lsp.enable('dockerls')
-        vim.lsp.config('dockerls', {
-            on_attach = lsp_utils.on_attach,
-            capabilities = lsp_utils.capabilities(),
-        })
-
-        vim.lsp.enable('docker_compose_language_service')
-        vim.lsp.config('docker_compose_language_service', {
-            on_attach = lsp_utils.on_attach,
-            capabilities = lsp_utils.capabilities(),
-        })
-
-        -- toml
-        vim.lsp.enable('taplo')
-        vim.lsp.config('taplo', {
-            on_attach = lsp_utils.on_attach,
-            capabilities = lsp_utils.capabilities(),
-        })
-
-        -- kotlin
-        vim.lsp.enable('kotlin_language_server')
-        vim.lsp.config('kotlin_language_server', {
-            on_attach = lsp_utils.on_attach,
-            capabilities = lsp_utils.capabilities(),
-        })
-
-        -- svelte
-        vim.lsp.enable('svelte')
-        vim.lsp.config('svelte', {
-            on_attach = lsp_utils.on_attach,
-            capabilities = lsp_utils.capabilities(),
-        })
-
-        -- slint
-        vim.lsp.enable('slint_lsp')
-        vim.lsp.config('slint_lsp', {
-            on_attach = lsp_utils.on_attach,
-            capabilities = lsp_utils.capabilities(),
-        })
 
         -- CMake
         vim.lsp.config('neocmake', {
-            on_attach = lsp_utils.on_attach,
-            capabilities = lsp_utils.capabilities(),
             init_options = { buildDirectory = 'build' },
         })
-        vim.lsp.enable('neocmake')
 
         -- sql
         vim.lsp.config('sqlls', {
-            on_attach = lsp_utils.on_attach,
-            capabilities = lsp_utils.capabilities(),
             cmd = { 'sql-language-server', 'up', '--method', 'stdio' },
-        })
-        vim.lsp.enable('sqlls')
-
-        vim.lsp.enable('emmylua_ls')
-        vim.lsp.config('emmylua_ls', {
-            on_attach = lsp_utils.on_attach,
-            capabilities = lsp_utils.capabilities(),
         })
 
         vim.lsp.config('wgsl_analyzer', {
-            on_attach = lsp_utils.on_attach,
-            capabilities = lsp_utils.capabilities(),
             settings = {
                 ['wgsl-analyzer.customImports'] = {
 
@@ -175,13 +103,8 @@ return {
                 },
             },
         })
-        vim.lsp.enable('wgsl_analyzer')
 
-        vim.lsp.enable('pyright')
-        vim.lsp.config('pyright', {
-            on_attach = lsp_utils.on_attach,
-            capabilities = lsp_utils.capabilities(),
-        })
+        vim.lsp.enable(vim.list_extend({ 'clangd' }, lsp_utils.servers))
     end,
     keys = {
         -- LSP
@@ -219,27 +142,11 @@ return {
             silent = true,
         },
         {
-            'gt',
+            'gy',
             function()
                 Snacks.picker.lsp_type_definitions()
             end,
             desc = 'Goto Type Definition',
-            silent = true,
-        },
-        {
-            '<leader>ss',
-            function()
-                Snacks.picker.lsp_symbols()
-            end,
-            desc = 'LSP Symbols',
-            silent = true,
-        },
-        {
-            '<leader>sS',
-            function()
-                Snacks.picker.lsp_workspace_symbols()
-            end,
-            desc = 'LSP Workspace Symbols',
             silent = true,
         },
         {
@@ -272,16 +179,9 @@ return {
             silent = true,
         },
         {
-            'K',
-            vim.lsp.buf.hover,
-            mode = { 'n' },
-            desc = 'Show hover popup or folded preview',
-            silent = true,
-        },
-        {
             '<M-f>',
             function()
-                vim.lsp.buf.format({ async = false })
+                require('conform').format({ async = false, lsp_format = 'fallback' })
             end,
             mode = { 'n' },
             desc = 'Format code',
@@ -303,7 +203,7 @@ return {
         },
         {
             '<leader>lb',
-            '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
+            '<cmd>lua vim.diagnostic.open_float()<CR>',
             mode = { 'n' },
             desc = 'Show line diagnostics',
             noremap = true,
@@ -324,21 +224,22 @@ return {
         },
         {
             '<leader>lq',
-            '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>',
+            '<cmd>lua vim.diagnostic.setloclist()<CR>',
             mode = { 'n' },
             desc = 'Diagnostic set loclist',
             noremap = true,
         },
         {
             '<leader>la',
-            '<cmd>lua vim.lsp.buf.range_code_action()<CR>',
+            '<cmd>lua vim.lsp.buf.code_action()<CR>',
             mode = { 'v' },
             desc = 'Range Code Action',
             noremap = true,
         },
         {
             'si',
-            '<Cmd>ClangdSwitchSourceHeader<CR>',
+            '<Cmd>LspClangdSwitchSourceHeader<CR>',
+            ft = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
             mode = { 'n' },
             desc = 'Switch Source Header (C/C++)',
             noremap = true,

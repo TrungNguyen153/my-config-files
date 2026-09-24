@@ -4,6 +4,7 @@ return {
     config = true,
     opts = {
         filetypes = {
+            "*",
             rust = {
                 css = true,
                 AARRGGBB = true,

@@ -31,9 +31,9 @@ return {
 			"DapBreakpointCondition",
 			{ text = "", texthl = "DapBreakpointCondition", linehl = "", numhl = "" }
 		)
-		vim.fn.sign_define("DapLogPoint", { text = "", texthl = "DataLogPoint", linehl = "", numhl = "" })
-		vim.fn.sign_define("DapStopped", { text = "", texthl = "DapSign", linehl = "DapLineStopped", numhl = "" })
-		vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DapSign", linehl = "", numhl = "" })
+		vim.fn.sign_define("DapLogPoint", { text = "", texthl = "DapLogPoint", linehl = "", numhl = "" })
+		vim.fn.sign_define("DapStopped", { text = "", texthl = "DapStopped", linehl = "Visual", numhl = "" })
+		vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DapBreakpointRejected", linehl = "", numhl = "" })
 	end,
 	keys = {
 		{

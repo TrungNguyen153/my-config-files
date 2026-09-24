@@ -10,7 +10,9 @@ return {
                 filter = {
                     any = {
                         function(item)
-                            return item.filename:find((vim.loop or vim.uv).cwd(), 1, true)
+                            -- normalize: on Windows cwd() has backslashes, filenames have /
+                            local cwd = vim.fs.normalize(vim.uv.cwd()) .. '/'
+                            return item.filename:sub(1, #cwd) == cwd
                         end,
                     },
                 },

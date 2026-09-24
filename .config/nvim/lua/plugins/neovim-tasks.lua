@@ -7,6 +7,8 @@ return {
     config = function()
         local tasks = require('tasks')
         local cmake_utils = require('tasks.cmake_utils.cmake_utils')
+        local cmake_presets = require('tasks.cmake_utils.cmake_presets')
+        local ProjectConfig = require('tasks.project_config')
         -- https://github.com/Shatur/neovim-tasks
         local function selectPreset()
             local availablePresets = cmake_presets.parse('buildPresets')
@@ -14,16 +16,14 @@ return {
             vim.ui.select(availablePresets, {prompt = 'Select build preset'},
                           function(choice, idx)
                 if not idx then return end
-                local projectConfig = ProjectConfig:new()
+                local projectConfig = ProjectConfig.new()
                 if not projectConfig['cmake'] then
                     projectConfig['cmake'] = {}
                 end
 
-                projectConfig['cmake']['build_preset'] =
-                    choice -- autoselect will invoke projectConfig:write()
-                    .autoselectConfigurePresetFromCurrentBuildPreset(
-                        projectConfig)
-
+                projectConfig['cmake']['build_preset'] = choice
+                -- autoselect will invoke projectConfig:write()
+                cmake_utils.autoselectConfigurePresetFromCurrentBuildPreset(projectConfig)
             end)
         end
 

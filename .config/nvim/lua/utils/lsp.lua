@@ -79,22 +79,34 @@ do
     end
 end
 
-M.on_attach = function(client, bufnr)
-    require('utils.autocommands').lsp_autocmds(client, bufnr)
+-- Servers to enable, by lspconfig name. mason-lspconfig installs each one
+-- automatically (plugins/mason.lua). clangd is not listed: it comes from
+-- scoop's llvm and is enabled separately.
+M.servers = {
+    'bashls',
+    'yamlls',
+    'jsonls',
+    'eslint',
+    'dockerls',
+    'docker_compose_language_service',
+    'taplo',
+    'kotlin_language_server',
+    'svelte',
+    'slint_lsp',
+    'neocmake',
+    'sqlls',
+    'emmylua_ls',
+    'wgsl_analyzer',
+    'pyright',
+}
 
-    if client.server_capabilities.inlayHintProvider then
-        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-    end
-    if client.server_capabilities.code_lens or client.server_capabilities.codeLensProvider then
-        vim.lsp.codelens.enable(true, { bufnr = bufnr })
-    end
-end
 M.capabilities = function()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true
     capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
 
-    -- workaround until neovim supports multiple client encodings
+    -- Pin every client to utf-16: Neovim 0.12 still warns when one buffer has
+    -- clients with different encodings (vim.lsp.util._get_offset_encoding).
     capabilities = vim.tbl_deep_extend('force', capabilities, {
         offsetEncoding = { 'utf-16' },
         general = {

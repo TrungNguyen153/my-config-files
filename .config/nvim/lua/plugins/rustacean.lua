@@ -53,8 +53,6 @@ return {
     lazy = false, -- the plugin is already lazy
     init = function()
         vim.g.rustaceanvim = function()
-            local lsp_utils = require('utils.lsp')
-
             require('crates').setup({
                 lsp = {
                     enabled = true,
@@ -68,7 +66,6 @@ return {
                     },
                 },
             })
-            local executors = require('rustaceanvim.executors')
             return {
                 tools = {
                     --- options right now: termopen / quickfix / toggleterm / vimux
@@ -83,9 +80,9 @@ return {
                         auto_focus = true,
                     },
                 },
+                -- on_attach work and capabilities come from the LspAttach autocmd and
+                -- vim.lsp.config('*') in lspconfig.lua; rustaceanvim merges both.
                 server = {
-                    on_attach = lsp_utils.on_attach,
-                    capabilities = lsp_utils.capabilities(),
                     standalone = false,
                     settings = {
                         ['rust-analyzer'] = {
@@ -283,7 +280,7 @@ return {
             noremap = true,
         },
         {
-            '<leader>rc',
+            '<leader>rf',
             ':RustLsp flyCheck<CR>',
             mode = { 'n' },
             desc = 'Run fly check',

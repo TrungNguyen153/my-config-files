@@ -34,9 +34,9 @@ return {
             vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
         end
         
-        -- if you only want these mappings for toggle term use term://*toggleterm#* instead
+        -- toggleterm terminals only: other TUIs (lazygit, fzf) keep <Esc>, and shells keep <C-w>/<C-l>
         vim.api.nvim_create_autocmd({ "TermOpen" }, {
-            pattern = "term://*",
+            pattern = "term://*toggleterm#*",
             callback = function()
                 set_terminal_keymaps()
             end,
