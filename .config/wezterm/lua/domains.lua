@@ -8,7 +8,6 @@ function M.apply(config, wezterm, platform)
   config.default_prog = { 'nu' }
 
   config.launch_menu = {
-    { label = 'WSL', args = { 'wsl', '-d', 'fedora', '--cd', '~' } },
     { label = 'PowerShell', args = { 'powershell', '-NoLogo' } },
     { label = 'Command Prompt', args = { 'cmd' } },
     { label = 'Nushell', args = { 'nu' } },
