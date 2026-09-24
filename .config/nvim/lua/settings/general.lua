@@ -175,8 +175,10 @@ vim.o.diffopt = vim.o.diffopt .. ',linematch:50'
 -- i -> case insensitive search
 vim.o.shortmess = 'IOocWTtFxnflCi'
 
--- automatic reload file on buffer changed outside of vim
-vim.o.autoread = true
+-- Files changed outside of Neovim still reload automatically, through the
+-- FileChangedShell autocmd in utils/autocommands.lua. 'autoread' stays off because
+-- its silent reload keeps the old 'fileformat' (^M after a CRLF rewrite).
+vim.o.autoread = false
 
 -- Show those damn hidden characters
 -- Verbose: set listchars=nbsp:¬,eol:¶,extends:»,precedes:«,trail:•

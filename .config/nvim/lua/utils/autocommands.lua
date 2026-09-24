@@ -24,6 +24,18 @@ return {
             command = 'setlocal readonly',
         })
 
+        -- Reload files changed outside of Neovim (this replaces 'autoread', see
+        -- settings/general.lua). 'autoread' keeps the old 'fileformat' on reload, so a
+        -- file rewritten with CRLF (PowerShell's Set-Content) showed ^M on every line,
+        -- and one rewritten with LF was saved back as CRLF. 'edit' reloads and
+        -- re-detects it, like :e!. Unsaved edits or a deleted file still get the prompt.
+        autocmd('FileChangedShell', {
+            group = augroup('ReloadDetectFileformat'),
+            callback = function()
+                vim.v.fcs_choice = vim.v.fcs_reason == 'changed' and 'edit' or 'ask'
+            end,
+        })
+
         autocmd({ 'TextYankPost' }, {
             desc = 'Highlight yanked text',
             pattern = '*',
