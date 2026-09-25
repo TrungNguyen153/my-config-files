@@ -12,6 +12,7 @@ return {
         -- Group labels only. Entries under `keys` would become real mappings.
         spec = {
             { '<leader>c', group = 'CMake / Code' },
+            { '<leader>d', group = 'Debug', mode = { 'n', 'x' } },
             { '<leader>g', group = 'Git' },
             { '<leader>h', group = 'Gitsigns', mode = { 'n', 'v' } },
             { '<leader>l', group = 'LSP' },
