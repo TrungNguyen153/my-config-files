@@ -54,7 +54,7 @@ local function split_state_id(id)
 end
 
 -- Turn a project path into a workspace name. fd emits mixed separators on
--- Windows ('C:/Users/OS/Desktop/Workspace\rust\Zeus'), and sessionizer's
+-- Windows ('D:/Workspace\rust\Zeus'), and sessionizer's
 -- DefaultCallback would use that whole string as the workspace name. resurrect
 -- saves state to '<dir>/workspace/<name>.json', so a name containing separators
 -- makes io.open fail -- the same class of silent-save failure this config exists
@@ -177,7 +177,7 @@ function M.actions(wezterm, platform)
     sessionizer.DefaultWorkspace({}),
     sessionizer.AllActiveWorkspaces({}),
     sessionizer.FdSearch({
-      platform.projects_dir,
+      platform.projects_dir(),
       max_depth = 3, -- reaches nested repos such as rust/<project>
       exclude = { 'node_modules', 'target', 'build', '.cargo' },
     }),

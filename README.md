@@ -6,13 +6,14 @@ one script that installs the tools and links the configs.
 ## New machine
 
 In PowerShell. It installs scoop and git, clones this repo to
-`~\Desktop\Workspace\my-config-files`, then runs the setup from the clone:
+`D:\Workspace\my-config-files` (`~\Desktop\Workspace\my-config-files` on a
+machine without a D: drive), then runs the setup from the clone:
 
 ```powershell
 [Net.ServicePointManager]::SecurityProtocol = 'Tls12'; & ([scriptblock]::Create((irm https://raw.githubusercontent.com/TrungNguyen153/my-config-files/master/setup.ps1)))
 ```
 
-Arguments go after the last `)`, e.g. `-Dir D:\Workspace\my-config-files` to
+Arguments go after the last `)`, e.g. `-Dir C:\Workspace\my-config-files` to
 clone elsewhere. `-WhatIf` works too, but on a bare machine it stops after
 reporting what it would install and clone: there is nothing to preview the
 later steps from yet.

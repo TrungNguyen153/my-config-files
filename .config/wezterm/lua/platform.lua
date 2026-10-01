@@ -32,8 +32,22 @@ end
 
 M.state_dir = resolve_state_dir()
 
--- Root that the project picker scans for git repos.
-M.projects_dir = M.is_windows and (M.norm(os.getenv('USERPROFILE') or 'C:/Users/OS') .. '/Desktop/Workspace')
-  or ((os.getenv('HOME') or '~') .. '/workspace')
+-- Root that the project picker scans for git repos. On Windows: D:/Workspace
+-- when it exists, else ~/Desktop/Workspace -- where setup.ps1 clones this repo.
+-- A function, not a field: wezterm.glob is async, and Lua can't yield while
+-- `require` is loading this file ("attempt to yield across a C-call
+-- boundary"), so the check has to wait until the config calls it.
+function M.projects_dir()
+  if not M.is_windows then
+    return (os.getenv('HOME') or '~') .. '/workspace'
+  end
+
+  -- wezterm.glob returns the path itself when it exists.
+  local ok, found = pcall(wezterm.glob, 'D:/Workspace')
+  if ok and found and #found > 0 then
+    return 'D:/Workspace'
+  end
+  return M.norm(os.getenv('USERPROFILE') or 'C:/Users/OS') .. '/Desktop/Workspace'
+end
 
 return M

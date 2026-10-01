@@ -36,8 +36,12 @@ param(
     [string[]]$Steps = @('system', 'packages', 'links'),
     # core, dev, apps.
     [string[]]$Groups = @('core', 'dev', 'apps'),
-    # Where a new machine clones the repo. Matches WezTerm's projects_dir.
-    [string]$Dir = (Join-Path $env:USERPROFILE 'Desktop\Workspace\my-config-files'),
+    # Where a new machine clones the repo: D:\Workspace when there is a D:
+    # drive, else the Desktop. Matches WezTerm's projects_dir.
+    [string]$Dir = $(
+        if (Test-Path -LiteralPath 'D:\') { 'D:\Workspace\my-config-files' }
+        else { Join-Path $env:USERPROFILE 'Desktop\Workspace\my-config-files' }
+    ),
     # Where to clone from. A local path works for testing.
     [string]$Repo = 'https://github.com/TrungNguyen153/my-config-files',
     # Internal: the elevated re-run of this file for admin-only tasks.

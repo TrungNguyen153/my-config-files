@@ -9,8 +9,8 @@ function M.apply(config, wezterm, _platform)
   --
   -- Deliberately NOT added: the widely-copied GitHub issue and commit-SHA
   -- rules. Both hardcode a single owner/repo into the URL template, which
-  -- would point every 7-hex-char string at the wrong project across the 21
-  -- repos under Desktop/Workspace.
+  -- would point every 7-hex-char string at the wrong project across the
+  -- repos under platform.projects_dir().
   config.hyperlink_rules = wezterm.default_hyperlink_rules()
 
   -- Added to the default QuickSelect patterns, not replacing them --

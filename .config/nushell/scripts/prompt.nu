@@ -8,7 +8,9 @@ def _prompt_git_branch [] {
     mut dir = $env.PWD
     loop {
         let dotgit = $dir | path join '.git'
-        let kind = $dotgit | path type
+        # path type returns null when there is no .git, and since 0.116 `let`
+        # rejects a value that doesn't match the type it infers (string).
+        let kind = $dotgit | path type | default ''
         if $kind in ['dir' 'file'] {
             # In worktrees and submodules .git is a file: "gitdir: <path>".
             let gitdir = if $kind == 'dir' { $dotgit } else {
