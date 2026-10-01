@@ -43,8 +43,11 @@ lists what changed and what failed.
   - core: what the configs here need.
   - dev: toolchains.
   - apps: everyday programs.
-  - Outside scoop: the Noto Sans Symbols 2 font (WezTerm's fallback), rustup
-    with nightly rustfmt, and node LTS through nvm.
+  - Outside scoop: the Noto Sans Symbols 2 font (WezTerm's fallback), rustup,
+    and node LTS through nvm.
+  - rustup gets the stable and nightly toolchains, each with rust-src,
+    rust-analyzer, clippy, rustfmt and llvm-tools. A re-run adds whichever of
+    these is missing.
   - vcredist-aio needs admin rights, so it installs in a single elevated run.
   - Rust also needs Visual Studio's C++ build tools. The summary warns when
     they are missing.

@@ -82,7 +82,15 @@ $SymbolsFont = @{
     Url    = 'https://raw.githubusercontent.com/google/fonts/main/ofl/notosanssymbols2/NotoSansSymbols2-Regular.ttf'
 }
 
-$RustupInit = 'https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe'
+$RustHost = 'x86_64-pc-windows-msvc'
+$RustupInit = "https://static.rust-lang.org/rustup/dist/$RustHost/rustup-init.exe"
+
+# Every toolchain here gets every component. rust-analyzer (rustaceanvim)
+# reads the standard library from rust-src and checks with clippy, and
+# rustaceanvim formats with nightly rustfmt ('+nightly'). llvm-tools is the
+# LLVM toolset (llvm-cov, llvm-profdata, ...) matching each compiler.
+$RustToolchains = @('stable', 'nightly')
+$RustComponents = @('rust-src', 'rust-analyzer', 'clippy', 'rustfmt', 'llvm-tools')
 
 # powercfg -change name -> the subgroup and setting to read it back from.
 $PowerSettings = [ordered]@{
@@ -358,8 +366,8 @@ function Install-SymbolsFont {
 }
 
 # rustup from its own installer rather than scoop, so the toolchain lives in
-# ~\.cargo as on the existing machines. Nightly rustfmt is what rustaceanvim
-# formats with ('+nightly').
+# ~\.cargo as on the existing machines. Install-RustToolchains adds nightly
+# and the components.
 function Install-Rustup {
     [CmdletBinding(SupportsShouldProcess)]
     param()
@@ -367,8 +375,8 @@ function Install-Rustup {
     if (Test-Command 'rustup') {
         return New-Result $item 'ok'
     }
-    if (-not $PSCmdlet.ShouldProcess('rustup', 'rustup-init -y, then the nightly toolchain with rustfmt')) {
-        return New-Result $item 'would' 'rustup-init -y, nightly rustfmt'
+    if (-not $PSCmdlet.ShouldProcess('rustup', 'rustup-init -y with the stable toolchain')) {
+        return New-Result $item 'would' 'rustup-init -y, stable'
     }
     try {
         $init = Join-Path $env:TEMP 'rustup-init.exe'
@@ -379,9 +387,55 @@ function Install-Rustup {
         $cargoBin = Join-Path $cargoHome 'bin'
         # rustup-init only updates PATH in the registry.
         $env:Path = "$cargoBin;$env:Path"
-        & (Join-Path $cargoBin 'rustup.exe') toolchain install nightly --profile minimal --component rustfmt | Out-Host
-        if ($LASTEXITCODE -ne 0) { throw "installing the nightly toolchain exited with $LASTEXITCODE" }
-        New-Result $item 'changed' 'stable (default) and nightly rustfmt'
+        New-Result $item 'changed' 'stable (default)'
+    }
+    catch {
+        New-Result $item 'failed' $_.Exception.Message
+    }
+}
+
+# $RustToolchains with $RustComponents, also when rustup was already there.
+# A missing toolchain is installed with just those (minimal profile); one
+# already installed only gets what it lacks, so a re-run never updates it.
+function Install-RustToolchains {
+    [CmdletBinding(SupportsShouldProcess)]
+    param()
+    $item = 'rust toolchains'
+    if (-not (Test-Command 'rustup')) {
+        if ($WhatIfPreference) {
+            return New-Result $item 'would' "$($RustToolchains -join ', '): $($RustComponents -join ', ') (after rustup)"
+        }
+        return New-Result $item 'failed' 'rustup is not installed'
+    }
+    try {
+        $installed = @(rustup toolchain list --quiet)
+        # What the summary says -> the rustup arguments that do it.
+        $todo = [ordered]@{}
+        foreach ($tc in $RustToolchains) {
+            if ("$tc-$RustHost" -notin $installed) {
+                $todo["$tc (new): $($RustComponents -join ', ')"] = @('toolchain', 'install', $tc, '--profile', 'minimal', '--component', ($RustComponents -join ','))
+                continue
+            }
+            # Listed with the host appended (clippy-x86_64-pc-windows-msvc),
+            # except the ones that are the same for every target (rust-src).
+            $have = @(rustup component list --installed --toolchain $tc)
+            $missing = @($RustComponents | Where-Object { $_ -notin $have -and "$_-$RustHost" -notin $have })
+            if ($missing) {
+                $todo["${tc}: $($missing -join ', ')"] = @('component', 'add', '--toolchain', $tc) + $missing
+            }
+        }
+        if (-not $todo.Count) {
+            return New-Result $item 'ok' ($RustToolchains -join ', ')
+        }
+        $detail = @($todo.Keys) -join '; '
+        if (-not $PSCmdlet.ShouldProcess('rustup', $detail)) {
+            return New-Result $item 'would' $detail
+        }
+        foreach ($rustupArgs in $todo.Values) {
+            rustup @rustupArgs | Out-Host
+            if ($LASTEXITCODE -ne 0) { throw "rustup $($rustupArgs -join ' ') exited with $LASTEXITCODE" }
+        }
+        New-Result $item 'changed' $detail
     }
     catch {
         New-Result $item 'failed' $_.Exception.Message
@@ -453,6 +507,7 @@ function Invoke-PackageStep {
     }
     if ('dev' -in $Groups) {
         Install-Rustup
+        Install-RustToolchains
         Test-MsvcTools
         Install-NodeLts
     }
