@@ -22,7 +22,8 @@
         system    execution policy for scoop; UAC prompts off for admins;
                   never sleep, on AC or battery
         packages  scoop apps by group (core, dev, apps), plus the few things
-                  scoop doesn't carry: a WezTerm fallback font, rustup, node
+                  scoop doesn't carry: a WezTerm fallback font, Visual
+                  Studio, rustup, node
         links     junctions from where the programs look for their config to
                   the folders in this repo; nothing is ever deleted
 
@@ -63,7 +64,8 @@ $Packages = [ordered]@{
         'nerd-fonts/JetBrainsMono-NF'
     )
     # Toolchains. llvm ships clangd. tree-sitter, rustup and node are added
-    # below, each only when its command is missing.
+    # below, each only when its command is missing, and Visual Studio when no
+    # IDE has the C++ tools.
     dev  = @('main/gcc', 'main/llvm', 'main/make', 'main/cmake', 'main/sed', 'versions/python311', 'main/nvm')
     apps = @(
         'extras/vscode', 'extras/googlechrome', 'extras/notepadplusplus', 'extras/fork',
@@ -80,6 +82,15 @@ $SymbolsFont = @{
     Name   = 'Noto Sans Symbols 2 (TrueType)'
     File   = 'NotoSansSymbols2-Regular.ttf'
     Url    = 'https://raw.githubusercontent.com/google/fonts/main/ofl/notosanssymbols2/NotoSansSymbols2-Regular.ttf'
+}
+
+# Visual Studio Community, the IDE, with the C++ workload: the MSVC build
+# tools and Windows SDK that Rust (msvc) links with. The URL always gives
+# the latest Stable release.
+$VisualStudio = @{
+    Url      = 'https://aka.ms/vs/stable/vs_community.exe'
+    Workload = 'Microsoft.VisualStudio.Workload.NativeDesktop'
+    Msvc     = 'Microsoft.VisualStudio.Component.VC.Tools.x86.x64'
 }
 
 $RustHost = 'x86_64-pc-windows-msvc'
@@ -442,15 +453,59 @@ function Install-RustToolchains {
     }
 }
 
-# Without Visual Studio's C++ build tools, Rust (msvc) compiles but cannot
-# link. rustup-init only warns about it, so say so in the summary.
-function Test-MsvcTools {
+# Visual Studio with the C++ workload and its recommended components, which
+# include the latest MSVC and Windows SDK: without them Rust (msvc) compiles
+# but cannot link, and rustup-init only warns. With no Visual Studio IDE,
+# Community is installed; an IDE without the C++ tools gets the workload.
+# One that has them is left as it is: the Visual Studio Installer offers
+# its updates.
+function Install-VisualStudio {
+    [CmdletBinding(SupportsShouldProcess)]
+    param()
+    $item = 'visual studio c++'
     $vswhere = Join-Path ${env:ProgramFiles(x86)} 'Microsoft Visual Studio\Installer\vswhere.exe'
-    if ((Test-Path -LiteralPath $vswhere) -and
-        (& $vswhere -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath)) {
-        return
+    $ide = $null
+    if (Test-Path -LiteralPath $vswhere) {
+        # Without -products vswhere looks only at the IDEs (Community,
+        # Professional, Enterprise), not at Build Tools.
+        $name = & $vswhere -latest -requires $VisualStudio.Msvc -property displayName
+        if ($name) {
+            $version = & $vswhere -latest -requires $VisualStudio.Msvc -property catalog_productDisplayVersion
+            return New-Result $item 'ok' "$name $version"
+        }
+        $ide = & $vswhere -latest -property installationPath
     }
-    New-Result 'msvc build tools' 'note' 'not found: install Visual Studio C++ build tools before building Rust'
+    if ($ide) {
+        $what = "add the C++ workload to $ide"
+        $command = 'modify --installPath "{0}" ' -f $ide
+    }
+    else {
+        $what = 'install Visual Studio Community with the C++ workload'
+        $command = ''
+    }
+    if (-not $PSCmdlet.ShouldProcess('Visual Studio', $what)) {
+        return New-Result $item 'would' $what
+    }
+    try {
+        $bootstrapper = Join-Path $env:TEMP 'vs_community.exe'
+        Invoke-WebRequest -UseBasicParsing -Uri $VisualStudio.Url -OutFile $bootstrapper -ErrorAction Stop
+        # Only the bootstrapper takes --wait, which makes it return the
+        # installer's exit code. 5.1 joins -ArgumentList without quoting, so
+        # the line is built by hand.
+        $line = '{0}--add {1} --includeRecommended --passive --norestart --wait' -f $command, $VisualStudio.Workload
+        $code = (Start-Process -FilePath $bootstrapper -ArgumentList $line -Wait -PassThru).ExitCode
+        # 3010: installed, but Windows has to restart before it can be used.
+        if ($code -notin 0, 3010) {
+            throw "the Visual Studio installer exited with $code; see the dd_*.log files in $env:TEMP"
+        }
+        New-Result $item 'changed' $what
+        if ($code -eq 3010) {
+            New-Result 'restart windows' 'note' 'Visual Studio needs it before MSVC can be used'
+        }
+    }
+    catch {
+        New-Result $item 'failed' $_.Exception.Message
+    }
 }
 
 function Install-NodeLts {
@@ -506,9 +561,9 @@ function Invoke-PackageStep {
         Install-SymbolsFont
     }
     if ('dev' -in $Groups) {
+        Install-VisualStudio
         Install-Rustup
         Install-RustToolchains
-        Test-MsvcTools
         Install-NodeLts
     }
 }

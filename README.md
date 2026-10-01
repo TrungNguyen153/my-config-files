@@ -43,14 +43,17 @@ lists what changed and what failed.
   - core: what the configs here need.
   - dev: toolchains.
   - apps: everyday programs.
-  - Outside scoop: the Noto Sans Symbols 2 font (WezTerm's fallback), rustup,
-    and node LTS through nvm.
+  - Outside scoop: the Noto Sans Symbols 2 font (WezTerm's fallback), Visual
+    Studio, rustup, and node LTS through nvm.
+  - Visual Studio Community, the latest release, with the C++ workload: the
+    IDE plus the MSVC build tools and Windows SDK that Rust links with. It
+    downloads several GB and shows the installer's progress. An existing
+    Visual Studio only gets the workload if it lacks the C++ tools, and is
+    never updated here: its own installer offers the updates.
   - rustup gets the stable and nightly toolchains, each with rust-src,
     rust-analyzer, clippy, rustfmt and llvm-tools. A re-run adds whichever of
     these is missing.
   - vcredist-aio needs admin rights, so it installs in a single elevated run.
-  - Rust also needs Visual Studio's C++ build tools. The summary warns when
-    they are missing.
 - **links**: junctions from where each program looks for its config to the
   folders under `.config\`.
   - Targets: `%LOCALAPPDATA%\nvim`, `~\.config\wezterm`, `%APPDATA%\nushell`
