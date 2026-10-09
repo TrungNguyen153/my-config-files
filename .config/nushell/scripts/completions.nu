@@ -11,7 +11,11 @@ let carapace_exe = if ($carapace_exe | path exists) { $carapace_exe } else { 'ca
 # carapace has nothing useful -- missing, no spec for the command ("-ERR"),
 # non-JSON output, or no candidates, which is its answer for any path written
 # with backslashes.
-$env.config.completions.external.completer = {|spans: list<string>|
+#
+# Nushell hands the completer a record and binds its fields by parameter name;
+# `place.command` is the token list of the command being completed.
+$env.config.completions.external.completer = {|place|
+    let spans = $place.command
     try {
         let candidates = CARAPACE_LENIENT=1 ^$carapace_exe $spans.0 nushell ...$spans | from json | default []
         if ($candidates | is-empty) or ($candidates | where value =~ '^-.*ERR$' | is-not-empty) {
