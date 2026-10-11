@@ -147,7 +147,16 @@ function M.apply(config, wezterm, platform)
     },
     sections = {
       tabline_a = { 'mode' },
-      tabline_b = { 'workspace' },
+      -- The workspace list after the tabs highlights the active workspace
+      -- (workspace_bar.lua), so name it here only when it has no chip there.
+      tabline_b = {
+        {
+          'workspace',
+          cond = function()
+            return wezterm.mux.get_active_workspace() == 'default'
+          end,
+        },
+      },
       tabline_c = { ' ' },
       -- Explicit padding keeps an active tab within tab_max_width; WezTerm
       -- clips anything wider, closing arrow first.
