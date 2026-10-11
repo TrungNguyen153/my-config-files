@@ -181,8 +181,9 @@ function M.apply(config, wezterm, platform)
   -- this config: it forced window_decorations = 'RESIZE', zeroed the padding
   -- and polled the status every 500 ms.
   config.use_fancy_tab_bar = false
-  config.show_new_tab_button_in_tab_bar = false
+  -- The new-tab button is on, but as the workspace list: see workspace_bar.lua.
   config.tab_max_width = 32
+
   -- Leader and key-table changes already refresh the bar immediately; this
   -- only paces the clock.
   config.status_update_interval = 1000

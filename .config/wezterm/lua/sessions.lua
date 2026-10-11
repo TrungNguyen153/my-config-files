@@ -1,6 +1,6 @@
 local M = {}
 
--- Session persistence + project switching.
+-- Session persistence + project and workspace switching.
 --
 -- Persistence uses StephenGemin/resurrect.wezterm, the maintained fork of
 -- MLFlexer/resurrect.wezterm. The original is archived, and its
@@ -63,6 +63,66 @@ local function workspace_name(path)
   return path:match('([^/\\]+)[/\\]*$') or path
 end
 
+-- Note which workspace is active, remembering the one it replaced. WezTerm has
+-- no "last workspace" and no event for a workspace change, so every switch made
+-- here reports the workspace it is leaving, and update-status (see apply) picks
+-- up switches made elsewhere, such as from the command palette. wezterm.GLOBAL
+-- survives config reloads.
+local function track(wezterm, name)
+  local state = wezterm.GLOBAL
+  if name and name ~= '' and name ~= state.workspace_current then
+    state.workspace_previous = state.workspace_current
+    state.workspace_current = name
+  end
+end
+
+local function workspace_exists(wezterm, name)
+  for _, existing in ipairs(wezterm.mux.get_workspace_names()) do
+    if existing == name then
+      return true
+    end
+  end
+  return false
+end
+
+-- The open workspaces, in the order the tab bar and the picker list them.
+function M.workspace_names(wezterm)
+  local names = wezterm.mux.get_workspace_names()
+  table.sort(names, function(a, b)
+    return a:lower() < b:lower()
+  end)
+  return names
+end
+
+function M.switch(wezterm, window, pane, name, spawn)
+  track(wezterm, window:active_workspace())
+  window:perform_action(wezterm.action.SwitchToWorkspace({ name = name, spawn = spawn }), pane)
+end
+
+-- List `names` (every open workspace when nil) and switch to the one chosen.
+-- Not fuzzy, so each row has a one-key label and can be clicked.
+function M.pick(wezterm, window, pane, names)
+  local current = window:active_workspace()
+  local choices = {}
+  for _, name in ipairs(names or M.workspace_names(wezterm)) do
+    table.insert(choices, { id = name, label = name == current and name .. '  (current)' or name })
+  end
+
+  window:perform_action(
+    wezterm.action.InputSelector({
+      title = 'Workspaces',
+      description = 'Press a key or click a workspace, Esc = cancel, / = filter',
+      choices = choices,
+      action = wezterm.action_callback(function(inner_window, inner_pane, id, _label)
+        if id then
+          M.switch(wezterm, inner_window, inner_pane, id)
+        end
+      end),
+    }),
+    pane
+  )
+end
+
 -- Build the keybinding actions. Memoized so keys.lua can ask for them without
 -- depending on apply() having run first.
 function M.actions(wezterm, platform)
@@ -72,6 +132,23 @@ function M.actions(wezterm, platform)
 
   local resurrect = wezterm.plugin.require(RESURRECT_URL)
   local sessionizer = wezterm.plugin.require(SESSIONIZER_URL)
+
+  local function switch_workspace(window, pane, name, spawn)
+    M.switch(wezterm, window, pane, name, spawn)
+  end
+
+  -- Jump back to the workspace we were in before this one. Pressing it again
+  -- returns, so it toggles between the last two.
+  local back = wezterm.action_callback(function(window, pane)
+    track(wezterm, window:active_workspace())
+    local previous = wezterm.GLOBAL.workspace_previous
+    -- SwitchToWorkspace would quietly recreate a workspace that has closed.
+    if not previous or not workspace_exists(wezterm, previous) then
+      toast(window, 'No previous workspace')
+      return
+    end
+    switch_workspace(window, pane, previous)
+  end)
 
   -- Save the current workspace on demand.
   local save = wezterm.action_callback(function(window, _pane)
@@ -152,17 +229,11 @@ function M.actions(wezterm, platform)
     -- FdSearch yields absolute paths; DefaultWorkspace and AllActiveWorkspaces
     -- yield plain workspace names. Only a path is meaningful as a spawn cwd.
     local is_path = id:find('[/\\]') ~= nil
-    local action
     if is_path then
-      action = wezterm.action.SwitchToWorkspace({
-        name = workspace_name(id),
-        spawn = { cwd = id },
-      })
+      switch_workspace(window, pane, workspace_name(id), { cwd = id })
     else
-      action = wezterm.action.SwitchToWorkspace({ name = id })
+      switch_workspace(window, pane, id)
     end
-
-    window:perform_action(action, pane)
   end
 
   -- Project picker: every git repo under the projects root, plus whatever
@@ -185,6 +256,7 @@ function M.actions(wezterm, platform)
 
   M._actions = {
     projects = sessionizer.show(schema),
+    back = back,
     save = save,
     restore = restore,
     delete = delete,
@@ -215,6 +287,11 @@ function M.apply(_config, wezterm, platform)
   wezterm.on('resurrect.error', function(err)
     wezterm.log_error('resurrect: ' .. tostring(err))
     toast_all(wezterm, 'resurrect: ' .. tostring(err))
+  end)
+
+  -- Keeps LEADER+b right after a switch that did not go through this module.
+  wezterm.on('update-status', function(window, _pane)
+    track(wezterm, window:active_workspace())
   end)
 
   -- Warm the action cache so the plugins are fetched at config load rather than

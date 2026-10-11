@@ -61,6 +61,7 @@ function M.apply(config, wezterm, platform)
 
     -- ---------- Projects / sessions ----------
     { key = 'f', mods = 'LEADER', action = sessions.projects },
+    { key = 'b', mods = 'LEADER', action = sessions.back },
     { key = 's', mods = 'LEADER', action = sessions.save },
     { key = 'r', mods = 'LEADER', action = sessions.restore },
     { key = 'd', mods = 'LEADER', action = sessions.delete },
