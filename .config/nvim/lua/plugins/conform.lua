@@ -16,11 +16,15 @@ return {
                 lua = { 'stylua' },
                 markdown = { 'markdownlint' },
                 python = { 'ruff_format' },
+                rust = { 'rustfmt' },
                 sh = { 'shfmt' },
                 sql = { 'sqlfluff' },
                 typescript = { 'prettier' },
                 typescriptreact = { 'prettier' },
                 yaml = { 'prettier' },
+            },
+            formatters = {
+                rustfmt = { options = { nightly = true } },
             },
             default_format_opts = {
                 lsp_format = 'fallback',

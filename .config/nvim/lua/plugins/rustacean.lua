@@ -43,29 +43,41 @@ local M = {
     end,
 }
 
+-- rust-analyzer stays off until toggled on: Claude Code already runs one on the
+-- same workspace, and a second instance doubles RAM on large workspaces.
+---@param bufnr integer
+---@return boolean
+local function should_attach(bufnr)
+    return vim.g.rust_analyzer_enabled == true
+        and vim.bo[bufnr].buftype == ''
+        and vim.api.nvim_buf_get_name(bufnr) ~= ''
+end
+
+local function toggle_rust_analyzer()
+    vim.g.rust_analyzer_enabled = not vim.g.rust_analyzer_enabled
+    if vim.g.rust_analyzer_enabled then
+        -- :RustAnalyzer start only attaches the buffer it runs in
+        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+            if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].filetype == 'rust' and should_attach(buf) then
+                vim.api.nvim_buf_call(buf, function()
+                    vim.cmd.RustAnalyzer('start')
+                end)
+            end
+        end
+    else
+        for _, client in ipairs(vim.lsp.get_clients({ name = 'rust-analyzer' })) do
+            client:stop()
+        end
+    end
+    vim.notify('rust-analyzer ' .. (vim.g.rust_analyzer_enabled and 'enabled' or 'disabled'))
+end
+
 return {
     'mrcjkb/rustaceanvim',
     enabled = not vim.g.vscode,
-    dependencies = {
-        'Saecki/crates.nvim', -- auto complete for Cargo.toml
-        'nvim-lua/plenary.nvim', -- its a dependency from crates.nvim
-    },
     lazy = false, -- the plugin is already lazy
     init = function()
         vim.g.rustaceanvim = function()
-            require('crates').setup({
-                lsp = {
-                    enabled = true,
-                    actions = true,
-                    completion = true,
-                    hover = true,
-                },
-                completion = {
-                    crates = {
-                        enabled = true,
-                    },
-                },
-            })
             return {
                 tools = {
                     --- options right now: termopen / quickfix / toggleterm / vimux
@@ -84,14 +96,12 @@ return {
                 -- vim.lsp.config('*') in lspconfig.lua; rustaceanvim merges both.
                 server = {
                     standalone = false,
+                    auto_attach = should_attach,
+                    exit_timeout = 100,
                     settings = {
                         ['rust-analyzer'] = {
-                            rustfmt = {
-                                extraArgs = { '+nightly' },
-                            },
                             diagnostics = {
                                 enable = true,
-                                enableExperimental = false,
                                 disabled = { 'inactive-code', 'unresolved-proc-macro' },
                             },
                             completion = {
@@ -117,13 +127,11 @@ return {
                                 enable = true,
                                 attributes = { enable = true },
                             },
-                            flags = { exit_timeout = 100 },
                             files = {
-                                excludeDirs = {
-                                    'target',
+                                -- relative to the workspace root, no globs
+                                exclude = {
                                     'node_modules',
                                     '.direnv',
-                                    '.git',
                                 },
                             },
                             lens = {
@@ -151,13 +159,13 @@ return {
                                 documentation = { enable = true },
                             },
                             inlayHints = {
-                                enable = true,
                                 implicitDrops = { enable = false },
                                 closingBraceHints = { enable = false },
                                 parameterHints = { enable = false },
                             },
                             typing = {
-                                autoClosingAngleBrackets = { enable = true },
+                                -- '{' and '(' are left out: they fight nvim-autopairs
+                                triggerChars = '=.<>',
                             },
                             -- interpret = { tests = true },
                             checkOnSave = true,
@@ -174,6 +182,13 @@ return {
         end
     end,
     keys = {
+        {
+            '<leader>rl',
+            toggle_rust_analyzer,
+            mode = { 'n' },
+            desc = 'Toggle rust-analyzer',
+            noremap = true,
+        },
         {
             '<leader>ra',
             ':RustLsp hover actions<CR>',
