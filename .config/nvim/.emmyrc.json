@@ -23,5 +23,15 @@
 		"ignoreGlobs": [
 			"**/*_spec.lua"
 		]
+	},
+	"diagnostics": {
+		"disable": [
+			"missing-fields",
+			"param-type-mismatch",
+			"return-type-mismatch",
+			"redundant-return-value",
+			"call-non-callable",
+			"need-check-nil"
+		]
 	}
 }
