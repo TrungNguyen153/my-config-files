@@ -10,3 +10,8 @@ onboarding = false
 # process it spawned, and the shim's stays at C:\WINDOWS, so restored panes
 # opened there. herdr expands neither ~ nor %USERPROFILE% here.
 default_shell = 'C:\Users\OS\scoop\apps\nu\current\nu.exe'
+
+# Tell me when a background agent finishes or needs input. Windows keeps
+# these in Notification Center; clicking one jumps to the agent's pane.
+[ui.toast]
+delivery = "system"
