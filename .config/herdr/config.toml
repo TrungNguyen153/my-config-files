@@ -5,11 +5,23 @@ onboarding = false
 [terminal]
 # Panes run Nushell, not the pwsh herdr picks on Windows. Nushell reports its
 # directory with OSC 9;9 (TERM_PROGRAM is herdr here, not WezTerm), which
-# keeps each pane's cwd live for `hd`.
+# keeps each pane's cwd live ("Add to herdr" matches folders against it).
 # The real nu.exe, not scoop's shim: herdr saves a pane's cwd from the
 # process it spawned, and the shim's stays at C:\WINDOWS, so restored panes
 # opened there. herdr expands neither ~ nor %USERPROFILE% here.
 default_shell = 'C:\Users\OS\scoop\apps\nu\current\nu.exe'
+
+[ui]
+# Several agents at once: the ones blocked on me first, each state with its
+# own glyph, and split panes labelled with the agent in them.
+agent_panel_sort = "priority"
+status_indicators = "symbols"
+show_agent_labels_on_pane_borders = true
+
+# Claude's row shows the title it gives the task ("Fix login redirect")
+# instead of just "claude", which every row would say.
+[ui.sidebar.agents.rows_by_agent]
+claude = [["state_icon", "workspace", "tab", "pane"], ["terminal_title_stripped"]]
 
 # Tell me when a background agent finishes or needs input. Windows keeps
 # these in Notification Center; clicking one jumps to the agent's pane.
