@@ -6,4 +6,7 @@ onboarding = false
 # Panes run Nushell, not the pwsh herdr picks on Windows. Nushell reports its
 # directory with OSC 9;9 (TERM_PROGRAM is herdr here, not WezTerm), which
 # keeps each pane's cwd live for `hd`.
-default_shell = "nu"
+# The real nu.exe, not scoop's shim: herdr saves a pane's cwd from the
+# process it spawned, and the shim's stays at C:\WINDOWS, so restored panes
+# opened there. herdr expands neither ~ nor %USERPROFILE% here.
+default_shell = 'C:\Users\OS\scoop\apps\nu\current\nu.exe'
