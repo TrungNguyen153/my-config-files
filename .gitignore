@@ -4,6 +4,7 @@
 .config/nushell/vendor/
 .config/herdr/*
 !.config/herdr/config.toml
+!.config/herdr/add-workspace.ps1
 .config/rust-desk-installer.ps1
 .config/wezterm/wezterm-session-manager/wezterm_state_default.json
 .config/nvim_old

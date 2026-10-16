@@ -25,7 +25,8 @@
                   scoop doesn't carry: a WezTerm fallback font, Visual
                   Studio, rustup, node
         links     junctions from where the programs look for their config to
-                  the folders in this repo; nothing is ever deleted
+                  the folders in this repo; nothing is ever deleted. Also
+                  Explorer's "Add to herdr" on folders
 
     Written for Windows PowerShell 5.1 and kept to plain ASCII: 5.1 reads a
     BOM-less script in the ANSI code page. Never calls exit outside the
@@ -60,7 +61,7 @@ $Packages = [ordered]@{
     # What the configs in this repo need.
     core = @(
         'main/git', 'main/7zip', 'main/neovim', 'extras/neovide', 'versions/wezterm-nightly',
-        'main/nu', 'extras/carapace-bin', 'main/yazi', 'main/ripgrep', 'main/fd', 'main/herdr',
+        'main/nu', 'extras/carapace-bin', 'main/yazi', 'main/ripgrep', 'main/fd', 'main/herdr', 'main/pwsh',
         'nerd-fonts/JetBrainsMono-NF'
     )
     # Toolchains. llvm ships clangd. tree-sitter, rustup and node are added
@@ -862,11 +863,62 @@ function Set-ConfigLink {
     }
 }
 
+# "Add to herdr" in Explorer's menu for a folder and for a folder's
+# background; Windows 11 lists it under "Show more options". conhost
+# --headless runs the script without flashing a console window.
+function Set-HerdrContextMenu {
+    [CmdletBinding(SupportsShouldProcess)]
+    param([Parameter(Mandatory)][string]$Script)
+    $item = 'explorer: Add to herdr'
+    $label = 'Add to herdr'
+    try {
+        if (-not (Test-Path -LiteralPath $Script -PathType Leaf)) {
+            throw "script missing: $Script"
+        }
+        $pwsh = Get-Command pwsh -ErrorAction SilentlyContinue
+        if (-not $pwsh) {
+            if ($WhatIfPreference) {
+                return New-Result $item 'would' 'add the menu entries (after pwsh)'
+            }
+            throw 'pwsh is not installed'
+        }
+        $command = '"{0}" --headless "{1}" -NoProfile -ExecutionPolicy Bypass -File "{2}" "%V"' -f
+            (Join-Path $env:WINDIR 'System32\conhost.exe'), $pwsh.Source, (Get-NormalizedPath $Script)
+        $keys = @('Directory\shell\herdr', 'Directory\Background\shell\herdr') |
+            ForEach-Object { "HKCU:\Software\Classes\$_" }
+        $todo = @($keys | Where-Object {
+                (Get-ItemProperty -LiteralPath $_ -ErrorAction SilentlyContinue).'(default)' -ne $label -or
+                (Get-ItemProperty -LiteralPath "$_\command" -ErrorAction SilentlyContinue).'(default)' -ne $command
+            })
+        if (-not $todo) {
+            return New-Result $item 'ok' 'folders and folder backgrounds'
+        }
+        if (-not $PSCmdlet.ShouldProcess(($todo -join ', '), 'set the menu entry')) {
+            return New-Result $item 'would' 'add to folders and folder backgrounds'
+        }
+        foreach ($key in $todo) {
+            # Test first: New-Item -Force on an existing key would wipe its values.
+            foreach ($k in $key, "$key\command") {
+                if (-not (Test-Path -LiteralPath $k)) {
+                    New-Item -Path $k -Force -ErrorAction Stop | Out-Null
+                }
+            }
+            Set-Item -LiteralPath $key -Value $label -ErrorAction Stop
+            Set-Item -LiteralPath "$key\command" -Value $command -ErrorAction Stop
+        }
+        New-Result $item 'changed' 'added to folders and folder backgrounds'
+    }
+    catch {
+        New-Result $item 'failed' $_.Exception.Message
+    }
+}
+
 function Invoke-LinkStep([string]$RepoRoot) {
     foreach ($link in $Links) {
         $carry = if ($link.Carry) { $link.Carry } else { @() }
         Set-ConfigLink -Name $link.Name -Source (Join-Path $RepoRoot $link.Source) -Target $link.Target -Carry $carry
     }
+    Set-HerdrContextMenu -Script (Join-Path $RepoRoot '.config\herdr\add-workspace.ps1')
 }
 
 # ------------------------------------------------------------------- main

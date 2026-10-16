@@ -62,6 +62,10 @@ lists what changed and what failed.
   - Nushell's history and herdr's session move into the repo folder, where
     .gitignore keeps them out of git. Stop herdr's server first
     (`herdr server stop`): its folder can't be moved while it runs.
+  - Explorer's "Add to herdr", for the current user: right-click a folder,
+    or the background inside one, then "Show more options". It adds the
+    folder as a herdr workspace (or focuses the one already there),
+    starting herdr's server if needed.
 
 Nushell's live history and herdr's sockets, logs and session therefore sit
 inside this working tree, so don't run `git clean -x` here.
