@@ -56,14 +56,12 @@ lists what changed and what failed.
   - vcredist-aio needs admin rights, so it installs in a single elevated run.
 - **links**: junctions from where each program looks for its config to the
   folders under `.config\`.
-  - Targets: `%LOCALAPPDATA%\nvim`, `~\.config\wezterm`, `%APPDATA%\nushell`
-    and `%APPDATA%\neovide`.
+  - Targets: `%LOCALAPPDATA%\nvim`, `~\.config\wezterm`, `%APPDATA%\nushell`,
+    `%APPDATA%\neovide` and `%APPDATA%\herdr`.
   - An existing folder is renamed to `<name>.bak-<timestamp>`, never deleted.
-  - Nushell's history moves into the repo folder, where .gitignore keeps it
-    out of git.
-  - herdr's folder (`%APPDATA%\herdr`) also holds its sockets and session, so
-    it is not linked: the user variable `HERDR_CONFIG_PATH` points herdr at
-    `.config\herdr\config.toml`. Restart herdr's server to pick it up.
+  - Nushell's history and herdr's session move into the repo folder, where
+    .gitignore keeps them out of git. Stop herdr's server first
+    (`herdr server stop`): its folder can't be moved while it runs.
 
-Nushell's live history therefore sits inside this working tree, so don't run
-`git clean -x` here.
+Nushell's live history and herdr's sockets, logs and session therefore sit
+inside this working tree, so don't run `git clean -x` here.

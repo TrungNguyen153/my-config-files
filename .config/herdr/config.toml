@@ -1,5 +1,4 @@
 # herdr config. Overrides only; `herdr --default-config` prints every option.
-# herdr finds this file through HERDR_CONFIG_PATH, which setup.ps1 sets.
 
 onboarding = false
 

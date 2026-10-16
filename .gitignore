@@ -2,7 +2,8 @@
 .config/nushell/history.*
 .config/nushell/plugin.msgpackz
 .config/nushell/vendor/
-.config/herdr/release-notes.json
+.config/herdr/*
+!.config/herdr/config.toml
 .config/rust-desk-installer.ps1
 .config/wezterm/wezterm-session-manager/wezterm_state_default.json
 .config/nvim_old
