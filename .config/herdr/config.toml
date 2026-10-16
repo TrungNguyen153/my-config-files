@@ -1,0 +1,10 @@
+# herdr config. Overrides only; `herdr --default-config` prints every option.
+# herdr finds this file through HERDR_CONFIG_PATH, which setup.ps1 sets.
+
+onboarding = false
+
+[terminal]
+# Panes run Nushell, not the pwsh herdr picks on Windows. Nushell reports its
+# directory with OSC 9;9 (TERM_PROGRAM is herdr here, not WezTerm), which
+# keeps each pane's cwd live for `hd`.
+default_shell = "nu"

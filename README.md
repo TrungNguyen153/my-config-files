@@ -1,7 +1,7 @@
 # my-config-files
 
-Windows setup for Neovim, Neovide, WezTerm and Nushell, plus `setup.ps1`,
-one script that installs the tools and links the configs.
+Windows setup for Neovim, Neovide, WezTerm, Nushell and herdr, plus
+`setup.ps1`, one script that installs the tools and links the configs.
 
 ## New machine
 
@@ -61,6 +61,9 @@ lists what changed and what failed.
   - An existing folder is renamed to `<name>.bak-<timestamp>`, never deleted.
   - Nushell's history moves into the repo folder, where .gitignore keeps it
     out of git.
+  - herdr's folder (`%APPDATA%\herdr`) also holds its sockets and session, so
+    it is not linked: the user variable `HERDR_CONFIG_PATH` points herdr at
+    `.config\herdr\config.toml`. Restart herdr's server to pick it up.
 
 Nushell's live history therefore sits inside this working tree, so don't run
 `git clean -x` here.

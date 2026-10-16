@@ -25,7 +25,8 @@
                   scoop doesn't carry: a WezTerm fallback font, Visual
                   Studio, rustup, node
         links     junctions from where the programs look for their config to
-                  the folders in this repo; nothing is ever deleted
+                  the folders in this repo; nothing is ever deleted. herdr
+                  gets a user variable pointing at its config file instead
 
     Written for Windows PowerShell 5.1 and kept to plain ASCII: 5.1 reads a
     BOM-less script in the ANSI code page. Never calls exit outside the
@@ -60,7 +61,7 @@ $Packages = [ordered]@{
     # What the configs in this repo need.
     core = @(
         'main/git', 'main/7zip', 'main/neovim', 'extras/neovide', 'versions/wezterm-nightly',
-        'main/nu', 'extras/carapace-bin', 'main/yazi', 'main/ripgrep', 'main/fd',
+        'main/nu', 'extras/carapace-bin', 'main/yazi', 'main/ripgrep', 'main/fd', 'main/herdr',
         'nerd-fonts/JetBrainsMono-NF'
     )
     # Toolchains. llvm ships clangd. tree-sitter, rustup and node are added
@@ -128,6 +129,13 @@ $Links = @(
         Carry = @('history.txt', 'history.sqlite3', 'history.sqlite3-wal', 'history.sqlite3-shm', 'plugin.msgpackz')
     }
     @{ Name = 'neovide'; Source = '.config\neovide'; Target = (Join-Path $env:APPDATA 'neovide') }
+)
+
+# Config files in this repo found through a user environment variable
+# instead, for programs whose config folder also holds their runtime state
+# (herdr keeps its sockets, logs and session there).
+$EnvLinks = @(
+    @{ Name = 'HERDR_CONFIG_PATH'; Source = '.config\herdr\config.toml' }
 )
 
 # ---------------------------------------------------------------- helpers
@@ -855,10 +863,46 @@ function Set-ConfigLink {
     }
 }
 
+# Point the user variable $Name at the file $Source. Programs started after
+# this see it, and so does this process; running ones keep their old value.
+function Set-ConfigEnvLink {
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
+        [Parameter(Mandatory)][string]$Name,
+        [Parameter(Mandatory)][string]$Source
+    )
+    $item = "env $Name"
+    try {
+        if (-not (Test-Path -LiteralPath $Source -PathType Leaf)) {
+            throw "source file missing: $Source"
+        }
+        $src = Get-NormalizedPath $Source
+        $current = [Environment]::GetEnvironmentVariable($Name, 'User')
+        if ($current -and (Get-NormalizedPath $current) -eq $src) {
+            return New-Result $item 'ok' $src
+        }
+        if (-not $PSCmdlet.ShouldProcess($Name, "set the user variable to $src")) {
+            return New-Result $item 'would' "set to $src"
+        }
+        [Environment]::SetEnvironmentVariable($Name, $src, 'User')
+        Set-Item -LiteralPath "env:$Name" -Value $src
+        if ($current) {
+            return New-Result $item 'changed' "set to $src (was $current)"
+        }
+        New-Result $item 'changed' "set to $src"
+    }
+    catch {
+        New-Result $item 'failed' $_.Exception.Message
+    }
+}
+
 function Invoke-LinkStep([string]$RepoRoot) {
     foreach ($link in $Links) {
         $carry = if ($link.Carry) { $link.Carry } else { @() }
         Set-ConfigLink -Name $link.Name -Source (Join-Path $RepoRoot $link.Source) -Target $link.Target -Carry $carry
+    }
+    foreach ($link in $EnvLinks) {
+        Set-ConfigEnvLink -Name $link.Name -Source (Join-Path $RepoRoot $link.Source)
     }
 }
 
