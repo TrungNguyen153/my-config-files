@@ -1,0 +1,24 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "my-config-files",
+  "owner": {
+    "name": "TrungNguyen153",
+    "url": "https://github.com/TrungNguyen153"
+  },
+  "metadata": {
+    "description": "Claude Code plugins kept with my config files.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "secret-redactor",
+      "source": "./plugins/secret-redactor",
+      "description": "Fork of ray-amjad's secret-redactor that leaves Solana public keys and transaction signatures readable, and still hides Solana keypairs",
+      "version": "1.1.0",
+      "author": { "name": "Ray Amjad" },
+      "category": "security",
+      "keywords": ["security", "secrets", "redaction", "pii", "solana"],
+      "license": "MIT"
+    }
+  ]
+}

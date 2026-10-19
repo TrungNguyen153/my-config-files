@@ -69,3 +69,20 @@ lists what changed and what failed.
 
 Nushell's live history and herdr's sockets, logs and session therefore sit
 inside this working tree, so don't run `git clean -x` here.
+
+## Claude Code plugins
+
+`.config\claude-plugins` is a local plugin marketplace. It holds a fork of
+`secret-redactor` that leaves Solana public keys and transaction signatures
+readable, and still hides keypairs (see its README). It is not part of
+`setup.ps1`. Install it once:
+
+```powershell
+claude plugin marketplace add D:\Workspace\my-config-files\.config\claude-plugins
+claude plugin install secret-redactor@my-config-files
+claude plugin disable secret-redactor@awesome-claude-code-function-hooks
+```
+
+Claude Code reads the plugin straight from this folder, so a change to the
+fork takes effect in the next session. Test it with
+`node --experimental-strip-types .config/claude-plugins/plugins/secret-redactor/test/detect.test.mts`.
