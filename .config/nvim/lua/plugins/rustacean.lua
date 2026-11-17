@@ -53,15 +53,61 @@ local function should_attach(bufnr)
         and vim.api.nvim_buf_get_name(bufnr) ~= ''
 end
 
+---@param buf integer
+---@return boolean
+local function is_dependency(buf)
+    local name = vim.fs.normalize(vim.api.nvim_buf_get_name(buf)):lower()
+    for _, home in ipairs({ vim.env.CARGO_HOME or '~/.cargo', vim.env.RUSTUP_HOME or '~/.rustup' }) do
+        if vim.startswith(name, vim.fs.normalize(home):lower() .. '/') then
+            return true
+        end
+    end
+    return false
+end
+
+---@param buf integer
+local function start_rust_analyzer(buf)
+    -- :RustAnalyzer start only attaches the buffer it runs in
+    vim.api.nvim_buf_call(buf, function()
+        vim.cmd.RustAnalyzer('start')
+    end)
+end
+
 local function toggle_rust_analyzer()
     vim.g.rust_analyzer_enabled = not vim.g.rust_analyzer_enabled
     if vim.g.rust_analyzer_enabled then
-        -- :RustAnalyzer start only attaches the buffer it runs in
+        -- Workspace files first, so the client is not rooted at a crate in
+        -- ~/.cargo/registry; dependency files then join that client.
+        local bufs, deps = {}, {}
         for _, buf in ipairs(vim.api.nvim_list_bufs()) do
             if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].filetype == 'rust' and should_attach(buf) then
-                vim.api.nvim_buf_call(buf, function()
-                    vim.cmd.RustAnalyzer('start')
-                end)
+                table.insert(is_dependency(buf) and deps or bufs, buf)
+            end
+        end
+        vim.list_extend(bufs, deps)
+        if #bufs > 0 then
+            -- Start one buffer and attach the rest once its client is up.
+            -- rustaceanvim only reuses initialized clients, so starting them
+            -- together spawns one rust-analyzer per buffer that wins the race.
+            start_rust_analyzer(table.remove(bufs, 1))
+            if #bufs > 0 then
+                vim.api.nvim_create_autocmd('LspAttach', {
+                    group = vim.api.nvim_create_augroup('user_rust_analyzer_toggle', { clear = true }),
+                    callback = function(ev)
+                        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+                        if not client or client.name ~= 'rust-analyzer' then
+                            return
+                        end
+                        if vim.g.rust_analyzer_enabled then
+                            for _, buf in ipairs(bufs) do
+                                if vim.api.nvim_buf_is_loaded(buf) then
+                                    start_rust_analyzer(buf)
+                                end
+                            end
+                        end
+                        return true
+                    end,
+                })
             end
         end
     else
